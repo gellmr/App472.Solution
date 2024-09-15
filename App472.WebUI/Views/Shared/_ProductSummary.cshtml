@@ -1,0 +1,17 @@
+﻿@model App472.Domain.Entities.Product
+
+<div class="card" style="margin-top:0px; margin-bottom:10px;">
+    <div class="card-body">
+        <h3 class="card-title">
+            @Model.Name @Model.Price.ToString("c") <span style="color:lightgray; font-size:17px;">(@Model.Category, ProductID @Model.ProductID)</span>
+        </h3>
+        @using (Html.BeginForm("AddToCart", "Cart")){
+            <div style="text-align:right; float:right;">
+                @Html.HiddenFor(x => x.ProductID)
+                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                <input type="submit" class="btn btn-success" value="Add to cart" />
+            </div>
+        }
+        <p class="card-text">@Model.Description</p>
+    </div>
+</div>

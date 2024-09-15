@@ -1,0 +1,29 @@
+﻿@using App472.Domain.Entities
+@model App472.WebUI.Models.ProductsListViewModel
+
+@{
+    ViewBag.Title = "Products";
+}
+
+@if (Model.PagingInfo.TotalItems > 4)
+{
+    <div class="btn-group pull-right">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
+    </div>
+    <div style="margin-bottom:10px;"></div>
+}
+
+Total: @Model.PagingInfo.TotalItems Products found.
+
+@foreach (var p in Model.Products)
+{
+    @Html.Partial("_ProductSummary", p)
+}
+
+@if (Model.PagingInfo.TotalItems > 4)
+{
+    <div class="btn-group pull-right">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
+    </div>
+}
+<div style="margin-bottom:10px;"></div>

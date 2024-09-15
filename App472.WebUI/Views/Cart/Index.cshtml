@@ -1,0 +1,50 @@
+﻿@model App472.WebUI.Models.CartIndexViewModel
+@{
+    ViewBag.Title = "Your Cart";
+}
+<style>
+    #cartTable td{vertical-align:middle;}
+</style>
+<h2>Your Cart</h2>
+<table id="cartTable" class="table">
+    <thead>
+        <tr>
+            <th>Quantity</th>
+            <th>Item</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var line in Model.Cart.Lines)
+        {
+            <tr>
+                <td class="text-center">@line.Quantity</td>
+                <td class="text-left">@line.Product.Name</td>
+                <td class="text-right">@line.Product.Price.ToString("c")</td>
+                <td class="text-right">@((line.Quantity * line.Product.Price).ToString("c"))</td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        @Html.Hidden("ProductId", line.Product.ProductID)
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                        <input class="btn btn-sm btn-warning" type="submit" value="Remove" />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.Cart.ComputeTotalValue().ToString("c")
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<div class="text-center" style="margin-bottom:8px;">
+    <a class="btn btn-primary" href="@Model.ReturnUrl" style="margin-bottom:8px;"><i class="bi bi-arrow-left-circle"></i> Continue Shopping</a>
+
+    <a class="btn btn-primary" style="margin-bottom:8px;" href="@Url.Action("Checkout", "Cart", new { returnUrl = Request.Url.PathAndQuery })"><i class="bi bi-cart-fill"></i> Checkout now</a>
+</div>

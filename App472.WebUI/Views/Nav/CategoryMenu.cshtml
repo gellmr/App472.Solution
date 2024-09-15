@@ -1,0 +1,21 @@
+﻿@model IEnumerable<string>
+
+@*  This is FlexMenu.cshtml from the ASP book. *@
+
+@* The All Products button *@
+@Html.ActionLink("All Products", "List", "Product", null,
+    new {
+        @class = "btn btn-default btn-lg" + (ViewBag.SelectedCategory == null ? " btn-primary" : "")
+    }
+)
+
+@* Generate one anchor per category *@
+@foreach (var cat in Model)
+{
+    @Html.RouteLink(cat, new { controller = "Product", action = "List", category = cat, page = 1 },
+    new
+    {
+        @class = "btn btn-default btn-lg"
+        + (cat == ViewBag.SelectedCategory ? " btn-primary" : "")
+    })
+}
