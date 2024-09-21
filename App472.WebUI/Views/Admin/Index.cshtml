@@ -1,15 +1,11 @@
-﻿@model IEnumerable<App472.Domain.Entities.Product>
+﻿@model App472.WebUI.Models.AdminProductsViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="card">
     <div class="card-body">
-        <h2 class="card-title" style="display:inline-block;">
-            All Products <a class="btn btn-success" href="@Url.Action("Create", "Admin", null)"><i class="bi bi-plus-circle"></i> Add New</a>
-        </h2>
-        @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new{ id="logOutForm", style= "display:inline-block;float:right;padding-top:5px;padding-bottom:10px" })){
-            <input type="submit" class="btn btn-outline-success float-right" value="Log out" />
-        }
+
+        <a class="btn btn-success" href="@Url.Action("Create", "Admin", null)" style="margin-bottom:5px;"><i class="bi bi-plus-circle"></i> Add Product</a>
 
         <table class="table">
             <thead class="thead-dark">
@@ -21,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Products)
                 {
                     <tr>
                         <td class="">@item.ProductID</td>
@@ -41,29 +37,3 @@
         </table>
     </div>
 </div>
-
-@*
-<p>@Html.ActionLink("Create New", "Create")</p>
-<table class="table">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.Name)</th>
-        <th>@Html.DisplayNameFor(model => model.Description)</th>
-        <th>@Html.DisplayNameFor(model => model.Price)</th>
-        <th>@Html.DisplayNameFor(model => model.Category)</th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model) {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.Name)</td>
-            <td>@Html.DisplayFor(modelItem => item.Description)</td>
-            <td>@Html.DisplayFor(modelItem => item.Price)</td>
-            <td>@Html.DisplayFor(modelItem => item.Category)</td>
-
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
-            </td>
-        </tr>
-    }
-</table>*@

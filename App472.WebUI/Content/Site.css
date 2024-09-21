@@ -55,3 +55,43 @@ textarea {
 #mg-md-nav .navbar-brand{
     padding-left:7px;
 }
+
+
+
+
+.adminLayoutNav {
+    /*border: 1px solid red;*/
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+}
+.adminLayoutNavInner {
+    /*border: 1px solid brown;*/
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.adminLayoutTitle {
+    /*border: 1px solid orange;*/
+    font-size: 29px;
+    max-width: 180px;
+    margin-right: 17px;
+}
+.adminLayoutTitle h2{
+    font-size: 29px;
+    margin-bottom: 2px;
+    padding-left: 12px;
+    padding-top: 3px;
+    padding-bottom: 5px;
+}
+.adminLayoutPageLinks {
+    /*border: 1px solid magenta;*/
+    margin-top: 4px;
+}
+.adminLayoutPageLinks a.btn{
+    margin-bottom: 3px;
+}

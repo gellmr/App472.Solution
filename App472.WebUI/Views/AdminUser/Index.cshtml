@@ -1,0 +1,31 @@
+﻿@model App472.WebUI.Models.AdminUserViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="card">
+    <div class="card-body">
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Orders</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (App472.WebUI.Models.AppUser user in Model.Users)
+                {
+                    <tr>
+                        <td class="">@user.Id</td>
+                        <td scope="row" class="text-left">@user.UserName</td>
+                        <td scope="row" class="text-left">@user.Email</td>
+                        <td><a class="" href="@Url.Action("Index", "AdminUserOrder", new{user.Id})">View Orders</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

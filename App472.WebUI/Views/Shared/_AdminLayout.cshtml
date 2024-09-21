@@ -1,4 +1,5 @@
-﻿@{
+﻿@model App472.WebUI.Models.AdminViewModel
+@{
     Layout = null;
 }
 
@@ -19,6 +20,42 @@
     @if(TempData["message"] != null){
         <div class="alert alert-success">@TempData["message"]</div>
     }
+    <div class="card">
+        <div class="card-body">
+            <div class="adminLayoutNav">
+                
+                <div class="adminLayoutNavInner">
+                    <div class="adminLayoutTitle">
+                        <h2 class="card-title">Admin Page</h2>
+                    </div>
+
+                    <div class="adminLayoutPageLinks" style="justify-content:left;">
+                        @* Generate one anchor per menu item *@
+                        @if (Model.Links != null && Model.LinkText != null)
+                        {
+                            foreach (KeyValuePair<string, string> link in Model.Links)
+                            {
+                                if (link.Key == Model.LinkText)
+                                {
+                                    <a class="btn btn-dark disabled" href="@link.Value">@link.Key</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-outline-dark" href="@link.Value">@link.Key</a>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+                
+                @* Logout button *@
+                @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logOutForm", @class = "adminLogout" })){
+                    <input type="submit" class="btn btn-outline-success float-right" value="Log out" style="margin-left: 10px; margin-top: 4px;" />
+                }
+
+            </div>
+        </div>
+    </div>
     @RenderBody()
 </body>
 </html>

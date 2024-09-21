@@ -2,6 +2,8 @@
 using System.Web.Mvc;
 using App472.Domain.Abstract;
 using App472.Domain.Entities;
+using App472.WebUI.Models;
+using Microsoft.AspNet.Identity;
 
 namespace App472.WebUI.Controllers{
 
@@ -14,7 +16,10 @@ namespace App472.WebUI.Controllers{
         }
 
         public ViewResult Index(){
-            return View(repository.Products); // need pagination
+            return View(new AdminProductsViewModel{
+                LinkText = "Edit Products",
+                Products = repository.Products
+            });
         }
 
         public ViewResult Edit(int productId)
