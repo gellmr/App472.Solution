@@ -41,7 +41,6 @@ namespace App472.WebUI.Controllers{
             }
             else
             {
-                // There is something wrong with the data values
                 return View(product);
             }
         }
