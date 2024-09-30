@@ -24,13 +24,13 @@ namespace App472.WebUI.Controllers
             this.opRepository = opRepo;
         }
 
-        public ActionResult Index(int Id = 1)
+        public ActionResult Index(int UserId = 1)
         {
             AdminUserOrdersViewModel model = new AdminUserOrdersViewModel
             {
                 LinkText = "Edit Users",
-                UserId = Id,
-                Orders = repository.Orders.Where(o => o.UserID == Id)
+                UserId = UserId,
+                Orders = repository.Orders.Where(o => o.UserID == UserId)
                 .OrderBy(o => o.OrderID)
             };
             return View(model);

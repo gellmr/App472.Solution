@@ -4,7 +4,8 @@
 }
 <div class="card">
     <div class="card-body">
-
+        <br />
+        Showing all Orders for all Users
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -21,7 +22,7 @@
                         <td class="">@user.Id</td>
                         <td scope="row" class="text-left">@user.UserName</td>
                         <td scope="row" class="text-left">@user.Email</td>
-                        <td><a class="" href="@Url.Action("Index", "AdminUserOrder", new{user.Id})">View Orders</a></td>
+                        <td><a class="" href="@Url.Action("Index", "AdminUserOrder", new{UserId = user.Id})">View Orders</a></td>
                     </tr>
                 }
             </tbody>

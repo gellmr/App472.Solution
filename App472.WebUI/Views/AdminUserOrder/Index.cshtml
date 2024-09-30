@@ -6,8 +6,11 @@
 
 <div class="card">
     <div class="card-body">
-
-        Showing Orders for User @Model.UserId
+        <br />
+        <div>
+            @{ string username = "User" + Model.UserId; }
+            <a class="" href="@Url.Action("Index", "AdminUser")">All Orders for all Users</a> > @username
+        </div>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
