@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace App472.Domain.Concrete
 {
     public class EFOrderedProductsRepository : IOrderedProductsRepository

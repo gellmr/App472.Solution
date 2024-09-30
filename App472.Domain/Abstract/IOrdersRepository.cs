@@ -10,7 +10,5 @@ namespace App472.Domain.Abstract
     public interface IOrdersRepository
     {
         IEnumerable<Order> Orders { get; }
-        //void SaveOrder(Order order);
-        //Order DeleteOrder(int orderId);
     }
 }
