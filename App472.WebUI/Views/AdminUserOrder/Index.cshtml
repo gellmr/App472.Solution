@@ -11,6 +11,7 @@
             @{ string username = "User" + Model.UserId; }
             <a class="" href="@Url.Action("Index", "AdminUser")">All Orders for all Users</a> > @username
         </div>
+        @*Showing all Orders for User @Model.UserId*@
         <table class="table">
             <thead class="thead-dark">
                 <tr>

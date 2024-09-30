@@ -12,27 +12,47 @@
             <a class="" href="@Url.Action("Index", "AdminUser")">All Orders for all Users</a> >
             <a class="" href="@Url.Action("Index", "AdminUserOrder", new{Model.UserId})">@username</a> > @ordername
         </div>
+        @*Showing Details of Order #@Model.OrderID, for User @Model.UserId*@
+
+        <hr />
+        <div>Order Status: Ready to Ship</div>
+        <div>Date Created:</div>
+        <div>Billing Address: <i class="bi bi-credit-card"></i></div>
+        <div>Shipping Address: <i class="bi bi-truck"></i></div>
+
         <table class="table">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">ProductID</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Price</th>
+                    <th scope="col" class="text-right">Quantity</th>
+                    <th scope="col">Unit Price</th>
+                    <th scope="col" class="text-right">Cost</th>
                     <th scope="col">Category</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (App472.Domain.Entities.OrderedProduct prod in Model.OrderedProducts)
                 {
+                    int quantity = 1;
+                    decimal cost = @prod.Product.Price * quantity;
                     <tr>
                         <td scope="row" class="text-left">@prod.Product.ProductID</td>
                         <td scope="row" class="text-left">@prod.Product.Name</td>
-                        <td scope="row" class="text-left">@prod.Product.Description</td>
+                        <td scope="row" class="text-right">@quantity</td>
                         <td scope="row" class="text-left">@prod.Product.Price</td>
+                        <td scope="row" class="text-right">@cost</td>
                         <td scope="row" class="text-left">@prod.Product.Category</td>
                     </tr>
                 }
+                <tr style="margin-top:20px;">
+                    <td scope="row" class="text-left"></td>
+                    <td scope="row" class="text-right"><strong>Total:</strong></td>
+                    <td scope="row" class="text-right">@Model.OrderedProducts.Count</td>
+                    <td scope="row" class="text-left"></td>
+                    <td scope="row" class="text-right">@Model.TotalCost</td>
+                    <td scope="row" class="text-left"></td>
+                </tr>
             </tbody>
         </table>
     </div>

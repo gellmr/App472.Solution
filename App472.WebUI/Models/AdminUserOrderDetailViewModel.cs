@@ -10,6 +10,11 @@ namespace App472.WebUI.Models
     {
         public Int32 UserId { get; set; }
         public Int32 OrderID { get; set; }
-        public IEnumerable<OrderedProduct> OrderedProducts { get; set; }
+        public IList<OrderedProduct> OrderedProducts { get; set; }
+        public decimal TotalCost { get {
+            decimal sum = 0;
+            foreach(var op in OrderedProducts){ sum += op.Product.Price; }
+            return sum;
+        }}
     }
 }

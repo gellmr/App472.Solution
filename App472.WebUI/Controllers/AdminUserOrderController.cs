@@ -40,12 +40,12 @@ namespace App472.WebUI.Controllers
         public ActionResult Detail(Int32 OrderID)
         {
             Order order = repository.Orders.Where(o => o.OrderID == OrderID).FirstOrDefault();
-            AdminUserOrderDetailViewModel model = new AdminUserOrderDetailViewModel
-            {
+            IEnumerable<OrderedProduct> orderedProducts = opRepository.OrderedProducts.Where(op => op.Order.OrderID == OrderID);
+            AdminUserOrderDetailViewModel model = new AdminUserOrderDetailViewModel{
                 LinkText = "Edit Users",
                 UserId = (Int32)order.UserID,
                 OrderID = OrderID,
-                OrderedProducts = opRepository.OrderedProducts.Where(op => op.Order.OrderID == OrderID)
+                OrderedProducts = orderedProducts.ToList()
             };
             return View(model);
         }
