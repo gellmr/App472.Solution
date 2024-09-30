@@ -14,12 +14,39 @@
         </div>
         @*Showing Details of Order #@Model.OrderID, for User @Model.UserId*@
 
+        <table class="table table-striped table-sm">
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td><i class="bi bi-flag"></i></td>
+                    <th>Order Status:</th>
+                    <td>@Model.OrderStatus</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><i class="bi bi-calendar3-event"></i></td>
+                    <th>Date Created:</th>
+                    <td>@Model.OrderPlacedDate</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><i class="bi bi-credit-card"></i></td>
+                    <th>Billing Address:</th>
+                    <td>@Model.BillingAddress</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><i class="bi bi-truck"></i></td>
+                    <th>Shipping Address:</th>
+                    <td>@Model.ShippingAddress</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
         <hr />
-        <div>Order Status: Ready to Ship</div>
-        <div>Date Created:</div>
-        <div>Billing Address: <i class="bi bi-credit-card"></i></div>
-        <div>Shipping Address: <i class="bi bi-truck"></i></div>
-
         <table class="table">
             <thead class="thead-dark">
                 <tr>

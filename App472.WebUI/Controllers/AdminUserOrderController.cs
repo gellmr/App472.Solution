@@ -45,7 +45,15 @@ namespace App472.WebUI.Controllers
                 LinkText = "Edit Users",
                 UserId = (Int32)order.UserID,
                 OrderID = OrderID,
-                OrderedProducts = orderedProducts.ToList()
+                OrderedProducts = orderedProducts.ToList(),
+                OrderPlacedDate = order.OrderPlacedDate,
+                PaymentReceivedDate = order.PaymentReceivedDate,
+                ReadyToShipDate = order.ReadyToShipDate,
+                ShipDate = order.ShipDate,
+                ReceivedDate = order.ReceivedDate,
+                BillingAddress = order.BillingAddress,
+                ShippingAddress = order.ShippingAddress,
+                OrderStatus = order.OrderStatus
             };
             return View(model);
         }

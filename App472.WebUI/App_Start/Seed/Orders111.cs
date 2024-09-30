@@ -16,9 +16,22 @@ namespace App472.WebUI.App_Start
             Product prod0 = prods[0];
             Product prod1 = prods[1];
             Product prod2 = prod1;
+            DateTimeOffset now = DateTimeOffset.Now;
+            DateTimeOffset yesterday = now.AddDays(-1);
 
-            orders.Add( new Order ( orderId++, userId, new List<Product> { prod0, prod1, prod2 } ));
-            orders.Add( new Order ( orderId++, userId, new List<Product> { prod0        } ));
+            Order order1 = new Order(orderId++, userId, new List<Product> { prod0, prod1, prod2 });
+            order1.OrderPlacedDate = yesterday;
+            order1.PaymentReceivedDate = yesterday;
+            order1.ReadyToShipDate = now;
+            order1.ShipDate = null;
+            order1.ReceivedDate = null;
+            order1.BillingAddress = "20 Enterprise Ave, Two Rocks, Perth Western Australia";
+            order1.ShippingAddress = "20 Enterprise Ave, Two Rocks, Perth Western Australia";
+            order1.OrderStatus = "Ready to Ship";
+            orders.Add(order1);
+
+            Order order2 = new Order(orderId++, userId, new List<Product> { prod0 });
+            orders.Add(order2);
 
             context.Orders.AddRange(orders);
             context.Entry(prod0).State = EntityState.Added;

@@ -13,6 +13,16 @@ namespace App472.Domain.Entities
         public Nullable<Int32> OrderID { get; set; } // set to null, then database will assign a value
         public virtual IList<OrderedProduct> OrderedProducts { get; set; }
 
+        public Nullable<DateTimeOffset> OrderPlacedDate { get; set; }
+        public Nullable<DateTimeOffset> PaymentReceivedDate { get; set; }
+        public Nullable<DateTimeOffset> ReadyToShipDate { get; set; }
+        public Nullable<DateTimeOffset> ShipDate { get; set; }
+        public Nullable<DateTimeOffset> ReceivedDate { get; set; }
+
+        public string BillingAddress { get; set; }
+        public string ShippingAddress { get; set; }
+        public string OrderStatus { get; set; }
+
         public Order()
         {
             UserID = null;
