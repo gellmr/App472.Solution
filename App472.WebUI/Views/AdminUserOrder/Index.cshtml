@@ -1,0 +1,30 @@
+﻿@model App472.WebUI.Models.AdminUserOrdersViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="card">
+    <div class="card-body">
+
+        Showing Orders for User @Model.UserId
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Order Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(Model != null && Model.Orders != null){
+                    foreach (App472.Domain.Entities.Order order in Model.Orders)
+                    {
+                        <tr>
+                            <td class="">@order.OrderID</td>
+                            <td class="">ORDER DETAILS</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

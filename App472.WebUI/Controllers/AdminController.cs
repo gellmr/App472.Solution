@@ -22,11 +22,12 @@ namespace App472.WebUI.Controllers{
             });
         }
 
-        public ViewResult Edit(int productId)
-        {
-            Product product = repository.Products
-                .FirstOrDefault(p => p.ProductID == productId);
-            return View(product);
+        public ViewResult Edit(int productId){
+            Product product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
+            return View(new AdminEditProductViewModel{
+                LinkText = "Edit Products",
+                Product = product
+            });
         }
 
         [HttpPost]

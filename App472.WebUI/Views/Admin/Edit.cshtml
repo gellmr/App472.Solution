@@ -1,40 +1,20 @@
-﻿@model App472.Domain.Entities.Product
-
+﻿@model App472.WebUI.Models.AdminEditProductViewModel
 @{
-    ViewBag.Title = "Admin: Edit" + Model.Name;
+    ViewBag.Title = "Admin: Edit" + Model.Product.Name;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="card">
 
     <div class="card-body">
-        <h3 class="card-title">Edit: @Model.Name</h3>
+        <h3 class="card-title">Edit: @Model.Product.Name</h3>
     </div>
 
     @using (Html.BeginForm("Edit", "Admin")) // post to the Edit action
     {
-        @Html.HiddenFor(m => m.ProductID)
-        foreach (var property in ViewData.ModelMetadata.Properties)
-        {
-            if (property.PropertyName != "ProductID")
-            {
-                <div class="card-body">
-                    <div class="form-group">
-                        <label>@(property.DisplayName ?? property.PropertyName)</label>
+        @Html.HiddenFor(m => m.Product.ProductID)
 
-                        @if (property.PropertyName == "Description")
-                        {
-                            @Html.TextArea(property.PropertyName, null, new { @class = "form-control", rows = 5 })
-                        }
-                        else
-                        {
-                            @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
-                        }
-                        @Html.ValidationMessage(property.PropertyName)
-                    </div>
-                </div>
-            }
-        }
+        //form controls go here
 
         <div class="card-body">
             <input type="submit" value="Save" class="btn btn-success" />

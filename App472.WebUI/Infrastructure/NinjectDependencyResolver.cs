@@ -32,6 +32,7 @@ namespace App472.WebUI.Infrastructure
         {
             //kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
             kernel.Bind<IProductsRepository>().To<EFProductRepository>();
+            kernel.Bind<IOrdersRepository>().To<EFOrderRepository>();
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument(
                 "settingsArg", new EmailSettings{WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")}
             );
