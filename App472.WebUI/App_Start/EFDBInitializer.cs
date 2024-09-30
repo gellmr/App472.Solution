@@ -1,5 +1,6 @@
 ﻿using App472.Domain.Concrete;
 using App472.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -19,7 +20,9 @@ namespace App472.WebUI.App_Start
 
             // Populate orders
             IList<Order> orders = new List<Order>();
-            Orders111.AddToContext(ref orders, ref products, ref context);
+            Int32 orderIdStart = 1;  // MSSQL auto increment starts at 1 for orderId
+            Orders111.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
+            Orders112.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
 
             base.Seed(context);
         }

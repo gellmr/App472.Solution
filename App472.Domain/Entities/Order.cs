@@ -32,5 +32,15 @@ namespace App472.Domain.Entities
                 OrderedProducts.Add(op);
             }
         }
+
+        public Decimal PriceTotal{
+            get{
+                Decimal sum = 0;
+                foreach (OrderedProduct op in OrderedProducts){
+                    sum += op.Product.Price;
+                }
+                return sum;
+            }
+        }
     }
 }

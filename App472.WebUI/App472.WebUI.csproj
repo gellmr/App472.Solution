@@ -223,6 +223,7 @@
     <Compile Include="App_Start\IDDBInitializer.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\Seed\Orders111.cs" />
+    <Compile Include="App_Start\Seed\Orders112.cs" />
     <Compile Include="App_Start\Seed\ProductsChess.cs" />
     <Compile Include="App_Start\Seed\ProductsSoccer.cs" />
     <Compile Include="App_Start\Seed\ProductsWater.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminEditProductViewModel.cs" />
     <Compile Include="Models\AdminProductsViewModel.cs" />
+    <Compile Include="Models\AdminUserOrderDetailViewModel.cs" />
     <Compile Include="Models\AdminUserOrdersViewModel.cs" />
     <Compile Include="Models\AdminUserViewModel.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
@@ -318,6 +320,7 @@
     <Content Include="Views\Nav\_NavBarContent.cshtml" />
     <Content Include="Views\AdminUser\Index.cshtml" />
     <Content Include="Views\AdminUserOrder\Index.cshtml" />
+    <Content Include="Views\AdminUserOrder\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

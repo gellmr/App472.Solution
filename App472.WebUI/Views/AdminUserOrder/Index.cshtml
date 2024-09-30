@@ -1,7 +1,9 @@
 ﻿@model App472.WebUI.Models.AdminUserOrdersViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Admin: View User Order";
 }
+
 <div class="card">
     <div class="card-body">
 
@@ -10,16 +12,21 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Order ID</th>
-                    <th scope="col">Order Details</th>
+                    <th scope="col">Number of Items</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">View Order Details</th>
                 </tr>
             </thead>
             <tbody>
-                @if(Model != null && Model.Orders != null){
+                @if (Model != null && Model.Orders != null)
+                {
                     foreach (App472.Domain.Entities.Order order in Model.Orders)
                     {
                         <tr>
-                            <td class="">@order.OrderID</td>
-                            <td class="">ORDER DETAILS</td>
+                            <td class="">#@order.OrderID</td>
+                            <td class="">@order.OrderedProducts.Count Items</td>
+                            <td class="">$ @order.PriceTotal</td>
+                            <td><a class="" href="@Url.Action("Detail", "AdminUserOrder", new{order.OrderID})">View Details</a></td>
                         </tr>
                     }
                 }

@@ -55,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IOrderedProductsRepository.cs" />
+    <Compile Include="Concrete\EFOrderedProductsRepository.cs" />
     <Compile Include="Abstract\IOrderProcessor.cs" />
     <Compile Include="Abstract\IOrdersRepository.cs" />
     <Compile Include="Abstract\IProductsRepository.cs" />

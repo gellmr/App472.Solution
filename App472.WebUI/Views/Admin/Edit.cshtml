@@ -10,11 +10,24 @@
         <h3 class="card-title">Edit: @Model.Product.Name</h3>
     </div>
 
-    @using (Html.BeginForm("Edit", "Admin")) // post to the Edit action
+    @using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { id = "myform" }))
     {
+        @Html.ValidationSummary()
         @Html.HiddenFor(m => m.Product.ProductID)
 
-        //form controls go here
+        <!-- TODO PUT THESE STYLES INTO CSS -->
+        <div class="form-group">
+            <label style="display:inline-block;width:140px;">Product Name:</label>
+            @Html.TextBoxFor(m => m.Product.Name, new { @class = "form-control", @style="display: inline-block;max-width: 500px;" })
+        </div>
+        <div class="form-group">
+            <label style="display: inline-block; width: 140px;">Product Category:</label>
+            @Html.TextBoxFor(m => m.Product.Category, new { @class = "form-control", @style = "display: inline-block;max-width: 500px;" })
+        </div>
+        <div class="form-group">
+            <label style="display: inline-block; width: 140px;">Description:</label>
+            @Html.TextBoxFor(m => m.Product.Description, new { @class = "form-control", @style = "display: inline-block;max-width: 500px;" })
+        </div>
 
         <div class="card-body">
             <input type="submit" value="Save" class="btn btn-success" />

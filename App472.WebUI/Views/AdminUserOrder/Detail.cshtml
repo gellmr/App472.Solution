@@ -1,0 +1,33 @@
+﻿@model App472.WebUI.Models.AdminUserOrderDetailViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Admin: Viewing User Order ###";
+}
+<div class="card">
+    <div class="card-body">
+        Showing Details for User @Model.UserId, Order #@Model.OrderID
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ProductID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (App472.Domain.Entities.OrderedProduct prod in Model.OrderedProducts)
+                {
+                    <tr>
+                        <td scope="row" class="text-left">@prod.Product.ProductID</td>
+                        <td scope="row" class="text-left">@prod.Product.Name</td>
+                        <td scope="row" class="text-left">@prod.Product.Description</td>
+                        <td scope="row" class="text-left">@prod.Product.Price</td>
+                        <td scope="row" class="text-left">@prod.Product.Category</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
