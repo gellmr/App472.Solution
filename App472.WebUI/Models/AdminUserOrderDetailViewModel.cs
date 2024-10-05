@@ -6,6 +6,7 @@ using System.Web;
 
 namespace App472.WebUI.Models
 {
+
     public class AdminUserOrderDetailViewModel: AdminViewModel
     {
         public Int32 UserId { get; set; }

@@ -1,16 +1,11 @@
 ﻿using App472.Domain.Abstract;
-using App472.Domain.Concrete;
 using App472.Domain.Entities;
 using App472.WebUI.Models;
-using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Printing;
 using System.Linq;
-using System.Web;
 using System.Net;
 using System.Web.Mvc;
-using System.Web.UI;
 
 namespace App472.WebUI.Controllers
 {
