@@ -1,4 +1,6 @@
-﻿@model App472.WebUI.Models.AdminUserOrderDetailViewModel
+﻿@using App472.Domain.Entities;
+
+@model App472.WebUI.Models.AdminUserOrderDetailViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "Admin: Viewing User Order ###";
@@ -20,7 +22,20 @@
                     <td></td>
                     <td><i class="bi bi-flag"></i></td>
                     <th>Order Status:</th>
-                    <td>@Model.OrderStatus</td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                @Model.OrderStatus
+                            </button>
+                            <div class="dropdown-menu">
+                                @foreach (ShippingState shipState in Enum.GetValues(typeof(ShippingState)))
+                                {
+                                    var active = (Model.OrderStatus == shipState) ? "active" : "";
+                                    <a class="dropdown-item @active" href="#">@shipState</a>
+                                }
+                            </div>
+                        </div>
+                    </td>
                     <td></td>
                 </tr>
                 <tr>
@@ -47,7 +62,7 @@
             </tbody>
         </table>
         <hr />
-        <table class="table">
+        <table class="table adminUserOrderDetail">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">ProductID</th>
@@ -56,13 +71,16 @@
                     <th scope="col">Unit Price</th>
                     <th scope="col" class="text-right">Cost</th>
                     <th scope="col">Category</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
+                @{ int sumQuantity = 0; }
                 @foreach (App472.Domain.Entities.OrderedProduct prod in Model.OrderedProducts)
                 {
-                    int quantity = 1;
-                    decimal cost = @prod.Product.Price * quantity;
+                    int quantity = prod.Quantity;
+                    sumQuantity += quantity;
+                    decimal cost = prod.Product.Price * quantity;
                     <tr>
                         <td scope="row" class="text-left">@prod.Product.ProductID</td>
                         <td scope="row" class="text-left">@prod.Product.Name</td>
@@ -70,17 +88,21 @@
                         <td scope="row" class="text-left">@prod.Product.Price</td>
                         <td scope="row" class="text-right">@cost</td>
                         <td scope="row" class="text-left">@prod.Product.Category</td>
+                        <td><button type="button" class="btn btn-sm btn-light mgDeleteX" data-ProductID="@prod.Product.ProductID" data-OrderID="@prod.Order.OrderID"><i class="bi bi-x-lg"></i></button></td>
                     </tr>
                 }
                 <tr style="margin-top:20px;">
                     <td scope="row" class="text-left"></td>
                     <td scope="row" class="text-right"><strong>Total:</strong></td>
-                    <td scope="row" class="text-right">@Model.OrderedProducts.Count</td>
+                    <td scope="row" class="text-right">@sumQuantity</td>
                     <td scope="row" class="text-left"></td>
                     <td scope="row" class="text-right">@Model.TotalCost</td>
                     <td scope="row" class="text-left"></td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<script type="text/javascript" src="~/Scripts/AdminUserOrder.js"></script>

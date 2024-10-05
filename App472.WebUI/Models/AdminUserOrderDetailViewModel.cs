@@ -20,7 +20,7 @@ namespace App472.WebUI.Models
 
         public string BillingAddress { get; set; }
         public string ShippingAddress { get; set; }
-        public string OrderStatus { get; set; }
+        public ShippingState OrderStatus { get; set; }
 
         public decimal TotalCost { get {
             decimal sum = 0;

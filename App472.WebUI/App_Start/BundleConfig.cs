@@ -22,7 +22,7 @@ namespace App472.WebUI
                 "~/Scripts/jquery.validate.unobtrusive.js",
 
                 //"~/Scripts/modernizr-2.8.3.js",
-                "~/Scripts/bootstrap.js"
+                "~/Scripts/bootstrap.bundle.js" // bundled version is needed for Popper, which gives us dropdown buttons.
             ));
 
         }

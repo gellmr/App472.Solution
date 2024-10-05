@@ -6,7 +6,7 @@
     <div class="card-body">
         <br />
         Showing all Orders for all Users
-        <table class="table">
+        <table class="table table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">ID</th>
@@ -22,7 +22,7 @@
                         <td class="">@user.Id</td>
                         <td scope="row" class="text-left">@user.UserName</td>
                         <td scope="row" class="text-left">@user.Email</td>
-                        <td><a class="" href="@Url.Action("Index", "AdminUserOrder", new{UserId = user.Id})">View Orders</a></td>
+                        <td><a href="@Url.Action("Index", "AdminUserOrder", new{UserId = user.Id})">View Orders</a></td>
                     </tr>
                 }
             </tbody>

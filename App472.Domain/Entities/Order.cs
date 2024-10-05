@@ -7,6 +7,16 @@ using System.Web.Mvc;
 
 namespace App472.Domain.Entities
 {
+    public enum ShippingState
+    {
+        NotYetPlaced,
+        OrderPlaced,
+        PaymentReceived,
+        ReadyToShip,
+        Shipped,
+        Received
+    }
+
     public class Order
     {
         public Nullable<Int32> UserID { get; set; } // set to null, then database will assign a value
@@ -30,17 +40,11 @@ namespace App472.Domain.Entities
             OrderedProducts = new List<OrderedProduct>();
         }
 
-        public Order(int orderID, int userID, IList<Product> products)
+        public Order(int orderID, int userID)
         {
             UserID = userID;
             OrderID = orderID;
             OrderedProducts = new List<OrderedProduct>();
-            foreach (Product product in products)
-            {
-                // here we are relying on mssql to generate the id for the ordered product.
-                OrderedProduct op = new OrderedProduct{Order = this, Product = product, Id = null};
-                OrderedProducts.Add(op);
-            }
         }
 
         public Decimal PriceTotal{
@@ -51,6 +55,43 @@ namespace App472.Domain.Entities
                 }
                 return sum;
             }
+        }
+
+        public static ShippingState ParseShippingState(string str)
+        {
+            ShippingState myState;
+            try{
+                if (Enum.TryParse(str, out myState)){
+                    switch (myState)
+                    {
+                        case ShippingState.NotYetPlaced: return ShippingState.NotYetPlaced; break;
+                        case ShippingState.OrderPlaced: return ShippingState.OrderPlaced; break;
+                        case ShippingState.PaymentReceived: return ShippingState.PaymentReceived; break;
+                        case ShippingState.ReadyToShip: return ShippingState.ReadyToShip; break;
+                        case ShippingState.Shipped: return ShippingState.Shipped; break;
+                        case ShippingState.Received: return ShippingState.Received; break;
+                    }
+                }
+                throw new Exception("could not parse string as ShippingState enum");
+            }
+            catch (Exception e){
+                throw e;
+            }
+        }
+
+        public static string ParseShippingState(ShippingState myState)
+        {
+            string myString = "";
+            switch (myState)
+            {
+                case ShippingState.NotYetPlaced: myString = "NotYetPlaced"; break;
+                case ShippingState.OrderPlaced: myString = "OrderPlaced"; break;
+                case ShippingState.PaymentReceived: myString = "PaymentReceived"; break;
+                case ShippingState.ReadyToShip: myString = "ReadyToShip"; break;
+                case ShippingState.Shipped: myString = "Shipped"; break;
+                case ShippingState.Received: myString = "Received"; break;
+            }
+            return myString;
         }
     }
 }
