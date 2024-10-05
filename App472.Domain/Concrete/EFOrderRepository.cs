@@ -20,5 +20,12 @@ namespace App472.Domain.Concrete
             order.OrderedProducts.Remove(op);
             context.SaveChanges();
         }
+        
+        public void UpdateOrderedProductLineQuantity(Int32 ProductID, Int32 OrderID, Int32 NewQty)
+        {
+            OrderedProduct op = context.OrderedProducts.FirstOrDefault(p => p.Product.ProductID == ProductID && p.Order.OrderID == OrderID);
+            op.Quantity = NewQty;
+            context.SaveChanges();
+        }
     }
 }

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace App472.WebUI.Controllers
 {
+    [Authorize]
     public class AdminUserOrderController : Controller
     {
         private IOrdersRepository repository;
@@ -54,12 +55,24 @@ namespace App472.WebUI.Controllers
 
         // See
         // https://stackoverflow.com/questions/39187756/asp-net-mvc-model-wont-bind-on-ajax-post
-        public class DetailUpdateDTO{ public Int32 ProductID {get;set;} public Int32 OrderId {get;set;}}
+        public class DetailUpdateDTO{ public Int32 ProductID {get;set;} public Int32 OrderID {get;set;} }
+        public class ProductLineUpdateDTO {
+            public Int32 ProductID { get; set; }
+            public Int32 OrderID{ get; set; }
+            public Int32 NewQty { get; set; }
+        }
 
         [HttpPost]
         public HttpStatusCodeResult DeleteProduct(DetailUpdateDTO model)
         {
-            repository.DeleteOrderedProduct(model.ProductID, model.OrderId);
+            repository.DeleteOrderedProduct(model.ProductID, model.OrderID);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        [HttpPost]
+        public HttpStatusCodeResult ProductLineUpdate(ProductLineUpdateDTO model)
+        {
+            repository.UpdateOrderedProductLineQuantity(model.ProductID, model.OrderID, model.NewQty);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }

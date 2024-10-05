@@ -11,10 +11,9 @@ using System.Web.UI;
 
 namespace App472.WebUI.Controllers
 {
+    [Authorize]
     public class AdminUserController : Controller
     {
-
-        [Authorize]
         public ViewResult Index()
         {
             var userManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();

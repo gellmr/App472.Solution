@@ -62,7 +62,7 @@
             </tbody>
         </table>
         <hr />
-        <table class="table adminUserOrderDetail">
+        <table class="table adminUserOrderDetail" data-OrderID="@Model.OrderID">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">ProductID</th>
@@ -81,14 +81,14 @@
                     int quantity = prod.Quantity;
                     sumQuantity += quantity;
                     decimal cost = prod.Product.Price * quantity;
-                    <tr>
+                    <tr data-ProductID="@prod.Product.ProductID">
                         <td scope="row" class="text-left">@prod.Product.ProductID</td>
                         <td scope="row" class="text-left">@prod.Product.Name</td>
-                        <td scope="row" class="text-right">@quantity</td>
+                        <td scope="row" class="text-right"><input class="mgAjaxText" style="max-width:70px; border:none; text-align:center;" type="text" value="@quantity"/></td>
                         <td scope="row" class="text-left">@prod.Product.Price</td>
                         <td scope="row" class="text-right">@cost</td>
                         <td scope="row" class="text-left">@prod.Product.Category</td>
-                        <td><button type="button" class="btn btn-sm btn-light mgDeleteX" data-ProductID="@prod.Product.ProductID" data-OrderID="@prod.Order.OrderID"><i class="bi bi-x-lg"></i></button></td>
+                        <td><button type="button" class="btn btn-sm btn-light mgDeleteX" ><i class="bi bi-x-lg"></i></button></td>
                     </tr>
                 }
                 <tr style="margin-top:20px;">
