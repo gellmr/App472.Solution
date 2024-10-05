@@ -13,14 +13,29 @@
             updateProductLine(params.ProductID, qty, $(event.target));
         }
     }
+
+    var userOrderDetailQuantityFocus = function (event) {
+        if (event) {
+            $("input").addClass("disabled");
+            $("tr").addClass("disabled");
+            $(".card-body").addClass("disabled");
+            $(event.currentTarget).removeClass("disabled");
+            $(event.currentTarget).closest("tr").removeClass("disabled");
+        }
+    }
+
     var userOrderDetailQuantityBlur = function (event){
         if (event) {
             var params = getParams(event.currentTarget);
             var qty = $(this).val();
             updateProductLine(params.ProductID, qty, $(event.target));
+            $(".disabled").removeClass("disabled");
         }
     }
 
+    // See
+    // https://stackoverflow.com/questions/38760368/jquery-ajax-security-concerns
+    //
     var updateProductLine = function (productID, newQty, inputElement) {
         console.log("Try to update product " + productID + " -> new qty: " + newQty);
         var table = $(inputElement).closest("table");
@@ -52,6 +67,7 @@
     }
     var AdminUserOrderReadyJs = function (e) {
         $('table.adminUserOrderDetail').on('keyup','input.mgAjaxText',updateUserOrderDetailQuantity);
+        $("input.mgAjaxText").on("focus", userOrderDetailQuantityFocus);
         $("input.mgAjaxText").on("blur", userOrderDetailQuantityBlur);
         $('table.adminUserOrderDetail').on('click', 'button.mgDeleteX', removeLineFromUserOrderDetail);
     };

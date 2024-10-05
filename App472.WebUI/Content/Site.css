@@ -95,3 +95,11 @@ textarea {
 .adminLayoutPageLinks a.btn{
     margin-bottom: 3px;
 }
+
+.disabled {
+    background-color: #e5e5e5;
+    color: #a4a4a4;
+}
+.card-body.disabled {
+    background-color: #efefef !important;
+}
