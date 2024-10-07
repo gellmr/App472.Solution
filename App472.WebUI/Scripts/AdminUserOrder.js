@@ -102,8 +102,11 @@
             },
 
             // User clicked X button to remove a Product line from the Order
-            ProductLineClickX: function (e) {
-                var params = page.GetParams(e.currentTarget);
+            ProductLineClickX: function (event) {
+                var params = {
+                    OrderID: page.detailTable.data("orderid"),
+                    ProductID: $(event.currentTarget).closest("tr").data("productid")
+                };
                 $.ajax({
                     url: "/AdminUserOrder/DeleteProduct",
                     type: 'POST',
