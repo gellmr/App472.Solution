@@ -20,15 +20,6 @@
                 return params;
             },
 
-            // User pressed RETURN while editing Quantity field
-            QuantityKeyup: function (event) {
-                if (event && event.which === 13) {
-                    var params = page.GetParams(event.currentTarget);
-                    var qty = $(this).val();
-                    page.UpdateLine(params.ProductID, qty, $(event.target));
-                }
-            },
-
             DisableAll: function (event) {
                 $("input").addClass("disabled");
                 $("tr").addClass("disabled");
@@ -54,7 +45,15 @@
                     var params = page.GetParams(event.currentTarget);
                     var qty = $(this).val();
                     page.UpdateLine(params.ProductID, qty, $(event.target));
-                    page.EnableAll();
+                }
+            },
+
+            // User pressed RETURN while editing Quantity field
+            QuantityKeyup: function (event) {
+                if (event && event.which === 13) {
+                    var params = page.GetParams(event.currentTarget);
+                    var qty = $(this).val();
+                    page.UpdateLine(params.ProductID, qty, $(event.target));
                 }
             },
 
@@ -77,6 +76,7 @@
                     statusCode: {
                         200: function (jqXHR) {
                             //window.location.reload();
+                            page.EnableAll();
                         }
                     }
                 });
