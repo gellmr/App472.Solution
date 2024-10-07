@@ -111,6 +111,7 @@
                             var Cost = obj["Cost"];
                             var Category = obj["Category"];
                             var tableRow = $(page.detailTable).find('[data-productid="' + ProductID + '"]');
+                            //TODO - update the input field values, dont just set the whole html (it blows them away)
                             tableRow.children("td.isProductID").html(ProductID);
                             tableRow.children("td.isProductName").html(ProductName);
                             tableRow.children("td.isUnitPrice").html(UnitPrice);
