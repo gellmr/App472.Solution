@@ -13,60 +13,80 @@
                 //'direction': 'left'
             }, options),
 
-            GetParams: function (currentTarget) {
-                var table = $(currentTarget).closest("table");
-                var row = $(currentTarget).closest("tr");
-                var params = { OrderID: table.data("orderid"), ProductID: row.data("productid") };
-                return params;
+            // member variables
+            cardBackground: $(options.cardBackgroundClass),
+            detailTable: $(options.detailTableClass),
+            productRows: $(options.productRowsClass),
+            quantityInputs: $(options.quantityInputsClass),
+
+            EnableListeners: function () {
+                page.quantityInputs.on("focus", page.QuantityFocus);
+                page.quantityInputs.on("blur", page.QuantityBlur);
+                page.detailTable.on('keyup', options.quantityInputsClass, page.QuantityKeyup);
+                page.detailTable.on('click', options.deleteButtonsClass, page.ProductLineClickX);
             },
 
-            DisableAll: function (event) {
-                $("input").addClass("disabled");
-                $("tr").addClass("disabled");
-                $(".card-body").addClass("disabled");
-                $(event.currentTarget).removeClass("disabled");
-                $(event.currentTarget).closest("tr").removeClass("disabled");
+            DisableListeners: function () {
+                page.quantityInputs.off("focus");
+                page.quantityInputs.off("blur");
+                page.detailTable.off('keyup');
+                page.detailTable.off('click');
             },
 
-            EnableAll: function (event) {
-                $(".disabled").removeClass("disabled");
+            EnableFields: function (event) {
+                page.detailTable.addClass("table-hover"); // bootstrap style
+                // remove disabled class
+                //page.cardBackground.removeClass("disabled");
+                //page.productRows.removeClass("disabled");
+                //page.quantityInputs.removeClass("disabled");
+            },
+
+            DisableFields: function () {
+                page.detailTable.removeClass("table-hover"); // bootstrap style
+                // add disabled class
+                //page.cardBackground.addClass("disabled");
+                //page.productRows.addClass("disabled");
+                //page.quantityInputs.addClass("disabled");
             },
 
             // User focused the Quantity field
             QuantityFocus: function (event) {
                 if (event) {
-                    page.DisableAll(event);
+                    page.DisableFields();
+                    var inputField = $(event.currentTarget); inputField.removeClass("disabled"); inputField.closest("tr").removeClass("disabled");
                 }
             },
 
             // User blurred the Quantity field
             QuantityBlur: function (event) {
                 if (event) {
-                    var params = page.GetParams(event.currentTarget);
-                    var qty = $(this).val();
-                    page.UpdateLine(params.ProductID, qty, $(event.target));
+                    page.DisableFields();
+                    page.DisableListeners();
+                    page.UpdateLine(event);
                 }
             },
 
             // User pressed RETURN while editing Quantity field
             QuantityKeyup: function (event) {
                 if (event && event.which === 13) {
-                    var params = page.GetParams(event.currentTarget);
-                    var qty = $(this).val();
-                    page.UpdateLine(params.ProductID, qty, $(event.target));
+                    event.preventDefault();
+                    event.currentTarget.blur();
+                    //page.QuantityBlur(event);
                 }
             },
 
             // See
             // https://stackoverflow.com/questions/38760368/jquery-ajax-security-concerns
-            UpdateLine: function (productID, newQty, inputElement) {
-                console.log("Try to update product " + productID + " -> new qty: " + newQty);
-                var table = $(inputElement).closest("table");
+            UpdateLine: function (event) {
+                var row = $(event.currentTarget).closest("tr");
+                var qty = $(event.currentTarget).val();
                 var params = {
-                    ProductID: productID,
-                    OrderID: table.data("orderid"),
-                    NewQty: newQty
+                    OrderID: page.detailTable.data("orderid"),
+                    ProductID: row.data("productid"),
+                    NewQty: qty
                 };
+                console.log("Try to update product " + params.ProductID + " -> new qty: " + qty);
+                debugger;
                 $.ajax({
                     url: "/AdminUserOrder/ProductLineUpdate",
                     type: 'POST',
@@ -76,7 +96,8 @@
                     statusCode: {
                         200: function (jqXHR) {
                             //window.location.reload();
-                            page.EnableAll();
+                            page.EnableFields();
+                            page.EnableListeners();
                         }
                     }
                 });
@@ -101,12 +122,7 @@
 
             // Page ready, attach event listeners
             ReadyJs: function () {
-                var detailTable = $('table.adminUserOrderDetail');
-                var quantityInputs = $("input.mgAjaxText");
-                quantityInputs.on("focus", page.QuantityFocus);
-                quantityInputs.on("blur", page.QuantityBlur);
-                detailTable.on('keyup', 'input.mgAjaxText', page.QuantityKeyup);
-                detailTable.on('click', 'button.mgDeleteX', page.ProductLineClickX);
+                page.EnableListeners();
             },
         };
 
@@ -116,6 +132,13 @@
     };
 })(jQuery);
 
-var options = {};
+var options = {
+    // Css selectors
+    cardBackgroundClass: ".card-body.adminUserOrderDetail",
+    detailTableClass: "table.adminUserOrderDetail",
+    productRowsClass: "tr",
+    quantityInputsClass: "input.mgAjaxText",
+    deleteButtonsClass: "button.mgDeleteX",
+};
 var page = $.adminUserOrderDetail(options);
 jQuery(document).ready(page.ready);

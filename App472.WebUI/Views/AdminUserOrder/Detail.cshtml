@@ -6,7 +6,7 @@
     ViewBag.Title = "Admin: Viewing User Order ###";
 }
 <div class="card">
-    <div class="card-body">
+    <div class="card-body adminUserOrderDetail">
         <br />
         <div>
             @{ string username = "User" + Model.UserId; }
@@ -62,7 +62,10 @@
             </tbody>
         </table>
         <hr />
-        <table class="table table-striped table-hover adminUserOrderDetail" data-OrderID="@Model.OrderID">
+        <table class="table
+               @*table-striped*@
+               table-hover
+               adminUserOrderDetail" data-OrderID="@Model.OrderID">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">ProductID</th>
