@@ -34,7 +34,6 @@
             },
 
             EnableFields: function (event) {
-                page.detailTable.addClass("table-hover"); // bootstrap style
                 // remove disabled class
                 //page.cardBackground.removeClass("disabled");
                 //page.productRows.removeClass("disabled");
@@ -42,7 +41,6 @@
             },
 
             DisableFields: function () {
-                page.detailTable.removeClass("table-hover"); // bootstrap style
                 // add disabled class
                 //page.cardBackground.addClass("disabled");
                 //page.productRows.addClass("disabled");
