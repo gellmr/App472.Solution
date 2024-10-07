@@ -18,6 +18,8 @@
             detailTable: $(options.detailTableClass),
             productRows: $(options.productRowsClass),
             quantityInputs: $(options.quantityInputsClass),
+            detailTotalQuantity: $(options.detailTotalQuantityClass),
+            detailTotalCost: $(options.detailTotalCostClass),
 
             EnableListeners: function () {
                 page.quantityInputs.on("focus", page.QuantityFocus);
@@ -76,27 +78,48 @@
             // See
             // https://stackoverflow.com/questions/38760368/jquery-ajax-security-concerns
             UpdateLine: function (event) {
-                var row = $(event.currentTarget).closest("tr");
+                var trow = $(event.currentTarget).closest("tr");
                 var qty = $(event.currentTarget).val();
                 var params = {
                     OrderID: page.detailTable.data("orderid"),
-                    ProductID: row.data("productid"),
+                    ProductID: trow.data("productid"),
                     NewQty: qty
                 };
                 console.log("Try to update product " + params.ProductID + " -> new qty: " + qty);
-                debugger;
                 $.ajax({
                     url: "/AdminUserOrder/ProductLineUpdate",
                     type: 'POST',
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(params),
-                    statusCode: {
-                        200: function (jqXHR) {
-                            //window.location.reload();
-                            page.EnableFields();
-                            page.EnableListeners();
+                    success: function (result) {
+                        // Server has accepted our post data, and sent back info to update the current page.
+                        var QuantityTotal = parseInt(result.QuantityTotal);
+                        var PriceTotal = Number.parseFloat(result.PriceTotal);
+                        $(detailTotalQuantity).html(QuantityTotal);
+                        $(detailTotalCost).html(PriceTotal);
+                        // See
+                        // https://stackoverflow.com/questions/921789/how-to-loop-through-a-plain-javascript-object-with-the-objects-as-members
+                        var Rows = result.Rows;
+                        for (var key in Rows) {
+                            if (!Rows.hasOwnProperty(key)) continue; // skip loop if the property is from prototype
+                            var obj = Rows[key];
+                            var ProductID = obj["ProductID"];
+                            var ProductName = obj["ProductName"];
+                            var UnitPrice = obj["UnitPrice"];
+                            var Quantity = obj["Quantity"];
+                            var Cost = obj["Cost"];
+                            var Category = obj["Category"];
+                            var tableRow = $(page.detailTable).find('[data-productid="' + ProductID + '"]');
+                            tableRow.children("td.isProductID").html(ProductID);
+                            tableRow.children("td.isProductName").html(ProductName);
+                            tableRow.children("td.isUnitPrice").html(UnitPrice);
+                            tableRow.children("td.isQuantity").html(Quantity);
+                            tableRow.children("td.isCost").html(Cost);
+                            tableRow.children("td.isCategory").html(Category);
                         }
+                        page.EnableFields();
+                        page.EnableListeners();
                     }
                 });
             },
@@ -115,7 +138,7 @@
                     data: JSON.stringify(params),
                     statusCode: {
                         200: function (jqXHR) {
-                            //window.location.reload();
+                            window.location.reload();
                         }
                     }
                 });
@@ -140,6 +163,8 @@ var options = {
     productRowsClass: "tr",
     quantityInputsClass: "input.mgAjaxText",
     deleteButtonsClass: "button.mgDeleteX",
+    detailTotalQuantityClass: "#detailTotalQuantity",
+    detailTotalCostClass: "#detailTotalCost",
 };
 var page = $.adminUserOrderDetail(options);
 jQuery(document).ready(page.ready);

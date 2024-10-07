@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Web.Mvc;
 
 namespace App472.Domain.Entities
 {
@@ -41,6 +43,16 @@ namespace App472.Domain.Entities
             UserID = userID;
             OrderID = orderID;
             OrderedProducts = new List<OrderedProduct>();
+        }
+
+        public Decimal QuantityTotal{
+            get{
+                Decimal sum = 0;
+                foreach (OrderedProduct op in OrderedProducts){
+                    sum += op.Quantity;
+                }
+                return sum;
+            }
         }
 
         public Decimal PriceTotal{
@@ -89,5 +101,43 @@ namespace App472.Domain.Entities
             }
             return myString;
         }
+
+        // Get an object to convert to JSON, for responding to ajax requests.
+        public OrderDetailUpdateDTO GetUpdateDTO(){
+            OrderDetailUpdateDTO response = new OrderDetailUpdateDTO();
+            response.QuantityTotal = QuantityTotal;
+            response.PriceTotal = PriceTotal;
+            response.Rows = new List<OrderDetailUpdateRowDTO>();
+            foreach (OrderedProduct p in OrderedProducts){
+                OrderDetailUpdateRowDTO row = new OrderDetailUpdateRowDTO();
+                row.ProductID = p.Product.ProductID;
+                row.ProductName = p.Product.Name;
+                row.UnitPrice = p.Product.Price;
+                row.Quantity = p.Quantity;
+                row.Cost = p.Product.Price * p.Quantity;
+                row.Category = p.Product.Category;
+                response.Rows.Add(row);
+            }
+            return response;
+        }
+    }
+
+    // This class is converted into JSON for responding to the Detail page update requests.
+    public class OrderDetailUpdateRowDTO
+    {
+        public Int32 ProductID{get; set; }
+        public string ProductName { get; set; }
+        public Decimal UnitPrice { get; set; }
+        public Int32 Quantity { get; set; }
+        public Decimal Cost { get; set; }
+        public string Category { get; set; }
+    }
+
+    // This class is converted into JSON for responding to the Detail page update requests.
+    public class OrderDetailUpdateDTO
+    {
+        public List<OrderDetailUpdateRowDTO> Rows{ get; set; }
+        public Decimal QuantityTotal { get; set; }
+        public Decimal PriceTotal { get; set; }
     }
 }

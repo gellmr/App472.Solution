@@ -1,6 +1,7 @@
 ﻿using App472.Domain.Abstract;
 using App472.Domain.Entities;
 using App472.WebUI.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,10 +71,11 @@ namespace App472.WebUI.Controllers
         }
 
         [HttpPost]
-        public HttpStatusCodeResult ProductLineUpdate(ProductLineUpdateDTO model)
-        {
+        public JsonResult ProductLineUpdate(ProductLineUpdateDTO model){
             repository.UpdateOrderedProductLineQuantity(model.ProductID, model.OrderID, model.NewQty);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            Order order = repository.Orders.Where(o => o.OrderID == model.OrderID).FirstOrDefault();
+            var data = order.GetUpdateDTO();
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

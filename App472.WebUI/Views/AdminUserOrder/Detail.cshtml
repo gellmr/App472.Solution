@@ -68,7 +68,9 @@
                     <th scope="col">ProductID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Unit Price</th>
+
                     <th scope="col" class="text-right">Quantity</th>
+
                     <th scope="col" class="text-right">Cost</th>
                     <th scope="col">Category</th>
                     <th></th>
@@ -82,16 +84,23 @@
                     sumQuantity += quantity;
                     decimal cost = prod.Product.Price * quantity;
                     <tr data-ProductID="@prod.Product.ProductID">
-                        <td scope="row" class="text-left">@prod.Product.ProductID</td>
-                        <td scope="row" class="text-left">
+
+                        <td scope="row" class="text-left isProductID">@prod.Product.ProductID</td>
+
+                        <td scope="row" class="text-left isProductName">
                             <a href="@Url.Action("Edit", "Admin", new{ProductID = @prod.Product.ProductID})">@prod.Product.Name</a>
                         </td>
-                        <td scope="row" class="text-left">
+
+                        <td scope="row" class="text-left isUnitPrice">
                             <a href="@Url.Action("Edit", "Admin", new{ProductID = @prod.Product.ProductID})">@prod.Product.Price</a>
                         </td>
-                        <td scope="row" class="text-right"><input class="mgAjaxText" style="max-width:70px; border:none; text-align:right;" type="text" value="@quantity" /></td>
-                        <td scope="row" class="text-right">@cost</td>
-                        <td scope="row" class="text-left">@prod.Product.Category</td>
+
+                        <td scope="row" class="text-right isQuantity"><input class="mgAjaxText" style="max-width:70px; border:none; text-align:right;" type="text" value="@quantity" /></td>
+
+                        <td scope="row" class="text-right isCost">@cost</td>
+
+                        <td scope="row" class="text-left isCategory">@prod.Product.Category</td>
+
                         <td><button type="button" class="btn btn-sm btn-light mgDeleteX"><i class="bi bi-x-lg"></i></button></td>
                     </tr>
                 }
@@ -99,8 +108,10 @@
                     <td scope="row" class="text-left"><strong>Total:</strong></td>
                     <td scope="row" class="text-left"></td>
                     <td scope="row" class="text-left"></td>
-                    <td scope="row" class="text-right">@sumQuantity</td>
-                    <td scope="row" class="text-right">$@Model.TotalCost</td>
+
+                    <td scope="row" class="text-right" id="detailTotalQuantity">@sumQuantity</td>
+
+                    <td scope="row" class="text-right" id="detailTotalCost">$@Model.TotalCost</td>
                     <td scope="row" class="text-left"></td>
                     <td></td>
                 </tr>
