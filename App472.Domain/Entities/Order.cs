@@ -59,7 +59,7 @@ namespace App472.Domain.Entities
             get{
                 Decimal sum = 0;
                 foreach (OrderedProduct op in OrderedProducts){
-                    sum += op.Product.Price;
+                    sum += (op.Product.Price * op.Quantity);
                 }
                 return sum;
             }

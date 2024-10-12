@@ -103,3 +103,10 @@ textarea {
 .card-body.disabled {
     background-color: #efefef !important;
 }
+
+input.mgAjaxText {
+    max-width: 70px;
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+    text-align: right;
+}

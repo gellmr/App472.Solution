@@ -25,7 +25,7 @@ namespace App472.WebUI.Models
 
         public decimal TotalCost { get {
             decimal sum = 0;
-            foreach(var op in OrderedProducts){ sum += op.Product.Price; }
+            foreach(var op in OrderedProducts){ sum += (op.Product.Price * op.Quantity); }
             return sum;
         }}
     }

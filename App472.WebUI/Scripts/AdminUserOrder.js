@@ -111,14 +111,17 @@
                             var Cost = obj["Cost"];
                             var Category = obj["Category"];
                             var tableRow = $(page.detailTable).find('[data-productid="' + ProductID + '"]');
-                            //TODO - update the input field values, dont just set the whole html (it blows them away)
+                            // update the table row values
                             tableRow.children("td.isProductID").html(ProductID);
-                            tableRow.children("td.isProductName").html(ProductName);
-                            tableRow.children("td.isUnitPrice").html(UnitPrice);
-                            tableRow.children("td.isQuantity").html(Quantity);
+                            tableRow.children("td.isProductName").find("a").html(ProductName)
+                            tableRow.children("td.isUnitPrice").find("a").html(UnitPrice);
+                            tableRow.children("td.isQuantity").find("input.mgAjaxText").html(Quantity);
                             tableRow.children("td.isCost").html(Cost);
                             tableRow.children("td.isCategory").html(Category);
                         }
+                        // update summary info
+                        $(page.detailTable).find("#detailTotalQuantity").html(QuantityTotal);
+                        $(page.detailTable).find("#detailTotalCost").html("$ " + PriceTotal.toFixed(2));
                         page.EnableFields();
                         page.EnableListeners();
                     }
