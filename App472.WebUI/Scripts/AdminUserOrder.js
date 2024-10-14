@@ -161,6 +161,25 @@
                 $(event.currentTarget).addClass("active");
                 var text = $(event.currentTarget).html();
                 dropDownBtn.find(".dropdown-toggle").html(text);
+                var shipStatus = $(event.currentTarget).data("statuscode")
+
+                var params = {
+                    OrderID: page.detailTable.data("orderid"),
+                    OrderStatus: shipStatus,
+                };
+                $.ajax({
+                    url: "/AdminUserOrder/SetShipping",
+                    type: 'POST',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(params),
+                    statusCode: {
+                        200: function (jqXHR) {
+                            debugger;
+                            window.location.reload();
+                        }
+                    }
+                });
             },
 
             // Page ready, attach event listeners

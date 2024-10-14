@@ -29,10 +29,12 @@
                                 @Model.OrderStatus
                             </button>
                             <div class="dropdown-menu">
+                                @{var counter = 0;}
                                 @foreach (ShippingState shipState in Enum.GetValues(typeof(ShippingState)))
                                 {
                                     var active = (Model.OrderStatus == shipState) ? "active" : "";
-                                    <a class="dropdown-item @active" href="#">@shipState</a>
+                                    <a class="dropdown-item @active" href="#" data-statuscode="@counter" >@shipState</a>
+                                    counter = counter + 1;
                                 }
                             </div>
                         </div>

@@ -27,5 +27,13 @@ namespace App472.Domain.Concrete
             op.Quantity = NewQty;
             context.SaveChanges();
         }
+
+        public void UpdateShippingStatus(Int32 OrderID, Int32 OrderStatus)
+        {
+            Order order = context.Orders.FirstOrDefault(o => o.OrderID == OrderID);
+            Domain.Entities.ShippingState myEnum = (Domain.Entities.ShippingState)OrderStatus;
+            order.OrderStatus = Order.ParseShippingState(myEnum);
+            context.SaveChanges();
+        }
     }
 }
