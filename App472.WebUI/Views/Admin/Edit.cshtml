@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="card">
+<div class="card text-center">
 
     <div class="card-body">
         <h3 class="card-title">Edit: @Model.Product.Name</h3>
@@ -12,29 +12,37 @@
 
     @using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { id = "myform" }))
     {
-        @Html.ValidationSummary()
-        @Html.HiddenFor(m => m.Product.ProductID)
+        <div id="AdminEditProductValidationSummary">
+            @Html.ValidationSummary()
+        </div>
 
-        <!-- TODO PUT THESE STYLES INTO CSS -->
-        <div class="form-group">
-            <label style="display:inline-block;width:140px;">Product Name:</label>
-            @Html.TextBoxFor(m => m.Product.Name, new { @class = "form-control", @style="display: inline-block;max-width: 500px;" })
-        </div>
-        <div class="form-group">
-            <label style="display: inline-block; width: 140px;">Product Category:</label>
-            @Html.TextBoxFor(m => m.Product.Category, new { @class = "form-control", @style = "display: inline-block;max-width: 500px;" })
-        </div>
-        <div class="form-group">
-            <label style="display: inline-block; width: 140px;">Description:</label>
-            @Html.TextBoxFor(m => m.Product.Description, new { @class = "form-control", @style = "display: inline-block;max-width: 500px;" })
-        </div>
+        @Html.HiddenFor(m => m.Product.ProductID)
+        @Html.HiddenFor(m => m.ReturnUrl) @* the GUID for our return url, stored in the session *@
 
         <div class="card-body">
-            <input type="submit" value="Save" class="btn btn-success" />
-            @Html.ActionLink("Cancel and return to List", "Index", null, new
-            {
-                @class = "btn btn-warning"
-            })
+            <div class="form-group">
+                <label class="mgProductEdit">Product Name:</label>
+                @Html.TextBoxFor(m => m.Product.Name, new { @class = "form-control mgProductEdit" })
+            </div>
+            <div class="form-group">
+                <label class="mgProductEdit">Product Category:</label>
+                @Html.TextBoxFor(m => m.Product.Category, new { @class = "form-control mgProductEdit" })
+            </div>
+            <div class="form-group">
+                <label class="mgProductEdit">Description:</label>
+                @Html.TextAreaFor(m => m.Product.Description, new { @class = "form-control mgProductEdit" })
+            </div>
+            <div class="form-group">
+                <label class="mgProductEdit">Unit Price:</label>
+                @Html.TextBoxFor(m => m.Product.Price, new { @class = "form-control mgProductEdit" })
+            </div>
+            <div class="text-center">
+                @Html.ActionLink("Cancel and return to List", "Index", null, new
+                {
+                    @class = "btn btn-warning"
+                })
+                <input type="submit" value="Save" class="btn btn-success" style="min-width:130px;" />
+            </div>
         </div>
     }
 </div>

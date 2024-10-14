@@ -1,5 +1,6 @@
 ﻿using App472.Domain.Abstract;
 using App472.Domain.Entities;
+using App472.WebUI.Infrastructure;
 using App472.WebUI.Models;
 using Microsoft.AspNet.Identity;
 using System;
@@ -11,7 +12,7 @@ using System.Web.Mvc;
 namespace App472.WebUI.Controllers
 {
     [Authorize]
-    public class AdminUserOrderController : Controller
+    public class AdminUserOrderController : BaseController
     {
         private IOrdersRepository repository;
 
@@ -49,7 +50,8 @@ namespace App472.WebUI.Controllers
                 ReceivedDate = order.ReceivedDate,
                 BillingAddress = order.BillingAddress,
                 ShippingAddress = order.ShippingAddress,
-                OrderStatus = App472.Domain.Entities.Order.ParseShippingState(order.OrderStatus)
+                OrderStatus = App472.Domain.Entities.Order.ParseShippingState(order.OrderStatus),
+                ReturnUrl = GenerateTabReturnUrl.ToString()
             };
             return View(model);
         }

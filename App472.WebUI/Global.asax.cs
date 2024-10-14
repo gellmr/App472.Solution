@@ -9,6 +9,7 @@ using App472.Domain.Entities;
 using Ninject;
 using Ninject.Web.Common.WebHost;
 using App472.WebUI.Infrastructure.Binders;
+using App472.WebUI.Infrastructure;
 
 namespace App472.WebUI
 {
@@ -33,6 +34,13 @@ namespace App472.WebUI
             DependencyResolver.SetResolver(
                 new App472.WebUI.Infrastructure.NinjectDependencyResolver(kernel)
             );
+        }
+
+        // Strongly typed object in the session. See
+        // https://stackoverflow.com/questions/560084/session-variables-in-asp-net-mvc
+        void Session_Start(object sender, EventArgs e)
+        {
+            HttpContext.Current.Session.Add(MyExtensions.TRUrlsSessKeyName, new TabReturnUrls());
         }
     }
 }

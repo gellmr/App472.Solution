@@ -5,7 +5,7 @@ using System.Web;
 
 namespace App472.WebUI.Models
 {
-    public class AdminViewModel
+    public class AdminViewModel : BaseViewModel
     {
         // Links shown at the top of the Admin pages
         // LinkText, URL route value

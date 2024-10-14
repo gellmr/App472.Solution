@@ -12,7 +12,7 @@ using System.Web.UI;
 namespace App472.WebUI.Controllers
 {
     [Authorize]
-    public class AdminUserController : Controller
+    public class AdminUserController : BaseController
     {
         public ViewResult Index()
         {

@@ -17,6 +17,8 @@
                 </tr>
             </thead>
             <tbody>
+                @Html.HiddenFor(m => m.ReturnUrl) @* the GUID for our return url, stored in the session *@
+
                 @foreach (var item in Model.Products)
                 {
                     <tr>

@@ -114,14 +114,14 @@
                             // update the table row values
                             tableRow.children("td.isProductID").html(ProductID);
                             tableRow.children("td.isProductName").find("a").html(ProductName)
-                            tableRow.children("td.isUnitPrice").find("a").html(UnitPrice);
+                            tableRow.children("td.isUnitPrice").find("a").html(UnitPrice.toFixed(2));
                             tableRow.children("td.isQuantity").find("input.mgAjaxText").html(Quantity);
-                            tableRow.children("td.isCost").html(Cost);
+                            tableRow.children("td.isCost").html(Cost.toFixed(2));
                             tableRow.children("td.isCategory").html(Category);
                         }
                         // update summary info
                         $(page.detailTable).find("#detailTotalQuantity").html(QuantityTotal);
-                        $(page.detailTable).find("#detailTotalCost").html("$ " + PriceTotal.toFixed(2));
+                        $(page.detailTable).find("#detailTotalCost").html("$" + PriceTotal.toFixed(2));
                         page.EnableFields();
                         page.EnableListeners();
                     }

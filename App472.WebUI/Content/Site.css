@@ -18,16 +18,22 @@ textarea {
     margin-right: 15px; margin-left:15px;
 }*/
 
+#AdminEditProductValidationSummary {
+    display: flex;
+    justify-content: center;
+}
+#AdminEditProductValidationSummary .validation-summary-errors{
+    text-align: left;
+}
+
 .mg-category-menu {
     /*background-color: forestgreen !important;*/
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-
     border: 1px solid lightgrey;
     border-radius: 8px;
-
-    margin-bottom:10px;
+    margin-bottom: 10px;
 }
 
 .mg-category-menu-xs {
@@ -104,9 +110,36 @@ textarea {
     background-color: #efefef !important;
 }
 
+label.mgProductEdit {
+    /*display: inline-block;*/
+    width: 140px;
+    font-weight: bold;
+    text-align: left;
+    width:100%;
+}
+input.mgProductEdit {
+    /*display: inline-block;*/
+    /*max-width: 385px;*/
+}
+textarea.mgProductEdit {
+    /*display: inline-block;*/
+    /*max-width: 385px;*/
+    min-height: 130px;
+}
 input.mgAjaxText {
     max-width: 70px;
     border: 1px solid #dddddd;
     border-radius: 6px;
     text-align: right;
+}
+@media (min-width: 576px) {
+    .mgProductEdit {
+        display: inline-block;
+    }
+    label.mgProductEdit {
+        width: 150px;
+    }
+    .mgProductEdit {
+        max-width: 375px;
+    }
 }

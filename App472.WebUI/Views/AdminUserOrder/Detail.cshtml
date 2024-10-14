@@ -1,4 +1,5 @@
 ﻿@using App472.Domain.Entities;
+@using App472.WebUI.Infrastructure
 
 @model App472.WebUI.Models.AdminUserOrderDetailViewModel
 @{
@@ -77,22 +78,24 @@
                 </tr>
             </thead>
             <tbody>
-                @{ int sumQuantity = 0; }
+                @{
+                    int sumQuantity = 0;
+                }
                 @foreach (App472.Domain.Entities.OrderedProduct prod in Model.OrderedProducts)
                 {
                     int quantity = prod.Quantity;
                     sumQuantity += quantity;
                     decimal cost = prod.Product.Price * quantity;
                     <tr data-ProductID="@prod.Product.ProductID">
-
+                        
                         <td scope="row" class="text-left isProductID">@prod.Product.ProductID</td>
 
                         <td scope="row" class="text-left isProductName">
-                            <a href="@Url.Action("Edit", "Admin", new{ProductID = @prod.Product.ProductID})">@prod.Product.Name</a>
+                            <a href="@Url.Action("Edit", "Admin", new{ProductID = @prod.Product.ProductID, returnUrl = Model.ReturnUrl })">@prod.Product.Name</a>
                         </td>
 
                         <td scope="row" class="text-left isUnitPrice">
-                            <a href="@Url.Action("Edit", "Admin", new{ProductID = @prod.Product.ProductID})">@prod.Product.Price</a>
+                            <a href="@Url.Action("Edit", "Admin", new{ProductID = @prod.Product.ProductID, returnUrl = Model.ReturnUrl })">@prod.Product.Price</a>
                         </td>
 
                         <td scope="row" class="text-right isQuantity"><input class="mgAjaxText" type="text" value="@quantity" /></td>

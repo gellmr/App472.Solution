@@ -1,0 +1,8 @@
+﻿<div>
+    @if(ViewBag.TabReturnUrls != null){
+        foreach (KeyValuePair<Guid, string> entry in ViewBag.TabReturnUrls)
+        {
+            <div>GUID: @entry.Key Url: @entry.Value</div>
+        }
+    }
+</div>

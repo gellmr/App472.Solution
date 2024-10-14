@@ -17,13 +17,15 @@
     <title>Sports Store Admin Page</title>
 </head>
 <body>
-    @if(TempData["message"] != null){
+    @Html.Partial("~/Views/Shared/_DebugBar.cshtml")
+    @if (TempData["message"] != null)
+    {
         <div class="alert alert-success">@TempData["message"]</div>
     }
     <div class="card">
         <div class="card-body">
             <div class="adminLayoutNav">
-                
+
                 <div class="adminLayoutNavInner">
                     <div class="adminLayoutTitle">
                         <h2 class="card-title">Admin Page</h2>
@@ -47,9 +49,10 @@
                         }
                     </div>
                 </div>
-                
+
                 @* Logout button *@
-                @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logOutForm", @class = "adminLogout" })){
+                @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logOutForm", @class = "adminLogout" }))
+                {
                     <input type="submit" class="btn btn-outline-success float-right" value="Log out" style="margin-left: 10px; margin-top: 4px;" />
                 }
 

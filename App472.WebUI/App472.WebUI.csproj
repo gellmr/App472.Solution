@@ -234,6 +234,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\AdminUserOrderController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavController.cs" />
@@ -245,6 +246,8 @@
     <Compile Include="Infrastructure\Abstract\IAuthProvider.cs" />
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructure\Concrete\FormsAuthProvider.cs" />
+    <Compile Include="Infrastructure\MyExtensions.cs" />
+    <Compile Include="Infrastructure\TabReturnUrls.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Migrations\202408260632019_InitialCreate20240826_1.cs" />
     <Compile Include="Migrations\202408260632019_InitialCreate20240826_1.Designer.cs">
@@ -257,6 +260,7 @@
     <Compile Include="Models\AdminUserOrdersViewModel.cs" />
     <Compile Include="Models\AdminUserViewModel.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\CartIndexViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -322,6 +326,7 @@
     <Content Include="Views\AdminUser\Index.cshtml" />
     <Content Include="Views\AdminUserOrder\Index.cshtml" />
     <Content Include="Views\AdminUserOrder\Detail.cshtml" />
+    <Content Include="Views\Shared\_DebugBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
