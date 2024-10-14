@@ -21,11 +21,15 @@
             detailTotalQuantity: $(options.detailTotalQuantityClass),
             detailTotalCost: $(options.detailTotalCostClass),
 
+            readyShipDropDownBtn: $(options.readyShipDropDownBtnClass),
+            readyShipDropDownLinks: $(options.readyShipDropDownLinksClass),
+
             EnableListeners: function () {
                 page.quantityInputs.on("focus", page.QuantityFocus);
                 page.quantityInputs.on("blur", page.QuantityBlur);
                 page.detailTable.on('keyup', options.quantityInputsClass, page.QuantityKeyup);
                 page.detailTable.on('click', options.deleteButtonsClass, page.ProductLineClickX);
+                page.readyShipDropDownBtn.on("click", options.readyShipDropDownLinksClass, page.ReadyShipLinkClick);
             },
 
             DisableListeners: function () {
@@ -33,6 +37,7 @@
                 page.quantityInputs.off("blur");
                 page.detailTable.off('keyup');
                 page.detailTable.off('click');
+                page.readyShipDropDownBtn.off("click");
             },
 
             EnableFields: function (event) {
@@ -148,6 +153,16 @@
                 });
             },
 
+            // User clicked one of the ReadyToShip links inside the dropdown
+            ReadyShipLinkClick: function (event) {
+                var dropDownBtn = page.readyShipDropDownBtn;
+                var links = page.readyShipDropDownLinks;
+                links.removeClass("active");
+                $(event.currentTarget).addClass("active");
+                var text = $(event.currentTarget).html();
+                dropDownBtn.find(".dropdown-toggle").html(text);
+            },
+
             // Page ready, attach event listeners
             ReadyJs: function () {
                 page.EnableListeners();
@@ -169,6 +184,8 @@ var options = {
     deleteButtonsClass: "button.mgDeleteX",
     detailTotalQuantityClass: "#detailTotalQuantity",
     detailTotalCostClass: "#detailTotalCost",
+    readyShipDropDownBtnClass: "#mgReadyShip",
+    readyShipDropDownLinksClass: ".dropdown-item",
 };
 var page = $.adminUserOrderDetail(options);
 jQuery(document).ready(page.ready);
