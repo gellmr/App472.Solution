@@ -25,7 +25,7 @@ namespace App472.UnitTests
             // Arrange - create a controller
             AdminController target = new AdminController(mock.Object);
             // Action
-            Product[] result = ((IEnumerable<Product>)target.Index().ViewData.Model).ToArray();
+            Product[] result = ((IEnumerable<Product>)target.Index(null).ViewData.Model).ToArray();
             // Assert
             Assert.AreEqual(result.Length, 3);
             Assert.AreEqual("p1", result[0].Name);
@@ -46,9 +46,9 @@ namespace App472.UnitTests
             // Arrange - create the controller
             AdminController target = new AdminController(mock.Object);
             // Act
-            Product p1 = target.Edit(1).ViewData.Model as Product;
-            Product p2 = target.Edit(2).ViewData.Model as Product;
-            Product p3 = target.Edit(3).ViewData.Model as Product;
+            Product p1 = target.Edit(1, null).ViewData.Model as Product;
+            Product p2 = target.Edit(2, null).ViewData.Model as Product;
+            Product p3 = target.Edit(3, null).ViewData.Model as Product;
             // Assert
             Assert.AreEqual(1, p1.ProductID);
             Assert.AreEqual(2, p2.ProductID);
@@ -68,7 +68,7 @@ namespace App472.UnitTests
             // Arrange - create the controller
             AdminController target = new AdminController(mock.Object);
             // Act
-            Product result = (Product)target.Edit(4).ViewData.Model;
+            Product result = (Product)target.Edit(4, null).ViewData.Model;
             // Assert
             Assert.IsNull(result);
         }

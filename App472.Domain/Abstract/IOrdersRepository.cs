@@ -10,7 +10,6 @@ namespace App472.Domain.Abstract
     public interface IOrdersRepository
     {
         IEnumerable<Order> Orders { get; }
-        void SaveOrder(Order order);
         void DeleteOrderedProduct(Int32 ProductID, Int32 OrderID);
         void UpdateOrderedProductLineQuantity(Int32 ProductID, Int32 OrderID, Int32 NewQty);
         void UpdateShippingStatus(Int32 OrderID, Int32 OrderStatus);

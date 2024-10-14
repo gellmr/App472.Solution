@@ -68,17 +68,20 @@ namespace App472.Domain.Entities
         public static ShippingState ParseShippingState(string str)
         {
             ShippingState myState;
-            try{
+            ShippingState state = ShippingState.NotYetPlaced;
+            try
+            {
                 if (Enum.TryParse(str, out myState)){
                     switch (myState)
                     {
-                        case ShippingState.NotYetPlaced: return ShippingState.NotYetPlaced; break;
-                        case ShippingState.OrderPlaced: return ShippingState.OrderPlaced; break;
-                        case ShippingState.PaymentReceived: return ShippingState.PaymentReceived; break;
-                        case ShippingState.ReadyToShip: return ShippingState.ReadyToShip; break;
-                        case ShippingState.Shipped: return ShippingState.Shipped; break;
-                        case ShippingState.Received: return ShippingState.Received; break;
+                        case ShippingState.NotYetPlaced: state = ShippingState.NotYetPlaced; break;
+                        case ShippingState.OrderPlaced: state = ShippingState.OrderPlaced; break;
+                        case ShippingState.PaymentReceived: state = ShippingState.PaymentReceived; break;
+                        case ShippingState.ReadyToShip: state = ShippingState.ReadyToShip; break;
+                        case ShippingState.Shipped: state = ShippingState.Shipped; break;
+                        case ShippingState.Received: state = ShippingState.Received; break;
                     }
+                    return state;
                 }
                 throw new Exception("could not parse string as ShippingState enum");
             }
