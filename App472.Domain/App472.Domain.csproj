@@ -55,14 +55,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IGuestRepository.cs" />
     <Compile Include="Abstract\IOrderProcessor.cs" />
     <Compile Include="Abstract\IOrdersRepository.cs" />
     <Compile Include="Abstract\IProductsRepository.cs" />
     <Compile Include="Concrete\EFDBContext.cs" />
+    <Compile Include="Concrete\EFGuestRepository.cs" />
     <Compile Include="Concrete\EFOrderRepository.cs" />
     <Compile Include="Concrete\EFProductRepository.cs" />
     <Compile Include="Concrete\EmailOrderProcessor.cs" />
     <Compile Include="Entities\Cart.cs" />
+    <Compile Include="Entities\Guest.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderedProduct.cs" />
     <Compile Include="Entities\Product.cs" />

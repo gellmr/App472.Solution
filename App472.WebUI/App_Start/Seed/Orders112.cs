@@ -17,7 +17,7 @@ namespace App472.WebUI.App_Start
             OrderedProduct op3 = new OrderedProduct();
             op3.Product = prod3; op3.Quantity = 3;
 
-            Order order3 = new Order(orderId++, userId);
+            Order order3 = new Order(orderId++, userId, null);
             op3.Order = order3; order3.OrderedProducts.Add(op3);
             orders.Add(order3);
 

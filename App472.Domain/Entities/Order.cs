@@ -17,6 +17,7 @@ namespace App472.Domain.Entities
 
     public class Order
     {
+        public Nullable<Guid> GuestID { get; set; } // null if the user was logged in when they placed order.
         public Nullable<Int32> UserID { get; set; } // set to null, then database will assign a value
         public Nullable<Int32> OrderID { get; set; } // set to null, then database will assign a value
         public virtual IList<OrderedProduct> OrderedProducts { get; set; }
@@ -33,13 +34,15 @@ namespace App472.Domain.Entities
 
         public Order()
         {
+            GuestID = null;
             UserID = null;
             OrderID = null;
             OrderedProducts = new List<OrderedProduct>();
         }
 
-        public Order(int orderID, int userID)
+        public Order(int orderID, int userID, Nullable<Guid> guestID)
         {
+            GuestID = guestID;
             UserID = userID;
             OrderID = orderID;
             OrderedProducts = new List<OrderedProduct>();

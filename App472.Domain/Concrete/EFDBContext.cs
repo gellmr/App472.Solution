@@ -9,5 +9,6 @@ namespace App472.Domain.Concrete
         public DbSet<Product> Products { get; set; }
         public DbSet<OrderedProduct> OrderedProducts { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Guest> Guests { get; set; }
     }
 }

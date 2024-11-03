@@ -199,7 +199,7 @@ namespace App472.UnitTests
             // Arrange - create a Cart
             Cart cart = new Cart();
             // Arrange - create the controller
-            CartController target = new CartController(mock.Object, null);
+            CartController target = new CartController(mock.Object, null, null, null);
             // Act - add a product to the cart
             target.AddToCart(cart, 1, null);
             // Assert
@@ -218,7 +218,7 @@ namespace App472.UnitTests
             // Arrange - create a Cart
             Cart cart = new Cart();
             // Arrange - create the controller
-            CartController target = new CartController(mock.Object, null);
+            CartController target = new CartController(mock.Object, null, null, null);
             // Act - add a product to the cart
             RedirectToRouteResult result = target.AddToCart(cart, 2, "myUrl");
             // Assert
@@ -232,7 +232,7 @@ namespace App472.UnitTests
             // Arrange - create a Cart
             Cart cart = new Cart();
             // Arrange - create the controller
-            CartController target = new CartController(null, null);
+            CartController target = new CartController(null, null, null, null);
             // Act - call the Index action method
             CartIndexViewModel result = (CartIndexViewModel)target.Index(cart, "myUrl").ViewData.Model;
             // Assert
@@ -250,7 +250,7 @@ namespace App472.UnitTests
             // Arrange - create shipping details
             ShippingDetails shippingDetails = new ShippingDetails();
             // Arrange - create an instance of the controller
-            CartController target = new CartController(null, mock.Object);
+            CartController target = new CartController(null, mock.Object, null, null);
             // Act
             ViewResult result = target.Checkout(cart, shippingDetails);
             // Assert - check that ProcessOrder(cart, shippingDetails) was never called.
@@ -274,7 +274,7 @@ namespace App472.UnitTests
             Cart cart = new Cart();
             cart.AddItem(new Product(), 1);
             // Arrange - create an instance of the controller
-            CartController target = new CartController(null, mock.Object);
+            CartController target = new CartController(null, mock.Object, null, null);
             // Arrange - add an error to the model
             target.ModelState.AddModelError("error", "error");
             // Act - try to checkout

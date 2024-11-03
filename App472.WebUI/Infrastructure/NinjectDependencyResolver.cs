@@ -36,6 +36,7 @@ namespace App472.WebUI.Infrastructure
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument(
                 "settingsArg", new EmailSettings{WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")}
             );
+            kernel.Bind<IGuestRepository>().To<EFGuestRepository>();
 
             //Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
             //mock.Setup(m => m.Products).Returns(new List<Product>

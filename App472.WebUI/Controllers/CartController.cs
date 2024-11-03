@@ -17,11 +17,13 @@ namespace App472.WebUI.Controllers
         private IProductsRepository repository;
         private IOrderProcessor orderProcessor;
         private IOrdersRepository orderRepo;
+        private IGuestRepository guestRepo;
 
-        public CartController(IProductsRepository repo, IOrderProcessor proc, IOrdersRepository orepo){
+        public CartController(IProductsRepository repo, IOrderProcessor proc, IOrdersRepository orepo, IGuestRepository grepo){
             repository = repo;
             orderProcessor = proc;
             orderRepo = orepo;
+            guestRepo = grepo;
         }
         public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl){
             Product product = repository.Products
@@ -104,13 +106,14 @@ namespace App472.WebUI.Controllers
 
         private void SaveOrder(Cart cart, ShippingDetails shippingDetails, int? userId, Nullable<Guid> guestId)
         {
+            Order order1 = new Order();
             string shipAddress = Order.ParseAddress(shippingDetails);
             DateTimeOffset now = DateTimeOffset.Now;
-            Order order1 = new Order();
-            
+
+            order1.GuestID = guestId; // null if user is logged in when placing order
             order1.UserID = userId;
 
-            order1.OrderPlacedDate = null;
+            order1.OrderPlacedDate = now;
             order1.PaymentReceivedDate = null;
             order1.ReadyToShipDate = null;
             order1.ShipDate = null;
@@ -118,6 +121,19 @@ namespace App472.WebUI.Controllers
             order1.BillingAddress = shipAddress;
             order1.ShippingAddress = shipAddress;
             order1.OrderStatus = Order.ParseShippingState(ShippingState.OrderPlaced);
+
+            if (guestId != null){
+                // User is not logged in. Create order as guest.
+                // Create a guest record in the database using the guid.
+                Guest guest = new Guest{
+                    Id = guestId,
+                    Email = shippingDetails.Email,
+                    FirstName = shippingDetails.FirstName,
+                    LastName = shippingDetails.LastName
+                };
+                guestRepo.SaveGuest(guest);
+            }
+            
             foreach (var line in cart.Lines)
             {
                 //var subtotal = line.Product.Price * line.Quantity;

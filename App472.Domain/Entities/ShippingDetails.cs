@@ -9,8 +9,11 @@ namespace App472.Domain.Entities
 {
     public class ShippingDetails
     {
-        [Required(ErrorMessage = "Please enter a name")]
-        public string Name { get; set; }
+        [Required(ErrorMessage = "Please enter your First Name")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Please enter your Last Name")]
+        public string LastName { get; set; }
 
         [Required(ErrorMessage = "Please enter the first address line")]
         [Display(Name="Line 1")]
@@ -29,6 +32,11 @@ namespace App472.Domain.Entities
 
         [Required(ErrorMessage = "Please enter a country name")]
         public string Country { get; set; }
+
+        [Display(Name = "Email")]
+        [Required(ErrorMessage = "Email address is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string Email { get; set;}
         public bool GiftWrap { get; set; }
     }
 }
