@@ -40,7 +40,7 @@ namespace App472.Domain.Entities
             OrderedProducts = new List<OrderedProduct>();
         }
 
-        public Order(int orderID, int userID, Nullable<Guid> guestID)
+        public Order(int orderID, Nullable<Int32> userID, Nullable<Guid> guestID)
         {
             GuestID = guestID;
             UserID = userID;

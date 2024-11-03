@@ -24,6 +24,17 @@ namespace App472.WebUI.App_Start
             Orders111.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
             Orders112.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
 
+            IList<Guest> guests = new List<Guest>();
+            Guid guestID = Guid.NewGuid();
+            guests.Add(new Guest{
+                Id = guestID,
+                FirstName = "Dye",
+                LastName = "McDonald",
+                Email = "guest-113@gmail.com",
+                Orders = Orders113.GetOrders(ref products, ref context, ref orderIdStart, guestID)
+            });
+            context.Guests.AddRange(guests);
+
             base.Seed(context);
         }
     }

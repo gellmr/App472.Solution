@@ -222,6 +222,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IDDBInitializer.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\Seed\Orders113.cs" />
     <Compile Include="App_Start\Seed\Orders111.cs" />
     <Compile Include="App_Start\Seed\Orders112.cs" />
     <Compile Include="App_Start\Seed\ProductsChess.cs" />
