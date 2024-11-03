@@ -30,7 +30,7 @@ namespace App472.WebUI.Controllers
             var userManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             IList<FullUser> fullUsers = fullUserRepo.FullUsers(userManager).ToList();
             return View(new AdminUserViewModel{
-                LinkText = "Edit Users",
+                LinkText = "User Orders",
                 Guests = guestRepo.Guests,
                 Users = fullUsers
             });

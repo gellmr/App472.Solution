@@ -12,7 +12,7 @@ namespace App472.WebUI.Models
         public Dictionary<string, string> Links = new Dictionary<string, string>()
         {
             {"Edit Products", "/Admin/Index"},
-            {"Edit Users", "/AdminUser/Index"}
+            {"User Orders", "/AdminUser/Index"}
         };
 
         public string LinkText { get; set; }
