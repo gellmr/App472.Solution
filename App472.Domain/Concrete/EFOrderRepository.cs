@@ -32,6 +32,9 @@ namespace App472.Domain.Concrete
         public void UpdateShippingStatus(Int32 OrderID, Int32 OrderStatus)
         {
             Order order = context.Orders.FirstOrDefault(o => o.OrderID == OrderID);
+            if (order == null){
+                throw new Exception("Order not found");
+            }
             Domain.Entities.ShippingState myEnum = (Domain.Entities.ShippingState)OrderStatus;
             order.OrderStatus = Order.ParseShippingState(myEnum);
             context.SaveChanges();

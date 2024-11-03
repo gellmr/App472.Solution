@@ -97,7 +97,11 @@ namespace App472.WebUI.Controllers
         public class ShipStatusDTO { public Int32 OrderID { get; set; } public Int32 OrderStatus { get; set; } }
         [HttpPost]
         public HttpStatusCodeResult SetShipping(ShipStatusDTO model){
-            repository.UpdateShippingStatus(model.OrderID, model.OrderStatus);
+            try{
+                repository.UpdateShippingStatus(model.OrderID, model.OrderStatus);
+            }catch(Exception e){
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
