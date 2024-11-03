@@ -51,5 +51,13 @@ namespace App472.Domain.Concrete
                 context.SaveChanges();
             }
         }
+
+        public Nullable<Guid> GuestExists(string email){
+            Guest guest = context.Guests.FirstOrDefault(g => g.Email.Equals(email));
+            if (guest != null){
+                return (Nullable<Guid>)guest.Id;
+            }
+            return null;
+        }
     }
 }

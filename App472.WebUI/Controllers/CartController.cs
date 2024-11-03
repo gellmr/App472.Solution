@@ -88,6 +88,8 @@ namespace App472.WebUI.Controllers
                     //ModelState.AddModelError("", "Please login before placing an order!");
                     // orderProcessor.ProcessOrder(cart, shippingDetails); // Send an email
 
+                    // Check if we have an existing GuestID for the user email address.
+                    notLoggedInSessUser.GuestID = guestRepo.GuestExists(shippingDetails.Email) ?? notLoggedInSessUser.GuestID;
                     Nullable<Guid> guestID = notLoggedInSessUser.GuestID;
 
                     // Create a database record using the guest id.

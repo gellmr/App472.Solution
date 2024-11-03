@@ -11,5 +11,7 @@ namespace App472.Domain.Abstract
     {
         IEnumerable<Guest> Guests { get; }
         void SaveGuest(Guest guest);
+
+        Nullable<Guid> GuestExists(string email);
     }
 }
