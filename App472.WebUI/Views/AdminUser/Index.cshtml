@@ -22,7 +22,7 @@
                         <td class="">@guest.Id</td>
                         <td scope="row" class="text-left">@guest.FirstName @guest.LastName</td>
                         <td scope="row" class="text-left">@guest.Email</td>
-                        <td><a href="@Url.Action("Index", "AdminUserOrder", new{UserId = guest.Id})">View Orders</a></td>
+                        <td><a href="@Url.Action("Index", "AdminUserOrder", new{guestId = guest.Id})">View Orders</a></td>
                     </tr>
                 }
                 @foreach (App472.WebUI.Models.AppUser user in Model.Users)

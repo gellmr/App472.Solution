@@ -65,7 +65,6 @@ namespace App472.Domain.Concrete
             {
                 // create new record
                 context.Orders.Add(order);
-                context.SaveChanges();
                 foreach (OrderedProduct op in order.OrderedProducts)
                 {
                     context.OrderedProducts.Add(op);

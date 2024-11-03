@@ -21,15 +21,20 @@ namespace App472.WebUI.Controllers
             this.repository = repo;
         }
 
-        public ActionResult Index(int UserId = 1)
+        public ActionResult Index(int? UserId, Nullable<Guid> guestId)
         {
-            AdminUserOrdersViewModel model = new AdminUserOrdersViewModel
-            {
+            AdminUserOrdersViewModel model = new AdminUserOrdersViewModel{
                 LinkText = "Edit Users",
-                UserId = UserId,
-                Orders = repository.Orders.Where(o => o.UserID == UserId)
-                .OrderBy(o => o.OrderID)
             };
+            if (UserId != null){
+                model.UserId  = (Int32)UserId;
+                model.Orders = repository.Orders.Where(o => o.UserID == UserId).OrderBy(o => o.OrderID);
+            }
+            else if (guestId != null)
+            {
+                model.GuestId = guestId;
+                model.Orders = repository.Orders.Where(o => o.GuestID == guestId).OrderBy(o => o.OrderPlacedDate);
+            }
             return View(model);
         }
 
