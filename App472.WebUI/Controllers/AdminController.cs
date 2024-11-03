@@ -59,8 +59,19 @@ namespace App472.WebUI.Controllers
             }
         }
 
-        public ActionResult Create(){
-            return View("Edit", new Product());
+        public ActionResult Create(string returnUrl)
+        {
+            string url = GetTabReturnUrl(returnUrl);
+            return View("Edit", new AdminEditProductViewModel{
+                LinkText = "Edit Products",
+                Product = new Product{
+                    Category = "Soccer",
+                    Name = "Product Name",
+                    Description = "Amazing New Product",
+                    Price = 100
+                },
+                ReturnUrl = url
+            });
         }
 
         [HttpPost]
