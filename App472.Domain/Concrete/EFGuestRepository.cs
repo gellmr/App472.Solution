@@ -14,19 +14,7 @@ namespace App472.Domain.Concrete
 
         public IEnumerable<Guest> Guests{
             get{
-                List<Guest> guests = new List<Guest>();
-                IEnumerable<Order> guestOrders = context.Orders.Where( o => o.GuestID != null);
-                foreach (Order o in guestOrders){
-                    Guest guest = context.Guests.FirstOrDefault( g => g.Id == o.GuestID );
-                    guests.Add(
-                        new Guest{
-                            Id = o.GuestID,
-                            Email = guest.Email,
-                            FirstName = guest.FirstName,
-                            LastName = guest.LastName
-                        }
-                    );
-                }
+                IEnumerable<Guest> guests = context.Guests.Where(g => g.Id != null && !string.IsNullOrEmpty(g.Email) );
                 return guests;
             }
         }
