@@ -7,15 +7,14 @@ namespace App472.WebUI.Infrastructure
 {
     public static class MyExtensions
     {
-        public static string TRUrlsSessKeyName = "__TabReturnUrls";
-
-        // Extend HttpContext for our convenience
+        // Extend string for our convenience. Eg int? a = mystring.ToNullableInt()
         // See
-        // https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods
-        // https://stackoverflow.com/questions/560084/session-variables-in-asp-net-mvc
-        public static TabReturnUrls GetTabReturnUrls(this HttpContext current)
+        // https://stackoverflow.com/questions/45030/how-to-parse-a-string-into-a-nullable-int
+        public static int? ToNullableInt(this string s)
         {
-            return current != null ? (TabReturnUrls)current.Session[MyExtensions.TRUrlsSessKeyName] : null;
+            int i;
+            if (int.TryParse(s, out i)) return i;
+            return null;
         }
     }
 }

@@ -15,49 +15,61 @@
 
             // member variables
             cardBackground: $(options.cardBackgroundClass),
+            detailHeadTable: $(options.detailTableHeadClass),
             detailTable: $(options.detailTableClass),
-            productRows: $(options.productRowsClass),
-            quantityInputs: $(options.quantityInputsClass),
-            detailTotalQuantity: $(options.detailTotalQuantityClass),
-            detailTotalCost: $(options.detailTotalCostClass),
 
             readyShipDropDownBtn: $(options.readyShipDropDownBtnClass),
             readyShipDropDownLinks: $(options.readyShipDropDownLinksClass),
 
+            //billingAddressInput: $(options.billingAddressInputClass),
+            //shippingAddressInput: $(options.shippingAddressInputClass),
+
+            productRows: $(options.productRowsClass),
+            quantityInputs: $(options.quantityInputsClass),
+
+            detailTotalQuantity: $(options.detailTotalQuantityClass),
+            detailTotalCost: $(options.detailTotalCostClass),
+
             EnableListeners: function () {
+                page.readyShipDropDownBtn.on("click", options.readyShipDropDownLinksClass, page.ReadyShipLinkClick);
+
+                //page.billingAddressInput.on("focus", page.AddressFocus);
+                //page.billingAddressInput.on("blur", page.AddressBlur);
+
+                //page.shippingAddressInput.on("focus", page.AddressFocus);
+                //page.shippingAddressInput.on("blur", page.AddressBlur);
+
+                //page.detailHeadTable.on('keyup', options.billingAddressInputClass, page.AddressKeyup);
+                //page.detailHeadTable.on('keyup', options.shippingAddressInputClass, page.AddressKeyup);
+
                 page.quantityInputs.on("focus", page.QuantityFocus);
                 page.quantityInputs.on("blur", page.QuantityBlur);
+
                 page.detailTable.on('keyup', options.quantityInputsClass, page.QuantityKeyup);
                 page.detailTable.on('click', options.deleteButtonsClass, page.ProductLineClickX);
-                page.readyShipDropDownBtn.on("click", options.readyShipDropDownLinksClass, page.ReadyShipLinkClick);
             },
 
             DisableListeners: function () {
+                page.readyShipDropDownBtn.off("click");
+
+                //page.billingAddressInput.off("focus");
+                //page.billingAddressInput.off("blur");
+
+                //page.shippingAddressInput.off("focus");
+                //page.shippingAddressInput.off("blur");
+
+                //page.detailHeadTable.off('keyup');
+
                 page.quantityInputs.off("focus");
                 page.quantityInputs.off("blur");
+
                 page.detailTable.off('keyup');
                 page.detailTable.off('click');
-                page.readyShipDropDownBtn.off("click");
-            },
-
-            EnableFields: function (event) {
-                // remove disabled class
-                //page.cardBackground.removeClass("disabled");
-                //page.productRows.removeClass("disabled");
-                //page.quantityInputs.removeClass("disabled");
-            },
-
-            DisableFields: function () {
-                // add disabled class
-                //page.cardBackground.addClass("disabled");
-                //page.productRows.addClass("disabled");
-                //page.quantityInputs.addClass("disabled");
             },
 
             // User focused the Quantity field
             QuantityFocus: function (event) {
                 if (event) {
-                    page.DisableFields();
                     var inputField = $(event.currentTarget); inputField.removeClass("disabled"); inputField.closest("tr").removeClass("disabled");
                 }
             },
@@ -65,7 +77,6 @@
             // User blurred the Quantity field
             QuantityBlur: function (event) {
                 if (event) {
-                    page.DisableFields();
                     page.DisableListeners();
                     page.UpdateLine(event);
                 }
@@ -76,7 +87,6 @@
                 if (event && event.which === 13) {
                     event.preventDefault();
                     event.currentTarget.blur();
-                    //page.QuantityBlur(event);
                 }
             },
 
@@ -127,7 +137,6 @@
                         // update summary info
                         $(page.detailTable).find("#detailTotalQuantity").html(QuantityTotal);
                         $(page.detailTable).find("#detailTotalCost").html("$" + PriceTotal.toFixed(2));
-                        page.EnableFields();
                         page.EnableListeners();
                     }
                 });
@@ -181,7 +190,28 @@
                     }
                 });
             },
-
+            // --------------------------------------
+            //AddressFocus: function (event) {
+            //    if (event) {
+            //        var inputField = $(event.currentTarget); inputField.removeClass("disabled"); inputField.closest("tr").removeClass("disabled");
+            //    }
+            //},
+            //AddressBlur: function (event) {
+            //    if (event) {
+            //        page.DisableListeners();
+            //        page.UpdateAddress(event);
+            //    }
+            //},
+            //AddressKeyup: function (event) {
+            //    if (event && event.which === 13) {
+            //        event.preventDefault();
+            //        event.currentTarget.blur();
+            //        page.AddressBlur(event);
+            //    }
+            //},
+            //UpdateAddress: function (event) {
+            //},
+            // --------------------------------------
             // Page ready, attach event listeners
             ReadyJs: function () {
                 page.EnableListeners();
@@ -196,15 +226,22 @@
 
 var options = {
     // Css selectors
-    cardBackgroundClass: ".card-body.adminUserOrderDetail",
-    detailTableClass: "table.adminUserOrderDetail",
-    productRowsClass: "tr",
-    quantityInputsClass: "input.mgAjaxText",
-    deleteButtonsClass: "button.mgDeleteX",
-    detailTotalQuantityClass: "#detailTotalQuantity",
-    detailTotalCostClass: "#detailTotalCost",
-    readyShipDropDownBtnClass: "#mgReadyShip",
+    cardBackgroundClass:        ".card-body.adminUserOrderDetail",
+    detailTableHeadClass:        "table.adminUserOrderDetail.detailHead",
+    detailTableClass:            "table.adminUserOrderDetail.detailBody",
+
+    readyShipDropDownBtnClass:   "#mgReadyShip",
     readyShipDropDownLinksClass: ".dropdown-item",
+
+    billingAddressInputClass:  "input#BillingAddress",
+    shippingAddressInputClass: "input#ShippingAddress",
+
+    productRowsClass:          "tr",
+    quantityInputsClass:       "input.mgAjaxText",
+    deleteButtonsClass:        "button.mgDeleteX",
+
+    detailTotalQuantityClass:  "#detailTotalQuantity",
+    detailTotalCostClass:      "#detailTotalCost",
 };
 var page = $.adminUserOrderDetail(options);
 jQuery(document).ready(page.ready);

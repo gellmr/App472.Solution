@@ -244,9 +244,13 @@
     </Compile>
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\Abstract\IAuthProvider.cs" />
+    <Compile Include="Infrastructure\BaseSessUser.cs" />
+    <Compile Include="Infrastructure\LoggedInSessUser.cs" />
+    <Compile Include="Infrastructure\NotLoggedInSessUser.cs" />
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructure\Concrete\FormsAuthProvider.cs" />
     <Compile Include="Infrastructure\MyExtensions.cs" />
+    <Compile Include="Infrastructure\SessExtensions.cs" />
     <Compile Include="Infrastructure\TabReturnUrls.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Migrations\202408260632019_InitialCreate20240826_1.cs" />
@@ -330,6 +334,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\AdminBase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />

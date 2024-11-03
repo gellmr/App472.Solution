@@ -12,6 +12,7 @@ namespace App472.Domain.Concrete
         public IEnumerable<Order> Orders {
             get { return context.Orders; }
         }
+
         public void DeleteOrderedProduct(Int32 ProductID, Int32 OrderID)
         {
             Order order = context.Orders.FirstOrDefault(o => o.OrderID == OrderID);
@@ -34,6 +35,43 @@ namespace App472.Domain.Concrete
             Domain.Entities.ShippingState myEnum = (Domain.Entities.ShippingState)OrderStatus;
             order.OrderStatus = Order.ParseShippingState(myEnum);
             context.SaveChanges();
+        }
+
+        public void SaveOrder(Order order)
+        {
+            // Could we possibly reduce this to one database call?
+            if (context.Orders.Any(o => o.OrderID == order.OrderID)) // first call
+            {
+                // record already exists. Update
+                Order dbEntry = context.Orders.FirstOrDefault(o => o.OrderID == order.OrderID); // second call
+
+                dbEntry.UserID = order.UserID;
+                dbEntry.OrderedProducts = order.OrderedProducts;
+
+                dbEntry.OrderPlacedDate = order.OrderPlacedDate;
+                dbEntry.PaymentReceivedDate = order.PaymentReceivedDate;
+                dbEntry.ReadyToShipDate = order.ReadyToShipDate;
+                dbEntry.ShipDate = order.ShipDate;
+                dbEntry.ReceivedDate = order.ReceivedDate;
+
+                dbEntry.BillingAddress = order.BillingAddress;
+                dbEntry.ShippingAddress = order.ShippingAddress;
+                dbEntry.OrderStatus = order.OrderStatus;
+
+                dbEntry.OrderedProducts = order.OrderedProducts; // update ordered products. This will set FK to null if removed
+                context.SaveChanges();
+            }
+            else
+            {
+                // create new record
+                context.Orders.Add(order);
+                context.SaveChanges();
+                foreach (OrderedProduct op in order.OrderedProducts)
+                {
+                    context.OrderedProducts.Add(op);
+                }
+                context.SaveChanges();
+            }
         }
     }
 }

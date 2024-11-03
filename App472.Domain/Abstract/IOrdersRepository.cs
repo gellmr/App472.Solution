@@ -13,5 +13,6 @@ namespace App472.Domain.Abstract
         void DeleteOrderedProduct(Int32 ProductID, Int32 OrderID);
         void UpdateOrderedProductLineQuantity(Int32 ProductID, Int32 OrderID, Int32 NewQty);
         void UpdateShippingStatus(Int32 OrderID, Int32 OrderStatus);
+        void SaveOrder(Order order);
     }
 }

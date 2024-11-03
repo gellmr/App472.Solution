@@ -40,7 +40,8 @@ namespace App472.WebUI
         // https://stackoverflow.com/questions/560084/session-variables-in-asp-net-mvc
         void Session_Start(object sender, EventArgs e)
         {
-            HttpContext.Current.Session.Add(MyExtensions.TRUrlsSessKeyName, new TabReturnUrls());
+            HttpContext.Current.Session.Add(SessExtensions.SessUserKeyName, new NotLoggedInSessUser()); // Initiate the session user object
+            HttpContext.Current.Session.Add(SessExtensions.TRUrlsSessKeyName, new TabReturnUrls()); // Dictionary of Guids against return URLs for navigation. Allows back links to work if we have multiple tabs open.
         }
     }
 }

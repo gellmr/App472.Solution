@@ -17,12 +17,12 @@
         </div>
         @*Showing Details of Order #@Model.OrderID, for User @Model.UserId*@
 
-        <table class="table table-striped table-sm">
+        <table class="table table-striped table-sm adminUserOrderDetail detailHead">
             <tbody>
                 <tr>
                     <td></td>
                     <td><i class="bi bi-flag"></i></td>
-                    <th>Order Status:</th>
+                    <td>Order Status:</td>
                     <td>
                         <div class="btn-group" id="mgReadyShip" style="width:140px;">
                             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -44,28 +44,32 @@
                 <tr>
                     <td></td>
                     <td><i class="bi bi-calendar3-event"></i></td>
-                    <th>Date Created:</th>
+                    <td>Date Created:</td>
                     <td>@Model.OrderPlacedDate</td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td><i class="bi bi-credit-card"></i></td>
-                    <th>Billing Address:</th>
-                    <td>@Model.BillingAddress</td>
+                    <td>Billing Address:</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control" })
+                    </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td><i class="bi bi-truck"></i></td>
-                    <th>Shipping Address:</th>
-                    <td>@Model.ShippingAddress</td>
+                    <td>Shipping Address:</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.ShippingAddress, new { @class = "form-control" })
+                    </td>
                     <td></td>
                 </tr>
             </tbody>
         </table>
         <hr />
-        <table class="table table-striped adminUserOrderDetail" data-OrderID="@Model.OrderID">
+        <table class="table table-striped adminUserOrderDetail detailBody" data-OrderID="@Model.OrderID">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">ProductID</th>

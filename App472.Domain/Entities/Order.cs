@@ -65,6 +65,17 @@ namespace App472.Domain.Entities
             }
         }
 
+        public static string ParseAddress(ShippingDetails shippingInfo)
+        {
+            return  shippingInfo.Line1 + " " +
+                    shippingInfo.Line2 + " " +
+                    shippingInfo.Line3 + " " +
+                    shippingInfo.City + " " +
+                    shippingInfo.State + " " +
+                    shippingInfo.Country + " " +
+                    shippingInfo.Zip;
+        }
+
         public static ShippingState ParseShippingState(string str)
         {
             ShippingState myState;
