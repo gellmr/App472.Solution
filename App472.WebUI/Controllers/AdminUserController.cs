@@ -1,7 +1,9 @@
 ﻿using App472.Domain.Abstract;
 using App472.Domain.Concrete;
 using App472.Domain.Entities;
+using App472.WebUI.Infrastructure;
 using App472.WebUI.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
@@ -16,18 +18,21 @@ namespace App472.WebUI.Controllers
     public class AdminUserController : BaseController
     {
         private IGuestRepository guestRepo;
+        private App472.WebUI.Infrastructure.Abstract.IFullUserRepository fullUserRepo;
 
-        public AdminUserController(IGuestRepository gRepo){
+        public AdminUserController(IGuestRepository gRepo, App472.WebUI.Infrastructure.Abstract.IFullUserRepository fRepo){
             guestRepo = gRepo;
+            fullUserRepo = fRepo;
         }
 
-        public ViewResult Index(){
+        public ViewResult Index()
+        {
             var userManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
-            IEnumerable<Guest> guests = guestRepo.Guests;
+            IList<FullUser> fullUsers = fullUserRepo.FullUsers(userManager).ToList();
             return View(new AdminUserViewModel{
                 LinkText = "Edit Users",
-                Users = userManager.Users,
-                Guests = guests
+                Guests = guestRepo.Guests,
+                Users = fullUsers
             });
         }
     }

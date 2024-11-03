@@ -13,6 +13,7 @@
                     <th scope="col">Username</th>
                     <th scope="col">Email</th>
                     <th scope="col">Orders</th>
+                    <th scope="col">View Orders</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,16 +23,18 @@
                         <td class="">@guest.Id</td>
                         <td scope="row" class="text-left">@guest.FirstName @guest.LastName</td>
                         <td scope="row" class="text-left">@guest.Email</td>
+                        <td scope="row" class="text-center">@guest.Orders.Count</td>
                         <td><a href="@Url.Action("Index", "AdminUserOrder", new{guestId = guest.Id})">View Orders</a></td>
                     </tr>
                 }
-                @foreach (App472.WebUI.Models.AppUser user in Model.Users)
+                @foreach (App472.WebUI.Models.FullUser user in Model.Users)
                 {
                     <tr>
-                        <td class="">@user.Id</td>
-                        <td scope="row" class="text-left">@user.UserName</td>
-                        <td scope="row" class="text-left">@user.Email</td>
-                        <td><a href="@Url.Action("Index", "AdminUserOrder", new{UserId = user.Id})">View Orders</a></td>
+                        <td class="">@user.AppUser.Id</td>
+                        <td scope="row" class="text-left">@user.AppUser.UserName</td>
+                        <td scope="row" class="text-left">@user.AppUser.Email</td>
+                        <td scope="row" class="text-center">@user.Orders.Count()</td>
+                        <td><a href="@Url.Action("Index", "AdminUserOrder", new{UserId = user.AppUser.Id})">View Orders</a></td>
                     </tr>
                 }
             </tbody>

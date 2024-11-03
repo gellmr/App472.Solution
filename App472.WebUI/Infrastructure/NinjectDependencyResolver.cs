@@ -38,6 +38,9 @@ namespace App472.WebUI.Infrastructure
             );
             kernel.Bind<IGuestRepository>().To<EFGuestRepository>();
 
+            // Not a normal EF class... wraps AppUser and Repo access to EF objects
+            kernel.Bind<IFullUserRepository>().To<App472.WebUI.Infrastructure.Concrete.FullUserRepository>();
+
             //Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
             //mock.Setup(m => m.Products).Returns(new List<Product>
             //{

@@ -244,7 +244,9 @@
     </Compile>
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\Abstract\IAuthProvider.cs" />
+    <Compile Include="Infrastructure\Abstract\IFullUserRepository.cs" />
     <Compile Include="Infrastructure\BaseSessUser.cs" />
+    <Compile Include="Infrastructure\Concrete\FullUserRepository.cs" />
     <Compile Include="Infrastructure\LoggedInSessUser.cs" />
     <Compile Include="Infrastructure\NotLoggedInSessUser.cs" />
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
@@ -268,6 +270,7 @@
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\CartIndexViewModel.cs" />
+    <Compile Include="Models\FullUser.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />

@@ -12,5 +12,6 @@ namespace App472.Domain.Entities
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public virtual IList<Order> Orders { get; set; }
     }
 }
