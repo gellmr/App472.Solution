@@ -7,8 +7,8 @@ using System.Web;
 namespace App472.WebUI.Models
 {
 
-    public class AdminUserOrderDetailViewModel: AdminBaseOrderDetailViewModel
+    public class AdminGuestOrderDetailViewModel: AdminBaseOrderDetailViewModel
     {
-        public Int32 UserId { get; set; }
+        public Guid GuestId { get; set; }
     }
 }

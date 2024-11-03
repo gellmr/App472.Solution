@@ -43,22 +43,31 @@ namespace App472.WebUI.Controllers
             Order order = repository.Orders.Where(o => o.OrderID == OrderID).FirstOrDefault();
             IEnumerable<OrderedProduct> orderedProducts = order.OrderedProducts;
             if (order.OrderStatus == null){order.OrderStatus = Order.ParseShippingState(ShippingState.NotYetPlaced);}
-            AdminUserOrderDetailViewModel model = new AdminUserOrderDetailViewModel{
-                LinkText = "Edit Users",
-                UserId = (Int32)order.UserID,
-                OrderID = OrderID,
-                OrderedProducts = orderedProducts.ToList(),
-                OrderPlacedDate = order.OrderPlacedDate,
-                PaymentReceivedDate = order.PaymentReceivedDate,
-                ReadyToShipDate = order.ReadyToShipDate,
-                ShipDate = order.ShipDate,
-                ReceivedDate = order.ReceivedDate,
-                BillingAddress = order.BillingAddress,
-                ShippingAddress = order.ShippingAddress,
-                OrderStatus = App472.Domain.Entities.Order.ParseShippingState(order.OrderStatus),
-                ReturnUrl = GenerateTabReturnUrl.ToString()
-            };
-            return View(model);
+
+            AdminBaseOrderDetailViewModel model;
+            string viewName = "Detail";
+            if (order.GuestID == null){
+                // user order
+                model = new AdminUserOrderDetailViewModel{UserId = (Int32)order.UserID};
+            }
+            else{
+                // guest order
+                model = new AdminGuestOrderDetailViewModel{GuestId = (Guid)order.GuestID};
+                viewName = "GuestDetail";
+            }
+            model.LinkText = "Edit Users";
+            model.OrderID = OrderID;
+            model.OrderedProducts = orderedProducts.ToList();
+            model.OrderPlacedDate = order.OrderPlacedDate;
+            model.PaymentReceivedDate = order.PaymentReceivedDate;
+            model.ReadyToShipDate = order.ReadyToShipDate;
+            model.ShipDate = order.ShipDate;
+            model.ReceivedDate = order.ReceivedDate;
+            model.BillingAddress = order.BillingAddress;
+            model.ShippingAddress = order.ShippingAddress;
+            model.OrderStatus = App472.Domain.Entities.Order.ParseShippingState(order.OrderStatus);
+            model.ReturnUrl = GenerateTabReturnUrl.ToString();
+            return View(viewName, model);
         }
 
         // See

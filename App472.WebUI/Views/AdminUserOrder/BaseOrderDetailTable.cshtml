@@ -1,0 +1,113 @@
+﻿@using App472.Domain.Entities;
+@using App472.WebUI.Infrastructure
+@model App472.WebUI.Models.AdminBaseOrderDetailViewModel
+
+<table class="table table-striped table-sm adminBaseOrderDetail detailHead">
+    <tbody>
+        <tr>
+            <td></td>
+            <td><i class="bi bi-flag"></i></td>
+            <td>Order Status:</td>
+            <td>
+                <div class="btn-group" id="mgReadyShip" style="width:140px;">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                        @Model.OrderStatus
+                    </button>
+                    <div class="dropdown-menu">
+                        @{var counter = 0;}
+                        @foreach (ShippingState shipState in Enum.GetValues(typeof(ShippingState)))
+                        {
+                            var active = (Model.OrderStatus == shipState) ? "active" : "";
+                            <a class="dropdown-item @active" href="#" data-statuscode="@counter">@shipState</a>
+                            counter = counter + 1;
+                        }
+                    </div>
+                </div>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><i class="bi bi-calendar3-event"></i></td>
+            <td>Date Created:</td>
+            <td>@Model.OrderPlacedDate</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><i class="bi bi-credit-card"></i></td>
+            <td>Billing Address:</td>
+            <td>
+                @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control" })
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><i class="bi bi-truck"></i></td>
+            <td>Shipping Address:</td>
+            <td>
+                @Html.TextBoxFor(m => m.ShippingAddress, new { @class = "form-control" })
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<hr />
+<table class="table table-striped adminBaseOrderDetail detailBody" data-OrderID="@Model.OrderID">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">ProductID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Unit Price</th>
+
+            <th scope="col" class="text-right">Quantity</th>
+
+            <th scope="col" class="text-right">Cost</th>
+            <th scope="col">Category</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int sumQuantity = 0;
+        }
+        @foreach (App472.Domain.Entities.OrderedProduct prod in Model.OrderedProducts)
+        {
+            int quantity = prod.Quantity;
+            sumQuantity += quantity;
+            decimal cost = prod.Product.Price * quantity;
+            <tr data-ProductID="@prod.Product.ProductID">
+
+                <td scope="row" class="text-left isProductID">@prod.Product.ProductID</td>
+
+                <td scope="row" class="text-left isProductName">
+                    <a href="@Url.Action("Edit", "Admin", new{ProductID = @prod.Product.ProductID, returnUrl = Model.ReturnUrl })">@prod.Product.Name</a>
+                </td>
+
+                <td scope="row" class="text-left isUnitPrice">
+                    <a href="@Url.Action("Edit", "Admin", new{ProductID = @prod.Product.ProductID, returnUrl = Model.ReturnUrl })">@prod.Product.Price</a>
+                </td>
+
+                <td scope="row" class="text-right isQuantity"><input class="mgAjaxText" type="text" value="@quantity" /></td>
+
+                <td scope="row" class="text-right isCost">@cost</td>
+
+                <td scope="row" class="text-left isCategory">@prod.Product.Category</td>
+
+                <td><button type="button" class="btn btn-sm btn-light mgDeleteX"><i class="bi bi-x-lg"></i></button></td>
+            </tr>
+        }
+        <tr style="margin-top:20px;">
+            <td scope="row" class="text-left"><strong>Total:</strong></td>
+            <td scope="row" class="text-left"></td>
+            <td scope="row" class="text-left"></td>
+
+            <td scope="row" class="text-right" id="detailTotalQuantity">@sumQuantity</td>
+
+            <td scope="row" class="text-right" id="detailTotalCost">$@Model.TotalCost</td>
+            <td scope="row" class="text-left"></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

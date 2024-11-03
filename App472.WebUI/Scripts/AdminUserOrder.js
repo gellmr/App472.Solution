@@ -4,7 +4,7 @@
     // https://alistapart.com/article/the-design-of-code-organizing-javascript/
     // https://www.google.com.au/books/edition/Learning_JavaScript_Design_Patterns/L46fX62D5qYC?hl=en&gbpv=1&dq=Learning+JavaScript+Design+Patterns&printsec=frontcover
     //
-    $.adminUserOrderDetail = function (options) {
+    $.adminBaseOrderDetail = function (options) {
         var page = {
             // Merge the passed options, into our internal options
             options: $.extend({
@@ -226,9 +226,9 @@
 
 var options = {
     // Css selectors
-    cardBackgroundClass:        ".card-body.adminUserOrderDetail",
-    detailTableHeadClass:        "table.adminUserOrderDetail.detailHead",
-    detailTableClass:            "table.adminUserOrderDetail.detailBody",
+    cardBackgroundClass:        ".card-body.adminBaseOrderDetail",
+    detailTableHeadClass:        "table.adminBaseOrderDetail.detailHead",
+    detailTableClass:            "table.adminBaseOrderDetail.detailBody",
 
     readyShipDropDownBtnClass:   "#mgReadyShip",
     readyShipDropDownLinksClass: ".dropdown-item",
@@ -243,5 +243,5 @@ var options = {
     detailTotalQuantityClass:  "#detailTotalQuantity",
     detailTotalCostClass:      "#detailTotalCost",
 };
-var page = $.adminUserOrderDetail(options);
+var page = $.adminBaseOrderDetail(options);
 jQuery(document).ready(page.ready);

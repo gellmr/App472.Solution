@@ -1,12 +1,12 @@
 ﻿@using App472.Domain.Entities;
 @using App472.WebUI.Infrastructure
-@model App472.WebUI.Models.AdminUserOrderDetailViewModel
+@model App472.WebUI.Models.AdminGuestOrderDetailViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "Admin: Viewing User Order ###";
-    ViewBag.UserId = Model.UserId;
-    ViewBag.GuestId = null;
-    ViewBag.username = "User" + ViewBag.UserId;
+    ViewBag.UserId = null;
+    ViewBag.GuestId = Model.GuestId;
+    ViewBag.username = "Guest" + ViewBag.GuestId;
     ViewBag.ordername = "Order" + Model.OrderID;
 }
 <div class="card">
