@@ -1,41 +1,50 @@
-﻿@model App472.WebUI.Models.AdminUserViewModel
+﻿@model App472.WebUI.Models.AdminOrdersViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="card">
     <div class="card-body">
-        <h5>Showing all Orders for all Users</h5>
+        <h5>Orders Backlog</h5> @*TODO replace this view with list of multiple orders sorted by date and order status*@
         <br />
         <div></div>
         <table class="table table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">User ID</th>
                     <th scope="col">Username</th>
+                    <th scope="col">Account Type</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Orders</th>
-                    <th scope="col">View Orders</th>
+                    <th scope="col">Date Created</th>
+                    <th scope="col">Payment Received</th>
+                    <th scope="col">Order Status</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (App472.Domain.Entities.Guest guest in Model.Guests)
                 {
                     <tr>
+                        <td class="">(order id)</td>
                         <td class="">@guest.Id</td>
                         <td scope="row" class="text-left">@guest.FirstName @guest.LastName</td>
+                        <td class="">Guest</td>
                         <td scope="row" class="text-left">@guest.Email</td>
-                        <td scope="row" class="text-center">@guest.Orders.Count</td>
-                        <td><a href="@Url.Action("Index", "AdminUserOrder", new{guestId = guest.Id})">View Orders</a></td>
+                        <td scope="row" class="text-left">(date)</td>
+                        <td scope="row" class="text-left">(payment)</td>
+                        <td scope="row" class="text-left">(status)</td>
                     </tr>
                 }
                 @foreach (App472.WebUI.Models.FullUser user in Model.Users)
                 {
                     <tr>
+                        <td class="">(order id)</td>
                         <td class="">@user.AppUser.Id</td>
                         <td scope="row" class="text-left">@user.AppUser.UserName</td>
+                        <td class="">User</td>
                         <td scope="row" class="text-left">@user.AppUser.Email</td>
-                        <td scope="row" class="text-center">@user.Orders.Count()</td>
-                        <td><a href="@Url.Action("Index", "AdminUserOrder", new{UserId = user.AppUser.Id})">View Orders</a></td>
+                        <td scope="row" class="text-left">(date)</td>
+                        <td scope="row" class="text-left">(payment)</td>
+                        <td scope="row" class="text-left">(status)</td>
                     </tr>
                 }
             </tbody>

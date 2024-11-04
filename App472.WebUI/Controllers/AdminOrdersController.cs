@@ -15,12 +15,12 @@ using System.Web.UI;
 namespace App472.WebUI.Controllers
 {
     [Authorize]
-    public class AdminUserController : BaseController
+    public class AdminOrdersController : BaseController
     {
         private IGuestRepository guestRepo;
         private App472.WebUI.Infrastructure.Abstract.IFullUserRepository fullUserRepo;
 
-        public AdminUserController(IGuestRepository gRepo, App472.WebUI.Infrastructure.Abstract.IFullUserRepository fRepo){
+        public AdminOrdersController(IGuestRepository gRepo, App472.WebUI.Infrastructure.Abstract.IFullUserRepository fRepo){
             guestRepo = gRepo;
             fullUserRepo = fRepo;
         }
@@ -29,8 +29,8 @@ namespace App472.WebUI.Controllers
         {
             var userManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             IList<FullUser> fullUsers = fullUserRepo.FullUsers(userManager).ToList();
-            return View(new AdminUserViewModel{
-                LinkText = "User Orders",
+            return View(new AdminOrdersViewModel{
+                LinkText = "Orders Backlog",
                 Guests = guestRepo.Guests,
                 Users = fullUsers
             });
