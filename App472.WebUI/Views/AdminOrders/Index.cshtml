@@ -17,34 +17,54 @@
                     <th scope="col">Email</th>
                     <th scope="col">Date Created</th>
                     <th scope="col">Payment Received</th>
+                    <th scope="col">Items Ordered</th>
                     <th scope="col">Order Status</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (App472.Domain.Entities.Guest guest in Model.Guests)
+                @foreach (App472.Domain.Entities.Order order in Model.Orders)
                 {
+                    App472.Domain.Entities.Guest guest = null;
+                    App472.WebUI.Models.FullUser fullUser = null;
+
+                    bool isGuest = order.GuestID != null;
+                    string gid = null;
+                    string uname = "";
+                    string accType = "";
+                    string email = "";
+                    string dateCreated = "";
+                    Decimal countItems = 0;
+                    string orderStatus = "";
+                    if (isGuest)
+                    {
+                        guest = Model.Guests.FirstOrDefault(g => g.Id == order.GuestID);
+                        gid = order.GuestID.ToString();
+                        uname = guest.FirstName + " " + guest.LastName;
+                        accType = "Guest";
+                        email = guest.Email;
+                    }
+                    else
+                    {
+                        fullUser = Model.Users.FirstOrDefault(u => u.AppUser.Id == order.UserID.ToString());
+                        gid = order.OrderID.ToString();
+                        uname = fullUser.AppUser.UserName;
+                        accType = "User";
+                        email = fullUser.AppUser.Email;
+                    }
+                    dateCreated = order.OrderPlacedDate.ToString();
+                    countItems = order.QuantityTotal;
+                    orderStatus = order.OrderStatus.ToString();
+
                     <tr>
-                        <td class="">(order id)</td>
-                        <td class="">@guest.Id</td>
-                        <td scope="row" class="text-left">@guest.FirstName @guest.LastName</td>
-                        <td class="">Guest</td>
-                        <td scope="row" class="text-left">@guest.Email</td>
-                        <td scope="row" class="text-left">(date)</td>
-                        <td scope="row" class="text-left">(payment)</td>
-                        <td scope="row" class="text-left">(status)</td>
-                    </tr>
-                }
-                @foreach (App472.WebUI.Models.FullUser user in Model.Users)
-                {
-                    <tr>
-                        <td class="">(order id)</td>
-                        <td class="">@user.AppUser.Id</td>
-                        <td scope="row" class="text-left">@user.AppUser.UserName</td>
-                        <td class="">User</td>
-                        <td scope="row" class="text-left">@user.AppUser.Email</td>
-                        <td scope="row" class="text-left">(date)</td>
-                        <td scope="row" class="text-left">(payment)</td>
-                        <td scope="row" class="text-left">(status)</td>
+                        <td class="">@order.OrderID</td>
+                        <td class="">@gid</td>
+                        <td scope="row" class="text-left">@uname</td>
+                        <td class="text-center">@accType</td>
+                        <td scope="row" class="text-left">@email</td>
+                        <td scope="row" class="text-left">@dateCreated</td>
+                        <td scope="row" class="text-center">(payment)</td>
+                        <td scope="row" class="text-center">@countItems</td>
+                        <td scope="row" class="text-center">@orderStatus</td>
                     </tr>
                 }
             </tbody>
