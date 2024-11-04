@@ -11,14 +11,15 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Order ID</th>
-                    <th scope="col">User ID</th>
                     <th scope="col">Username</th>
+                    <th scope="col">User ID</th>
                     <th scope="col">Account Type</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Date Created</th>
+                    <th scope="col">Order Placed</th>
                     <th scope="col">Payment Received</th>
                     <th scope="col">Items Ordered</th>
                     <th scope="col">Order Status</th>
+                    <th scope="col">Order</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,17 +29,22 @@
                     App472.WebUI.Models.FullUser fullUser = null;
 
                     bool isGuest = order.GuestID != null;
+                    string uid = null;
                     string gid = null;
+                    string ugid = null;
                     string uname = "";
                     string accType = "";
                     string email = "";
                     string dateCreated = "";
+                    Decimal payment = 0;
                     Decimal countItems = 0;
                     string orderStatus = "";
                     if (isGuest)
                     {
                         guest = Model.Guests.FirstOrDefault(g => g.Id == order.GuestID);
+                        uid = null;
                         gid = order.GuestID.ToString();
+                        ugid = gid;
                         uname = guest.FirstName + " " + guest.LastName;
                         accType = "Guest";
                         email = guest.Email;
@@ -46,7 +52,9 @@
                     else
                     {
                         fullUser = Model.Users.FirstOrDefault(u => u.AppUser.Id == order.UserID.ToString());
-                        gid = order.OrderID.ToString();
+                        uid = fullUser.AppUser.Id;
+                        gid = null;
+                        ugid = uid;
                         uname = fullUser.AppUser.UserName;
                         accType = "User";
                         email = fullUser.AppUser.Email;
@@ -57,14 +65,19 @@
 
                     <tr>
                         <td class="">@order.OrderID</td>
-                        <td class="">@gid</td>
-                        <td scope="row" class="text-left">@uname</td>
+                        <td scope="row" class="text-left">
+                            <a class="" href="@Url.Action("Index", "AdminUserOrder", new {UserId=uid,GuestID=gid})">@uname</a>
+                        </td>
+                        <td class="">@ugid</td>
                         <td class="text-center">@accType</td>
                         <td scope="row" class="text-left">@email</td>
                         <td scope="row" class="text-left">@dateCreated</td>
-                        <td scope="row" class="text-center">(payment)</td>
+                        <td scope="row" class="text-center">$ @payment.ToString("0.00")</td>
                         <td scope="row" class="text-center">@countItems</td>
-                        <td scope="row" class="text-center">@orderStatus</td>
+                        <td scope="row" class="text-left">@orderStatus</td>
+                        <td scope="row" class="text-left">
+                            <a class="" href="@Url.Action("Detail", "AdminUserOrder", new {OrderID=order.OrderID.ToString()})">Edit</a>
+                        </td>
                     </tr>
                 }
             </tbody>
