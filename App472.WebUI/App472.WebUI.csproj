@@ -233,6 +233,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminUserAccController.cs" />
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\AdminUserOrderController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -265,6 +266,7 @@
     <Compile Include="Models\AdminBaseOrderDetailViewModel.cs" />
     <Compile Include="Models\AdminProductsViewModel.cs" />
     <Compile Include="Models\AdminGuestOrderDetailViewModel.cs" />
+    <Compile Include="Models\AdminUserAccViewModel.cs" />
     <Compile Include="Models\AdminUserOrderDetailViewModel.cs" />
     <Compile Include="Models\AdminUserOrdersViewModel.cs" />
     <Compile Include="Models\AdminUserViewModel.cs" />
@@ -339,6 +341,7 @@
     <Content Include="Views\Shared\_DebugBar.cshtml" />
     <Content Include="Views\AdminUserOrder\GuestDetail.cshtml" />
     <Content Include="Views\AdminUserOrder\BaseOrderDetailTable.cshtml" />
+    <Content Include="Views\AdminUserAcc\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

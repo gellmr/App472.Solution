@@ -6,12 +6,9 @@
 
 <div class="card">
     <div class="card-body">
-        <br />
-        <div>
-            @{ string username = "User" + Model.UserId; }
-            <a class="" href="@Url.Action("Index", "AdminUser")">All Orders for all Users</a> > @username
-        </div>
-        @*Showing all Orders for User @Model.UserId*@
+        <h5>Showing Orders for User @Model.UserId</h5>
+        
+        <div><a class="" href="@Url.Action("Index", "AdminUser")">All Orders for all Users</a> > @Model.UserId</div>
         <table class="table table-hover">
             <thead class="thead-dark">
                 <tr>

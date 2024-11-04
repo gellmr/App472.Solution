@@ -2,21 +2,24 @@
 @using App472.WebUI.Infrastructure
 @model App472.WebUI.Models.AdminGuestOrderDetailViewModel
 @{
+    string guestIdShort = MyExtensions.Truncate(Model.GuestId.ToString(), MyExtensions.NavTruncLenth);
+
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "Admin: Viewing User Order ###";
     ViewBag.UserId = null;
     ViewBag.GuestId = Model.GuestId;
-    ViewBag.username = "Guest" + ViewBag.GuestId;
-    ViewBag.ordername = "Order" + Model.OrderID;
+    ViewBag.username = "Guest " + guestIdShort;
+    ViewBag.ordername = "Order " + Model.OrderID;
 }
 <div class="card">
     <div class="card-body adminBaseOrderDetail">
-        <br />
+        <h5>Showing Order @Model.OrderID for Guest @Model.GuestId</h5>
         <div>
-             <a class="" href="@Url.Action("Index", "AdminUser")">All Orders for all Users</a> &rsaquo;
-             <a class="" href="@Url.Action("Index", "AdminUserOrder", new{UserId=ViewBag.UserId, GuestId=ViewBag.GuestId})">@ViewBag.username</a> &rsaquo; @ViewBag.ordername
+            <a class="" href="@Url.Action("Index", "AdminUser")">All Orders for all Users</a> &rsaquo;
+            <a class="" href="@Url.Action("Index", "AdminUserOrder", new{UserId=ViewBag.UserId, GuestId=ViewBag.GuestId})">@ViewBag.username</a> &rsaquo; @ViewBag.ordername
         </div>
-        @Html.Partial("BaseOrderDetailTable", new App472.WebUI.Models.AdminBaseOrderDetailViewModel{
+        @Html.Partial("BaseOrderDetailTable", new App472.WebUI.Models.AdminBaseOrderDetailViewModel
+        {
              OrderID = Model.OrderID,
              OrderedProducts = Model.OrderedProducts,
              OrderPlacedDate = Model.OrderPlacedDate,

@@ -1,0 +1,93 @@
+﻿@model App472.WebUI.Models.AdminUserAccViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Admin: User Accounts";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h5>Showing All Users</h5>
+        <br />
+        <div></div>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">UserName</th>
+                    <th scope="col">Account Type</th>
+
+                    <th scope="col">Email</th>
+                    <th scope="col">EmailConfirmed</th>
+
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Confirmed</th>
+
+                    <th scope="col">TwoFactorEnabled</th>
+                    <th scope="col">Lockout Date</th>
+                    <th scope="col">Locked Out?</th>
+                    <th scope="col">Access Failed Count</th>
+
+                    <th scope="col">Orders</th>
+                    <th scope="col">View Orders</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Guests != null)
+                {
+                    foreach (var guest in Model.Guests)
+                    {
+                        <tr>
+                            <td class="">@guest.Id</td>
+                            <td class="">@guest.FirstName @guest.LastName</td>
+                            <td class="">Guest</td>
+
+                            <td class="">@guest.Email</td>
+                            <td class=""></td>
+
+                            <td class=""></td>
+                            <td class=""></td>
+
+                            <td class=""></td>
+                            <td class=""></td>
+                            <td class=""></td>
+                            <td class=""></td>
+
+                            <td class="">@guest.Orders.Count</td>
+                            <td class="">
+                                <a href="@Url.Action("Index", "AdminUserOrder", new{guestId = guest.Id})">View Orders</a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+                @if (Model != null && Model.FullUsers != null)
+                {
+                    foreach (var fullUser in Model.FullUsers)
+                    {
+                        <tr>
+                            <td class="">@fullUser.AppUser.Id</td>
+                            <td class="">@fullUser.AppUser.UserName</td>
+                            <td class="">User</td>
+
+                            <td class="">@fullUser.AppUser.Email</td>
+                            <td class="">@fullUser.AppUser.EmailConfirmed</td>
+
+                            <td class="">@fullUser.AppUser.PhoneNumber</td>
+                            <td class="">@fullUser.AppUser.PhoneNumberConfirmed</td>
+
+                            <td class="">@fullUser.AppUser.TwoFactorEnabled</td>
+                            <td class="">@fullUser.AppUser.LockoutEndDateUtc</td>
+                            <td class="">@fullUser.AppUser.LockoutEnabled</td>
+                            <td class="">@fullUser.AppUser.AccessFailedCount</td>
+
+                            <td class="">@fullUser.Orders.Count()</td>
+                            <td class="">
+                                <a href="@Url.Action("Index", "AdminUserOrder", new{UserId = fullUser.AppUser.Id})">View Orders</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
