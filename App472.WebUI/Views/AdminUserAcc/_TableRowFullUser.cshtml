@@ -1,0 +1,29 @@
+﻿@model App472.WebUI.Models.FullUser
+
+<tr>
+    <td class="">@Model.AppUser.Id</td>
+    <td class="">
+        @Html.TextBoxFor(m => m.AppUser.UserName, new { @class = "form-control", @style = "max-width:140px;" })
+    </td>
+    <td class="">User</td>
+
+    <td class="">
+        @Html.TextBoxFor(m => m.AppUser.Email, new { @class = "form-control" })
+    </td>
+    <td class="">@Model.AppUser.EmailConfirmed</td>
+
+    <td class="">
+        @Html.TextBoxFor(m => m.AppUser.PhoneNumber, new { @class = "form-control", @style="max-width:140px;" })
+    </td>
+    <td class="">@Model.AppUser.PhoneNumberConfirmed</td>
+
+    <td class="">@Model.AppUser.TwoFactorEnabled</td>
+    <td class="">@Model.AppUser.LockoutEndDateUtc</td>
+    <td class="">@Model.AppUser.LockoutEnabled</td>
+    <td class="">@Model.AppUser.AccessFailedCount</td>
+
+    <td class="">@Model.Orders.Count()</td>
+    <td class="">
+        <a href="@Url.Action("Index", "AdminUserOrder", new{UserId = Model.AppUser.Id})">View Orders</a>
+    </td>
+</tr>

@@ -1,0 +1,30 @@
+﻿@using App472.WebUI.Infrastructure;
+@model App472.Domain.Entities.Guest
+
+<tr>
+    <td class="">
+        <span data-toggle="tooltip" data-placement="bottom" title="@Model.Id">
+            @MyExtensions.Truncate(Model.Id.ToString(), MyExtensions.GuidTruncLenth)
+        </span>
+    </td>
+    <td class="">@Model.FirstName @Model.LastName</td>
+    <td class="">Guest</td>
+
+    <td class="">
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+    </td>
+    <td class=""></td>
+
+    <td class=""></td>
+    <td class=""></td>
+
+    <td class=""></td>
+    <td class=""></td>
+    <td class=""></td>
+    <td class=""></td>
+
+    <td class="">@Model.Orders.Count</td>
+    <td class="">
+        <a href="@Url.Action("Index", "AdminUserOrder", new{guestId = Model.Id})">View Orders</a>
+    </td>
+</tr>
