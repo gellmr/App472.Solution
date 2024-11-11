@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace App472.Domain.Concrete
 {
+    // There is a table in the EF database called Guests.
+    // Guests dont have any record yet, in the AspNetUsers table of the Identity database.
+    // So there is no AppUser object for a Guest, and you cant get them from the AppUserManager object.
+    // You have to get them from the EF database. They may also have session data available.
     public class EFGuestRepository : IGuestRepository
     {
         private EFDBContext context = new EFDBContext();
