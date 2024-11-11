@@ -1,7 +1,7 @@
 ﻿@using App472.WebUI.Infrastructure;
 @model App472.Domain.Entities.Guest
 
-<tr>
+<tr class="mgAccTable">
     <td class="">
         <span data-toggle="tooltip" data-placement="bottom" title="@Model.Id">
             @MyExtensions.Truncate(Model.Id.ToString(), MyExtensions.GuidTruncLenth)

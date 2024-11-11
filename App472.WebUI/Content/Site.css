@@ -63,6 +63,13 @@ textarea {
 }
 
 
+tr.mgAccTable td {
+    padding: unset;
+    vertical-align: middle;
+}
+tr.mgAccTable input{
+    border: none;
+}
 
 
 .adminLayoutNav {
