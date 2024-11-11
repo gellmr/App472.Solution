@@ -1,4 +1,5 @@
-﻿@model App472.WebUI.Models.AdminOrdersViewModel
+﻿@using App472.WebUI.Infrastructure;
+@model App472.WebUI.Models.AdminOrdersViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
@@ -70,7 +71,11 @@
                             @*<a class="" href="@Url.Action("Index", "AdminUserOrder", new {UserId=uid,GuestID=gid})">@uname</a>*@
                             @uname
                         </td>
-                        <td class="">@ugid</td>
+                        <td class="">
+                            <span data-toggle="tooltip" data-placement="bottom" title="@ugid">
+                                @MyExtensions.Truncate(ugid, MyExtensions.GuidTruncLenth)
+                            </span>
+                        </td>
                         <td class="text-center">@accType</td>
                         <td scope="row" class="text-left">@email</td>
                         <td scope="row" class="text-left">@dateCreated</td>

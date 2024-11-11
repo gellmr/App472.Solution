@@ -24,5 +24,6 @@ namespace App472.WebUI.Infrastructure
         }
 
         public static Int32 NavTruncLenth = 14;
+        public static Int32 GuidTruncLenth = 8;
     }
 }
