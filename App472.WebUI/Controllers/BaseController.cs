@@ -20,6 +20,8 @@ namespace App472.WebUI.Controllers
         // sets the key and value for the current request url, saving it to the session
         public Guid GenerateTabReturnUrl {
             get{
+                // IMPORTANT
+                // https://stackoverflow.com/questions/65707334/antixss-in-net-framework-4-7-web-application-how-to-apply-it
                 Guid returnUrl = TabUrls.SetReturnUrl(Request.RawUrl);
                 return returnUrl;
             }
