@@ -1,0 +1,11 @@
+﻿@model App472.WebUI.Infrastructure.BreadCrumb
+
+@if(string.IsNullOrEmpty(Model.URL)){
+    @Model.LinkText
+}
+else{
+    <a class="" href="@Model.URL">@Model.LinkText</a>
+}
+@if(Model.Child != null){
+    <i class="bi bi-caret-right-fill"></i> @Html.Partial("~/Views/Shared/_BreadCrumb.cshtml", Model.Child)
+}
