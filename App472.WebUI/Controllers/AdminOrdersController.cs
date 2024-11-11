@@ -34,7 +34,7 @@ namespace App472.WebUI.Controllers
             var userManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             IList<FullUser> fullUsers = fullUserRepo.FullUsers(userManager).ToList();
             return View(new AdminOrdersViewModel{
-                LinkText = "Orders Backlog",
+                LinkText = AppNavs.OrdersNavText,
                 Orders = orderRepo.Orders,
                 Guests = guestRepo.Guests,
                 Users = fullUsers
