@@ -269,7 +269,6 @@
     <Compile Include="Models\AdminProductsViewModel.cs" />
     <Compile Include="Models\AdminGuestOrderDetailViewModel.cs" />
     <Compile Include="Models\AdminUserAccViewModel.cs" />
-    <Compile Include="Models\AdminUserOrderDetailViewModel.cs" />
     <Compile Include="Models\AdminOrderDetailViewModel.cs" />
     <Compile Include="Models\AdminUserOrdersViewModel.cs" />
     <Compile Include="Models\AdminOrdersViewModel.cs" />
