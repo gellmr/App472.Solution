@@ -251,6 +251,7 @@
     <Compile Include="Infrastructure\BreadCrumb.cs" />
     <Compile Include="Infrastructure\Concrete\FullUserRepository.cs" />
     <Compile Include="Infrastructure\LoggedInSessUser.cs" />
+    <Compile Include="Infrastructure\AppNavs.cs" />
     <Compile Include="Infrastructure\NotLoggedInSessUser.cs" />
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructure\Concrete\FormsAuthProvider.cs" />
