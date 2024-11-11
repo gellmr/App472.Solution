@@ -23,6 +23,6 @@ namespace App472.WebUI.Infrastructure
             return value.Length <= maxLength ? value : value.Substring(0, maxLength) + "...";
         }
 
-        public static Int32 NavTruncLenth = 8;
+        public static Int32 NavTruncLenth = 14;
     }
 }
