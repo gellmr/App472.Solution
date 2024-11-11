@@ -24,5 +24,8 @@ namespace App472.WebUI.Infrastructure
         public static string GenUserName(Nullable<Guid> GuestId){
             return "Guest-" + GuestId.ToString();
         }
+        public static string GenOrderName(Nullable<Int32> OrderID){
+            return "Order-" + OrderID;
+        }
     }
 }
