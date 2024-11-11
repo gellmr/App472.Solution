@@ -18,11 +18,9 @@ namespace App472.WebUI.Infrastructure.Concrete
     public class FullUserRepository : IFullUserRepository
     {
         private IOrdersRepository ordersRepo { get; set; }
-        private IGuestRepository guestRepo { get; set; }
 
-        public FullUserRepository(IOrdersRepository or, IGuestRepository gr){
+        public FullUserRepository(IOrdersRepository or){
             ordersRepo = or;
-            guestRepo = gr;
         }
 
         public IEnumerable<FullUser> FullUsers(AppUserManager appUserManager)
