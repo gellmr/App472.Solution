@@ -1,4 +1,5 @@
-﻿@model App472.WebUI.Models.AdminUserAccViewModel
+﻿@using App472.WebUI.Infrastructure;
+@model App472.WebUI.Models.AdminUserAccViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "Admin: User Accounts";
@@ -37,7 +38,11 @@
                     foreach (var guest in Model.Guests)
                     {
                         <tr>
-                            <td class="">@guest.Id</td>
+                            <td class="">
+                                <span data-toggle="tooltip" data-placement="bottom" title="@guest.Id">
+                                    @MyExtensions.Truncate(guest.Id.ToString(), MyExtensions.GuidTruncLenth)
+                                </span>
+                            </td>
                             <td class="">@guest.FirstName @guest.LastName</td>
                             <td class="">Guest</td>
 
