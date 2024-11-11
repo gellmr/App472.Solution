@@ -34,7 +34,7 @@ namespace App472.WebUI.Controllers
             var userManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             IList<FullUser> fullUsers = fullUserRepo.FullUsers(userManager).ToList();
             return View(new AdminUserAccViewModel{
-                LinkText = "User Accounts",
+                CurrentPageNavText = AppNavs.UsersNavText,
                 ReturnUrl = url,
                 Guests = guestRepo.Guests,
                 FullUsers = fullUsers

@@ -33,11 +33,11 @@
 
                     <div class="adminLayoutPageLinks" style="justify-content:left;">
                         @* Generate one anchor per menu item *@
-                        @if (Model.Links != null && Model.LinkText != null)
+                        @if (Model.AdminNavLinks != null && Model.CurrentPageNavText != null)
                         {
-                            foreach (KeyValuePair<string, string> link in Model.Links)
+                            foreach (KeyValuePair<string, string> link in Model.AdminNavLinks)
                             {
-                                if (link.Key == Model.LinkText)
+                                if (link.Key == Model.CurrentPageNavText)
                                 {
                                     <a class="btn btn-dark disabled" href="@link.Value">@link.Key</a>
                                 }

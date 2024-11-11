@@ -1,37 +1,6 @@
-﻿@using App472.Domain.Entities;
-@using App472.WebUI.Infrastructure
-@model App472.WebUI.Models.AdminUserOrderDetailViewModel
+﻿@model App472.WebUI.Models.AdminOrderDetailViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    ViewBag.Title = "Admin: Viewing User Order ###";
-    ViewBag.UserId = Model.UserId;
-    ViewBag.GuestId = null;
-    ViewBag.username = "User" + ViewBag.UserId;
-    ViewBag.ordername = "Order" + Model.OrderID;
 }
-<div class="card">
-    <div class="card-body adminBaseOrderDetail">
-        <h5>Showing Order _ for User _</h5>
-        <div>
-            <a class="" href="@Url.Action("Index", "AdminUserAcc")">All Orders for all Users</a> &rsaquo;
-            <a class="" href="@Url.Action("Index", "AdminUserOrder", new{UserId=ViewBag.UserId, GuestId=ViewBag.GuestId})">@ViewBag.username</a> &rsaquo; @ViewBag.ordername
-        </div>
-        @Html.Partial("BaseOrderDetailTable", new App472.WebUI.Models.AdminBaseOrderDetailViewModel
-        {
-             OrderID = Model.OrderID,
-             OrderedProducts = Model.OrderedProducts,
-             OrderPlacedDate = Model.OrderPlacedDate,
-             PaymentReceivedDate = Model.PaymentReceivedDate,
-             ReadyToShipDate = Model.ReadyToShipDate,
-             ShipDate = Model.ShipDate,
-             ReceivedDate = Model.ReceivedDate,
-             BillingAddress = Model.BillingAddress,
-             ShippingAddress = Model.ShippingAddress,
-             OrderStatus = Model.OrderStatus,
-             Links = Model.Links,
-             LinkText = Model.LinkText,
-             ReturnUrl = Model.ReturnUrl
-        })
-    </div>
-</div>
+@Html.Partial("BaseOrderDetailTable", Model)
 <script type="text/javascript" src="~/Scripts/AdminUserOrder.js"></script>

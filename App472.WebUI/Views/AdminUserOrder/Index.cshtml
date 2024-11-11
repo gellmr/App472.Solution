@@ -6,9 +6,13 @@
 
 <div class="card">
     <div class="card-body">
-        <h5>Showing Orders for User @Model.UserId</h5>
-        
-        <div><a class="" href="@Url.Action("Index", "AdminUserAcc")">All Orders for all Users</a> > @Model.UserId</div>
+        <h5>Showing Orders for @Model.UserName</h5>
+        <div>
+            @if (Model.BCNavTrail != null){
+                @Html.Partial("~/Views/Shared/_BreadCrumb.cshtml", Model.BCNavTrail)
+            }
+        </div>
+
         <table class="table table-hover">
             <thead class="thead-dark">
                 <tr>
@@ -27,7 +31,7 @@
                             <td class="">#@order.OrderID</td>
                             <td class="">@order.OrderedProducts.Count Items</td>
                             <td class="">$ @order.PriceTotal</td>
-                            <td><a class="" href="@Url.Action("Detail", "AdminUserOrder", new{order.OrderID})">View Details</a></td>
+                            <td><a class="" href="@Url.Action("Detail", "AdminUserOrder", new{OrderID=order.OrderID, FromUserAccounts=true})">View Details</a></td>
                         </tr>
                     }
                 }

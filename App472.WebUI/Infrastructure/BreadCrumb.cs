@@ -9,6 +9,6 @@ namespace App472.WebUI.Infrastructure
     {
         public BreadCrumb Child{ get; set; }
         public string URL { get; set;}
-        public string LinkText{ get; set;}
+        public string BCLinkText{ get; set;}
     }
 }

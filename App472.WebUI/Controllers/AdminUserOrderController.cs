@@ -21,41 +21,81 @@ namespace App472.WebUI.Controllers
             this.repository = repo;
         }
 
+        // List all orders belonging to a particular user.
         public ActionResult Index(int? UserId, Nullable<Guid> guestId)
         {
+            // BREAD CRUMBS
+            // Starting from User Accounts... (Guest or FullUser)
+            // AdminUserAcc_Index > AdminUserOrder_Index
+
             AdminUserOrdersViewModel model = new AdminUserOrdersViewModel{
-                LinkText = "Edit Users",
+                CurrentPageNavText = AppNavs.UsersNavText
             };
             if (UserId != null){
                 model.UserId  = (Int32)UserId;
-                model.Orders = repository.Orders.Where(o => o.UserID == UserId).OrderBy(o => o.OrderID);
+                model.UserName = AppNavs.GenUserName(UserId);
+                model.Orders = repository.Orders.Where(o => o.UserID == UserId).OrderBy(o => o.OrderPlacedDate);
             }
             else if (guestId != null)
             {
                 model.GuestId = guestId;
+                model.UserName = AppNavs.GenUserName(guestId);
                 model.Orders = repository.Orders.Where(o => o.GuestID == guestId).OrderBy(o => o.OrderPlacedDate);
             }
+            string shortUserName = MyExtensions.Truncate(model.UserName, MyExtensions.NavTruncLenth);
+            BreadCrumb childLink1 = new BreadCrumb { URL = "",                         BCLinkText = shortUserName };
+            BreadCrumb childLink0 = new BreadCrumb { URL = AppNavs.AdminUserAcc_Index, BCLinkText = AppNavs.UsersNavText, Child = childLink1 };
+            model.BCNavTrail = childLink0;
             return View(model);
         }
 
-        public ActionResult Detail(Int32 OrderID)
+        public ActionResult Detail(Int32 OrderID, bool FromUserAccounts = false)
         {
             Order order = repository.Orders.Where(o => o.OrderID == OrderID).FirstOrDefault();
+            int? UserId = order.UserID;
             IEnumerable<OrderedProduct> orderedProducts = order.OrderedProducts;
             if (order.OrderStatus == null){order.OrderStatus = Order.ParseShippingState(ShippingState.NotYetPlaced);}
-
-            AdminBaseOrderDetailViewModel model;
-            string viewName = "Detail";
-            if (order.GuestID == null){
+            AdminOrderDetailViewModel model;
+            string queryString = "";
+            if (order.GuestID == null)
+            {
                 // user order
-                model = new AdminUserOrderDetailViewModel{UserId = (Int32)order.UserID};
+                model = new AdminOrderDetailViewModel{
+                    UserId = (Int32)UserId,
+                    GuestId = null,
+                    UserName = AppNavs.GenUserName(UserId),
+                    OrderName = AppNavs.GenOrderName(order.OrderID)
+                };
+                queryString = "?UserId=" + model.UserId;
             }
             else{
                 // guest order
-                model = new AdminGuestOrderDetailViewModel{GuestId = (Guid)order.GuestID};
-                viewName = "GuestDetail";
+                model = new AdminOrderDetailViewModel{
+                    UserId = null,
+                    GuestId = order.GuestID,
+                    UserName = AppNavs.GenUserName(order.GuestID),
+                    OrderName = AppNavs.GenOrderName(order.OrderID)
+                };
+                queryString = "?guestId=" + model.GuestId;
             }
-            model.LinkText = "Edit Users";
+            string shortUserName = MyExtensions.Truncate(model.UserName, MyExtensions.NavTruncLenth);
+            if (FromUserAccounts == true)
+            {
+                // Coming from the User Accounts page
+                BreadCrumb childLink2 = new BreadCrumb { URL = "",                                       BCLinkText = model.OrderName };
+                BreadCrumb childLink1 = new BreadCrumb { URL = AppNavs.AdminUserOrder_Index+queryString, BCLinkText = shortUserName,        Child = childLink2 };
+                BreadCrumb childLink0 = new BreadCrumb { URL = AppNavs.AdminUserAcc_Index,               BCLinkText = AppNavs.UsersNavText, Child = childLink1 };
+                model.BCNavTrail = childLink0;
+                model.CurrentPageNavText = AppNavs.UsersNavText;
+            }
+            else
+            {
+                // Coming from the Order Backlog page
+                BreadCrumb childLink1 = new BreadCrumb { URL = "",                        BCLinkText = model.OrderName };
+                BreadCrumb childLink0 = new BreadCrumb { URL = AppNavs.AdminOrders_Index, BCLinkText = AppNavs.OrdersNavText, Child = childLink1 };
+                model.BCNavTrail = childLink0;
+                model.CurrentPageNavText = AppNavs.OrdersNavText;
+            }
             model.OrderID = OrderID;
             model.OrderedProducts = orderedProducts.ToList();
             model.OrderPlacedDate = order.OrderPlacedDate;
@@ -67,7 +107,7 @@ namespace App472.WebUI.Controllers
             model.ShippingAddress = order.ShippingAddress;
             model.OrderStatus = App472.Domain.Entities.Order.ParseShippingState(order.OrderStatus);
             model.ReturnUrl = GenerateTabReturnUrl.ToString();
-            return View(viewName, model);
+            return View(model);
         }
 
         // See

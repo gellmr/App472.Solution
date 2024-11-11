@@ -22,7 +22,7 @@ namespace App472.WebUI.Controllers
         {
             string url = string.IsNullOrEmpty(returnUrl) ? GenerateTabReturnUrl.ToString() : GetTabReturnUrl(returnUrl);
             return View(new AdminProductsViewModel{
-                LinkText = "Edit Products",
+                CurrentPageNavText = AppNavs.ProductsNavText,
                 Products = repository.Products,
                 ReturnUrl = url
             });
@@ -33,7 +33,7 @@ namespace App472.WebUI.Controllers
             string url = GetTabReturnUrl(returnUrl);
             Product product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
             return View(new AdminEditProductViewModel{
-                LinkText = "Edit Products",
+                CurrentPageNavText = AppNavs.ProductsNavText,
                 Product = product,
                 ReturnUrl = url
             });
@@ -53,7 +53,7 @@ namespace App472.WebUI.Controllers
             else
             {
                 return View(new AdminEditProductViewModel{
-                    LinkText = "Edit Products",
+                    CurrentPageNavText = AppNavs.ProductsNavText,
                     Product = product
                 });
             }
@@ -63,7 +63,7 @@ namespace App472.WebUI.Controllers
         {
             string url = GetTabReturnUrl(returnUrl);
             return View("Edit", new AdminEditProductViewModel{
-                LinkText = "Edit Products",
+                CurrentPageNavText = AppNavs.ProductsNavText,
                 Product = new Product{
                     Category = "Soccer",
                     Name = "Product Name",
