@@ -1,4 +1,5 @@
-﻿@model App472.WebUI.Models.FullUser
+﻿@using App472.WebUI.Models;
+@model App472.WebUI.Models.FullUser
 
 <tr class="mgAccTable">
     <td class="">@Model.AppUser.Id</td>
@@ -19,7 +20,23 @@
 
     <td class="">@Model.AppUser.TwoFactorEnabled</td>
     <td class="">@Model.AppUser.LockoutEndDateUtc</td>
-    <td class="">@Model.AppUser.LockoutEnabled</td>
+
+    <td class="">
+        <div class="btn-group" id="LockoutEnabled-@Model.AppUser.Id" data-userid="@Model.AppUser.Id" data-lockoutenabled="@Model.AppUser.LockoutEnabled" style="width:65px;">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                @{ var lockoutText = Model.AppUser.LockoutEnabled ? "Yes" : "No"; }
+                @lockoutText
+            </button>
+            @{
+                var trueActive = Model.AppUser.LockoutEnabled ? "active" : "";
+                var falseActive = Model.AppUser.LockoutEnabled ? "" : "active";
+            }
+            <div class="dropdown-menu">
+                <a class="dropdown-item @trueActive" href="#" data-lockout="true">Yes</a>
+                <a class="dropdown-item @falseActive" href="#" data-lockout="false">No</a>
+            </div>
+        </div>
+    </td>
     <td class="">@Model.AppUser.AccessFailedCount</td>
 
     <td class="">@Model.Orders.Count()</td>

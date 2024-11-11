@@ -64,7 +64,7 @@ textarea {
 
 
 tr.mgAccTable td {
-    padding: unset;
+    padding: 1px;
     vertical-align: middle;
 }
 tr.mgAccTable input{
