@@ -267,7 +267,6 @@
     <Compile Include="Models\AdminEditProductViewModel.cs" />
     <Compile Include="Models\AdminBaseOrderDetailViewModel.cs" />
     <Compile Include="Models\AdminProductsViewModel.cs" />
-    <Compile Include="Models\AdminGuestOrderDetailViewModel.cs" />
     <Compile Include="Models\AdminUserAccViewModel.cs" />
     <Compile Include="Models\AdminOrderDetailViewModel.cs" />
     <Compile Include="Models\AdminUserOrdersViewModel.cs" />
@@ -341,7 +340,6 @@
     <Content Include="Views\AdminUserOrder\Index.cshtml" />
     <Content Include="Views\AdminUserOrder\Detail.cshtml" />
     <Content Include="Views\Shared\_DebugBar.cshtml" />
-    <Content Include="Views\AdminUserOrder\GuestDetail.cshtml" />
     <Content Include="Views\AdminUserOrder\BaseOrderDetailTable.cshtml" />
     <Content Include="Views\AdminUserAcc\Index.cshtml" />
     <Content Include="Views\Shared\_BreadCrumb.cshtml" />
