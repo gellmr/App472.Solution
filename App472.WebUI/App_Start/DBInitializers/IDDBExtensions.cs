@@ -16,12 +16,17 @@ using Microsoft.Ajax.Utilities;
 
 namespace App472.WebUI.App_Start
 {
-    public class IDDBInitializer : DropCreateDatabaseAlways<IDDBContext>
+    public static class IDDBExtensions
     {
         private static string secretAdminPWHashed;
 
-        protected override void Seed(IDDBContext context)
+        // Static method to extend our context class,
+        // so we can call some common seed operations on it,
+        // no matter if we are in debug or release modes.
+        public static void SeedIDContext(this IDDBContext context)
         {
+            // perform seed operations...
+
             IPasswordHasher hasher = new PasswordHasher();
             IList<AppUser> users = new List<AppUser>();
             string secretAdminPassword = ConfigurationManager.AppSettings["SecretAdminPassword"];
@@ -39,12 +44,11 @@ namespace App472.WebUI.App_Start
             GetValues("112", ref users);
 
             context.Users.AddOrUpdate(users.ToArray());
-            base.Seed(context);
         }
 
         private static void GetValues(string userID, ref IList<AppUser> users)
         {
-            users.Add(new AppUser()
+            AppUser user = new AppUser
             {
                 Id = ConfigurationManager.AppSettings[UserKey(userID, "Id")],
                 Email = ConfigurationManager.AppSettings[UserKey(userID, "Email")],
@@ -58,16 +62,18 @@ namespace App472.WebUI.App_Start
                 LockoutEnabled = Boolean.Parse(ConfigurationManager.AppSettings[UserKey(userID, "LockoutEnabled")]),
                 AccessFailedCount = Int32.Parse(ConfigurationManager.AppSettings[UserKey(userID, "AccessFailedCount")]),
                 UserName = ConfigurationManager.AppSettings[UserKey(userID, "UserName")]
-            });
+            };
+            users.Add(user);
         }
 
-        private static string UserKey(string id, string suffix){
+        private static string UserKey(string id, string suffix)
+        {
             return "users:" + id + ":" + suffix;
         }
 
         private static DateTime? GetLockoutUtcDaysFromNow(string days)
         {
-            return string.IsNullOrEmpty(days) ? (DateTime?)null : DateTime.UtcNow.AddDays( Double.Parse(days) );
+            return string.IsNullOrEmpty(days) ? (DateTime?)null : DateTime.UtcNow.AddDays(Double.Parse(days));
         }
     }
 }
