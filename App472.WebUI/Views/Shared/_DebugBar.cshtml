@@ -1,8 +1,11 @@
 ﻿<div>
-    @if(ViewBag.TabReturnUrls != null){
+    @*@if(ViewBag.TabReturnUrls != null){
         foreach (KeyValuePair<Guid, string> entry in ViewBag.TabReturnUrls)
         {
             <div>GUID: @entry.Key Url: @entry.Value</div>
         }
-    }
+    }*@
+    ConnectionsRelease:@ViewBag.ConnectionsRelease <br />
+    UserSecretsRelease:@ViewBag.UserSecretsRelease <br />
+    SeedJsonRelease:@ViewBag.SeedJsonRelease <br />
 </div>

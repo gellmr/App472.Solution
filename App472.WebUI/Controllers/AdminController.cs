@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using App472.Domain.Abstract;
@@ -20,6 +21,11 @@ namespace App472.WebUI.Controllers
 
         public ViewResult Index(string returnUrl)
         {
+            // Test if we are loading our configuration from the (debug or release) secrets files.
+            ViewBag.ConnectionsRelease = ConfigurationManager.ConnectionStrings["ConnectionsRelease"];
+            ViewBag.UserSecretsRelease = ConfigurationManager.AppSettings["UserSecretsRelease"];
+            ViewBag.SeedJsonRelease = ConfigurationManager.AppSettings["seed.json.release"];
+
             string url = string.IsNullOrEmpty(returnUrl) ? GenerateTabReturnUrl.ToString() : GetTabReturnUrl(returnUrl);
             return View(new AdminProductsViewModel{
                 CurrentPageNavText = AppNavs.ProductsNavText,
