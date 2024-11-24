@@ -350,9 +350,9 @@ From the "Connections" list on the side, expand down until you see "Default Web 
 
 - Start Page
 - EC2AMAZ-3SE3CO2 (EC2AMAZ-3SE3CO2\Administrator)
--   Application Pools
--   Sites
--     Default Web Site     <-- explore to here
+-  *  Application Pools
+-  *  Sites
+-  *  -  Default Web Site     <-- explore to here
 
 You will see "Actions" on the right hand side of the screen and an icon saying "Explore". Click Explore.
 
