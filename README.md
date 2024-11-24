@@ -72,7 +72,7 @@ It will show the decrypted key contents "BEGIN RSA PRIVATE KEY ..."
 
 Ignore this and click "Decrypt password"
 
-You will see the plain text password. It will scrambled numbers, letters, and symbols about 30 characters long...
+You will see the plain text password. It will be scrambled numbers, letters, and symbols about 30 characters long...
 
 ################################
 
