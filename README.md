@@ -209,7 +209,7 @@ NOTE - I had to choose older packages, around 2018-2020, to get this project wor
 
 `nvm list`
 -    10.5.0
--  * 8.16.1 (Currently using 64-bit executable)
+-    `8.16.1` (Currently using 64-bit executable)
 -    6.17.1
 -    6.11.2
 -    Shows different node versions, installed under nvm
