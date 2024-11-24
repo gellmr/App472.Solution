@@ -1,0 +1,25 @@
+{
+  "name": "app472solution",
+  "version": "1.0.0",
+  "description": "MVC5 application",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "^1.6.1",
+    "grunt-contrib-clean": "2.0.0",
+    "grunt-contrib-copy": "1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gellmr/App472.Solution.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gellmr/App472.Solution/issues"
+  },
+  "homepage": "https://github.com/gellmr/App472.Solution#readme"
+}
