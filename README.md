@@ -312,7 +312,7 @@ grunt
 
 This will run the clean task, wiping the contents of "Deploy.to.wwwroot" folder.
 
-==TODO - get grunt to copy the build files from WebUI project.==
+TODO - get grunt to copy the build files from WebUI project.
 
 --------------------------------------------------
 
