@@ -401,3 +401,5 @@ FodyWeavers.xsd
 App472.WebUI/Properties/serviceDependencies.json
 App472.WebUI/Properties/serviceDependencies.local.json
 App472.WebUI/Properties/serviceDependencies.local.json.user
+
+Deploy.to.wwwroot/
