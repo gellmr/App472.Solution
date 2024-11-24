@@ -289,7 +289,7 @@ Note that since we have 3 projects
 -	App472.Tests
 -	App472.WebUI  `<--- Build this one. Ignore others`
 
-We only need to build and deploy App472.WebUI ... because visual studio is configured with project dependencies, and it will compile the domain project, copying its dll into the `App472.WebUI\bin` folder as `App472.Domain.dll`
+We only need to build and deploy App472.WebUI ... because visual studio is configured with project dependencies, and it will compile the domain project, copying its dll into the `App472.WebUI/bin` folder as `App472.Domain.dll`
 
 This happens when we build the solution.
 
