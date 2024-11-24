@@ -215,10 +215,11 @@ NOTE - I had to choose older packages, around 2018-2020, to get this project wor
 -    Shows different node versions, installed under nvm
 
 `node -v`
-v8.16.1
+8.16.1
 
 `npm -v`
 6.4.1
+
 --------------------------------------------------
 
 ## INSTALL GRUNT-CLI ##
