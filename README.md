@@ -284,9 +284,9 @@ Delete existing files: `true`
 Configuration: `Release`
 
 Under `Show all settings` ... 
-	`YES` Delete all existing files prior to publish
-	`NO`  Precompile during publishing
-	`YES` Exclude files from the App_Data folder
+- `YES` Delete all existing files prior to publish
+- `NO`  Precompile during publishing
+- `YES` Exclude files from the App_Data folder
 
 Click `Publish`
 
