@@ -139,7 +139,7 @@ namespace App472.WebUI.Controllers
         public HttpStatusCodeResult SetShipping(ShipStatusDTO model){
             try{
                 repository.UpdateShippingStatus(model.OrderID, model.OrderStatus);
-            }catch(Exception e){
+            }catch{
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
             return new HttpStatusCodeResult(HttpStatusCode.OK);
