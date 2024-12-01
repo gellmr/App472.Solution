@@ -334,9 +334,9 @@ Delete these files.
 
 Since (earlier) we gave `Remote Desktop Connection` access to our `Windows C:`
 
-you should see `C on DESKTOP-S602TTD` or similar, in File Explorer on the left hand side under `This PC`
+In File Explorer, on the left hand side under `This PC` you should see `C on DESKTOP-S602TTD` (but the name will be your computer).
 
-Click this to view the C: of your local workstation (BE CAREFUL!)
+Click this, to view the C: of your local workstation (BE CAREFUL!)
 
 You can browse to the location of `Deploy.to.wwwroot`
 
@@ -351,6 +351,6 @@ The contents should be like this:
 - Global.asax
 - Web.config
 
-Copy and past all these into the `C:\inetpub\wwwroot` folder
+Copy and paste all these into the `C:\inetpub\wwwroot` folder
 
 --------------------------------------------------
