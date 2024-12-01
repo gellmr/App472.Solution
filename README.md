@@ -157,6 +157,10 @@ You should see "Select features"
 
 It should have ".NET Framework 4.8 Features" already checked. Leave this alone.
 
+(NOT SURE IF I NEED EXTRA FEATURES)
+(NOT SURE IF I NEED EXTRA FEATURES)
+(NOT SURE IF I NEED EXTRA FEATURES)
+
 We dont need to add anything, so click "Next"
 
 You should see "Web Server Role (IIS)" and some information. Click "Next"
