@@ -318,7 +318,7 @@ From the "Connections" list on the side, expand down until you see "Default Web 
 - EC2AMAZ-3SE3CO2 (EC2AMAZ-3SE3CO2\Administrator)
 -  *  Application Pools
 -  *  Sites
--  *  -  Default Web Site     <-- explore to here
+-  *  >  Default Web Site     <-- explore to here
 
 You will see "Actions" on the right hand side of the screen and an icon saying "Explore". Click Explore.
 
@@ -327,8 +327,8 @@ It will open a file explorer window, at the location `C:\inetpub\wwwroot`
 This is our root directory for serving html pages.
 
 There should just be 2 files in the wwwroot folder...
-	iisstart.htm
-	iisstart.png
+- iisstart.htm
+- iisstart.png
 
 Delete these files.
 
@@ -343,13 +343,13 @@ You can browse to the location of `Deploy.to.wwwroot`
 It should look something like `\\tsclient\C\Users\YourUserName\source\repos\App472.Solution\Deploy.to.wwwroot`
 
 The contents should be like this:
-	bin
-	Content
-	Scripts
-	Views
-	favicon.ico
-	Global.asax
-	Web.config
+- bin
+- Content
+- Scripts
+- Views
+- favicon.ico
+- Global.asax
+- Web.config
 
 Copy and past all these into the `C:\inetpub\wwwroot` folder
 
