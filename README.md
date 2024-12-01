@@ -80,9 +80,9 @@ Copy this plain text `password` to your clipboard ... we are about to use it wit
 
 Double click `App472.Syd.Dev.rdp` ... this will launch `Remote Desktop Connection` which is a windows program.
 
-Important - Right click to pin the program to your taskbar.
+Important - Right click to pin the program to your taskbar. Now close it again.
 
-Now Right click again to open a context menu, and launch `Remote Desktop Connection` again...
+Right click it again, to open a context menu... and launch `Remote Desktop Connection` ...
 
 At the bottom corner of the program is an expanding menu called `Show Options` ... Click this.
 
@@ -156,10 +156,6 @@ We are done adding Roles. Click Next.
 You should see "Select features"
 
 It should have ".NET Framework 4.8 Features" already checked. Leave this alone.
-
-(NOT SURE IF I NEED EXTRA FEATURES)
-(NOT SURE IF I NEED EXTRA FEATURES)
-(NOT SURE IF I NEED EXTRA FEATURES)
 
 We dont need to add anything, so click "Next"
 
