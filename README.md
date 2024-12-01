@@ -4,8 +4,6 @@ This is an .NET MVC5 application made with Visual Studio.
 
 Below are steps to build and deploy the app to Amazon EC2.
 
-Written on 24/11/2024
-
 RELATED FILES (not included in the repo)
 
 - path/to/repos/App472.Syd.Dev/Keys           (App472.Syd.Key.pem)
@@ -62,6 +60,8 @@ I have stored it in...
 
 `path/to/repos/App472.Syd.Dev/Remote Desktop/App472.Syd.Dev.rdp`
 
+Note that you need to re-download the rdp file every time you restart the instance.
+
 On this page you will also see "Get password" at the bottom. Click this link.
 
 It says "Get Windows password" and asks you to "Upload private key file"
@@ -72,18 +72,46 @@ It will show the decrypted key contents "BEGIN RSA PRIVATE KEY ..."
 
 Ignore this and click "Decrypt password"
 
-You will see the plain text password. It will be scrambled numbers, letters, and symbols about 30 characters long...
+You will see the plain text password. It will be scrambled numbers, letters, and symbols about 32 characters long...
 
 ################################
 
-Copy this plain text password and use it with the (downloaded) `App472.Syd.Dev.rdp` file
+Copy this plain text `password` to your clipboard ... we are about to use it with the (downloaded) `App472.Syd.Dev.rdp` file.
 
-It offers to remember the password.
+Double click `App472.Syd.Dev.rdp` ... this will launch `Remote Desktop Connection` which is a windows program.
 
-You should now be able to remote desktop in, to the windows server instance.
+Important - Right click to pin the program to your taskbar.
+
+Now Right click again to open a context menu, and launch `Remote Desktop Connection` again...
+
+At the bottom corner of the program is an expanding menu called `Show Options` ... Click this.
+
+Under `Connection settings` choose `Open` and select the .rdp file we were just using.
+
+This will populate the Computer and User name fields. Now click the tab `Local Resources`
+
+Under `Local devices and resources` click `More`
+
+Under `Drives` click `Windows C:` and OK
+
+This is super important as we need to be able to access our local filesystem to send the deploy files to our remote instance.
+
+Go ahead and click `Connect` ... there is a warning that it cannot identify the remote computer. Go ahead and click `Connect` to proceed.
+
+Next appears a window saying `Enter your credentials`
+
+Paste the `password` we got earlier.
+
+There is one more warning that the certificate is not trusted. Proceed anyway (Yes)
+
+You should see the blue desktop of the remote windows server instance.
+
+Now you are logged in, you can go through windows settings and change the `password` to something else if you want.
+
+This will help if you go away from keyboard and come back to find the rdp has logged out and wants you to type the long password again.
 
 NOTE - if you stop the instance... `App472.Syd.Dev.rdp` will become invalid.
-You will need to delete `App472.Syd.Dev.rdp` and repeat the above steps (CONNECT TO THE INSTANCE)
+You will need to delete `App472.Syd.Dev.rdp` and repeat the above steps again. (CONNECT TO THE INSTANCE)
 
 --------------------------------------------------
 
@@ -222,44 +250,6 @@ NOTE - I had to choose older packages, around 2018-2020, to get this project wor
 
 --------------------------------------------------
 
-## INSTALL GRUNT-CLI ##
-
-This is the command line tool, used to perform commands.
-Grunt also has a per-project install that is NOT the same as the cli.
-The per-project version is installed to our App472.WebUI project so that
-we can use it to copy files for deployment.
-
-We interact with per-project grunt via the grunt-cli.
-
-`npm install -g grunt-cli@1.5.0`
-
---------------------------------------------------
-
-## INSTALL GRUNT (per-project version) to our project... ##
-
-In powershell, navigate to the vs folder...
-
-`cd "path\to\repos\App472.Solution"`
-
-Type the following to install grunt (the per-project version)...
-
-npm init
-
-(go thru the prompts, giving project name "app472solution")
-
-This will create package.json in your solution directory.
-
-Now we can install grunt (per-project) to the solution directory...
-
-`npm install grunt@1.6.1 --save`
-
-Note that this adds package-lock.json to our solution directory.
-It will also update package.json, adding grunt to our dependencies.
-
-We also need to create Gruntfile.js (which will clean and copy the build files to Deploy.to.wwwroot)
-
---------------------------------------------------
-
 ## Use npm to Install dependencies to node_modules ##
 
 Run the following command to ensure our node packages are up to date...
@@ -275,66 +265,42 @@ This will take a few minutes to install lots of things under
 
 In visual studio, ensure you are in Release mode.
 
+When we build the solution Visual studio places compiled dll files from the App472.Domain project into the App472.WebUI project.
+
+So we only need to build and deploy the App472.WebUI project.
+
+We dont need to deploy the `Domain` project or `Test` project.
+
 Clean and Build the project. Choose Build -> Rebuild Solution
 
 It will produce files in the `...App472.Solution/App472.WebUI/bin` folder
 
-Open a File Explorer window and navigate to...
+Now, we need to choose `Build -> Publish App472.WebUI`
 
-`/path/to/repos/App472.Solution/App472.WebUI`
+Ensure the settings say:
 
-Note that since we have 3 projects
+Target location: `../Deploy.to.wwwroot/`
+Delete existing files: `true`
+Configuration: `Release`
 
--	App472.Domain
--	App472.Tests
--	App472.WebUI  `<--- Build this one. Ignore others`
+Under `Show all settings` ... 
+	`YES` Delete all existing files prior to publish
+	`NO`  Precompile during publishing
+	`YES` Exclude files from the App_Data folder
 
-We only need to build and deploy App472.WebUI ... because visual studio is configured with project dependencies, and it will compile the domain project, copying its dll into the `App472.WebUI/bin` folder as `App472.Domain.dll`
+Click `Publish`
 
-This happens when we build the solution.
-
-The compiled output from App472.WebUI appears in `.../App472.WebUI/bin` along with a copy of any dll's from the Domain project it depends on.
-
-Do not deploy App472.Tests (It is only meant to run on the local machine.)
-
---------------------------------------------------
-# Deploying the MVC5 application #
---------------------------------------------------
-
-## USE GRUNT TO COPY BUILD FILES INTO Deploy.to.wwwroot ##
-
-Run powershell as Administrator...
-
-Navigate to `path/to/repos/App472.Solution`
-
-Type the following command to execute Gruntfile.js
-
-grunt
-
-This will run the clean task, wiping the contents of "Deploy.to.wwwroot" folder.
-
-TODO - get grunt to copy the build files from WebUI project.
-
---------------------------------------------------
-
-## Manually copy the project secrets ? ##
-
-There are 3 folders relating to project secrets:
-
-- path/to/repos/App472.Syd.Dev/secrets.debug
-- path/to/repos/App472.Syd.Dev/secrets.release
-- path/to/repos/App472.Syd.Dev/secrets.use
-
-Since we are about to deploy for Release mode, you need to manually copy the contents of secrets.release and paste into secrets.use (overwrite everything). This provides connection strings and other user secrets like seed data, which are loaded into the app, on startup. (I tried using a config builder and xdt transforms so this would be automatically included the appropriate web.config file, but the config builder runs before the transform is applied... so not sure if that approach will work.)
+This will generate files in the `Deploy.to.wwwroot` folder.
 
 --------------------------------------------------
 
 ## Manually place the build files into IIS web root folder ##
 
 Login to EC2...
-https://ap-southeast-2.console.aws.amazon.com/ec2/home?region=ap-southeast-2#Instances:
 
-Ensure `App472.Syd.Dev` instance is running.
+https://ap-southeast-2.console.aws.amazon.com/console/home?region=ap-southeast-2#
+
+Go to EC2 instances and ensure `App472.Syd.Dev` instance is running.
 
 If you havent already, follow the steps above to (CONNECT TO THE INSTANCE)
 
@@ -358,6 +324,33 @@ You will see "Actions" on the right hand side of the screen and an icon saying "
 
 It will open a file explorer window, at the location `C:\inetpub\wwwroot`
 
-This is our root directory for serving html pages. 
+This is our root directory for serving html pages.
 
-Using the rdp window, manually copy and paste everything from `Deploy.to.wwwroot` into `wwwroot` on the server.
+There should just be 2 files in the wwwroot folder...
+	iisstart.htm
+	iisstart.png
+
+Delete these files.
+
+Since (earlier) we gave `Remote Desktop Connection` access to our `Windows C:`
+
+you should see `C on DESKTOP-S602TTD` or similar, in File Explorer on the left hand side under `This PC`
+
+Click this to view the C: of your local workstation (BE CAREFUL!)
+
+You can browse to the location of `Deploy.to.wwwroot`
+
+It should look something like `\\tsclient\C\Users\YourUserName\source\repos\App472.Solution\Deploy.to.wwwroot`
+
+The contents should be like this:
+	bin
+	Content
+	Scripts
+	Views
+	favicon.ico
+	Global.asax
+	Web.config
+
+Copy and past all these into the `C:\inetpub\wwwroot` folder
+
+--------------------------------------------------
