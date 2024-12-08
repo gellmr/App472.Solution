@@ -205,13 +205,112 @@ Click "Install"
 
 It takes a few minutes to install.
 
-When the install completes, it will show...
-
-The instance name, connection string, and some other information.
-
-(Keep a copy of this connection string... we will need it later.)
+When the install completes, it will show the instance name, connection string, and some other information.
 
 Click "Close"
+
+You will also need to install MSSMS (Microsoft SQL Server Management Studio)
+
+Using MSSMS, click `Connect` -> `Database Engine`
+
+Server name: `localhost\SQLEXPRESS`
+Authentication: `Windows Authentication` --- this is how we browse the database with MSSMS
+
+You should see a tree like this... expand to Security -> Logins
+
+(localhost\SQLEXPRESS)
+Databases
+- System Databases
+- * master
+- * model
+- * msdb
+- * tempdb
+- Security
+- * Logins <-- `(right click)` <-- `New Login`
+
+Here we will create a login for our app to use when connecting to the database.
+
+Login name: App472
+SQL Server authentication:
+-         Password: ************* <-- lets call this `dbpassword` (it is used again below)
+- Confirm Password: *************
+NO - enforce password policy
+NO - enforce password expiration
+NO - mapped to certificate
+NO - mapped to asymmetric key
+NO - map to credential
+Default database: master
+Default language: default
+
+Click OK
+
+The newly created Login `App472` should appear, added to the tree.
+
+Note that our connection string for the production database will need to include `dbpassword`:
+```
+Data Source=localhost\\SQLEXPRESS;
+Password=*************;
+User ID=App472;
+```
+
+We have created the Login `App472` on SQL Server Express. Now we need to give this user permissions
+so that our app can drop/create database tables and seed the database.
+
+From the tree, right click `App472` and click Properties to view the Login Properties window.
+
+Click on Server Roles
+
+Enable the following Server roles:
+- bulkadmin
+- dbcreator
+- public
+- securityadmin
+- serveradmin
+- setupadmin
+- sysadmin
+
+Click OK
+
+(Note - we have granted server roles to `App472`. SQL Express also allows us to grant database roles. But we dont need to, because the permissions granted at the server level will propagate to the database level).
+
+Right click the server instance `(localhost\SQLEXPRESS)` (at the root of the tree) and choose `Properties`
+
+Under `Security` -> `Server authentication` choose `SQL Server and Windows Authentication mode`
+
+This is because our production connection strings use SqlClient with `SQL Server` login for authentication, rather than `Windows Authentication`
+
+Note - the production database is SQL Server Express, not LocalDB. We are NOT attaching (or using) LocalDB in production.
+
+Connection strings are very sensitive, and need to be just right, for the App to connect to the database, otherwise it will fail with various errors saying that its looking for `Local Database Runtime`
+
+To use `Windows Authentication` in your connection string, you would specify either
+- Trusted_Connection=True or
+- Integrated Security=SSPI or
+- Integrated Security=true
+This will cause the connection to use windows authentication, and it will ignore User ID and Password given in the connection string.
+
+...To use `SQL Server` authentication in your connection string (this is what we are doing)... you must not specify (any) of these 3 settings.
+Instead provide the User ID and Password.
+
+Below is the correct format for our connection string. We are using `SQL Server` authentication to connect to `localhost\SQLEXPRESS`
+
+```
+<connectionStrings>
+  <add name="IDConnection" connectionString="Data Source=localhost\SQLEXPRESS; Database=IDdatabase; Initial Catalog=IDdatabase; User ID=App472; Password=*************; MultipleActiveResultSets=true;" providerName="System.Data.SqlClient" />
+</connectionStrings>
+```
+
+MultipleActiveResultSets=true is currently needed by some of the application code.
+
+I am also using a second database and connection string... called EFConnection.
+
+These two databases `EFConnection` and `IDConnection` are created by the app, on startup.
+
+IDConnection has our Identity tables, and EFConnection has all the products and orders.
+
+Click OK
+
+Right click the server instance `(localhost\SQLEXPRESS)` (at the root of the tree) and choose `Restart`
 
 --------------------------------------------------
 
