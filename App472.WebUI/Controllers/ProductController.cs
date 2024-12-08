@@ -7,6 +7,8 @@ using App472.Domain.Abstract;
 using App472.Domain.Entities;
 using App472.WebUI.Models;
 
+using System.Configuration;
+
 namespace App472.WebUI.Controllers
 {
     public class ProductController : Controller

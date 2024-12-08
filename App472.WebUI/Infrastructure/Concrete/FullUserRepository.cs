@@ -9,6 +9,8 @@ using System.Linq;
 using System.Web;
 using System.Xml.Linq;
 
+using System.Configuration;
+
 namespace App472.WebUI.Infrastructure.Concrete
 {
     // The AppUser objects are stored in a default .NET Identity database
