@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 
+using System.Configuration;
+
 namespace App472.WebUI.Controllers
 {
     public class AccountController : Controller
