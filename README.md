@@ -15,7 +15,94 @@ RELATED FILES (not included in the repo)
 
 ---------------------------------------------------------------
 
+## Clone the git repo onto your local development machine, and install Visual Studio 2022 ##
+
+---------------------------------------------------------------
+
+## INSTALL NVM ##
+
+On your local development machine, you will need nvm to manage different node installations.
+
+Download the Windows version from the following URL...
+
+https://github.com/coreybutler/nvm-windows/releases/download/1.1.12/nvm-setup.exe
+
+Run the above installer to install nvm on your workstation.
+
+After installing nvm, open powershell as Administrator and type...
+`nvm -v`
+1.1.12
+
+NOTE - I had to choose older packages, around 2018-2020, to get this project working.
+
+`nvm install 8.16.1`
+
+`nvm use 8.16.1`
+
+`nvm list`
+-    10.5.0
+-    `8.16.1` (Currently using 64-bit executable)
+-    6.17.1
+-    6.11.2
+-    Shows different node versions, installed under nvm
+
+`node -v`
+8.16.1
+
+`npm -v`
+6.4.1
+
+--------------------------------------------------
+
+## Use npm to Install dependencies to node_modules ##
+
+Run the following command to ensure our node packages are up to date...
+npm install
+
+This will take a few minutes to install lots of things under
+
+`path/to/repos/App472.Solution/node_modules`
+
+--------------------------------------------------
+
+## Building the MVC5 application ##
+
+In visual studio, ensure you are in Release mode.
+
+When we build the solution Visual studio places compiled dll files from the App472.Domain project into the App472.WebUI project.
+
+So we only need to build and deploy the App472.WebUI project.
+
+We dont need to deploy the `Domain` project or `Test` project.
+
+Clean and Build the project. Choose Build -> Rebuild Solution
+
+It will produce files in the `...App472.Solution/App472.WebUI/bin` folder
+
+Now, we need to choose `Build -> Publish App472.WebUI`
+
+Ensure the settings say:
+
+Target location: `../Deploy.to.wwwroot/`
+Delete existing files: `true`
+Configuration: `Release`
+
+Under `Show all settings` ... 
+- `YES` Delete all existing files prior to publish
+- `NO`  Precompile during publishing
+- `YES` Exclude files from the App_Data folder
+
+Click `Publish`
+
+This will generate files in the `Deploy.to.wwwroot` folder.
+
+---------------------------------------------------------------
+
 ## HOW TO CREATE EC2 INSTANCE WITH WINDOWS SERVER TO HOST THE APP ##
+
+Login to EC2...
+
+https://ap-southeast-2.console.aws.amazon.com/console/home?region=ap-southeast-2#
 
 ### Settings for EC2 Instance: ###
 
@@ -183,6 +270,61 @@ If you exit the RDP client and try to navigate to the ipv4 address and port 80, 
 
 --------------------------------------------------
 
+## Manually place the build files into IIS web root folder ##
+
+If you havent already, follow the steps above to (CONNECT TO THE INSTANCE)
+
+You should see the blue desktop.
+
+Launch "Server Manager"
+
+Under "All Servers" you should see the IIS instance we created earlier. Its name will be like "EC2AMAZ-3SE3CO2" or similar.
+
+Right-Click this item and choose "Internet Information Services (IIS) Manager" from the context menu.
+
+From the "Connections" list on the side, expand down until you see "Default Web Site"
+
+- Start Page
+- EC2AMAZ-3SE3CO2 (EC2AMAZ-3SE3CO2\Administrator)
+-  *  Application Pools
+-  *  Sites
+-  *  >  Default Web Site     <-- explore to here
+
+You will see "Actions" on the right hand side of the screen and an icon saying "Explore". Click Explore.
+
+It will open a file explorer window, at the location `C:\inetpub\wwwroot`
+
+This is our root directory for serving html pages.
+
+There should just be 2 files in the wwwroot folder...
+- iisstart.htm
+- iisstart.png
+
+Delete these files.
+
+Since (earlier) we gave `Remote Desktop Connection` access to our `Windows C:`
+
+In File Explorer, on the left hand side under `This PC` you should see `C on DESKTOP-S602TTD` (but the name will be your computer).
+
+Click this, to view the C: of your local workstation (BE CAREFUL!)
+
+You can browse to the location of `Deploy.to.wwwroot`
+
+It should look something like `\\tsclient\C\Users\YourUserName\source\repos\App472.Solution\Deploy.to.wwwroot`
+
+The contents should be like this:
+- bin
+- Content
+- Scripts
+- Views
+- favicon.ico
+- Global.asax
+- Web.config
+
+Copy and paste all these into the `C:\inetpub\wwwroot` folder.
+
+--------------------------------------------------
+
 ## HOW TO Install SQL Server 2022 Express, on the windows server ##
 
 Within the RDP client, on the windows server, open Edge browser and navigate to...
@@ -298,7 +440,6 @@ Instead provide the User ID and Password.
 
 Below is the correct format for our connection string, to use `SQL Server` authentication to connect to `localhost\SQLEXPRESS`
 
-
 ###To use `SQL Server` authentication, your connection string must look like this.###
 ```
 <connectionStrings>
@@ -361,148 +502,12 @@ Confirm Password: `*************`
 Click OK
 Click OK
 
-Restart the website and try loading localhost.
+Restart the website in IIS Manager and try loading localhost on chrome within the rdp server.
 
 It should connect, create and seed the database, and access the database as your windows user `Administrator`.
 
---------------------------------------------------
+-----------------------------------------------------------------------------
 
-## INSTALL NVM ##
+## How to configure AWS to allow http traffic so users can visit our site ##
 
-On your local development machine, you will need nvm to manage different node installations.
-
-Download the Windows version from the following URL...
-
-https://github.com/coreybutler/nvm-windows/releases/download/1.1.12/nvm-setup.exe
-
-Run the above installer to install nvm on your workstation.
-
-After installing nvm, open powershell as Administrator and type...
-`nvm -v`
-1.1.12
-
-NOTE - I had to choose older packages, around 2018-2020, to get this project working.
-
-`nvm install 8.16.1`
-
-`nvm use 8.16.1`
-
-`nvm list`
--    10.5.0
--    `8.16.1` (Currently using 64-bit executable)
--    6.17.1
--    6.11.2
--    Shows different node versions, installed under nvm
-
-`node -v`
-8.16.1
-
-`npm -v`
-6.4.1
-
---------------------------------------------------
-
-## Use npm to Install dependencies to node_modules ##
-
-Run the following command to ensure our node packages are up to date...
-npm install
-
-This will take a few minutes to install lots of things under
-
-`path/to/repos/App472.Solution/node_modules`
-
---------------------------------------------------
-
-## Building the MVC5 application ##
-
-In visual studio, ensure you are in Release mode.
-
-When we build the solution Visual studio places compiled dll files from the App472.Domain project into the App472.WebUI project.
-
-So we only need to build and deploy the App472.WebUI project.
-
-We dont need to deploy the `Domain` project or `Test` project.
-
-Clean and Build the project. Choose Build -> Rebuild Solution
-
-It will produce files in the `...App472.Solution/App472.WebUI/bin` folder
-
-Now, we need to choose `Build -> Publish App472.WebUI`
-
-Ensure the settings say:
-
-Target location: `../Deploy.to.wwwroot/`
-Delete existing files: `true`
-Configuration: `Release`
-
-Under `Show all settings` ... 
-- `YES` Delete all existing files prior to publish
-- `NO`  Precompile during publishing
-- `YES` Exclude files from the App_Data folder
-
-Click `Publish`
-
-This will generate files in the `Deploy.to.wwwroot` folder.
-
---------------------------------------------------
-
-## Manually place the build files into IIS web root folder ##
-
-Login to EC2...
-
-https://ap-southeast-2.console.aws.amazon.com/console/home?region=ap-southeast-2#
-
-Go to EC2 instances and ensure `App472.Syd.Dev` instance is running.
-
-If you havent already, follow the steps above to (CONNECT TO THE INSTANCE)
-
-You should see the blue desktop.
-
-Launch "Server Manager"
-
-Under "All Servers" you should see the IIS instance we created earlier. Its name will be like "EC2AMAZ-3SE3CO2" or similar.
-
-Right-Click this item and choose "Internet Information Services (IIS) Manager" from the context menu.
-
-From the "Connections" list on the side, expand down until you see "Default Web Site"
-
-- Start Page
-- EC2AMAZ-3SE3CO2 (EC2AMAZ-3SE3CO2\Administrator)
--  *  Application Pools
--  *  Sites
--  *  >  Default Web Site     <-- explore to here
-
-You will see "Actions" on the right hand side of the screen and an icon saying "Explore". Click Explore.
-
-It will open a file explorer window, at the location `C:\inetpub\wwwroot`
-
-This is our root directory for serving html pages.
-
-There should just be 2 files in the wwwroot folder...
-- iisstart.htm
-- iisstart.png
-
-Delete these files.
-
-Since (earlier) we gave `Remote Desktop Connection` access to our `Windows C:`
-
-In File Explorer, on the left hand side under `This PC` you should see `C on DESKTOP-S602TTD` (but the name will be your computer).
-
-Click this, to view the C: of your local workstation (BE CAREFUL!)
-
-You can browse to the location of `Deploy.to.wwwroot`
-
-It should look something like `\\tsclient\C\Users\YourUserName\source\repos\App472.Solution\Deploy.to.wwwroot`
-
-The contents should be like this:
-- bin
-- Content
-- Scripts
-- Views
-- favicon.ico
-- Global.asax
-- Web.config
-
-Copy and paste all these into the `C:\inetpub\wwwroot` folder
-
---------------------------------------------------
+TODO - write instructions.
