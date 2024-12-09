@@ -318,6 +318,10 @@ Right click the server instance `(localhost\SQLEXPRESS)` (at the root of the tre
 
 NOTE - if you have `No process is on the other end of the pipe` errors, then it is failing to connect to the database. For me this was because I had a configuration builder generating my connection strings from json, and they were not being formed correctly, so it was failing to connect to the database, even though the database was there. When I replaced with hardcoded connection strings, it worked. The strings must be formed correctly.
 
+UPDATE - Using the configuration builder, I found my connection strings were not being formed correctly, so it would not connect to the database on the server. I tried hard coding the connection strings directly in the web.config, and it worked. So I decided to not use `SQL Server` authentication as this required User ID and Password to be present in the connection string... I'll just use `Windows Authentication` for my connection string and then I can hard code it directly in my web.config, there is no sensitive data. So its safe to commit to the repo.
+
+But I will need to reconfigure SQL Express to accept `Windows Authentication` for the login.
+
 --------------------------------------------------
 
 ## INSTALL NVM ##
