@@ -444,4 +444,32 @@ It should connect, create and seed the database, and access the database as your
 
 ## How to configure AWS to allow http traffic so users can visit our site ##
 
-TODO - write instructions.
+
+Login to EC2...
+
+https://ap-southeast-2.console.aws.amazon.com/console/home?region=ap-southeast-2#
+
+Go to `EC2` -> `Instances` -> `App472.Syd.Dev` -> `Security` -> (Select the security group)
+
+Eg "launch-wizard-1"
+
+Within the security group you should see Inbound rules, etc. Select `Edit inbound rules`
+
+Select `Add rule`
+
+Use the following settings
+
+- Type: `HTTP`
+- Protocol: `TCP`
+- Port range: `80`
+- Source: `Anywhere-IPv4` (0.0.0.0/0)
+- Description: `http traffic`
+
+Click `Save rules`
+
+You should now be able to browse to the site from your local development machine. Use its public ipv4 address from the aws console...
+
+ec2-**-***-**-***.ap-southeast-2.compute.amazonaws.com
+
+You should see the products page, add to cart, and checkout buttons.
+
