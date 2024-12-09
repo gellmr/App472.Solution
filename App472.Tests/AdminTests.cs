@@ -23,7 +23,7 @@ namespace App472.UnitTests
                 new Product{ProductID = 3, Name = "p3"},
             });
             // Arrange - create a controller
-            AdminController target = new AdminController(mock.Object);
+            AdminController target = new AdminController(mock.Object, null);
             // Action
             Product[] result = ((IEnumerable<Product>)target.Index(null).ViewData.Model).ToArray();
             // Assert

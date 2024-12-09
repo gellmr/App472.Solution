@@ -296,7 +296,7 @@ namespace App472.UnitTests
             // Arrange - create mock repository
             Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
             // Arrange - create the controller
-            AdminController target = new AdminController(mock.Object);
+            AdminController target = new AdminController(mock.Object, null);
             // Arrange - create a product
             Product product = new Product{Name = "Test"};
             // Act - try to save the product
@@ -313,7 +313,7 @@ namespace App472.UnitTests
             // Arrange - create mock repository
             Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
             // Arrange - create the controller
-            AdminController target = new AdminController(mock.Object);
+            AdminController target = new AdminController(mock.Object, null);
             // Arrange - create a product
             Product product = new Product {Name = "Test"};
             // Arrange - add an error to the model state
