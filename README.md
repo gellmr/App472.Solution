@@ -296,11 +296,15 @@ This will cause the connection to use windows authentication, and it will ignore
 ...To use `SQL Server` authentication in your connection string (this is what we are doing)... you must not specify (any) of these 3 settings.
 Instead provide the User ID and Password.
 
-Below is the correct format for our connection string. We are using `SQL Server` authentication to connect to `localhost\SQLEXPRESS`
+Below is the correct format for our connection string, to use `SQL Server` authentication to connect to `localhost\SQLEXPRESS`
 
+
+###To use `SQL Server` authentication, your connection string must look like this.###
 ```
 <connectionStrings>
-  <add name="IDConnection" connectionString="Data Source=localhost\SQLEXPRESS; Database=IDdatabase; Initial Catalog=IDdatabase; User ID=App472; Password=*************; MultipleActiveResultSets=true;" providerName="System.Data.SqlClient" />
+    <clear />
+    <add name="IDConnection" connectionString="Data Source=localhost\SQLEXPRESS; Database=IDdatabase; Initial Catalog=IDdatabase; User ID=App472; Password=*************; MultipleActiveResultSets=true;" providerName="System.Data.SqlClient" />
+    <add name="EFConnection" connectionString="Data Source=localhost\SQLEXPRESS; Database=EFdatabase; Initial Catalog=EFdatabase; User ID=App472; Password=*************; MultipleActiveResultSets=true;" providerName="System.Data.SqlClient" />
 </connectionStrings>
 ```
 
@@ -320,14 +324,25 @@ NOTE - if you have `No process is on the other end of the pipe` errors, then it 
 
 UPDATE - Using the configuration builder, I found my connection strings were not being formed correctly, so it would not connect to the database on the server. I tried hard coding the connection strings directly in the web.config, and it worked. So I decided to not use `SQL Server` authentication as this required User ID and Password to be present in the connection string... I'll just use `Windows Authentication` for my connection string and then I can hard code it directly in my web.config, there is no sensitive data. So its safe to commit to the repo.
 
-But I will need to reconfigure SQL Express to accept `Windows Authentication` for the login.
+###To use `Windows Authentication` authentication, your connection string must look like this.###
+```
+<connectionStrings>
+    <clear />
+    <add name="IDConnection" connectionString="Data Source=localhost\SQLEXPRESS; Database=IDdatabase; Initial Catalog=IDdatabase; MultipleActiveResultSets=true; Integrated Security=true;" providerName="System.Data.SqlClient" />
+    <add name="EFConnection" connectionString="Data Source=localhost\SQLEXPRESS; Database=EFdatabase; Initial Catalog=EFdatabase; MultipleActiveResultSets=true; Integrated Security=true;" providerName="System.Data.SqlClient" />
+</connectionStrings>
+```
 
-Had a look and there seemed to be no need to change SQL Express settings, as it already allows `Administrator`
+SQL Express is already configured to allow the windows user `Administrator` to connect using our windows username and password (its how we logged on to rdp)
 
-But I found on
+So we don't need to create or change any logins. We can leave the `App472` user that we created, in case we want to come back to it later.
+
+Now we need to configure IIS Manager, so it will tell the application pool to connect to our database using the `Administrator` windows user, as its identity when connecting to a database.
+
+See
 https://stackoverflow.com/questions/14270082/connection-string-using-windows-authentication
 
-That I need to go into IIS Manager, click on the Application Pools, find the one used by my app (DefaultAppPool) ... this was the only one that had any applications on it. The other pools had zero apps running.
+Go into IIS Manager, click on the Application Pools, find the one used by my app (DefaultAppPool) ... this was the only one that had any applications on it. The other pools had zero applications running.
 
 Right-click on the DefaultAppPool and choose `Advanced Settings`
 
@@ -337,7 +352,7 @@ A dialogue box appears saying `Application Pool Identity` and is currently selec
 
 I need to change this to `Custom account`
 
-(enter your windows username and password)
+(enter your windows username and password)  Here its a good thing that we changed our AWS generated password earlier, to something short and memorable.
 
 User name: `Administrator`
 Password:         `*************`
@@ -348,7 +363,7 @@ Click OK
 
 Restart the website and try loading localhost.
 
-It will connect, create and seed the database, and access the database as your windows user `Administrator`. This is not ideal but works.
+It should connect, create and seed the database, and access the database as your windows user `Administrator`.
 
 --------------------------------------------------
 
