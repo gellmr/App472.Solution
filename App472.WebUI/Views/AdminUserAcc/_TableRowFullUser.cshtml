@@ -22,7 +22,7 @@
     <td class="">@Model.AppUser.LockoutEndDateUtc</td>
 
     <td class="">
-        <div class="btn-group" id="LockoutEnabled-@Model.AppUser.Id" data-userid="@Model.AppUser.Id" data-lockoutenabled="@Model.AppUser.LockoutEnabled" style="width:65px;">
+        <div class="btn-group mgLockedOutBtn" id="LockoutEnabled-@Model.AppUser.Id" data-userid="@Model.AppUser.Id" data-lockoutenabled="@Model.AppUser.LockoutEnabled" style="width:65px;">
             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                 @{ var lockoutText = Model.AppUser.LockoutEnabled ? "Yes" : "No"; }
                 @lockoutText

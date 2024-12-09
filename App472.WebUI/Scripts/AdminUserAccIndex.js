@@ -11,8 +11,19 @@
             // --------------------------------------
 
             // member variables
-            EnableListeners: function (){},
-            DisableListeners: function () { },
+
+            lockedOutDropDownBtns: $(options.lockedOutDropDownBtnClass),
+
+            EnableListeners: function () {
+                page.lockedOutDropDownBtns.on("click", options.lockedOutDropDownLinksClass, page.LockedOutClick);
+            },
+            DisableListeners: function () {
+                page.lockedOutDropDownBtns.on("click");
+            },
+
+            LockedOutClick: function (event) {
+                debugger;
+            },
 
             // --------------------------------------
             // Page ready, attach event listeners
@@ -26,6 +37,8 @@
     };
 })(jQuery);
 var options = {
+    lockedOutDropDownBtnClass: ".mgLockedOutBtn",
+    lockedOutDropDownLinksClass: ".dropdown-item",
 };
 var page = $.adminUserAccIndex(options);
 jQuery(document).ready(page.ready);
