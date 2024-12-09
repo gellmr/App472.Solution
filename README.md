@@ -469,7 +469,7 @@ Click `Save rules`
 
 You should now be able to browse to the site from your local development machine. Use its public ipv4 address from the aws console...
 
-ec2-**-***-**-***.ap-southeast-2.compute.amazonaws.com
+ec2...ap-southeast-2.compute.amazonaws.com
 
 You should see the products page, add to cart, and checkout buttons.
 
