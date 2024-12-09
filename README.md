@@ -322,6 +322,34 @@ UPDATE - Using the configuration builder, I found my connection strings were not
 
 But I will need to reconfigure SQL Express to accept `Windows Authentication` for the login.
 
+Had a look and there seemed to be no need to change SQL Express settings, as it already allows `Administrator`
+
+But I found on
+https://stackoverflow.com/questions/14270082/connection-string-using-windows-authentication
+
+That I need to go into IIS Manager, click on the Application Pools, find the one used by my app (DefaultAppPool) ... this was the only one that had any applications on it. The other pools had zero apps running.
+
+Right-click on the DefaultAppPool and choose `Advanced Settings`
+
+Look for `Process Model` ... `Identity` ... (click to choose the identity)
+
+A dialogue box appears saying `Application Pool Identity` and is currently selected as `Built-in account` (ApplicationPoolIdentity)
+
+I need to change this to `Custom account`
+
+(enter your windows username and password)
+
+User name: `Administrator`
+Password:         `*************`
+Confirm Password: `*************`
+
+Click OK
+Click OK
+
+Restart the website and try loading localhost.
+
+It will connect, create and seed the database, and access the database as your windows user `Administrator`. This is not ideal but works.
+
 --------------------------------------------------
 
 ## INSTALL NVM ##
