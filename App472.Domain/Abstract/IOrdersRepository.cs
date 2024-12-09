@@ -14,5 +14,6 @@ namespace App472.Domain.Abstract
         void UpdateOrderedProductLineQuantity(Int32 ProductID, Int32 OrderID, Int32 NewQty);
         void UpdateShippingStatus(Int32 OrderID, Int32 OrderStatus);
         void SaveOrder(Order order);
+        bool ProductHasOrders(Int32 ProductID); // return true if this product exists in any orders.
     }
 }

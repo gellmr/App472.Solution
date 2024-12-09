@@ -14,9 +14,12 @@ namespace App472.WebUI.Controllers
     public class AdminController : BaseController
     {
         private IProductsRepository repository;
+        private IOrdersRepository ordersRepository;
 
-        public AdminController(IProductsRepository repo){
+        public AdminController(IProductsRepository repo, IOrdersRepository orepo)
+        {
             repository = repo;
+            ordersRepository = orepo;
         }
 
         public ViewResult Index(string returnUrl)
@@ -81,10 +84,16 @@ namespace App472.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int productId){
-            Product deletedProduct = repository.DeleteProduct(productId);
-            if(deletedProduct != null){
-                TempData["message"] = string.Format("{0} was deleted", deletedProduct.Name);
+        public ActionResult Delete(int productId)
+        {    
+            if (!ordersRepository.ProductHasOrders(productId)){
+                Product deletedProduct = repository.DeleteProduct(productId);
+                if (deletedProduct != null){
+                    TempData["message"] = string.Format("{0} was deleted", deletedProduct.Name);
+                }
+            }
+            else{
+                TempData["message"] = "Product exists in one or more orders, it cannot be deleted.";
             }
             return RedirectToAction("Index");
         }

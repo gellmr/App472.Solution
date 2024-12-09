@@ -75,5 +75,14 @@ namespace App472.Domain.Concrete
                 context.SaveChanges();
             }
         }
+
+        // return true if this product exists in any orders.
+        public bool ProductHasOrders(Int32 productId)
+        {
+            if (context.OrderedProducts.Any(op => op.Product.ProductID == productId)){
+                return true;
+            }
+            return false;
+        }
     }
 }
