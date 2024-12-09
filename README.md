@@ -372,110 +372,9 @@ Databases
 - * msdb
 - * tempdb
 
---------------------------------------------------------------
-
-## How to create a `SQL Server` authentication login, on the database (for our app to use) ##
-
-NOTE this step has been removed. I am using `Windows Authentication` instead, which doesnt require this step.
-NOTE this step has been removed. I am using `Windows Authentication` instead, which doesnt require this step.
-NOTE this step has been removed. I am using `Windows Authentication` instead, which doesnt require this step.
-
-Expand the tree to Security -> Logins
-
-(localhost\SQLEXPRESS)
-Databases
-- System Databases
-- * master
-- * model
-- * msdb
-- * tempdb
-- Security
-- * Logins <-- `(right click)` <-- `New Login`
-
-Here we will create a login for our app to use, when connecting to the database.
-
-Login name: App472
-SQL Server authentication:
--         Password: ************* <-- lets call this `dbpassword` (it is used again below)
-- Confirm Password: *************
-NO - enforce password policy
-NO - enforce password expiration
-NO - mapped to certificate
-NO - mapped to asymmetric key
-NO - map to credential
-Default database: master
-Default language: default
-
-Click OK
-
-The newly created Login `App472` should appear, added to the tree.
-
-Note that our connection string for the production database will need to include a User ID and Password (from above... the `dbpassword`)
-User ID and Password are required in our connection string, to use `SQL Server` authentication. Or it will fail.
-
-```
-Data Source=localhost\\SQLEXPRESS;
-Password=*************;
-User ID=App472;
-```
-
-We have created the Login `App472` on SQL Server Express. Now we need to give this user permissions
-so that our app can drop/create database tables and seed the database.
-
-From the tree, right click `App472` and click Properties to view the Login Properties window.
-
-Click on Server Roles
-
-Enable the following Server roles:
-- bulkadmin
-- dbcreator
-- public
-- securityadmin
-- serveradmin
-- setupadmin
-- sysadmin
-
-(Note - probably only needed `sysadmin` ...I need to research this further.)
-
-Click OK
-
-(Note - we have granted server roles to `App472`. SQL Express also allows us to grant database roles. But we dont need to, because the permissions granted at the server level will propagate to the database level).
-
-Right click the server instance `(localhost\SQLEXPRESS)` (at the root of the tree) and choose `Properties`
-
-Under `Security` -> `Server authentication` choose `SQL Server and Windows Authentication mode`
-
-We have told our database to accept both kinds of authentication.
-
-Below is the correct format for our connection string to use `SQL Server` authentication to connect to `localhost\SQLEXPRESS`
-
-```
-<connectionStrings>
-    <clear />
-    <add name="IDConnection" connectionString="Data Source=localhost\SQLEXPRESS; Database=IDdatabase; Initial Catalog=IDdatabase; User ID=App472; Password=*************; MultipleActiveResultSets=true;" providerName="System.Data.SqlClient" />
-    <add name="EFConnection" connectionString="Data Source=localhost\SQLEXPRESS; Database=EFdatabase; Initial Catalog=EFdatabase; User ID=App472; Password=*************; MultipleActiveResultSets=true;" providerName="System.Data.SqlClient" />
-</connectionStrings>
-```
-
-MultipleActiveResultSets=true is currently needed by some of the application code. I plan to remove this later when I fix a couple of queries.
-
-Connection strings are very sensitive, and need to be just right, for the App to connect to the database, otherwise it will fail with various errors, eg saying that its looking for `Local Database Runtime`
-
-Note - the production database is SQL Server Express (SQLEXPRESS).
-We are not using LocalDB.
-We are NOT attaching (or using) LocalDB in production.
-
-Note there are two databases `EFConnection` and `IDConnection` are created by the app, on startup.
-
-IDConnection has our Identity tables, and EFConnection has all the products and orders.
-
-Right click the server instance `(localhost\SQLEXPRESS)` (at the root of the tree in MSSMS) and choose `Restart`
-
 -----------------------------------------------------------------------------
 
-NOTE - if you have `No process is on the other end of the pipe` errors, then it is failing to connect to the database. For me this was because I had a configuration builder generating my connection strings from json, and they were not being formed correctly, so it was failing to connect to the database, even though the database was there. When I replaced with hardcoded connection strings, it worked. The strings must be formed correctly.
-
-UPDATE - Using the configuration builder, I found my connection strings were not being formed correctly, so it would not connect to the database on the server. I tried hard coding the connection strings directly in the web.config, and it worked. So I decided to not use `SQL Server` authentication as this required User ID and Password to be present in the connection string... I'll just use `Windows Authentication` for my connection string and then I can hard code it directly in my web.config, there is no sensitive data. So its safe to commit to the repo.
+Using the configuration builder, I found my connection strings were not being formed correctly, so it would not connect to the database on the server. I tried hard coding the connection strings directly in the web.config, and it worked. So I decided to NOT use `SQL Server` authentication, as this required User ID and Password to be present in the connection string... I'll just use `Windows Authentication` for my connection string and then I can hard code it directly in my web.config, there is no sensitive data in the string.
 
 -----------------------------------------------------------------------------
 
@@ -491,18 +390,28 @@ UPDATE - Using the configuration builder, I found my connection strings were not
 </connectionStrings>
 ```
 
-To use `Windows Authentication` with your connection string, you would specify either
-- Trusted_Connection=True or
-- Integrated Security=SSPI or
-- Integrated Security=true
+MultipleActiveResultSets=true is currently needed by some of the application code. I plan to remove this later when I fix a couple of queries.
+
+Connection strings are very sensitive, and need to be just right, for the App to connect to the database, otherwise it will fail with various errors, eg saying that its looking for `Local Database Runtime`
+
+Note - the production database is SQL Server Express (SQLEXPRESS).
+We are not using LocalDB.
+We are NOT attaching (or using) LocalDB in production.
+
+Note there are two databases `EFConnection` and `IDConnection` are created by the app, on startup.
+
+IDConnection has our Identity tables, and EFConnection has all the products and orders.
+
+When you use `Windows Authentication` with SQLEXPRESS... in your connection string you would specify either
+- `Trusted_Connection=True` or
+- `Integrated Security=SSPI` or
+- `Integrated Security=true`
 
 This will cause the connection to use windows authentication, and it will ignore any `User ID` and `Password` given in the connection string.
 
 When you use `SQL Server` authentication you must not specify (any) of these 3 settings in your connection string. Instead provide the `User ID` and `Password`.
 
 SQL Express is already configured to allow the windows user `Administrator` to connect using our windows username and password (its how we logged on to rdp)
-
-So we don't need to create or change any logins. We can leave the `App472` user that we created, in case we want to come back to it later.
 
 Now we need to configure IIS Manager, so it will tell the application pool to connect to our database using the `Administrator` windows user, as its identity when connecting to a database.
 
