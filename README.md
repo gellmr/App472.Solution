@@ -209,7 +209,11 @@ When the install completes, it will show the instance name, connection string, a
 
 Click "Close"
 
-You will also need to install MSSMS (Microsoft SQL Server Management Studio)
+--------------------------------------------------
+
+## HOW TO Install MSSMS (Microsoft SQL Server Management Studio), on the windows server ##
+
+You will need to install MSSMS, on the server. Use an official download.
 
 Using MSSMS, click `Connect` -> `Database Engine`
 
@@ -228,7 +232,7 @@ Databases
 - Security
 - * Logins <-- `(right click)` <-- `New Login`
 
-Here we will create a login for our app to use when connecting to the database.
+Here we will create a login for our app to use, when connecting to the database.
 
 Login name: App472
 SQL Server authentication:
@@ -310,7 +314,9 @@ IDConnection has our Identity tables, and EFConnection has all the products and 
 
 Click OK
 
-Right click the server instance `(localhost\SQLEXPRESS)` (at the root of the tree) and choose `Restart`
+Right click the server instance `(localhost\SQLEXPRESS)` (at the root of the tree in MSSMS) and choose `Restart`
+
+NOTE - if you have `No process is on the other end of the pipe` errors, then it is failing to connect to the database. For me this was because I had a configuration builder generating my connection strings from json, and they were not being formed correctly, so it was failing to connect to the database, even though the database was there. When I replaced with hardcoded connection strings, it worked. The strings must be formed correctly.
 
 --------------------------------------------------
 
