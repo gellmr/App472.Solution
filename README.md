@@ -362,7 +362,25 @@ Using MSSMS, click `Connect` -> `Database Engine`
 Server name: `localhost\SQLEXPRESS`
 Authentication: `Windows Authentication` --- this is how we browse the database with MSSMS
 
-You should see a tree like this... expand to Security -> Logins
+You should see a tree like this
+
+(localhost\SQLEXPRESS)
+Databases
+- System Databases
+- * master
+- * model
+- * msdb
+- * tempdb
+
+--------------------------------------------------------------
+
+## How to create a `SQL Server` authentication login, on the database (for our app to use) ##
+
+NOTE this step has been removed. I am using `Windows Authentication` instead, which doesnt require this step.
+NOTE this step has been removed. I am using `Windows Authentication` instead, which doesnt require this step.
+NOTE this step has been removed. I am using `Windows Authentication` instead, which doesnt require this step.
+
+Expand the tree to Security -> Logins
 
 (localhost\SQLEXPRESS)
 Databases
@@ -392,7 +410,9 @@ Click OK
 
 The newly created Login `App472` should appear, added to the tree.
 
-Note that our connection string for the production database will need to include `dbpassword`:
+Note that our connection string for the production database will need to include a User ID and Password (from above... the `dbpassword`)
+User ID and Password are required in our connection string, to use `SQL Server` authentication. Or it will fail.
+
 ```
 Data Source=localhost\\SQLEXPRESS;
 Password=*************;
@@ -415,6 +435,8 @@ Enable the following Server roles:
 - setupadmin
 - sysadmin
 
+(Note - probably only needed `sysadmin` ...I need to research this further.)
+
 Click OK
 
 (Note - we have granted server roles to `App472`. SQL Express also allows us to grant database roles. But we dont need to, because the permissions granted at the server level will propagate to the database level).
@@ -423,24 +445,10 @@ Right click the server instance `(localhost\SQLEXPRESS)` (at the root of the tre
 
 Under `Security` -> `Server authentication` choose `SQL Server and Windows Authentication mode`
 
-This is because our production connection strings use SqlClient with `SQL Server` login for authentication, rather than `Windows Authentication`
+We have told our database to accept both kinds of authentication.
 
-Note - the production database is SQL Server Express, not LocalDB. We are NOT attaching (or using) LocalDB in production.
+Below is the correct format for our connection string to use `SQL Server` authentication to connect to `localhost\SQLEXPRESS`
 
-Connection strings are very sensitive, and need to be just right, for the App to connect to the database, otherwise it will fail with various errors saying that its looking for `Local Database Runtime`
-
-To use `Windows Authentication` in your connection string, you would specify either
-- Trusted_Connection=True or
-- Integrated Security=SSPI or
-- Integrated Security=true
-This will cause the connection to use windows authentication, and it will ignore User ID and Password given in the connection string.
-
-...To use `SQL Server` authentication in your connection string (this is what we are doing)... you must not specify (any) of these 3 settings.
-Instead provide the User ID and Password.
-
-Below is the correct format for our connection string, to use `SQL Server` authentication to connect to `localhost\SQLEXPRESS`
-
-###To use `SQL Server` authentication, your connection string must look like this.###
 ```
 <connectionStrings>
     <clear />
@@ -449,23 +457,32 @@ Below is the correct format for our connection string, to use `SQL Server` authe
 </connectionStrings>
 ```
 
-MultipleActiveResultSets=true is currently needed by some of the application code.
+MultipleActiveResultSets=true is currently needed by some of the application code. I plan to remove this later when I fix a couple of queries.
 
-I am also using a second database and connection string... called EFConnection.
+Connection strings are very sensitive, and need to be just right, for the App to connect to the database, otherwise it will fail with various errors, eg saying that its looking for `Local Database Runtime`
 
-These two databases `EFConnection` and `IDConnection` are created by the app, on startup.
+Note - the production database is SQL Server Express (SQLEXPRESS).
+We are not using LocalDB.
+We are NOT attaching (or using) LocalDB in production.
+
+Note there are two databases `EFConnection` and `IDConnection` are created by the app, on startup.
 
 IDConnection has our Identity tables, and EFConnection has all the products and orders.
 
-Click OK
-
 Right click the server instance `(localhost\SQLEXPRESS)` (at the root of the tree in MSSMS) and choose `Restart`
+
+-----------------------------------------------------------------------------
 
 NOTE - if you have `No process is on the other end of the pipe` errors, then it is failing to connect to the database. For me this was because I had a configuration builder generating my connection strings from json, and they were not being formed correctly, so it was failing to connect to the database, even though the database was there. When I replaced with hardcoded connection strings, it worked. The strings must be formed correctly.
 
 UPDATE - Using the configuration builder, I found my connection strings were not being formed correctly, so it would not connect to the database on the server. I tried hard coding the connection strings directly in the web.config, and it worked. So I decided to not use `SQL Server` authentication as this required User ID and Password to be present in the connection string... I'll just use `Windows Authentication` for my connection string and then I can hard code it directly in my web.config, there is no sensitive data. So its safe to commit to the repo.
 
-###To use `Windows Authentication` authentication, your connection string must look like this.###
+-----------------------------------------------------------------------------
+
+## Set up IIS to use `Windows Authentication` with SQLEXPRESS ##
+
+### Your connection string must look like this ###
+
 ```
 <connectionStrings>
     <clear />
@@ -473,6 +490,15 @@ UPDATE - Using the configuration builder, I found my connection strings were not
     <add name="EFConnection" connectionString="Data Source=localhost\SQLEXPRESS; Database=EFdatabase; Initial Catalog=EFdatabase; MultipleActiveResultSets=true; Integrated Security=true;" providerName="System.Data.SqlClient" />
 </connectionStrings>
 ```
+
+To use `Windows Authentication` with your connection string, you would specify either
+- Trusted_Connection=True or
+- Integrated Security=SSPI or
+- Integrated Security=true
+
+This will cause the connection to use windows authentication, and it will ignore any `User ID` and `Password` given in the connection string.
+
+When you use `SQL Server` authentication you must not specify (any) of these 3 settings in your connection string. Instead provide the `User ID` and `Password`.
 
 SQL Express is already configured to allow the windows user `Administrator` to connect using our windows username and password (its how we logged on to rdp)
 
@@ -499,8 +525,7 @@ User name: `Administrator`
 Password:         `*************`
 Confirm Password: `*************`
 
-Click OK
-Click OK
+Click OK... Click OK.
 
 Restart the website in IIS Manager and try loading localhost on chrome within the rdp server.
 
