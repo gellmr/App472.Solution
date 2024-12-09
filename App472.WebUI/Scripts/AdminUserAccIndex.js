@@ -23,6 +23,13 @@
 
             LockedOutClick: function (event) {
                 debugger;
+                var dropDownBtn = $(event.currentTarget).closest(".mgLockedOutBtn");
+                var links = dropDownBtn.find(options.lockedOutDropDownLinksClass);
+                links.removeClass("active");
+                $(event.currentTarget).addClass("active");
+                var text = $(event.currentTarget).html();
+                dropDownBtn.find(".dropdown-toggle").html(text);
+                // DO AJAX CALL TO UPDATE RECORD.
             },
 
             // --------------------------------------
