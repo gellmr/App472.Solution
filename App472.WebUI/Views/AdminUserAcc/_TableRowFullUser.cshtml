@@ -19,7 +19,19 @@
     <td class="">@Model.AppUser.PhoneNumberConfirmed</td>
 
     <td class="">@Model.AppUser.TwoFactorEnabled</td>
-    <td class="">@Model.AppUser.LockoutEndDateUtc</td>
+    @{
+        // The dates saved into db are created as UTC nullable DateTime. Here we convert them back to (UTC+08:00) Perth
+        var localTimeString = "unknown";
+        try{
+            DateTime convertedDate = (DateTime)Model.AppUser.LockoutEndDateUtc;
+            DateTime localTime = convertedDate.ToLocalTime();
+            localTimeString = localTime.ToString();
+        }
+        catch (Exception e){
+            localTimeString = "";
+        }
+    }
+    <td class="">@localTimeString</td>
 
     <td class="">
         <div class="btn-group mgLockedOutBtn" id="LockoutEnabled-@Model.AppUser.Id" data-userid="@Model.AppUser.Id" data-lockoutenabled="@Model.AppUser.LockoutEnabled" style="width:65px;">

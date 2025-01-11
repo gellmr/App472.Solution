@@ -50,7 +50,7 @@ namespace App472.WebUI.Infrastructure.Concrete
             AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // get user
             user.LockoutEnabled = updateModel.Lock; // apply lock / unlock
             if (updateModel.Lock == true){
-                user.LockoutEndDateUtc = DateTime.UtcNow.AddSeconds(20); // lock for 20 seconds
+                user.LockoutEndDateUtc = DateTime.UtcNow.AddSeconds(60); // lock for 60 seconds
             }
             AppUserManager.Update(user); // update database
         }
