@@ -11,7 +11,6 @@
             // --------------------------------------
 
             // member variables
-
             lockedOutDropDownBtns: $(options.lockedOutDropDownBtnClass),
 
             EnableListeners: function () {
@@ -21,16 +20,26 @@
                 page.lockedOutDropDownBtns.on("click");
             },
 
+            // Convert ASP.NET JSON date format into milliseconds
+            // See https://davidsekar.com/javascript/converting-json-date-string-date-to-date-object
+            GetDateFromAspNetFormat: function(date) {
+                const re = /-?\d+/;
+                const m = re.exec(date);
+                var tenDigits = parseInt(m[0], 10);
+                var dayJsTimestamp = dayjs(tenDigits); // use dayJs to include the timezone.
+                return dayJsTimestamp;
+            },
+
             LockedOutClick: function (event) {
-                debugger;
                 var dropDownBtn = $(event.currentTarget).closest(".mgLockedOutBtn");
+                var uid = dropDownBtn.data("userid");
                 var links = dropDownBtn.find(options.lockedOutDropDownLinksClass);
                 links.removeClass("active");
                 $(event.currentTarget).addClass("active");
                 var text = $(event.currentTarget).html();
                 dropDownBtn.find(".dropdown-toggle").html(text);
                 var params = {
-                    UserID: dropDownBtn.data("userid"),
+                    UserID: uid,
                     Lock: (text.toLowerCase() == 'yes')
                 };
                 // DO AJAX CALL TO UPDATE RECORD.
@@ -40,8 +49,22 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(params),
+                    myuid: uid,
                     success: function (result) {
+                        var lockoutElement = $("td#lockoutUTC-" + this.myuid);
+                        var accessFailElement = $("td#accessFailed-" + this.myuid);
                         debugger;
+                        var utc = result.LockoutEndDateUtc;
+                        var attempts = result.Attempts;
+                        if (utc != null) {
+                            var dayjstime = page.GetDateFromAspNetFormat(result.LockoutEndDateUtc);
+                            var lockoutEndDateUtc = dayjstime.format('DD/MM/YYYY h:mm:ss A'); // See https://day.js.org/docs/en/display/format
+                            lockoutElement.html(lockoutEndDateUtc);
+                            accessFailElement.html(attempts);
+                        } else {
+                            lockoutElement.html("");
+                            accessFailElement.html(attempts);
+                        }
                     }
                 });
                 // END AJAX CALL

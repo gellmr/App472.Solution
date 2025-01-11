@@ -45,14 +45,21 @@ namespace App472.WebUI.Infrastructure.Concrete
             }
         }
 
-        public void LockedOutUpdate(LockedOutUpdateDTO updateModel)
+        public LockoutUpdateResultDTO LockedOutUpdate(LockedOutUpdateDTO updateModel)
         {
             AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // get user
             user.LockoutEnabled = updateModel.Lock; // apply lock / unlock
             if (updateModel.Lock == true){
-                user.LockoutEndDateUtc = DateTime.UtcNow.AddSeconds(60); // lock for 60 seconds
+                // Admin had decided to lock this user.
+                // Lockout date is stored as nullable UTC datetime. So if its 11pm (UTC+08:00) in Perth right now then we store 3pm which is the UTC value.
+                user.LockoutEndDateUtc = DateTime.UtcNow.AddMinutes(5); // lock for 5 minutes
+            }else{
+                // Admin has decided to unlock this user.
+                user.LockoutEndDateUtc = null; // clear the lockout end date.
+                user.AccessFailedCount = 0; // clear the attempts to start over
             }
             AppUserManager.Update(user); // update database
+            return new LockoutUpdateResultDTO { Utc = user.LockoutEndDateUtc, Attempts = user.AccessFailedCount };
         }
     }
 }

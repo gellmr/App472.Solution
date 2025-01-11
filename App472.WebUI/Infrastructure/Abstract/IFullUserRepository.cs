@@ -11,6 +11,6 @@ namespace App472.WebUI.Infrastructure.Abstract
     public interface IFullUserRepository{
         IEnumerable<FullUser> FullUsers {get;}
         AppUserManager AppUserManager { get; set; }
-        void LockedOutUpdate(LockedOutUpdateDTO model);
+        LockoutUpdateResultDTO LockedOutUpdate(LockedOutUpdateDTO model);
     }
 }

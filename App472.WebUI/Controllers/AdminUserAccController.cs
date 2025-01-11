@@ -47,8 +47,8 @@ namespace App472.WebUI.Controllers
         [HttpPost]
         public JsonResult LockedOutUpdate(LockedOutUpdateDTO model){
             fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
-            fullUserRepo.LockedOutUpdate(model);
-            return Json(new { }, JsonRequestBehavior.AllowGet); // need to return datetime of the lockout
+            LockoutUpdateResultDTO result = fullUserRepo.LockedOutUpdate(model);
+            return Json(new { LockoutEndDateUtc = result.Utc, Attempts = result.Attempts }, JsonRequestBehavior.AllowGet);
         }
     }
 }
