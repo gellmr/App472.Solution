@@ -365,12 +365,12 @@ Authentication: `Windows Authentication` --- this is how we browse the database 
 You should see a tree like this
 
 (localhost\SQLEXPRESS)
-Databases
-- System Databases
-- * master
-- * model
-- * msdb
-- * tempdb
+- Databases
+- * System Databases
+- * - master
+- * - model
+- * - msdb
+- * - tempdb
 
 -----------------------------------------------------------------------------
 
@@ -390,7 +390,7 @@ Using the configuration builder, I found my connection strings were not being fo
 </connectionStrings>
 ```
 
-MultipleActiveResultSets=true is currently needed by some of the application code. I plan to remove this later when I fix a couple of queries.
+If you make a database query from within your C# code, MultipleActiveResultSets=true allows you to make a second database query... while still enumerating the results of the first query.
 
 Connection strings are very sensitive, and need to be just right, for the App to connect to the database, otherwise it will fail with various errors, eg saying that its looking for `Local Database Runtime`
 
@@ -443,7 +443,6 @@ It should connect, create and seed the database, and access the database as your
 -----------------------------------------------------------------------------
 
 ## How to configure AWS to allow http traffic so users can visit our site ##
-
 
 Login to EC2...
 
