@@ -44,7 +44,7 @@ namespace App472.UnitTests
                 new Product{ ProductID = 3, Name = "p3"}
             });
             // Arrange - create the controller
-            AdminController target = new AdminController(mock.Object);
+            AdminController target = new AdminController(mock.Object, null);
             // Act
             Product p1 = target.Edit(1, null).ViewData.Model as Product;
             Product p2 = target.Edit(2, null).ViewData.Model as Product;
@@ -66,7 +66,7 @@ namespace App472.UnitTests
                 new Product{ ProductID = 3, Name = "p3"}
             });
             // Arrange - create the controller
-            AdminController target = new AdminController(mock.Object);
+            AdminController target = new AdminController(mock.Object, null);
             // Act
             Product result = (Product)target.Edit(4, null).ViewData.Model;
             // Assert
@@ -86,7 +86,7 @@ namespace App472.UnitTests
                 new Product{ ProductID = 3, Name = "p3"}
             });
             // Arrange - create the controller
-            AdminController target = new AdminController(mock.Object);
+            AdminController target = new AdminController(mock.Object, null);
             // Act - delete the product
             target.Delete(prod.ProductID);
             // Assert - ensure that the repository delete method was called with the correct Product ID
