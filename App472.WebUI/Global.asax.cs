@@ -10,12 +10,30 @@ using Ninject;
 using Ninject.Web.Common.WebHost;
 using App472.WebUI.Infrastructure.Binders;
 using App472.WebUI.Infrastructure;
+using App472.Domain.Concrete;
+using App472.WebUI.Models;
 
 namespace App472.WebUI
 {
+
     public class MvcApplication : NinjectHttpApplication
     {
+        private void InitializeDBContexts(){
+            // Choose debug or release database initialization. Debug will use DropCreateDatabaseAlways
+            if (StaticHelpers.IsDebugRelease){
+                System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Debug.EFDBInitializer());
+                System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Debug.IDDBInitializer());
+            }else{
+                System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Release.EFDBInitializer());
+                System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Release.IDDBInitializer());
+            }
+            // Touch the context, so we trigger database inititalisation
+            new IDDBContext().Database.Initialize(true);
+            new EFDBContext().Database.Initialize(true);
+        }
+
         protected override void OnApplicationStarted(){
+            InitializeDBContexts();
             base.OnApplicationStarted();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -42,6 +60,20 @@ namespace App472.WebUI
         {
             HttpContext.Current.Session.Add(SessExtensions.SessUserKeyName, new NotLoggedInSessUser()); // Initiate the session user object
             HttpContext.Current.Session.Add(SessExtensions.TRUrlsSessKeyName, new TabReturnUrls()); // Dictionary of Guids against return URLs for navigation. Allows back links to work if we have multiple tabs open.
+        }
+    }
+
+    // See https://stackoverflow.com/questions/1611410/how-to-check-if-a-app-is-in-debug-or-release
+    static class StaticHelpers
+    {
+        public static bool IsDebugRelease{
+            get{
+#if DEBUG
+                return true;
+#else
+                return false;
+#endif
+            }
         }
     }
 }
