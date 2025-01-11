@@ -27,13 +27,14 @@ namespace App472.WebUI.Controllers
             orderRepo = oRepo;
             guestRepo = gRepo;
             fullUserRepo = fRepo;
-            fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
+            //fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); // cant do this in constructor for some reason
         }
 
         // Orders Backlog
         public ViewResult Index()
         {
-            IList<FullUser> fullUsers = fullUserRepo.FullUsers().ToList();
+            fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
+            IList<FullUser> fullUsers = fullUserRepo.FullUsers.ToList();
             return View(new AdminOrdersViewModel{
                 CurrentPageNavText = AppNavs.OrdersNavText,
                 Orders = orderRepo.Orders,

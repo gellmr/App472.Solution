@@ -10,6 +10,8 @@ using System.Web;
 using System.Xml.Linq;
 
 using System.Configuration;
+using App472.WebUI.Infrastructure.DTO;
+using Microsoft.AspNet.Identity;
 
 namespace App472.WebUI.Infrastructure.Concrete
 {
@@ -26,20 +28,31 @@ namespace App472.WebUI.Infrastructure.Concrete
             ordersRepo = or;
         }
 
-        public IEnumerable<FullUser> FullUsers()
-        {
-            // Return the encapsulated AppUsers, with their EF objects.
-            List<FullUser> fullUsers = new List<FullUser>();
-            foreach (AppUser appUser in AppUserManager.Users)
-            {
-                Int32 appUserId = Int32.Parse(appUser.Id);
-                fullUsers.Add(
-                    new FullUser{
-                        AppUser = appUser,
-                        Orders = ordersRepo.Orders.Where(o => o.UserID == appUserId)
-                });
+        public IEnumerable<FullUser> FullUsers {
+            get {
+                // Return the encapsulated AppUsers, with their EF objects.
+                List<FullUser> fullUsers = new List<FullUser>();
+                foreach (AppUser appUser in AppUserManager.Users)
+                {
+                    Int32 appUserId = Int32.Parse(appUser.Id);
+                    fullUsers.Add(
+                        new FullUser{
+                            AppUser = appUser,
+                            Orders = ordersRepo.Orders.Where(o => o.UserID == appUserId)
+                    });
+                }
+                return fullUsers;
             }
-            return fullUsers;
+        }
+
+        public void LockedOutUpdate(LockedOutUpdateDTO updateModel)
+        {
+            AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // get user
+            user.LockoutEnabled = updateModel.Lock; // apply lock / unlock
+            if (updateModel.Lock == true){
+                user.LockoutEndDateUtc = DateTime.UtcNow.AddSeconds(20); // lock for 20 seconds
+            }
+            AppUserManager.Update(user); // update database
         }
     }
 }

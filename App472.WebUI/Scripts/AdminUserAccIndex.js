@@ -29,7 +29,22 @@
                 $(event.currentTarget).addClass("active");
                 var text = $(event.currentTarget).html();
                 dropDownBtn.find(".dropdown-toggle").html(text);
+                var params = {
+                    UserID: dropDownBtn.data("userid"),
+                    Lock: (text.toLowerCase() == 'yes')
+                };
                 // DO AJAX CALL TO UPDATE RECORD.
+                $.ajax({
+                    url: "/AdminUserAcc/LockedOutUpdate",
+                    type: 'POST',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(params),
+                    success: function (result) {
+                        debugger;
+                    }
+                });
+                // END AJAX CALL
             },
 
             // --------------------------------------
