@@ -8,6 +8,7 @@ using System.Web;
 namespace App472.WebUI.Infrastructure.Abstract
 {
     public interface IFullUserRepository{
-        IEnumerable<FullUser> FullUsers(AppUserManager appUserManager);
+        IEnumerable<FullUser> FullUsers();
+        AppUserManager AppUserManager { get; set; }
     }
 }

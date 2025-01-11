@@ -20,16 +20,17 @@ namespace App472.WebUI.Infrastructure.Concrete
     public class FullUserRepository : IFullUserRepository
     {
         private IOrdersRepository ordersRepo { get; set; }
+        public AppUserManager AppUserManager { get; set; }
 
         public FullUserRepository(IOrdersRepository or){
             ordersRepo = or;
         }
 
-        public IEnumerable<FullUser> FullUsers(AppUserManager appUserManager)
+        public IEnumerable<FullUser> FullUsers()
         {
             // Return the encapsulated AppUsers, with their EF objects.
             List<FullUser> fullUsers = new List<FullUser>();
-            foreach (AppUser appUser in appUserManager.Users)
+            foreach (AppUser appUser in AppUserManager.Users)
             {
                 Int32 appUserId = Int32.Parse(appUser.Id);
                 fullUsers.Add(

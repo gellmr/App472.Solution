@@ -26,14 +26,14 @@ namespace App472.WebUI.Controllers
         public AdminUserAccController(IGuestRepository gRepo, App472.WebUI.Infrastructure.Abstract.IFullUserRepository fRepo){
             guestRepo = gRepo;
             fullUserRepo = fRepo;
+            fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
         }
 
         // User Accounts
         public ViewResult Index(string returnUrl)
         {
             string url = GetTabReturnUrl(returnUrl);
-            var userManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
-            IList<FullUser> fullUsers = fullUserRepo.FullUsers(userManager).ToList();
+            IList<FullUser> fullUsers = fullUserRepo.FullUsers().ToList();
             return View(new AdminUserAccViewModel{
                 CurrentPageNavText = AppNavs.UsersNavText,
                 ReturnUrl = url,
