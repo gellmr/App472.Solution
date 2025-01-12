@@ -69,6 +69,7 @@ textarea {
 
 tr.mgAccTable th, tr {
     text-align: center;
+    font-size: 12px;
 }
 
 tr.mgAccTable td {
