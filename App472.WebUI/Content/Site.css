@@ -71,6 +71,13 @@ tr.mgAccTable th, tr {
     text-align: center;
     font-size: 12px;
 }
+th a.mg-th-link{
+    text-decoration:none;
+    color:white;
+}
+th a.mg-th-link:hover {
+    color: dodgerblue;
+}
 
 tr.mgAccTable td {
     padding: 1px;

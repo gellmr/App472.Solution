@@ -11,15 +11,15 @@
         <table class="table table-hover">
             <thead class="thead-dark">
                 <tr class="mgAccTable">
-                    <th scope="col">Order ID</th>
-                    <th scope="col" style="text-align:left;">Username</th>
-                    <th scope="col">User ID</th>
-                    <th scope="col">Account Type</th>
-                    <th scope="col" style="text-align:left;">Email</th>
-                    <th scope="col" style="text-align:left;">Order Placed</th>
-                    <th scope="col">Payment Received</th>
-                    <th scope="col">Items Ordered</th>
-                    <th scope="col">Order Status</th>
+                    <th scope="col">                         <a class="mg-th-link" href="@Url.Action("Index", "AdminOrders", new {SortBy="OrderID"})">           Order ID</a></th>
+                    <th scope="col" style="text-align:left;"><a class="mg-th-link" href="@Url.Action("Index", "AdminOrders", new {SortBy="Username"})">          Username</a></th>
+                    <th scope="col">                         <a class="mg-th-link" href="@Url.Action("Index", "AdminOrders", new {SortBy="UserID"})">            User ID</a></th>
+                    <th scope="col">                         <a class="mg-th-link" href="@Url.Action("Index", "AdminOrders", new {SortBy="AccountType"})">       Account Type</a></th>
+                    <th scope="col" style="text-align:left;"><a class="mg-th-link" href="@Url.Action("Index", "AdminOrders", new {SortBy="Email"})">             Email</a></th>
+                    <th scope="col" style="text-align:left;"><a class="mg-th-link" href="@Url.Action("Index", "AdminOrders", new {SortBy="OrderPlaced"})">       Order Placed</a></th>
+                    <th scope="col">                         <a class="mg-th-link" href="@Url.Action("Index", "AdminOrders", new {SortBy="PaymentReceived"})">   Payment Received</a></th>
+                    <th scope="col">                         <a class="mg-th-link" href="@Url.Action("Index", "AdminOrders", new {SortBy="ItemsOrdered"})">      Items Ordered</a></th>
+                    <th scope="col">                         <a class="mg-th-link" href="@Url.Action("Index", "AdminOrders", new {SortBy="OrderStatus"})">       Order Status</a></th>
                     <th scope="col">Order</th>
                 </tr>
             </thead>
