@@ -64,7 +64,7 @@ textarea {
 
 .mgAccTable td,input.form-control{
     font-size:12px;
-    color:black;
+    height:30px;
 }
 
 tr.mgAccTable th, tr {
@@ -80,6 +80,9 @@ tr.mgAccTable input{
     text-align: center;
 }
 
+table.detailBody th{
+    text-align:left;
+}
 
 .adminLayoutNav {
     /*border: 1px solid red;*/

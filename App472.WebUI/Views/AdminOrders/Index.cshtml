@@ -10,7 +10,7 @@
         <div></div>
         <table class="table table-hover">
             <thead class="thead-dark">
-                <tr>
+                <tr class="mgAccTable">
                     <th scope="col">Order ID</th>
                     <th scope="col">Username</th>
                     <th scope="col">User ID</th>
@@ -64,7 +64,7 @@
                     countItems = order.QuantityTotal;
                     orderStatus = order.OrderStatus.ToString();
 
-                    <tr>
+                    <tr class="mgAccTable">
                         <td class="">@order.OrderID</td>
                         <td scope="row" class="text-left">
                             @* TODO - add link for User Detail page. *@
