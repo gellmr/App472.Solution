@@ -78,6 +78,7 @@ tr.mgAccTable td {
 tr.mgAccTable input{
     border: none;
     text-align: center;
+    text-overflow: ellipsis;
 }
 
 table.detailBody th{
