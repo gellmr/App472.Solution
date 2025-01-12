@@ -12,11 +12,11 @@
             <thead class="thead-dark">
                 <tr class="mgAccTable">
                     <th scope="col">Order ID</th>
-                    <th scope="col">Username</th>
+                    <th scope="col" style="text-align:left;">Username</th>
                     <th scope="col">User ID</th>
                     <th scope="col">Account Type</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Order Placed</th>
+                    <th scope="col" style="text-align:left;">Email</th>
+                    <th scope="col" style="text-align:left;">Order Placed</th>
                     <th scope="col">Payment Received</th>
                     <th scope="col">Items Ordered</th>
                     <th scope="col">Order Status</th>
@@ -81,8 +81,8 @@
                         <td scope="row" class="text-left">@dateCreated</td>
                         <td scope="row" class="text-center">$ @payment.ToString("0.00")</td>
                         <td scope="row" class="text-center">@countItems</td>
-                        <td scope="row" class="text-left">@orderStatus</td>
-                        <td scope="row" class="text-left">
+                        <td scope="row" class="text-center">@orderStatus</td>
+                        <td scope="row" class="text-center">
                             <a class="" href="@Url.Action("Detail", "AdminUserOrder", new {OrderID=order.OrderID.ToString()})">Edit</a>
                         </td>
                     </tr>
