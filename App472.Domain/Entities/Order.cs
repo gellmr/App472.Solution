@@ -137,6 +137,56 @@ namespace App472.Domain.Entities
             }
             return response;
         }
+
+        // Enum for sorting orders, on the backlog page.
+        public enum OrderSortEnum
+        {
+            None,
+            OrderID,
+            Username,
+            UserID,
+            AccountType,
+            Email,
+            OrderPlaced,
+            PaymentReceived,
+            ItemsOrdered,
+            OrderStatus
+        }
+
+        // Convert a given string into OrderSortEnum
+        public static OrderSortEnum ParseOrderSortEnum(string str)
+        {
+            OrderSortEnum outEnum;
+            OrderSortEnum myEnum = OrderSortEnum.OrderID;
+            try
+            {
+                if (String.IsNullOrEmpty(str))
+                {
+                    return OrderSortEnum.None;
+                }
+                if (Enum.TryParse(str, out outEnum))
+                {
+                    switch (outEnum)
+                    {
+                        case OrderSortEnum.OrderID: myEnum = OrderSortEnum.OrderID; break;
+                        case OrderSortEnum.Username: myEnum = OrderSortEnum.Username; break;
+                        case OrderSortEnum.UserID: myEnum = OrderSortEnum.UserID; break;
+                        case OrderSortEnum.AccountType: myEnum = OrderSortEnum.AccountType; break;
+                        case OrderSortEnum.Email: myEnum = OrderSortEnum.Email; break;
+                        case OrderSortEnum.OrderPlaced: myEnum = OrderSortEnum.OrderPlaced; break;
+                        case OrderSortEnum.PaymentReceived: myEnum = OrderSortEnum.PaymentReceived; break;
+                        case OrderSortEnum.ItemsOrdered: myEnum = OrderSortEnum.ItemsOrdered; break;
+                        case OrderSortEnum.OrderStatus: myEnum = OrderSortEnum.OrderStatus; break;
+                    }
+                    return myEnum;
+                }
+                throw new Exception("could not parse string as OrderSortEnum enum");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 
     // This class is converted into JSON for responding to the Detail page update requests.
