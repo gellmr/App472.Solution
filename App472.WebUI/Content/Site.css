@@ -62,6 +62,14 @@ textarea {
     padding-left:7px;
 }
 
+.mgAccTable td,input.form-control{
+    font-size:12px;
+    color:black;
+}
+
+tr.mgAccTable th, tr {
+    text-align: center;
+}
 
 tr.mgAccTable td {
     padding: 1px;
@@ -69,6 +77,7 @@ tr.mgAccTable td {
 }
 tr.mgAccTable input{
     border: none;
+    text-align: center;
 }
 
 
