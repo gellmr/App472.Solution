@@ -281,6 +281,10 @@
     <Compile Include="Migrations\202408260632019_InitialCreate20240826_1.Designer.cs">
       <DependentUpon>202408260632019_InitialCreate20240826_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501130414317_AddDomainEntities.cs" />
+    <Compile Include="Migrations\202501130414317_AddDomainEntities.Designer.cs">
+      <DependentUpon>202501130414317_AddDomainEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminEditProductViewModel.cs" />
     <Compile Include="Models\AdminBaseOrderDetailViewModel.cs" />
@@ -385,6 +389,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202408260632019_InitialCreate20240826_1.resx">
       <DependentUpon>202408260632019_InitialCreate20240826_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501130414317_AddDomainEntities.resx">
+      <DependentUpon>202501130414317_AddDomainEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

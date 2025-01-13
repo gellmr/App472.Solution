@@ -22,9 +22,42 @@ namespace App472.WebUI.App_Start
         // Static method to extend our context class,
         // so we can call some common seed operations on it,
         // no matter if we are in debug or release modes.
+        public static void SeedDomainObjects(this IDDBContext context)
+        {
+            // Seed the Domain objects...
+
+            // Populate products
+            IList<Product> products = new List<Product>();
+            ProductsWater.Get(ref products);
+            ProductsSoccer.Get(ref products);
+            ProductsChess.Get(ref products);
+            context.Products.AddRange(products);
+
+            // Populate orders
+            IList<Order> orders = new List<Order>();
+            Int32 orderIdStart = 1;  // MSSQL auto increment starts at 1 for orderId
+            Orders111.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
+            Orders112.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
+
+            IList<Guest> guests = new List<Guest>();
+            Guid guestID = Guid.NewGuid();
+            guests.Add(new Guest
+            {
+                Id = guestID,
+                FirstName = "Dye",
+                LastName = "McDonald",
+                Email = "guest-113@gmail.com",
+                Orders = Orders113.GetOrders(ref products, ref context, ref orderIdStart, guestID)
+            });
+            context.Guests.AddRange(guests);
+        }
+
+        // Static method to extend our context class,
+        // so we can call some common seed operations on it,
+        // no matter if we are in debug or release modes.
         public static void SeedIDContext(this IDDBContext context)
         {
-            // perform seed operations...
+            // Seed the Identity tables...
 
             IPasswordHasher hasher = new PasswordHasher();
             IList<AppUser> users = new List<AppUser>();
@@ -41,7 +74,6 @@ namespace App472.WebUI.App_Start
             // populate users
             SeedAppUser("111", ref users);
             SeedAppUser("112", ref users);
-
             context.Users.AddOrUpdate(users.ToArray());
         }
 
@@ -73,41 +105,6 @@ namespace App472.WebUI.App_Start
         private static DateTime? GetLockoutUtcDaysFromNow(string days)
         {
             return string.IsNullOrEmpty(days) ? (DateTime?)null : DateTime.UtcNow.AddDays(Double.Parse(days));
-        }
-
-        //---------------------------------------------------------------------------------
-
-        // Static method to extend our context class,
-        // so we can call some common seed operations on it,
-        // no matter if we are in debug or release modes.
-        public static void SeedDomainObjects(this IDDBContext context)
-        {
-            // perform seed operations...
-
-            // Populate products
-            IList<Product> products = new List<Product>();
-            ProductsWater.Get(ref products);
-            ProductsSoccer.Get(ref products);
-            ProductsChess.Get(ref products);
-            context.Products.AddRange(products);
-
-            // Populate orders
-            IList<Order> orders = new List<Order>();
-            Int32 orderIdStart = 1;  // MSSQL auto increment starts at 1 for orderId
-            Orders111.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
-            Orders112.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
-
-            IList<Guest> guests = new List<Guest>();
-            Guid guestID = Guid.NewGuid();
-            guests.Add(new Guest
-            {
-                Id = guestID,
-                FirstName = "Dye",
-                LastName = "McDonald",
-                Email = "guest-113@gmail.com",
-                Orders = Orders113.GetOrders(ref products, ref context, ref orderIdStart, guestID)
-            });
-            context.Guests.AddRange(guests);
         }
     }
 }
