@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using App472.Domain.Abstract;
-using App472.Domain.Entities;
 using App472.WebUI.Models;
-
 using System.Configuration;
+using App472.WebUI.Domain.Abstract;
 
 namespace App472.WebUI.Controllers
 {

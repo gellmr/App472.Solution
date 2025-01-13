@@ -1,14 +1,14 @@
-﻿using App472.Domain.Abstract;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using App472.Domain.Entities;
 using App472.WebUI.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using App472.WebUI.Infrastructure;
+using App472.WebUI.Domain.Abstract;
+using App472.WebUI.Domain.Entities;
 
 namespace App472.WebUI.Controllers
 {
@@ -56,7 +56,7 @@ namespace App472.WebUI.Controllers
         }
 
         public ViewResult Checkout(){
-            return View(new App472.Domain.Entities.ShippingDetails());
+            return View(new ShippingDetails());
         }
 
         [HttpPost]

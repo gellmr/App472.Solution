@@ -1,6 +1,5 @@
-﻿using App472.Domain.Abstract;
-using App472.Domain.Concrete;
-using App472.Domain.Entities;
+﻿using App472.WebUI.Domain.Abstract;
+using App472.WebUI.Domain.Entities;
 using App472.WebUI.Infrastructure;
 using App472.WebUI.Models;
 using Microsoft.AspNet.Identity;
@@ -12,7 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using static App472.Domain.Entities.Order;
+using static App472.WebUI.Domain.Entities.Order;
 
 namespace App472.WebUI.Controllers
 {
@@ -39,7 +38,7 @@ namespace App472.WebUI.Controllers
             Order.OrderSortEnum sortEnum = Order.ParseOrderSortEnum(SortBy);
             fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             IList<FullUser> fullUsers = fullUserRepo.FullUsers.ToList();
-            IEnumerable<Domain.Entities.Order> orders = orderRepo.Orders; // default: No sort
+            IEnumerable<Order> orders = orderRepo.Orders; // default: No sort
             switch (sortEnum){
                 case OrderSortEnum.OrderID:         orders = orderRepo.Orders.OrderBy(order => order.OrderID); break;
                 // oh no... the username is in my AppUser object which is in the ID database. How do I look up the username?

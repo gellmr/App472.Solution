@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using App472.Domain.Entities;
+﻿using App472.WebUI.Domain.Entities;
+using System.Collections.Generic;
 
 namespace App472.WebUI.Models
 {

@@ -2,8 +2,8 @@
 using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
-using App472.Domain.Abstract;
-using App472.Domain.Entities;
+using App472.WebUI.Domain.Abstract;
+using App472.WebUI.Domain.Entities;
 using App472.WebUI.Infrastructure;
 using App472.WebUI.Models;
 using Microsoft.AspNet.Identity;

@@ -1,7 +1,4 @@
-﻿using App472.Domain.Abstract;
-using App472.Domain.Concrete;
-using App472.Domain.Entities;
-using App472.WebUI.Infrastructure.Abstract;
+﻿using App472.WebUI.Infrastructure.Abstract;
 using App472.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +9,7 @@ using System.Xml.Linq;
 using System.Configuration;
 using App472.WebUI.Infrastructure.DTO;
 using Microsoft.AspNet.Identity;
+using App472.WebUI.Domain.Abstract;
 
 namespace App472.WebUI.Infrastructure.Concrete
 {

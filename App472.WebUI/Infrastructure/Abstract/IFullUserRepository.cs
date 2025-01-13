@@ -1,5 +1,4 @@
-﻿using App472.Domain.Entities;
-using App472.WebUI.Infrastructure.DTO;
+﻿using App472.WebUI.Infrastructure.DTO;
 using App472.WebUI.Models;
 using System;
 using System.Collections.Generic;

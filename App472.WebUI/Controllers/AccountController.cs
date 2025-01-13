@@ -1,7 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
-using App472.Domain.Entities;
 using App472.WebUI.Infrastructure.Abstract;
 using App472.WebUI.Models;
 using Microsoft.Ajax.Utilities;

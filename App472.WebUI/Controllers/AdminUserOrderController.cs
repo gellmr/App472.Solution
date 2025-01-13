@@ -1,5 +1,5 @@
-﻿using App472.Domain.Abstract;
-using App472.Domain.Entities;
+﻿using App472.WebUI.Domain.Abstract;
+using App472.WebUI.Domain.Entities;
 using App472.WebUI.Infrastructure;
 using App472.WebUI.Models;
 using Microsoft.AspNet.Identity;
@@ -105,7 +105,7 @@ namespace App472.WebUI.Controllers
             model.ReceivedDate = order.ReceivedDate;
             model.BillingAddress = order.BillingAddress;
             model.ShippingAddress = order.ShippingAddress;
-            model.OrderStatus = App472.Domain.Entities.Order.ParseShippingState(order.OrderStatus);
+            model.OrderStatus = Order.ParseShippingState(order.OrderStatus);
             model.ReturnUrl = GenerateTabReturnUrl.ToString();
             return View(model);
         }

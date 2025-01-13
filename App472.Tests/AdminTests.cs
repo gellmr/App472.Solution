@@ -1,12 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using App472.Domain.Abstract;
-using App472.Domain.Entities;
 using App472.WebUI.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using App472.WebUI.Domain.Abstract;
+using App472.WebUI.Domain.Entities;
 
 namespace App472.UnitTests
 {

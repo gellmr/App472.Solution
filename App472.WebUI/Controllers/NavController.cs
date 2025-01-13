@@ -1,4 +1,4 @@
-﻿using App472.Domain.Abstract;
+﻿using App472.WebUI.Domain.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;

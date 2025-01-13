@@ -4,11 +4,9 @@ using System.Configuration;
 using System.Web.Mvc;
 using Ninject;
 using Moq;
-using App472.Domain.Abstract;
-using App472.Domain.Entities;
-using App472.Domain.Concrete;
-
 using App472.WebUI.Infrastructure.Abstract;
+using App472.WebUI.Domain.Abstract;
+using App472.WebUI.Domain.Concrete;
 
 namespace App472.WebUI.Infrastructure
 {

@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin;
+using App472.WebUI.Domain.Entities;
 
 namespace App472.WebUI.Models
 {
@@ -50,6 +51,12 @@ namespace App472.WebUI.Models
         {
             return new IDDBContext();
         }
+
+        // Domain entities
+        public DbSet<Product> Products { get; set; }
+        public DbSet<OrderedProduct> OrderedProducts { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Guest> Guests { get; set; }
     }
 
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.

@@ -1,4 +1,4 @@
-﻿@using App472.Domain.Entities;
+﻿@using App472.WebUI.Domain.Entities;
 @model App472.WebUI.Models.AdminOrderDetailViewModel
 
 <div class="card">
@@ -83,7 +83,7 @@
                 @{
                     int sumQuantity = 0;
                 }
-                @foreach (App472.Domain.Entities.OrderedProduct prod in Model.OrderedProducts)
+                @foreach (OrderedProduct prod in Model.OrderedProducts)
                 {
                     int quantity = prod.Quantity;
                     sumQuantity += quantity;

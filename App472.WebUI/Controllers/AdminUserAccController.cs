@@ -1,6 +1,4 @@
-﻿using App472.Domain.Abstract;
-using App472.Domain.Concrete;
-using App472.Domain.Entities;
+﻿using App472.WebUI.Domain.Abstract;
 using App472.WebUI.Infrastructure;
 using App472.WebUI.Infrastructure.DTO;
 using App472.WebUI.Models;

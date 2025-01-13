@@ -75,10 +75,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App472.Domain\App472.Domain.csproj">
-      <Project>{060f6de7-8e78-458c-9bd9-81a5fc49e86c}</Project>
-      <Name>App472.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\App472.WebUI\App472.WebUI.csproj">
       <Project>{d9c99499-f5df-487e-a6d9-7eeaa8abe04b}</Project>
       <Name>App472.WebUI</Name>

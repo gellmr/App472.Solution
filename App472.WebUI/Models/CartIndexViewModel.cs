@@ -1,8 +1,8 @@
-﻿using System;
+﻿using App472.WebUI.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using App472.Domain.Entities;
 
 namespace App472.WebUI.Models
 {

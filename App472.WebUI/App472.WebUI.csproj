@@ -233,7 +233,6 @@
     <Compile Include="App_Start\Seed\ProductsSoccer.cs" />
     <Compile Include="App_Start\Seed\ProductsWater.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\DBInitializers\EFDBExtensions.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -245,6 +244,20 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Domain\Abstract\IGuestRepository.cs" />
+    <Compile Include="Domain\Abstract\IOrderProcessor.cs" />
+    <Compile Include="Domain\Abstract\IOrdersRepository.cs" />
+    <Compile Include="Domain\Abstract\IProductsRepository.cs" />
+    <Compile Include="Domain\Concrete\EFGuestRepository.cs" />
+    <Compile Include="Domain\Concrete\EFOrderRepository.cs" />
+    <Compile Include="Domain\Concrete\EFProductRepository.cs" />
+    <Compile Include="Domain\Concrete\EmailOrderProcessor.cs" />
+    <Compile Include="Domain\Entities\Cart.cs" />
+    <Compile Include="Domain\Entities\Guest.cs" />
+    <Compile Include="Domain\Entities\Order.cs" />
+    <Compile Include="Domain\Entities\OrderedProduct.cs" />
+    <Compile Include="Domain\Entities\Product.cs" />
+    <Compile Include="Domain\Entities\ShippingDetails.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -368,12 +381,6 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\App472.Domain\App472.Domain.csproj">
-      <Project>{060f6de7-8e78-458c-9bd9-81a5fc49e86c}</Project>
-      <Name>App472.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202408260632019_InitialCreate20240826_1.resx">

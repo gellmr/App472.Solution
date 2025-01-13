@@ -1,16 +1,14 @@
-﻿using App472.Domain.Concrete;
-using App472.Domain.Entities;
+﻿using App472.WebUI.Models;
+using App472.WebUI.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 namespace App472.WebUI.App_Start
 {
     public static class Orders111
     {
-        public static void AddToContext(ref IList<Order> orders, ref IList<Product> prods, ref EFDBContext context, ref Int32 orderId)
+        public static void AddToContext(ref IList<Order> orders, ref IList<Product> prods, ref IDDBContext context, ref Int32 orderId)
         {
             Int32 userId = 111;
             DateTimeOffset now = DateTimeOffset.Now;

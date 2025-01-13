@@ -1,4 +1,4 @@
-﻿using App472.Domain.Entities;
+﻿using App472.WebUI.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

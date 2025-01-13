@@ -5,13 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using App472.Domain.Entities;
 using Ninject;
 using Ninject.Web.Common.WebHost;
 using App472.WebUI.Infrastructure.Binders;
 using App472.WebUI.Infrastructure;
-using App472.Domain.Concrete;
 using App472.WebUI.Models;
+using App472.WebUI.Domain.Entities;
 
 namespace App472.WebUI
 {
@@ -21,15 +20,15 @@ namespace App472.WebUI
         private void InitializeDBContexts(){
             // Choose debug or release database initialization. Debug will use DropCreateDatabaseAlways
             if (StaticHelpers.IsDebugRelease){
-                System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Debug.EFDBInitializer());
+                //System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Debug.EFDBInitializer());
                 System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Debug.IDDBInitializer());
             }else{
-                System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Release.EFDBInitializer());
+                //System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Release.EFDBInitializer());
                 System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Release.IDDBInitializer());
             }
             // Touch the context, so we trigger database inititalisation
             new IDDBContext().Database.Initialize(true);
-            new EFDBContext().Database.Initialize(true);
+            //new EFDBContext().Database.Initialize(true);
         }
 
         protected override void OnApplicationStarted(){
@@ -39,7 +38,7 @@ namespace App472.WebUI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ModelBinders.Binders.Add(typeof(App472.Domain.Entities.Cart), new CartModelBinder());
+            ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
         }
 
         protected override IKernel CreateKernel(){

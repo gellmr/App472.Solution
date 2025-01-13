@@ -1,17 +1,14 @@
-﻿using App472.Domain.Concrete;
-using App472.Domain.Entities;
+﻿using App472.WebUI.Domain.Entities;
+using App472.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using System.Linq;
-using System.Web;
 
 namespace App472.WebUI.App_Start
 {
     public static class Orders112
     {
-        public static void AddToContext(ref IList<Order> orders, ref IList<Product> prods, ref EFDBContext context, ref Int32 orderId)
+        public static void AddToContext(ref IList<Order> orders, ref IList<Product> prods, ref IDDBContext context, ref Int32 orderId)
         {
             Int32 userId = 112;
             Product prod3 = prods[3];

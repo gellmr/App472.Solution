@@ -1,5 +1,5 @@
-﻿using System.Web.Mvc;
-using App472.Domain.Entities;
+﻿using App472.WebUI.Domain.Entities;
+using System.Web.Mvc;
 
 namespace App472.WebUI.Infrastructure.Binders
 {

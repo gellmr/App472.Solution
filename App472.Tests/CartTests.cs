@@ -1,6 +1,6 @@
 ﻿using System.Linq;
+using App472.WebUI.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using App472.Domain.Entities;
 
 namespace App472.UnitTests
 {

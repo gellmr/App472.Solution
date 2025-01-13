@@ -1,4 +1,5 @@
 ﻿@using App472.WebUI.Infrastructure;
+@using App472.WebUI.Domain.Entities;
 @model App472.WebUI.Models.AdminOrdersViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -24,9 +25,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (App472.Domain.Entities.Order order in Model.Orders)
+                @foreach (Order order in Model.Orders)
                 {
-                    App472.Domain.Entities.Guest guest = null;
+                    Guest guest = null;
                     App472.WebUI.Models.FullUser fullUser = null;
 
                     bool isGuest = order.GuestID != null;
