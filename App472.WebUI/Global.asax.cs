@@ -27,8 +27,7 @@ namespace App472.WebUI
                 System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Release.IDDBInitializer());
             }
             // Touch the context, so we trigger database inititalisation
-            new IDDBContext().Database.Initialize(true);
-            //new EFDBContext().Database.Initialize(true);
+            new IDDBContext().Database.Initialize(true); // pass true to force initialization to run
         }
 
         protected override void OnApplicationStarted(){
