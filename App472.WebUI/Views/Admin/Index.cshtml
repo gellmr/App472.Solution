@@ -4,38 +4,40 @@
 }
 <div class="card">
     <div class="card-body">
+        <div class="container">
 
-        <a class="btn btn-success" href="@Url.Action("Create", "Admin", null)" style="margin-bottom:5px;"><i class="bi bi-plus-circle"></i> Add Product</a>
-
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @Html.HiddenFor(m => m.ReturnUrl) @* the GUID for our return url, stored in the session *@
-
-                @foreach (var item in Model.Products)
-                {
+            <a class="btn btn-success" href="@Url.Action("Create", "Admin", null)" style="margin-bottom:5px;"><i class="bi bi-plus-circle"></i> Add Product</a>
+            <table class="table">
+                <thead class="thead-dark">
                     <tr>
-                        <td class="">@item.ProductID</td>
-                        <td>@Html.ActionLink(item.Name, "Edit", new { item.ProductID })</td>
-
-                        <td scope="row" class="text-left">@item.Price.ToString("c")</td>
-                        <td class="">
-                            @using (Html.BeginForm("Delete", "Admin"))
-                            {
-                                @Html.Hidden("ProductID", item.ProductID)
-                                <input type="submit" class="btn btn-warning" value="Delete" />
-                            }
-                        </td>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Actions</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @Html.HiddenFor(m => m.ReturnUrl) @* the GUID for our return url, stored in the session *@
+
+                    @foreach (var item in Model.Products)
+                    {
+                        <tr>
+                            <td class="">@item.ProductID</td>
+                            <td>@Html.ActionLink(item.Name, "Edit", new { item.ProductID })</td>
+
+                            <td scope="row" class="text-left">@item.Price.ToString("c")</td>
+                            <td class="">
+                                @using (Html.BeginForm("Delete", "Admin"))
+                                {
+                                    @Html.Hidden("ProductID", item.ProductID)
+                                    <input type="submit" class="btn btn-warning" value="Delete" />
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
     </div>
 </div>
