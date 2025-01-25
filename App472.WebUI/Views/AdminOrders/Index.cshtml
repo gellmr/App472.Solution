@@ -10,6 +10,7 @@
         <h5>Orders Backlog</h5> @*TODO replace this view with list of multiple orders sorted by date and order status*@
         <br />
         <div></div>
+        <div class="table-responsive-xl">
         <table class="table table-hover">
             <thead class="thead-dark">
                 <tr class="mgAccTable" data-href="@Url.Action("Index", "AdminOrders")" data-recent="@Model.Recent">
@@ -84,7 +85,7 @@
                 }
             </tbody>
         </table>
-
+        </div>
     </div>
 </div>
 <script type="text/javascript" src="~/Scripts/AdminOrderIndex.js"></script>
