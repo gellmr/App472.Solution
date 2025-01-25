@@ -7,13 +7,13 @@ namespace App472.WebUI.Infrastructure
 {
     public static class MyExtensions
     {
-        // Extend string for our convenience. Eg int? a = mystring.ToNullableInt()
+        // Extend string for our convenience. Eg Guid? a = mystring.ToNullableGuid()
         // See
         // https://stackoverflow.com/questions/45030/how-to-parse-a-string-into-a-nullable-int
-        public static int? ToNullableInt(this string s)
+        public static Nullable<Guid> ToNullableGuid(this string s)
         {
-            int i;
-            if (int.TryParse(s, out i)) return i;
+            Guid g;
+            if (Guid.TryParse(s, out g)) return g;
             return null;
         }
 

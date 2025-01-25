@@ -3,6 +3,7 @@ using App472.WebUI.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity;
 
 namespace App472.WebUI.App_Start
 {
@@ -10,11 +11,15 @@ namespace App472.WebUI.App_Start
     {
         public static void AddToContext(ref IList<Order> orders, ref IList<Product> prods, ref IDDBContext context, ref Int32 orderId)
         {
-            Int32 userId = 111;
+            AppUser user = IDDBExtensions.Users[0]; // get first user from our seed
+            string userId = user.Id; // 111;
             DateTimeOffset now = DateTimeOffset.Now;
             DateTimeOffset yesterday = now.AddDays(-1);
 
             Order order1 = new Order(orderId++, userId, null);
+            order1.AppUser = user;
+            order1.UserID = userId;
+
             Product prod1 = prods[0];
             Product prod2 = prods[1];
             Product prod3 = prods[2];

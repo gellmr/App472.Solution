@@ -22,7 +22,7 @@ namespace App472.WebUI.Controllers
         }
 
         // List all orders belonging to a particular user.
-        public ActionResult Index(int? UserId, Nullable<Guid> guestId)
+        public ActionResult Index(string UserId, Nullable<Guid> guestId)
         {
             // BREAD CRUMBS
             // Starting from User Accounts... (Guest or FullUser)
@@ -32,7 +32,7 @@ namespace App472.WebUI.Controllers
                 CurrentPageNavText = AppNavs.UsersNavText
             };
             if (UserId != null){
-                model.UserId  = (Int32)UserId;
+                model.UserId  = UserId;
                 model.UserName = AppNavs.GenUserName(UserId);
                 model.Orders = repository.Orders.Where(o => o.UserID == UserId).OrderBy(o => o.OrderPlacedDate);
             }
@@ -52,7 +52,7 @@ namespace App472.WebUI.Controllers
         public ActionResult Detail(Int32 OrderID, bool FromUserAccounts = false)
         {
             Order order = repository.Orders.Where(o => o.OrderID == OrderID).FirstOrDefault();
-            int? UserId = order.UserID;
+            string UserId = order.UserID;
             IEnumerable<OrderedProduct> orderedProducts = order.OrderedProducts;
             if (order.OrderStatus == null){order.OrderStatus = Order.ParseShippingState(ShippingState.NotYetPlaced);}
             AdminOrderDetailViewModel model;
@@ -61,7 +61,7 @@ namespace App472.WebUI.Controllers
             {
                 // user order
                 model = new AdminOrderDetailViewModel{
-                    UserId = (Int32)UserId,
+                    UserId = UserId,
                     GuestId = null,
                     UserName = AppNavs.GenUserName(UserId),
                     OrderName = AppNavs.GenOrderName(order.OrderID)

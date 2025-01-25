@@ -19,7 +19,7 @@ namespace App472.WebUI.Infrastructure
         public static string AdminUserOrder_Index = "/AdminUserOrder/Index";
         public static string AdminUserOrder_Detail = "/AdminUserOrder/Detail";
 
-        public static string GenUserName(Nullable<Int32> userId){
+        public static string GenUserName(string userId){
             return "User-" + userId;
         }
         public static string GenUserName(Nullable<Guid> GuestId){

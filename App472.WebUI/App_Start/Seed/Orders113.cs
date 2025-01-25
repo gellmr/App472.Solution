@@ -9,6 +9,7 @@ namespace App472.WebUI.App_Start
     {
         public static IList<Order> GetOrders(ref IList<Product> prods, ref IDDBContext context, ref Int32 orderId, Guid guestID)
         {
+            // This user is a Guest, they dont have an AppUser Id
             IList<Order> orders = new List<Order>();
             DateTimeOffset now = DateTimeOffset.Now;
             DateTimeOffset yesterday = now.AddDays(-1);

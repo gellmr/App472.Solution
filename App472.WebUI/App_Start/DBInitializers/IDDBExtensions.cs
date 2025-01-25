@@ -15,15 +15,18 @@ using App472.WebUI.Domain.Entities;
 
 namespace App472.WebUI.App_Start
 {
+
     public static class IDDBExtensions
     {
         private static string secretAdminPWHashed;
+        public static IList<AppUser> Users; // static variable used to seed the database
 
         // Static method to extend our context class,
         // so we can call some common seed operations on it,
         // no matter if we are in debug or release modes.
         public static void SeedDomainObjects(this IDDBContext context)
         {
+            // Executes second
             // Seed the Domain objects...
 
             // Populate products
@@ -57,10 +60,11 @@ namespace App472.WebUI.App_Start
         // no matter if we are in debug or release modes.
         public static void SeedIDContext(this IDDBContext context)
         {
+            // Executes first
             // Seed the Identity tables...
 
             IPasswordHasher hasher = new PasswordHasher();
-            IList<AppUser> users = new List<AppUser>();
+            Users = new List<AppUser>();
             string secretAdminPassword = ConfigurationManager.AppSettings["SecretAdminPassword"];
             if (secretAdminPassword == null)
             {
@@ -72,12 +76,12 @@ namespace App472.WebUI.App_Start
             // see https://github.com/aspnet/MicrosoftConfigurationBuilders/blob/main/samples/SampleWebApp/Web.config
 
             // populate users
-            SeedAppUser("111", ref users);
-            SeedAppUser("112", ref users);
-            context.Users.AddOrUpdate(users.ToArray());
+            SeedAppUser("111");
+            SeedAppUser("112");
+            context.Users.AddOrUpdate(Users.ToArray());
         }
 
-        private static void SeedAppUser(string userID, ref IList<AppUser> users)
+        private static void SeedAppUser(string userID)
         {
             AppUser user = new AppUser
             {
@@ -94,7 +98,7 @@ namespace App472.WebUI.App_Start
                 AccessFailedCount = Int32.Parse(ConfigurationManager.AppSettings[UserKey(userID, "AccessFailedCount")]),
                 UserName = ConfigurationManager.AppSettings[UserKey(userID, "UserName")]
             };
-            users.Add(user);
+            Users.Add(user);
         }
 
         private static string UserKey(string id, string suffix)

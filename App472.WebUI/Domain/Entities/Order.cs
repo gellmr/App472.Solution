@@ -1,5 +1,10 @@
-﻿using System;
+﻿using App472.WebUI.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.WebPages;
+using System.Xml.Linq;
 
 namespace App472.WebUI.Domain.Entities
 {
@@ -15,9 +20,16 @@ namespace App472.WebUI.Domain.Entities
 
     public class Order
     {
-        public Nullable<Guid> GuestID { get; set; } // null if the user was logged in when they placed order.
-        public Nullable<Int32> UserID { get; set; } // set to null, then database will assign a value
-        public Nullable<Int32> OrderID { get; set; } // set to null, then database will assign a value
+        [Key]
+        public Nullable<Int32> OrderID { get; set; } // primary key
+        
+        [ForeignKey("UserID")] // look up AppUser by using UserID as foreign key to the AspNetUsers table.
+        public virtual AppUser AppUser { get; set; } // navigation property. AppUser object.
+        public string UserID { get; set; } // foreign key to AspNetUsers table
+
+        public Nullable<Guid> GuestID { get; set; } // foreign key to Guests table. Null if the user was logged in when they placed order.
+        public virtual Guest Guest { get; set; } // navigation property.
+
         public virtual IList<OrderedProduct> OrderedProducts { get; set; }
 
         public Nullable<DateTimeOffset> OrderPlacedDate { get; set; }
@@ -30,6 +42,19 @@ namespace App472.WebUI.Domain.Entities
         public string ShippingAddress { get; set; }
         public string OrderStatus { get; set; }
 
+        [NotMapped]
+        public string UserOrGuestId{
+            get { return string.IsNullOrEmpty(UserID) ? GuestID.ToString() : UserID; }
+        }
+        [NotMapped]
+        public string UserOrGuestName{
+            get { return string.IsNullOrEmpty(UserID) ? Guest.FullName : AppUser.UserName; }
+        }
+        [NotMapped]
+        public string AccountType{
+            get { return (GuestID != null) ? "Guest" : "User"; }
+        }
+
         public Order()
         {
             GuestID = null;
@@ -38,7 +63,7 @@ namespace App472.WebUI.Domain.Entities
             OrderedProducts = new List<OrderedProduct>();
         }
 
-        public Order(int orderID, Nullable<Int32> userID, Nullable<Guid> guestID)
+        public Order(int orderID, string userID, Nullable<Guid> guestID)
         {
             GuestID = guestID;
             UserID = userID;

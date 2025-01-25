@@ -9,7 +9,7 @@ namespace App472.WebUI.Models
 {
     public class AdminUserOrdersViewModel: AdminViewModel
     {
-        public Int32 UserId {get; set; }
+        public string UserId {get; set; }
         public Nullable<Guid> GuestId { get; set; }
         public string UserName{get; set; }
         public BreadCrumb BCNavTrail { get; set; }

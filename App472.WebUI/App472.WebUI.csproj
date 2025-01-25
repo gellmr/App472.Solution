@@ -285,6 +285,10 @@
     <Compile Include="Migrations\202501130414317_AddDomainEntities.Designer.cs">
       <DependentUpon>202501130414317_AddDomainEntities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501241027202_OrderHasUserIdString.cs" />
+    <Compile Include="Migrations\202501241027202_OrderHasUserIdString.Designer.cs">
+      <DependentUpon>202501241027202_OrderHasUserIdString.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminEditProductViewModel.cs" />
     <Compile Include="Models\AdminBaseOrderDetailViewModel.cs" />
@@ -392,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501130414317_AddDomainEntities.resx">
       <DependentUpon>202501130414317_AddDomainEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501241027202_OrderHasUserIdString.resx">
+      <DependentUpon>202501241027202_OrderHasUserIdString.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

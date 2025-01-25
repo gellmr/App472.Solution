@@ -32,7 +32,7 @@ namespace App472.WebUI.Infrastructure.Concrete
                 List<FullUser> fullUsers = new List<FullUser>();
                 foreach (AppUser appUser in AppUserManager.Users)
                 {
-                    Int32 appUserId = Int32.Parse(appUser.Id);
+                    string appUserId = appUser.Id;
                     fullUsers.Add(
                         new FullUser{
                             AppUser = appUser,

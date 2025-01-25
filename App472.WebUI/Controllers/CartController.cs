@@ -78,7 +78,7 @@ namespace App472.WebUI.Controllers
                     AppUser user = userManager.FindById( sessUser.UserID.ToString() );
 
                     // Ready to save the order.
-                    SaveOrder(cart, shippingDetails, user.Id.ToNullableInt(), null);
+                    SaveOrder(cart, shippingDetails, user.Id, null);
                 }
                 else
                 {
@@ -106,7 +106,7 @@ namespace App472.WebUI.Controllers
             }
         }
 
-        private void SaveOrder(Cart cart, ShippingDetails shippingDetails, int? userId, Nullable<Guid> guestId)
+        private void SaveOrder(Cart cart, ShippingDetails shippingDetails, string userId, Nullable<Guid> guestId)
         {
             Order order1 = new Order();
             string shipAddress = Order.ParseAddress(shippingDetails);
