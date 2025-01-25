@@ -48,7 +48,7 @@ namespace App472.WebUI.Controllers
                 case OrderSortEnum.Username:        orders = orderRepo.Orders.OrderBy(order => order.UserOrGuestName);  if (Ascending["Username"]) { orders = orders.Reverse(); }     break;
                 case OrderSortEnum.UserID:          orders = orderRepo.Orders.OrderBy(order => order.UserOrGuestId);    if (Ascending["UserID"]) { orders = orders.Reverse(); }       break;
                 case OrderSortEnum.AccountType:     orders = orderRepo.Orders.OrderBy(order => order.AccountType);      if (Ascending["AccountType"]) { orders = orders.Reverse(); }  break;
-                case OrderSortEnum.Email:           orders = orderRepo.Orders.OrderBy(order => order.AppUser.Email);    if (Ascending["Email"]) { orders = orders.Reverse(); }        break;
+                case OrderSortEnum.Email:           orders = orderRepo.Orders.OrderBy(order => order.UserOrGuestEmail);    if (Ascending["Email"]) { orders = orders.Reverse(); }        break;
                 case OrderSortEnum.OrderPlaced:     orders = orderRepo.Orders.OrderBy(order => order.OrderPlacedDate);  if (Ascending["OrderPlaced"]) { orders = orders.Reverse(); }  break;
                 //case OrderSortEnum.PaymentReceived: orders = orderRepo.Orders.OrderBy(order => order.PaymentReceived); break; // <-- still broken
                 case OrderSortEnum.ItemsOrdered:    orders = orderRepo.Orders.OrderBy(order => order.QuantityTotal);    if (Ascending["ItemsOrdered"]) { orders = orders.Reverse(); } break;

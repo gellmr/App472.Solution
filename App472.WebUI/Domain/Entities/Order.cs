@@ -54,6 +54,10 @@ namespace App472.WebUI.Domain.Entities
         public string AccountType{
             get { return (GuestID != null) ? "Guest" : "User"; }
         }
+        [NotMapped]
+        public string UserOrGuestEmail{
+            get { return (GuestID != null) ? Guest.Email : AppUser.Email; }
+        }
 
         public Order()
         {
