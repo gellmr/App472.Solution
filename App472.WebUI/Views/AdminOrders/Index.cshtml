@@ -17,6 +17,7 @@
                     @foreach (KeyValuePair<string, bool> row in Model.Ascending){
                         @Html.Partial("~/Views/AdminOrders/_TableHeadRow.cshtml", new AdminOrdersIndexTableHeadRow { Key = row.Key, Value = row.Value})
                     }
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
