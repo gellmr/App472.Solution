@@ -1,5 +1,6 @@
 ﻿@using App472.WebUI.Infrastructure;
 @using App472.WebUI.Domain.Entities;
+@using App472.WebUI.Models;
 @model App472.WebUI.Models.AdminOrdersViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -11,17 +12,10 @@
         <div></div>
         <table class="table table-hover">
             <thead class="thead-dark">
-                <tr class="mgAccTable">
-                    <th scope="col">                         <a class="mg-th-link"          href="@Url.Action("Index", "AdminOrders", new {SortBy="OrderID"})">           Order ID</a></th>
-                    <th scope="col" style="text-align:left;"><a class="mg-th-link" href="#" _ref="@Url.Action("Index", "AdminOrders", new {SortBy="Username"})">          Username</a></th>
-                    <th scope="col">                         <a class="mg-th-link"          href="@Url.Action("Index", "AdminOrders", new {SortBy="UserID"})">            User ID</a></th>
-                    <th scope="col">                         <a class="mg-th-link" href="#" _ref="@Url.Action("Index", "AdminOrders", new {SortBy="AccountType"})">       Account Type</a></th>
-                    <th scope="col" style="text-align:left;"><a class="mg-th-link" href="#" _ref="@Url.Action("Index", "AdminOrders", new {SortBy="Email"})">             Email</a></th>
-                    <th scope="col" style="text-align:left;"><a class="mg-th-link" href="#" _ref="@Url.Action("Index", "AdminOrders", new {SortBy="OrderPlaced"})">       Order Placed</a></th>
-                    <th scope="col">                         <a class="mg-th-link" href="#" _ref="@Url.Action("Index", "AdminOrders", new {SortBy="PaymentReceived"})">   Payment Received</a></th>
-                    <th scope="col">                         <a class="mg-th-link" href="#" _ref="@Url.Action("Index", "AdminOrders", new {SortBy="ItemsOrdered"})">      Items Ordered</a></th>
-                    <th scope="col">                         <a class="mg-th-link"          href="@Url.Action("Index", "AdminOrders", new {SortBy="OrderStatus"})">       Order Status</a></th>
-                    <th scope="col">Order</th>
+                <tr class="mgAccTable" data-href="@Url.Action("Index", "AdminOrders")" data-recent="@Model.Recent">
+                    @foreach (KeyValuePair<string, bool> row in Model.Ascending){
+                        @Html.Partial("~/Views/AdminOrders/_TableHeadRow.cshtml", new AdminOrdersIndexTableHeadRow { Key = row.Key, Value = row.Value})
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -93,3 +87,4 @@
 
     </div>
 </div>
+<script type="text/javascript" src="~/Scripts/AdminOrderIndex.js"></script>

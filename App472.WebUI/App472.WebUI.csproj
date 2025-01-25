@@ -292,6 +292,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminEditProductViewModel.cs" />
     <Compile Include="Models\AdminBaseOrderDetailViewModel.cs" />
+    <Compile Include="Models\AdminOrdersIndexTableHeadRow.cs" />
     <Compile Include="Models\AdminProductsViewModel.cs" />
     <Compile Include="Models\AdminUserAccViewModel.cs" />
     <Compile Include="Models\AdminOrderDetailViewModel.cs" />
@@ -319,6 +320,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\AdminOrderIndex.js" />
     <Content Include="Scripts\AdminUserAccIndex.js" />
     <Content Include="Scripts\AdminUserOrder.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -370,6 +372,7 @@
     <Content Include="Views\Shared\_BreadCrumb.cshtml" />
     <Content Include="Views\AdminUserAcc\_TableRowGuest.cshtml" />
     <Content Include="Views\AdminUserAcc\_TableRowFullUser.cshtml" />
+    <Content Include="Views\AdminOrders\_TableHeadRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
