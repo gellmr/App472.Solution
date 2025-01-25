@@ -41,7 +41,9 @@ namespace App472.WebUI.Controllers
             IEnumerable<Order> orders = orderRepo.Orders; // default: No sort
             
             Dictionary<string,bool> Ascending = AdminOrdersViewModel.GetAscDefault();
-            Ascending[SortBy] = SortAscend;
+            if(!string.IsNullOrEmpty(SortBy)){
+                Ascending[SortBy] = SortAscend;
+            }
 
             switch (sortEnum){
                 case OrderSortEnum.OrderID:         orders = orderRepo.Orders.OrderBy(order => order.OrderID);          if(Ascending["OrderID"]){ orders = orders.Reverse();}         break;
