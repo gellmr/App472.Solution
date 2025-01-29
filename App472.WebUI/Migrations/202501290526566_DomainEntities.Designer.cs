@@ -7,13 +7,13 @@ namespace App472.WebUI.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class OrderHasUserIdString : IMigrationMetadata
+    public sealed partial class DomainEntities : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(OrderHasUserIdString));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DomainEntities));
         
         string IMigrationMetadata.Id
         {
-            get { return "202501241027202_OrderHasUserIdString"; }
+            get { return "202501290526566_DomainEntities"; }
         }
         
         string IMigrationMetadata.Source
