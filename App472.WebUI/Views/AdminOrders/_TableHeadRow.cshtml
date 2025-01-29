@@ -1,6 +1,18 @@
 @model App472.WebUI.Models.AdminOrdersIndexTableHeadRow
-<th scope="col">
-    <a class="mg-th-link" href="@Url.Action("Index", "AdminOrders")" data-sortby="@Model.Key" data-asc="@Model.Value">
-        @Model.Key <i class="bi bi-caret-@(Model.Value ? "up" : "down")-fill"></i>
-    </a>
-</th>
+@{
+    if (Model.Caret)
+    {
+        <th scope="col" class="@Model.Align">
+            <a class="mg-th-link" href="@Url.Action("Index", "AdminOrders")" data-sortby="@Model.Key" data-asc="@Model.Value">
+                @Model.Key
+                @if (Model.Caret)
+                {
+                    @:&nbsp;
+                    <i class="bi bi-caret-@(Model.Value ? "up" : "down")-fill"></i>
+                }
+            </a>
+        </th>
+    }else{
+        <th scope="col" class="@Model.Align">@Model.Key</th>
+    }
+}

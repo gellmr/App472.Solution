@@ -9,5 +9,7 @@ namespace App472.WebUI.Models
     {
         public string Key { get; set; }
         public bool Value { get; set; }
+        public string Align { get; set; }
+        public bool Caret { get; set; }
     }
 }

@@ -209,7 +209,9 @@ namespace App472.WebUI.Domain.Entities
             OrderPlaced,
             PaymentReceived,
             ItemsOrdered,
-            OrderStatus
+            Items,
+            OrderStatus,
+            Edit
         }
 
         // Convert a given string into OrderSortEnum
@@ -235,6 +237,7 @@ namespace App472.WebUI.Domain.Entities
                         case OrderSortEnum.OrderPlaced: myEnum = OrderSortEnum.OrderPlaced; break;
                         case OrderSortEnum.PaymentReceived: myEnum = OrderSortEnum.PaymentReceived; break;
                         case OrderSortEnum.ItemsOrdered: myEnum = OrderSortEnum.ItemsOrdered; break;
+                        case OrderSortEnum.Items: myEnum = OrderSortEnum.Items; break;
                         case OrderSortEnum.OrderStatus: myEnum = OrderSortEnum.OrderStatus; break;
                     }
                     return myEnum;

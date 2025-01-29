@@ -14,8 +14,17 @@
         <table class="table table-hover">
             <thead class="thead-dark">
                 <tr class="mgAccTable" data-href="@Url.Action("Index", "AdminOrders")" data-recent="@Model.Recent">
-                    @foreach (KeyValuePair<string, bool> row in Model.Ascending){
-                        @Html.Partial("~/Views/AdminOrders/_TableHeadRow.cshtml", new AdminOrdersIndexTableHeadRow { Key = row.Key, Value = row.Value})
+                    @foreach (KeyValuePair<string, App472.WebUI.Models.Pair> row in Model.Ascending){
+                        var useCaret = true;
+                        if (row.Key == "Edit"){
+                            useCaret = false;
+                        }
+                        @Html.Partial("~/Views/AdminOrders/_TableHeadRow.cshtml", new AdminOrdersIndexTableHeadRow {
+                            Key = row.Key,
+                            Value = row.Value.Asc,
+                            Align = row.Value.Align,
+                            Caret = useCaret
+                        })
                     }
                     <th scope="col"></th>
                 </tr>
@@ -36,6 +45,7 @@
                     string dateCreated = "";
                     Decimal payment = 0;
                     Decimal countItems = 0;
+                    string itemString = "";
                     string orderStatus = "";
                     if (isGuest)
                     {
@@ -59,16 +69,17 @@
                     }
                     dateCreated = order.OrderPlacedDate.ToString();
                     countItems = order.QuantityTotal;
+                    itemString = order.ItemString;
                     orderStatus = order.OrderStatus.ToString();
 
                     <tr class="mgAccTable">
-                        <td class="">@order.OrderID</td>
+                        <td class="text-center">@order.OrderID</td>
                         <td scope="row" class="text-left">
                             @* TODO - add link for User Detail page. *@
                             @*<a class="" href="@Url.Action("Index", "AdminUserOrder", new {UserId=uid,GuestID=gid})">@uname</a>*@
                             @uname
                         </td>
-                        <td class="">
+                        <td class="text-left">
                             <span data-toggle="tooltip" data-placement="bottom" title="@ugid">
                                 @MyExtensions.Truncate(ugid, MyExtensions.GuidTruncLenth)
                             </span>
@@ -78,6 +89,7 @@
                         <td scope="row" class="text-left">@dateCreated</td>
                         <td scope="row" class="text-center">$ @payment.ToString("0.00")</td>
                         <td scope="row" class="text-center">@countItems</td>
+                        <td scope="row" class="text-left">@itemString</td>
                         <td scope="row" class="text-center">@orderStatus</td>
                         <td scope="row" class="text-center">
                             <a class="" href="@Url.Action("Detail", "AdminUserOrder", new {OrderID=order.OrderID.ToString()})">Edit</a>
