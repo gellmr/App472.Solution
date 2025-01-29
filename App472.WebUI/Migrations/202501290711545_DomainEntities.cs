@@ -51,12 +51,12 @@
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Orders", t => t.Order_OrderID)
-                .ForeignKey("dbo.Products", t => t.Product_ProductID)
+                .ForeignKey("dbo.InStockProducts", t => t.Product_ProductID)
                 .Index(t => t.Order_OrderID)
                 .Index(t => t.Product_ProductID);
             
             CreateTable(
-                "dbo.Products",
+                "dbo.InStockProducts",
                 c => new
                     {
                         ProductID = c.Int(nullable: false, identity: true),
@@ -85,7 +85,7 @@
         public override void Down()
         {
             DropForeignKey("dbo.OrderPayments", "OrderID", "dbo.Orders");
-            DropForeignKey("dbo.OrderedProducts", "Product_ProductID", "dbo.Products");
+            DropForeignKey("dbo.OrderedProducts", "Product_ProductID", "dbo.InStockProducts");
             DropForeignKey("dbo.OrderedProducts", "Order_OrderID", "dbo.Orders");
             DropForeignKey("dbo.Orders", "GuestID", "dbo.Guests");
             DropForeignKey("dbo.Orders", "UserID", "dbo.AspNetUsers");
@@ -95,7 +95,7 @@
             DropIndex("dbo.Orders", new[] { "GuestID" });
             DropIndex("dbo.Orders", new[] { "UserID" });
             DropTable("dbo.OrderPayments");
-            DropTable("dbo.Products");
+            DropTable("dbo.InStockProducts");
             DropTable("dbo.OrderedProducts");
             DropTable("dbo.Orders");
             DropTable("dbo.Guests");

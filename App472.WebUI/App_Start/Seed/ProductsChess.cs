@@ -8,12 +8,12 @@ namespace App472.WebUI.App_Start
 {
     public static class ProductsChess
     {
-        public static void Get(ref IList<Product> products)
+        public static void Get(ref IList<InStockProduct> products)
         {
             Int32 startId = 311;
             string category = "Chess";
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Thinking Cap",
@@ -22,7 +22,7 @@ namespace App472.WebUI.App_Start
                 Price = 15
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Chess Board",
@@ -31,7 +31,7 @@ namespace App472.WebUI.App_Start
                 Price = 25
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Speed Chess Timer",
@@ -40,7 +40,7 @@ namespace App472.WebUI.App_Start
                 Price = 50
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Chess Pieces - Full Set",
@@ -49,7 +49,7 @@ namespace App472.WebUI.App_Start
                 Price = 90
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Individual Chess Piece",
@@ -58,7 +58,7 @@ namespace App472.WebUI.App_Start
                 Price = 10
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Unsteady Chair",
@@ -67,7 +67,7 @@ namespace App472.WebUI.App_Start
                 Price = 45
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Holo Chess",

@@ -8,12 +8,12 @@ namespace App472.WebUI.App_Start
 {
     public static class ProductsSoccer
     {
-        public static void Get(ref IList<Product> products)
+        public static void Get(ref IList<InStockProduct> products)
         {
             Int32 startId = 211;
             string category = "Soccer";
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Soccer Ball",
@@ -22,7 +22,7 @@ namespace App472.WebUI.App_Start
                 Price = 35
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Corner Flags",
@@ -31,7 +31,7 @@ namespace App472.WebUI.App_Start
                 Price = 25
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Referee Whisle",
@@ -40,7 +40,7 @@ namespace App472.WebUI.App_Start
                 Price = 12
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Red and Yellow Cards",
@@ -49,7 +49,7 @@ namespace App472.WebUI.App_Start
                 Price = 10
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Soccer Stadium",
@@ -58,7 +58,7 @@ namespace App472.WebUI.App_Start
                 Price = 80000
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Soccer Goals",

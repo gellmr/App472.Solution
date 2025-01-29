@@ -40,7 +40,7 @@ namespace App472.WebUI.Controllers
         public ViewResult Edit(int productId, string returnUrl)
         {
             string url = GetTabReturnUrl(returnUrl);
-            Product product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
+            InStockProduct product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
             return View(new AdminEditProductViewModel{
                 CurrentPageNavText = AppNavs.ProductsNavText,
                 Product = product,
@@ -49,7 +49,7 @@ namespace App472.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product, string returnUrl)
+        public ActionResult Edit(InStockProduct product, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace App472.WebUI.Controllers
             string url = GetTabReturnUrl(returnUrl);
             return View("Edit", new AdminEditProductViewModel{
                 CurrentPageNavText = AppNavs.ProductsNavText,
-                Product = new Product{
+                Product = new InStockProduct{
                     Category = "Soccer",
                     Name = "Product Name",
                     Description = "Amazing New Product",
@@ -87,7 +87,7 @@ namespace App472.WebUI.Controllers
         public ActionResult Delete(int productId)
         {    
             if (!ordersRepository.ProductHasOrders(productId)){
-                Product deletedProduct = repository.DeleteProduct(productId);
+                InStockProduct deletedProduct = repository.DeleteProduct(productId);
                 if (deletedProduct != null){
                     TempData["message"] = string.Format("{0} was deleted", deletedProduct.Name);
                 }

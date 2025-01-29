@@ -8,12 +8,12 @@ namespace App472.WebUI.App_Start
 {
     public static class ProductsWater
     {
-        public static void Get(ref IList<Product> products)
+        public static void Get(ref IList<InStockProduct> products)
         {
             Int32 startId = 111;
             string category = "Water Sports";
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Polycarbon Injection Molded River Kayak",
@@ -22,7 +22,7 @@ namespace App472.WebUI.App_Start
                 Price = 350
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Life Jacket",
@@ -31,7 +31,7 @@ namespace App472.WebUI.App_Start
                 Price = 100
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "White Water Rafting Helmet",
@@ -40,7 +40,7 @@ namespace App472.WebUI.App_Start
                 Price = 90
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Single Paddle",
@@ -49,7 +49,7 @@ namespace App472.WebUI.App_Start
                 Price = 40
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Double Paddle",
@@ -58,7 +58,7 @@ namespace App472.WebUI.App_Start
                 Price = 50
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Camping Towel",
@@ -67,7 +67,7 @@ namespace App472.WebUI.App_Start
                 Price = 15
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Sunscreen SPF 50+",
@@ -76,7 +76,7 @@ namespace App472.WebUI.App_Start
                 Price = 25
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Waterproof Equipment Bag",
@@ -85,7 +85,7 @@ namespace App472.WebUI.App_Start
                 Price = 80
             });
 
-            products.Add(new Product()
+            products.Add(new InStockProduct()
             {
                 ProductID = startId++,
                 Name = "Drink Bottle",

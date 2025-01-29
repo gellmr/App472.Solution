@@ -8,12 +8,12 @@ namespace App472.WebUI.Domain.Concrete
     public class EFProductRepository : IProductsRepository
     {
         private IDDBContext context = new IDDBContext();
-        public IEnumerable<Product> Products
+        public IEnumerable<InStockProduct> Products
         {
             get { return context.Products; }
         }
 
-        public void SaveProduct(Product product)
+        public void SaveProduct(InStockProduct product)
         {
             if (product.ProductID == 0)
             {
@@ -21,7 +21,7 @@ namespace App472.WebUI.Domain.Concrete
             }
             else
             {
-                Product dbEntry = context.Products.Find(product.ProductID);
+                InStockProduct dbEntry = context.Products.Find(product.ProductID);
                 if (dbEntry != null)
                 {
                     dbEntry.Name = product.Name;
@@ -33,9 +33,9 @@ namespace App472.WebUI.Domain.Concrete
             context.SaveChanges();
         }
 
-        public Product DeleteProduct(int productId)
+        public InStockProduct DeleteProduct(int productId)
         {
-            Product dbEntry = context.Products.Find(productId);
+            InStockProduct dbEntry = context.Products.Find(productId);
             if (dbEntry != null)
             {
                 context.Products.Remove(dbEntry);

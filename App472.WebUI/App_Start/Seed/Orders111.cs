@@ -9,7 +9,7 @@ namespace App472.WebUI.App_Start
 {
     public static class Orders111
     {
-        public static void AddToContext(ref IList<Order> orders, ref IList<Product> prods, ref IDDBContext context, ref Int32 orderId)
+        public static void AddToContext(ref IList<Order> orders, ref IList<InStockProduct> prods, ref IDDBContext context, ref Int32 orderId)
         {
             AppUser user = IDDBExtensions.Users[0]; // get first user from our seed
             string userId = user.Id; // 111;
@@ -23,9 +23,9 @@ namespace App472.WebUI.App_Start
             order1.AppUser = user;
             order1.UserID = userId;
 
-            Product prod1 = prods[0];
-            Product prod2 = prods[1];
-            Product prod3 = prods[2];
+            InStockProduct prod1 = prods[0];
+            InStockProduct prod2 = prods[1];
+            InStockProduct prod3 = prods[2];
             OrderedProduct op1 = new OrderedProduct();
             OrderedProduct op2 = new OrderedProduct();
             OrderedProduct op3 = new OrderedProduct();
@@ -52,8 +52,8 @@ namespace App472.WebUI.App_Start
             yesterday = yesterday.AddHours(1);
 
             Order order2 = new Order(orderId++, userId, null);
-            Product prod4 = prods[3];
-            Product prod5 = prods[4];
+            InStockProduct prod4 = prods[3];
+            InStockProduct prod5 = prods[4];
             OrderedProduct op4 = new OrderedProduct();
             OrderedProduct op5 = new OrderedProduct();
             op4.Product = prod4; op4.Quantity = 2;

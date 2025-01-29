@@ -30,7 +30,7 @@ namespace App472.WebUI.App_Start
             // Seed the Domain objects...
 
             // Populate products
-            IList<Product> products = new List<Product>();
+            IList<InStockProduct> products = new List<InStockProduct>();
             ProductsWater.Get(ref products);
             ProductsSoccer.Get(ref products);
             ProductsChess.Get(ref products);

@@ -8,6 +8,6 @@ namespace App472.WebUI.Models
 {
     public class AdminProductsViewModel:AdminViewModel
     {
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<InStockProduct> Products { get; set; }
     }
 }

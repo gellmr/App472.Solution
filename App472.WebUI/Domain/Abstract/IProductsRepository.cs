@@ -5,8 +5,8 @@ namespace App472.WebUI.Domain.Abstract
 {
     public interface IProductsRepository
     {
-        IEnumerable<Product> Products { get; }
-        void SaveProduct(Product product);
-        Product DeleteProduct(int productId);
+        IEnumerable<InStockProduct> Products { get; }
+        void SaveProduct(InStockProduct product);
+        InStockProduct DeleteProduct(int productId);
     }
 }

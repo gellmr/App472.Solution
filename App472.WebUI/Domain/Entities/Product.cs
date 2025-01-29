@@ -3,8 +3,9 @@ using System.Web.Mvc;
 
 namespace App472.WebUI.Domain.Entities
 {
-    public class Product
+    public class InStockProduct
     {
+        [Key]
         [HiddenInput(DisplayValue = false)]
         public int ProductID { get; set; }
 

@@ -6,7 +6,7 @@ namespace App472.WebUI.Domain.Entities
     public class Cart
     {
         private List<CartLine> lineCollection = new List<CartLine>();
-        public void AddItem(Product product, int quantity)
+        public void AddItem(InStockProduct product, int quantity)
         {
             CartLine line = lineCollection
                 .Where(p => p.Product.ProductID == product.ProductID)
@@ -24,7 +24,7 @@ namespace App472.WebUI.Domain.Entities
                 line.Quantity += quantity;
             }
         }
-        public void RemoveLine(Product product)
+        public void RemoveLine(InStockProduct product)
         {
             lineCollection.RemoveAll(l => l.Product.ProductID == product.ProductID);
         }
@@ -44,7 +44,7 @@ namespace App472.WebUI.Domain.Entities
 
     public class CartLine
     {
-        public Product Product { get; set; }
+        public InStockProduct Product { get; set; }
         public int Quantity { get; set; }
     }
 }

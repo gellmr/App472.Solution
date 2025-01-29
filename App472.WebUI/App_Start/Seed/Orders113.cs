@@ -7,7 +7,7 @@ namespace App472.WebUI.App_Start
 {
     public static class Orders113
     {
-        public static IList<Order> GetOrders(ref IList<Product> prods, ref IDDBContext context, ref Int32 orderId, Guid guestID)
+        public static IList<Order> GetOrders(ref IList<InStockProduct> prods, ref IDDBContext context, ref Int32 orderId, Guid guestID)
         {
             // This user is a Guest, they dont have an AppUser Id
             IList<Order> orders = new List<Order>();
@@ -19,9 +19,9 @@ namespace App472.WebUI.App_Start
 
             Order order1 = new Order(orderId++, null, guestID);
 
-            Product prod1 = prods[0];
-            Product prod2 = prods[1];
-            Product prod3 = prods[2];
+            InStockProduct prod1 = prods[0];
+            InStockProduct prod2 = prods[1];
+            InStockProduct prod3 = prods[2];
             OrderedProduct op1 = new OrderedProduct();
             OrderedProduct op2 = new OrderedProduct();
             OrderedProduct op3 = new OrderedProduct();

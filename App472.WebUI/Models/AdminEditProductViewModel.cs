@@ -8,6 +8,6 @@ namespace App472.WebUI.Models
 {
     public class AdminEditProductViewModel : AdminViewModel
     {
-        public Product Product { get; set; }
+        public InStockProduct Product { get; set; }
     }
 }

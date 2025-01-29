@@ -13,7 +13,7 @@ namespace App472.WebUI.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202501290526566_DomainEntities"; }
+            get { return "202501290711545_DomainEntities"; }
         }
         
         string IMigrationMetadata.Source

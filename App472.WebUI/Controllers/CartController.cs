@@ -26,7 +26,7 @@ namespace App472.WebUI.Controllers
             guestRepo = grepo;
         }
         public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl){
-            Product product = repository.Products
+            InStockProduct product = repository.Products
                 .FirstOrDefault(p => p.ProductID == productId);
             if ( product != null) {
                 cart.AddItem(product, 1);
@@ -35,7 +35,7 @@ namespace App472.WebUI.Controllers
         }
 
         public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl){
-            Product product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
+            InStockProduct product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
             if(product != null){
                 cart.RemoveLine(product);
             }
