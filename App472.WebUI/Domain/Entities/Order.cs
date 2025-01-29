@@ -1,10 +1,14 @@
 ﻿using App472.WebUI.Models;
+﻿using App472.WebUI.Infrastructure;
+using App472.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.WebPages;
 using System.Xml.Linq;
+using System.Linq;
+using System.Text;
 
 namespace App472.WebUI.Domain.Entities
 {
@@ -58,6 +62,23 @@ namespace App472.WebUI.Domain.Entities
         [NotMapped]
         public string UserOrGuestEmail{
             get { return (GuestID != null) ? Guest.Email : AppUser.Email; }
+        }
+        [NotMapped]
+        public string ItemString {
+            get {
+                int sentenceMax = 40;
+                List<OrderedProduct> orderedProds = OrderedProducts.ToList();
+                StringBuilder builder = new StringBuilder();
+                if (orderedProds.Count > 0 ){
+                    int c = orderedProds.Count;
+                    for (int i = 0; i < c; i++){
+                        string productName = orderedProds[i].Product.Name;
+                        builder.Append(productName + ((i < c - 1) ? ", " : "")); // "Life Jacket, "
+                    }
+                }
+                string productList = MyExtensions.Truncate(builder.ToString(), sentenceMax);
+                return productList; // eg "Kayak, Life Jacket, Polycarbon Injection M..."
+            }
         }
 
         public Order()

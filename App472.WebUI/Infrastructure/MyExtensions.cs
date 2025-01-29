@@ -20,7 +20,8 @@ namespace App472.WebUI.Infrastructure
         // https://stackoverflow.com/questions/2776673/how-do-i-truncate-a-net-string
         public static string Truncate(this string value, int maxLength){
             if (string.IsNullOrEmpty(value)) return value;
-            return value.Length <= maxLength ? value : value.Substring(0, maxLength) + "...";
+            int substrLen = maxLength - 3;
+            return value.Length <= maxLength ? value : value.Substring(0, substrLen) + "...";
         }
 
         public static Int32 NavTruncLenth = 14;

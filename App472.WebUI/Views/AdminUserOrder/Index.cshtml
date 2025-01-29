@@ -20,6 +20,7 @@
                     <th scope="col">Order ID</th>
                     <th scope="col">Number of Items</th>
                     <th scope="col">Total Price</th>
+                    <th scope="col">Items</th>
                     <th scope="col">View Order Details</th>
                 </tr>
             </thead>
@@ -32,6 +33,7 @@
                             <td class="">#@order.OrderID</td>
                             <td class="">@order.OrderedProducts.Count Items</td>
                             <td class="">$ @order.PriceTotal</td>
+                            <td class="">@order.ItemString</td>
                             <td><a class="" href="@Url.Action("Detail", "AdminUserOrder", new{OrderID=order.OrderID, FromUserAccounts=true})">View Details</a></td>
                         </tr>
                     }
