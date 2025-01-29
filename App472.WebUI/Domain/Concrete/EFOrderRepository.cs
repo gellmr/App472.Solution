@@ -31,7 +31,7 @@ namespace App472.WebUI.Domain.Concrete
             context.SaveChanges();
         }
 
-        public void UpdateShippingStatus(Int32 OrderID, Int32 OrderStatus)
+        public void UpdateShippingStatus(Int32 OrderID, Int32 OrderStatus, Nullable<Decimal> PaymentAmount)
         {
             Order order = context.Orders.FirstOrDefault(o => o.OrderID == OrderID);
             if (order == null)
@@ -40,6 +40,11 @@ namespace App472.WebUI.Domain.Concrete
             }
             Domain.Entities.ShippingState myEnum = (Domain.Entities.ShippingState)OrderStatus;
             order.OrderStatus = Order.ParseShippingState(myEnum);
+            if (myEnum == ShippingState.PaymentReceived && PaymentAmount.HasValue)
+            {
+                OrderPayment payment = new OrderPayment{ Amount=PaymentAmount.Value, Date=DateTimeOffset.Now, Order=order };
+                context.OrderPayments.Add(payment);
+            }
             context.SaveChanges();
         }
 

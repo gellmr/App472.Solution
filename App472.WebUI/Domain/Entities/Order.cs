@@ -31,6 +31,7 @@ namespace App472.WebUI.Domain.Entities
         public virtual Guest Guest { get; set; } // navigation property.
 
         public virtual IList<OrderedProduct> OrderedProducts { get; set; }
+        public virtual IList<OrderPayment> OrderPayments { get; set; }
 
         public Nullable<DateTimeOffset> OrderPlacedDate { get; set; }
         public Nullable<DateTimeOffset> PaymentReceivedDate { get; set; }

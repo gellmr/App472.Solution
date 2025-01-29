@@ -256,6 +256,7 @@
     <Compile Include="Domain\Entities\Guest.cs" />
     <Compile Include="Domain\Entities\Order.cs" />
     <Compile Include="Domain\Entities\OrderedProduct.cs" />
+    <Compile Include="Domain\Entities\OrderPayment.cs" />
     <Compile Include="Domain\Entities\Product.cs" />
     <Compile Include="Domain\Entities\ShippingDetails.cs" />
     <Compile Include="Global.asax.cs">
@@ -288,6 +289,10 @@
     <Compile Include="Migrations\202501241027202_OrderHasUserIdString.cs" />
     <Compile Include="Migrations\202501241027202_OrderHasUserIdString.Designer.cs">
       <DependentUpon>202501241027202_OrderHasUserIdString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202501290057052_OrderPayments.cs" />
+    <Compile Include="Migrations\202501290057052_OrderPayments.Designer.cs">
+      <DependentUpon>202501290057052_OrderPayments.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminEditProductViewModel.cs" />
@@ -373,6 +378,7 @@
     <Content Include="Views\AdminUserAcc\_TableRowGuest.cshtml" />
     <Content Include="Views\AdminUserAcc\_TableRowFullUser.cshtml" />
     <Content Include="Views\AdminOrders\_TableHeadRow.cshtml" />
+    <Content Include="Views\AdminUserOrder\_PaymentModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -402,6 +408,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501241027202_OrderHasUserIdString.resx">
       <DependentUpon>202501241027202_OrderHasUserIdString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501290057052_OrderPayments.resx">
+      <DependentUpon>202501290057052_OrderPayments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

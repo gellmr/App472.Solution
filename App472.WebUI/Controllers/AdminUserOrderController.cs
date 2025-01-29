@@ -134,11 +134,11 @@ namespace App472.WebUI.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public class ShipStatusDTO { public Int32 OrderID { get; set; } public Int32 OrderStatus { get; set; } }
+        public class ShipStatusDTO { public Int32 OrderID { get; set; } public Int32 OrderStatus { get; set; } public Nullable<Decimal> PaymentAmount {get;set;} }
         [HttpPost]
         public HttpStatusCodeResult SetShipping(ShipStatusDTO model){
             try{
-                repository.UpdateShippingStatus(model.OrderID, model.OrderStatus);
+                repository.UpdateShippingStatus(model.OrderID, model.OrderStatus, model.PaymentAmount);
             }catch{
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }

@@ -30,6 +30,17 @@
             detailTotalQuantity: $(options.detailTotalQuantityClass),
             detailTotalCost: $(options.detailTotalCostClass),
 
+            modalCancelButton: $(options.modalCancelButtonClass),
+            modalSaveButton: $(options.modalSaveButtonClass),
+
+            ShipParams: {},
+
+            Reset: function () {
+                page.ShipParams = {};
+                page.DisableListeners();
+                page.EnableListeners();
+            },
+
             EnableListeners: function () {
                 page.readyShipDropDownBtn.on("click", options.readyShipDropDownLinksClass, page.ReadyShipLinkClick);
 
@@ -65,6 +76,9 @@
 
                 page.detailTable.off('keyup');
                 page.detailTable.off('click');
+
+                page.modalSaveButton.off("click");
+                page.modalCancelButton.off("click");
             },
 
             // User focused the Quantity field
@@ -171,20 +185,37 @@
                 var text = $(event.currentTarget).html();
                 dropDownBtn.find(".dropdown-toggle").html(text);
                 var shipStatus = $(event.currentTarget).data("statuscode")
-
-                var params = {
+                page.ShipParams = {
                     OrderID: page.detailTable.data("orderid"),
                     OrderStatus: shipStatus,
                 };
+                if (text.toLowerCase() == "paymentreceived") {
+                    page.DisableListeners();
+                    $('#paymentModal').modal();
+                    page.modalSaveButton.on("click", page.ClickedPaymentSave);
+                    page.modalCancelButton.on("click", page.ClickedPaymentCancel);
+                } else {
+                    page.SetShipping(event);
+                }
+            },
+            ClickedPaymentSave: function (event) {
+                var amount = $('#paymentModal .paymentAmountInput').val();
+                page.ShipParams["PaymentAmount"] = parseFloat(amount);
+                page.SetShipping(event);
+            },
+            ClickedPaymentCancel: function (event) {
+                page.Reset();
+            },
+            SetShipping: function (event) {
                 $.ajax({
                     url: "/AdminUserOrder/SetShipping",
                     type: 'POST',
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: JSON.stringify(params),
+                    data: JSON.stringify(page.ShipParams),
                     statusCode: {
                         200: function (jqXHR) {
-                            debugger;
+                            // page.Reset();
                             window.location.reload();
                         }
                     }
@@ -214,7 +245,7 @@
             // --------------------------------------
             // Page ready, attach event listeners
             ReadyJs: function () {
-                page.EnableListeners();
+                page.Reset();
             },
         };
 
@@ -242,6 +273,9 @@ var options = {
 
     detailTotalQuantityClass:  "#detailTotalQuantity",
     detailTotalCostClass:      "#detailTotalCost",
+
+    modalCancelButtonClass:    "#paymentModal .modal-footer .btn-cancel",
+    modalSaveButtonClass:      "#paymentModal .modal-footer .btn-save",
 };
 var page = $.adminBaseOrderDetail(options);
 jQuery(document).ready(page.ready);

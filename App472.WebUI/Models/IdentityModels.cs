@@ -58,6 +58,7 @@ namespace App472.WebUI.Models
         // Domain entities
         public DbSet<Product> Products { get; set; }
         public DbSet<OrderedProduct> OrderedProducts { get; set; }
+        public DbSet<OrderPayment> OrderPayments { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Guest> Guests { get; set; }
     }
