@@ -62,12 +62,12 @@ textarea {
     padding-left:7px;
 }
 
-.mgAccTable td,input.form-control{
-    font-size:12px;
-    height:30px;
+.mgAccTable td, .mgAccTable input.form-control {
+    font-size: 12px;
+    height: 30px;
 }
 
-tr.mgAccTable th, tr {
+tr.mgAccTable th, tr.mgAccTable tr {
     text-align: center;
     font-size: 12px;
 }
