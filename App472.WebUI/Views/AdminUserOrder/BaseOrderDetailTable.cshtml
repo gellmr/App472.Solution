@@ -40,18 +40,27 @@
                     <td>@Model.OrderPlacedDate</td>
                     <td></td>
                 </tr>
+                @{var useDisabled = (Model.OrderStatus == ShippingState.Shipped || Model.OrderStatus == ShippingState.Received);}
                 <tr>
                     <td><i class="bi bi-credit-card"></i></td>
                     <td>Billing Address:</td>
                     <td>
-                        @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control" })
+                        @if(useDisabled){
+                            @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", @disabled = "disabled" })
+                        }else{
+                            @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control" })
+                        }
                     </td>
                 </tr>
                 <tr>
                     <td><i class="bi bi-truck"></i></td>
                     <td>Shipping Address:</td>
                     <td>
-                        @Html.TextBoxFor(m => m.ShippingAddress, new { @class = "form-control" })
+                        @if(useDisabled){
+                            @Html.TextBoxFor(m => m.ShippingAddress, new { @class = "form-control", @disabled = "disabled" })
+                        }else{
+                            @Html.TextBoxFor(m => m.ShippingAddress, new { @class = "form-control" })
+                        }
                     </td>
                 </tr>
             </tbody>
