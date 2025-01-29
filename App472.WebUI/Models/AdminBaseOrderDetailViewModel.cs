@@ -10,6 +10,7 @@ namespace App472.WebUI.Models
     public class AdminBaseOrderDetailViewModel: AdminViewModel
     {
         public Int32 OrderID { get; set; }
+        public IList<OrderPayment> OrderPayments { get; set; }
         public IList<OrderedProduct> OrderedProducts { get; set; }
 
         public Nullable<DateTimeOffset> OrderPlacedDate { get; set; }

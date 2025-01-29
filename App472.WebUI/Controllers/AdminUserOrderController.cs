@@ -53,6 +53,7 @@ namespace App472.WebUI.Controllers
         {
             Order order = repository.Orders.Where(o => o.OrderID == OrderID).FirstOrDefault();
             string UserId = order.UserID;
+            IEnumerable<OrderPayment> orderPayments = order.OrderPayments;
             IEnumerable<OrderedProduct> orderedProducts = order.OrderedProducts;
             if (order.OrderStatus == null){order.OrderStatus = Order.ParseShippingState(ShippingState.NotYetPlaced);}
             AdminOrderDetailViewModel model;
@@ -97,6 +98,7 @@ namespace App472.WebUI.Controllers
                 model.CurrentPageNavText = AppNavs.OrdersNavText;
             }
             model.OrderID = OrderID;
+            model.OrderPayments = orderPayments.ToList();
             model.OrderedProducts = orderedProducts.ToList();
             model.OrderPlacedDate = order.OrderPlacedDate;
             model.PaymentReceivedDate = order.PaymentReceivedDate;

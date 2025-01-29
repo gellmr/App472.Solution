@@ -15,7 +15,6 @@
         <table class="table table-striped table-sm adminBaseOrderDetail detailHead">
             <tbody>
                 <tr>
-                    <td></td>
                     <td><i class="bi bi-flag"></i></td>
                     <td>Order Status:</td>
                     <td>
@@ -34,36 +33,63 @@
                             </div>
                         </div>
                     </td>
-                    <td></td>
                 </tr>
                 <tr>
-                    <td></td>
                     <td><i class="bi bi-calendar3-event"></i></td>
                     <td>Date Created:</td>
                     <td>@Model.OrderPlacedDate</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td></td>
                     <td><i class="bi bi-credit-card"></i></td>
                     <td>Billing Address:</td>
                     <td>
                         @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control" })
                     </td>
-                    <td></td>
                 </tr>
                 <tr>
-                    <td></td>
                     <td><i class="bi bi-truck"></i></td>
                     <td>Shipping Address:</td>
                     <td>
                         @Html.TextBoxFor(m => m.ShippingAddress, new { @class = "form-control" })
                     </td>
-                    <td></td>
                 </tr>
             </tbody>
         </table>
-        <hr />
+        
+        <h5>Payments</h5>
+        @{decimal? paymentSum = 0M;}
+        <div class="table-responsive-xl">
+        <table>
+            <thead></thead>
+            <tbody>
+                @foreach (OrderPayment payment in Model.OrderPayments){
+                    <tr>
+                        <td style="text-align:right; min-width:102px;">$@payment.Amount</td>
+                        <td style="color:lightgray;">
+                            <span class="d-inline-block text-truncate" style="font-size:13px; margin-top:6px;">
+                                &nbsp;@payment.Date
+                            </span>
+                        </td>
+                    </tr>
+                    paymentSum += payment.Amount;
+                }
+                @if(Model.OrderPayments.Count == 0){
+                    <tr>
+                        <td style="padding-bottom: 10px;">(None)</td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+        @if(Model.OrderPayments.Count != 0){
+            var outstanding = Model.TotalCost-paymentSum;
+            <hr style="margin-bottom:10px;margin-top:5px;" />
+            <h6>Total: $@paymentSum</h6>
+            <h6 style="font-weight:unset;">Outstanding: $@outstanding</h6>
+        }
+
         <div class="table-responsive-xl">
         <table class="table table-striped adminBaseOrderDetail detailBody" data-OrderID="@Model.OrderID">
             <thead class="thead-dark">
