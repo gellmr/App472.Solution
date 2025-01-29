@@ -1,6 +1,11 @@
 ﻿@using App472.WebUI.Domain.Entities;
 @model App472.WebUI.Models.AdminOrderDetailViewModel
 
+@{
+    var useDisabled = (Model.OrderStatus == ShippingState.Shipped || Model.OrderStatus == ShippingState.Received);
+    var qtyInputDisabled = useDisabled? "disabled='disabled'" : "";
+}
+
 <div class="card">
     <div class="card-body adminBaseOrderDetail">
 
@@ -40,7 +45,6 @@
                     <td>@Model.OrderPlacedDate</td>
                     <td></td>
                 </tr>
-                @{var useDisabled = (Model.OrderStatus == ShippingState.Shipped || Model.OrderStatus == ShippingState.Received);}
                 <tr>
                     <td><i class="bi bi-credit-card"></i></td>
                     <td>Billing Address:</td>
@@ -135,13 +139,13 @@
                             <a href="@Url.Action("Edit", "Admin", new{ProductID = @prod.Product.ProductID, returnUrl = Model.ReturnUrl })">@prod.Product.Price</a>
                         </td>
 
-                        <td scope="row" class="text-right isQuantity"><input class="mgAjaxText" type="text" value="@quantity" /></td>
+                        <td scope="row" class="text-right isQuantity"><input class="mgAjaxText" type="text" value="@quantity" @qtyInputDisabled /></td>
 
                         <td scope="row" class="text-right isCost">@cost</td>
 
                         <td scope="row" class="text-left isCategory">@prod.Product.Category</td>
 
-                        <td><button type="button" class="btn btn-sm btn-light mgDeleteX"><i class="bi bi-x-lg"></i></button></td>
+                        <td><button type="button" @qtyInputDisabled class="btn btn-sm btn-light mgDeleteX"><i class="bi bi-x-lg"></i></button></td>
                     </tr>
                 }
                 <tr style="margin-top:20px;">
