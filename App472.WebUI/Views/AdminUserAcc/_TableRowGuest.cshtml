@@ -1,7 +1,7 @@
 ﻿@using App472.WebUI.Infrastructure;
 @model App472.WebUI.Domain.Entities.Guest
 
-<tr class="mgAccTable">
+<tr class="mgAccTable" data-uid="@Model.Id" data-isguest="true">
     <td class="">
         <span data-toggle="tooltip" data-placement="bottom" title="@Model.Id">
             @MyExtensions.Truncate(Model.Id.ToString(), MyExtensions.GuidTruncLenth)
@@ -10,7 +10,7 @@
     <td class="">@Model.FirstName @Model.LastName</td>
     <td class="">Guest</td>
 
-    <td class="">
+    <td class="mgAccEmailCell">
         @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
     </td>
     <td class=""></td>

@@ -11,5 +11,6 @@ namespace App472.WebUI.Infrastructure.Abstract
         IEnumerable<FullUser> FullUsers {get;}
         AppUserManager AppUserManager { get; set; }
         LockoutUpdateResultDTO LockedOutUpdate(LockedOutUpdateDTO model);
+        bool EmailUpdate(EmailUpdateDTO model);
     }
 }

@@ -9,5 +9,6 @@ namespace App472.WebUI.Domain.Abstract
         IEnumerable<Guest> Guests { get; }
         void SaveGuest(Guest guest);
         Nullable<Guid> GuestExists(string email);
+        bool EmailUpdate(Infrastructure.DTO.EmailUpdateDTO model);
     }
 }

@@ -59,5 +59,13 @@ namespace App472.WebUI.Infrastructure.Concrete
             AppUserManager.Update(user); // update database
             return new LockoutUpdateResultDTO { Utc = user.LockoutEndDateUtc, Attempts = user.AccessFailedCount };
         }
+
+        public bool EmailUpdate(EmailUpdateDTO updateModel)
+        {
+            AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // get user
+            user.Email = updateModel.Email;
+            AppUserManager.Update(user); // update database
+            return true;
+        }
     }
 }

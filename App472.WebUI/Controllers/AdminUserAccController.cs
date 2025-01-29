@@ -48,5 +48,23 @@ namespace App472.WebUI.Controllers
             LockoutUpdateResultDTO result = fullUserRepo.LockedOutUpdate(model);
             return Json(new { LockoutEndDateUtc = result.Utc, Attempts = result.Attempts }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult UpdateEmail(EmailUpdateDTO model)
+        {
+            if (!ModelState.IsValid){
+                return Json(new { success = false, errorMessage = "failed validation" }, JsonRequestBehavior.AllowGet);
+            }
+            if (model.GuestID != null){
+                // Guest
+                bool successBool = guestRepo.EmailUpdate(model);
+                return Json(new { success = successBool }, JsonRequestBehavior.AllowGet);
+            }else{
+                // User
+                fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
+                bool successBool = fullUserRepo.EmailUpdate(model);
+                return Json(new { success = successBool }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

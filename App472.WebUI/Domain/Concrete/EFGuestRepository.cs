@@ -4,6 +4,7 @@ using App472.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Helpers;
 
 namespace App472.WebUI.Domain.Concrete
 {
@@ -49,6 +50,14 @@ namespace App472.WebUI.Domain.Concrete
                 return (Nullable<Guid>)guest.Id;
             }
             return null;
+        }
+
+        public bool EmailUpdate(Infrastructure.DTO.EmailUpdateDTO model)
+        {
+            Guest guest = context.Guests.FirstOrDefault(g => (Guid)g.Id == (Guid)model.GuestID);
+            guest.Email = model.Email;
+            context.SaveChanges();
+            return true;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace App472.WebUI.Infrastructure.DTO
 {
@@ -12,5 +13,16 @@ namespace App472.WebUI.Infrastructure.DTO
     {
         public DateTime? Utc {get; set; }
         public Int32 Attempts { get; set; }
+    }
+
+    public class EmailUpdateDTO
+    {
+        public Nullable<Int32> UserID { get; set; }
+        public Nullable<Guid> GuestID { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
+        public bool IsGuest { get; set; }
     }
 }
