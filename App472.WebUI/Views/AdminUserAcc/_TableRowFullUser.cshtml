@@ -4,17 +4,17 @@
 <tr class="mgAccTable" data-uid="@Model.AppUser.Id" data-isguest="false">
     <td class="">@Model.AppUser.Id</td>
     <td class="">
-        @Html.TextBoxFor(m => m.AppUser.UserName, new {@class = "form-control", @style = "max-width:140px;" })
+        @Html.TextBoxFor(m => m.AppUser.UserName, new {@class = "form-control", @autocomplete="off", @id="UserName_"+Model.AppUser.Id, @style = "max-width:140px;" })
     </td>
     <td class="">User</td>
 
     <td class="mgAccEmailCell">
-        @Html.TextBoxFor(m => m.AppUser.Email, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.AppUser.Email, new { @class = "form-control", @autocomplete="off", @id="Email_"+Model.AppUser.Id })
     </td>
     <td class="">@Model.AppUser.EmailConfirmed</td>
 
     <td class="">
-        @Html.TextBoxFor(m => m.AppUser.PhoneNumber, new { @class = "form-control", @style="max-width:140px;" })
+        @Html.TextBoxFor(m => m.AppUser.PhoneNumber, new { @class = "form-control", @autocomplete="off", @id="PhoneNumber_"+Model.AppUser.Id, @style="max-width:140px;" })
     </td>
     <td class="">@Model.AppUser.PhoneNumberConfirmed</td>
 
