@@ -3,7 +3,7 @@
 <div class="card" style="margin-top:0px; margin-bottom:10px;">
     <div class="card-body">
         <h3 class="card-title">
-            @Model.Name @Model.Price.ToString("c") <span style="color:lightgray; font-size:17px;">(@Model.Category, ProductID @Model.ProductID)</span>
+            @Model.Name @Model.Price.ToString("c")
         </h3>
         @using (Html.BeginForm("AddToCart", "Cart")){
             <div style="text-align:right; float:right;">
