@@ -3,7 +3,8 @@
 
 <tr class="mgAccTable" data-uid="@Model.AppUser.Id" data-isguest="false">
     <td class="">@Model.AppUser.Id</td>
-    <td class="">
+
+    <td class="mgAccUserCell">
         @Html.TextBoxFor(m => m.AppUser.UserName, new {@class = "form-control", @autocomplete="off", @id="UserName_"+Model.AppUser.Id, @style = "max-width:140px;" })
     </td>
     <td class="">User</td>

@@ -50,6 +50,26 @@ namespace App472.WebUI.Controllers
         }
 
         [HttpPost]
+        public JsonResult UpdateUsername(UsernameUpdateDTO model)
+        {
+            if (!ModelState.IsValid){
+                var errors = MyExtensions.ModelErrors(ModelState);
+                return Json(new { success = false, errorMessage = "failed validation", errors = errors }, JsonRequestBehavior.AllowGet);
+            }
+            bool successBool = false;
+            if (model.GuestID != null){
+                // Guest
+                return Json(new { success = false, errorMessage = "Guest Username cannot be changed. Please register a User account."}, JsonRequestBehavior.AllowGet);
+            }
+            else{
+                // User
+                fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
+                successBool = fullUserRepo.UsernameUpdate(model);
+            }
+            return Json(new { success = successBool, username = model.Username }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult UpdateEmail(EmailUpdateDTO model)
         {
             if (!ModelState.IsValid){

@@ -15,6 +15,16 @@ namespace App472.WebUI.Infrastructure.DTO
         public Int32 Attempts { get; set; }
     }
 
+    public class UsernameUpdateDTO
+    {
+        public Nullable<Int32> UserID { get; set; }
+        public Nullable<Guid> GuestID { get; set; }
+        [Required]
+        public string Username { get; set; }
+        [Required]
+        public bool IsGuest { get; set; }
+    }
+
     public class EmailUpdateDTO
     {
         public Nullable<Int32> UserID { get; set; }

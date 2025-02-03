@@ -60,6 +60,14 @@ namespace App472.WebUI.Infrastructure.Concrete
             return new LockoutUpdateResultDTO { Utc = user.LockoutEndDateUtc, Attempts = user.AccessFailedCount };
         }
 
+        public bool UsernameUpdate(UsernameUpdateDTO updateModel)
+        {
+            AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // get user
+            user.UserName = updateModel.Username;
+            AppUserManager.Update(user); // update database
+            return true;
+        }
+
         public bool EmailUpdate(EmailUpdateDTO updateModel)
         {
             AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // get user

@@ -10,9 +10,10 @@
             // --------------------------------------
 
             // member variables - page elements
-            ajaxErrors:            $(options.ajaxErrorsEl),
-            mgAccTableRow:         $(options.mgAccTableRowClass),
-            emailCellInput:        $(options.emailCellInputClass),
+            ajaxErrors: $(options.ajaxErrorsEl),
+            mgAccTableRow: $(options.mgAccTableRowClass),
+            userCellInput: $(options.userCellInputClass),
+            emailCellInput: $(options.emailCellInputClass),
             lockedOutDropDownBtns: $(options.lockedOutDropDownBtnClass),
 
             // member variables - for logic
@@ -28,83 +29,130 @@
                 page.DisableListeners();
                 $(':focus').blur(); // blur anything that has focus
                 page.EnableListeners();
-                page.emailCellInput.each(function (index, element) {
-                    element.InputRestoreValue = $(element).val();
-                });
+                page.userCellInput.each(page.SetRestoreValue);
+                page.emailCellInput.each(page.SetRestoreValue);
             },
-
-            EnableListenersEmail: function (emailInput) {
-                var selector = "input#" + emailInput.attr("id");
-                page.mgAccTableRow.on("focusout", selector, page.EmailBlur);
-                page.mgAccTableRow.on("keyup", selector, page.EmailKeyup);
+            SetRestoreValue: function (index, element) {
+                element.InputRestoreValue = $(element).val();
             },
-            DisableListenersEmail: function (emailInput) {
-                var selector = "input#" + emailInput.attr("id");
-                page.mgAccTableRow.off("focusout", selector, page.EmailBlur);
-                page.mgAccTableRow.off("keyup", selector, page.EmailKeyup);
-            },
-
             EnableListeners: function () {
                 //console.log("EnableListeners");
+                page.mgAccTableRow.on("focusin", options.userCellInputClass,  page.UsernameFocus);
                 page.mgAccTableRow.on("focusin", options.emailCellInputClass, page.EmailFocus);
                 page.lockedOutDropDownBtns.on("click", options.lockedOutDropDownLinksClass, page.LockedOutClick);
             },
             DisableListeners: function () {
-                page.emailCellInput.off("mousedown");
                 page.mgAccTableRow.off("keyup");
                 page.mgAccTableRow.off("focusin");
                 page.mgAccTableRow.off("focusout");
                 page.lockedOutDropDownBtns.off("click");
             },
-            EmailFocus: function (event) {
+            // ----------------------------------------------------------------
+            EnableListenersUsername: function (selector) {
+                page.mgAccTableRow.on("focusout", selector, page.UsernameBlur); page.mgAccTableRow.on("keyup", selector, page.UsernameKeyup);
+            },
+            DisableListenersUsername: function (selector) {
+                page.mgAccTableRow.off("focusout", selector, page.UsernameBlur); page.mgAccTableRow.off("keyup", selector, page.UsernameKeyup);
+            },
+            EnableListenersEmail: function (selector) {
+                page.mgAccTableRow.on("focusout", selector, page.EmailBlur); page.mgAccTableRow.on("keyup", selector, page.EmailKeyup);
+            },
+            DisableListenersEmail: function (selector) {
+                page.mgAccTableRow.off("focusout", selector, page.EmailBlur); page.mgAccTableRow.off("keyup", selector, page.EmailKeyup);
+            },
+            // ----------------------------------------------------------------
+            UsernameFocus: function (event) {
+                var ct = $(event.target); ct.css("background-color", page.focusColor);
+                console.log("UsernameFocus " + ct.val());
+                ct[0].InputRestoreValue = ct.val(); page.EnableListenersUsername("input#" + ct.attr("id"));
+            },
+            UsernameBlur: function (event) {
+                var ct = $(event.target); ct.css("background-color", page.blurColor);
+                console.log("  UsernameBlur " + ct.val());
+                page.UpdateUsername(event);
+            },
+            UsernameKeyup: function (event) {
+                var ct = $(event.currentTarget);
+                if (event && event.which === 13) {
+                    console.log("  UsernameKeyup " + ct.val());
+                    ct.css("background-color", page.keyupColor); event.preventDefault();
+                    page.UpdateUsername(event);
+                }
+            },
+            UpdateUsername: function (event) {
                 var ct = $(event.target);
-                ct.css("background-color", page.focusColor);
-                //console.log("Focus " + ct.val());
-                ct[0].InputRestoreValue = ct.val();
-                page.EnableListenersEmail(ct);
+                page.DisableListenersUsername("input#" + ct.attr("id"));
+                if (ct.val() == ct[0].InputRestoreValue) {
+                    page.ajaxErrors.html("");
+                    return;
+                }
+                console.log("    UpdateUsername " + ct.val());
+                var uid = ct.closest("tr").data("uid");
+                var isGuest = ct.closest("tr").data("isguest");
+                var userId = isGuest ? null : parseInt(uid);
+                var gid = isGuest ? uid : null;
+                var params = { UserID: userId, GuestID: gid, Username: ct.val(), IsGuest: isGuest };
+                ct.css("background-color", page.waitingColor);
+                ct.attr("disabled", "disabled");
+                $.ajax({
+                    url: "/AdminUserAcc/UpdateUsername", type: 'POST',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json", data: JSON.stringify(params),
+                    statusCode: {
+                        200: function (jqXHR) {
+                            ct.removeAttr('disabled');
+                            if (jqXHR.success) {
+                                console.log("     Success email: " + jqXHR.email);
+                                page.ajaxErrors.html("");
+                                ct.css("background-color", page.successColor);
+                                ct.blur();
+                            } else {
+                                page.ajaxErrors.html(jqXHR.errors[0]);
+                                console.log("     M: " + jqXHR.errorMessage);
+                                ct.css("background-color", page.errorColor);
+                                ct.val(ct[0].InputRestoreValue);
+                            }
+                        }
+                    }
+                });
+            },
+            // ----------------------------------------------------------------
+            EmailFocus: function (event) {
+                var ct = $(event.target); ct.css("background-color", page.focusColor);
+                console.log("EmailFocus " + ct.val());
+                ct[0].InputRestoreValue = ct.val(); page.EnableListenersEmail("input#" + ct.attr("id"));
             },
             EmailBlur: function (event) {
-                var ct = $(event.target);
-                ct.css("background-color", page.blurColor);
-                //console.log("  Blur " + ct.val());
+                var ct = $(event.target); ct.css("background-color", page.blurColor);
+                console.log("  EmailBlur " + ct.val());
                 page.UpdateEmail(event);
             },
             EmailKeyup: function (event) {
                 var ct = $(event.currentTarget);
                 if (event && event.which === 13) { // User pressed RETURN while editing Email field
-                    ct.css("background-color", page.keyupColor);
-                    event.preventDefault();
-                    //console.log("  Keyup " + ct.val());
+                    ct.css("background-color", page.keyupColor); event.preventDefault(); //console.log("  Keyup " + ct.val());
                     page.UpdateEmail(event);
                 }
             },
             UpdateEmail: function (event) {
                 var ct = $(event.target);
-                page.DisableListenersEmail(ct);
+                page.DisableListenersEmail("input#" + ct.attr("id"));
                 if (ct.val() == ct[0].InputRestoreValue) {
-                    page.ajaxErrors.html("");
-                    //console.log("    No change");
+                    page.ajaxErrors.html(""); //console.log("    No change");
                     return;
                 }
-                //console.log("    UpdateEmail " + ct.val());
+                console.log("    UpdateEmail " + ct.val());
                 var uid = ct.closest("tr").data("uid");
                 var isGuest = ct.closest("tr").data("isguest");
                 var userId = isGuest ? null : parseInt(uid);
                 var gid = isGuest ? uid : null;
-                var params = {
-                    UserID: userId,
-                    GuestID: gid,
-                    Email: ct.val(),
-                    IsGuest: isGuest
-                };
+                var params = { UserID: userId, GuestID: gid, Email: ct.val(), IsGuest: isGuest };
                 ct.css("background-color", page.waitingColor);
                 ct.attr("disabled", "disabled");
                 $.ajax({
-                    url: "/AdminUserAcc/UpdateEmail",
-                    type: 'POST',
+                    url: "/AdminUserAcc/UpdateEmail", type: 'POST',
                     contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    data: JSON.stringify(params),
+                    dataType: "json", data: JSON.stringify(params),
                     statusCode: {
                         200: function (jqXHR) {
                             ct.removeAttr('disabled');
@@ -123,7 +171,7 @@
                     }
                 });
             },
-
+            // ----------------------------------------------------------------
             // Convert ASP.NET JSON date format into milliseconds
             // See https://davidsekar.com/javascript/converting-json-date-string-date-to-date-object
             GetDateFromAspNetFormat: function(date) {
@@ -187,6 +235,7 @@
 var options = {
     ajaxErrorsEl: "#ajaxErr",
     mgAccTableRowClass: "tr.mgAccTable",
+    userCellInputClass: "td.mgAccUserCell input",
     emailCellInputClass: "td.mgAccEmailCell input",
     lockedOutDropDownBtnClass: ".mgLockedOutBtn",
     lockedOutDropDownLinksClass: ".dropdown-item",
