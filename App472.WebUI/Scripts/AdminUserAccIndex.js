@@ -97,10 +97,8 @@
                     Email: ct.val(),
                     IsGuest: isGuest
                 };
-
                 ct.css("background-color", page.waitingColor);
                 ct.attr("disabled", "disabled");
-
                 $.ajax({
                     url: "/AdminUserAcc/UpdateEmail",
                     type: 'POST',
