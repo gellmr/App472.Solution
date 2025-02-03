@@ -7,19 +7,23 @@
     <td class="mgAccUserCell">
         @Html.TextBoxFor(m => m.AppUser.UserName, new {@class = "form-control", @autocomplete="off", @id="UserName_"+Model.AppUser.Id, @style = "max-width:140px;" })
     </td>
-    <td class="">User</td>
+    <td class="">
+        <input disabled='disabled' value="User" autocomplete="off" class="form-control" id="" name="" style="max-width: 140px; background-color: unset;" type="text">
+    </td>
 
     <td class="mgAccEmailCell">
         @Html.TextBoxFor(m => m.AppUser.Email, new { @class = "form-control", @autocomplete="off", @id="Email_"+Model.AppUser.Id })
     </td>
-    <td class="">@Model.AppUser.EmailConfirmed</td>
+    <td class="text-center">
+        @Model.AppUser.EmailConfirmed
+    </td>
 
     <td class="mgAccPhoneCell">
         @Html.TextBoxFor(m => m.AppUser.PhoneNumber, new { @class = "form-control", @autocomplete="off", @id="Phone_"+Model.AppUser.Id, @style="max-width:140px;" })
     </td>
-    <td class="">@Model.AppUser.PhoneNumberConfirmed</td>
+    <td class="text-center">@Model.AppUser.PhoneNumberConfirmed</td>
 
-    <td class="">@Model.AppUser.TwoFactorEnabled</td>
+    <td class="text-center">@Model.AppUser.TwoFactorEnabled</td>
     @{
         // The dates saved into db are created as UTC nullable DateTime. Here we convert them back to (UTC+08:00) Perth
         var localTimeString = "unknown";
@@ -50,10 +54,10 @@
             </div>
         </div>
     </td>
-    <td id="accessFailed-@Model.AppUser.Id">@Model.AppUser.AccessFailedCount</td>
+    <td class="text-center" id="accessFailed-@Model.AppUser.Id">@Model.AppUser.AccessFailedCount</td>
 
-    <td class="">@Model.Orders.Count()</td>
-    <td class="">
+    <td class="text-center">@Model.Orders.Count()</td>
+    <td class="text-center">
         <a href="@Url.Action("Index", "AdminUserOrder", new{UserId = Model.AppUser.Id})">View Orders</a>
     </td>
 </tr>

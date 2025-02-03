@@ -7,8 +7,14 @@
             @MyExtensions.Truncate(Model.Id.ToString(), MyExtensions.GuidTruncLenth)
         </span>
     </td>
-    <td class="">@Model.FirstName @Model.LastName</td>
-    <td class="">Guest</td>
+
+    <td class="">
+        <input disabled='disabled' value="@Model.FirstName @Model.LastName" autocomplete="off" class="form-control" id="" name="" style="max-width: 140px; background-color: unset;" type="text">
+    </td>
+
+    <td class="">
+        <input disabled='disabled' value="Guest" autocomplete="off" class="form-control" id="" name="" style="max-width: 140px; background-color: unset;" type="text">
+    </td>
 
     <td class="mgAccEmailCell">
         @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @autocomplete="off", @id="Email_"+Model.Id })
@@ -23,8 +29,8 @@
     <td class=""></td>
     <td class=""></td>
 
-    <td class="">@Model.Orders.Count</td>
-    <td class="">
+    <td class="text-center">@Model.Orders.Count</td>
+    <td class="text-center">
         <a href="@Url.Action("Index", "AdminUserOrder", new{guestId = Model.Id})">View Orders</a>
     </td>
 </tr>

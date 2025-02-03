@@ -68,7 +68,8 @@ textarea {
 }
 
 tr.mgAccTable th, tr.mgAccTable tr {
-    text-align: center;
+    /*text-align: center;*/
+    text-align: left;
     font-size: 12px;
 }
 th a.mg-th-link{
@@ -83,9 +84,10 @@ tr.mgAccTable td {
     padding: 1px;
     vertical-align: middle;
 }
-tr.mgAccTable input{
+tr.mgAccTable input {
     border: none;
-    text-align: center;
+    /*text-align: center;*/
+    text-align: left;
     text-overflow: ellipsis;
 }
 
