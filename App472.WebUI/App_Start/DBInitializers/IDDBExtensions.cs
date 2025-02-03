@@ -43,7 +43,8 @@ namespace App472.WebUI.App_Start
             Orders112.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
 
             IList<Guest> guests = new List<Guest>();
-            Guid guestID = Guid.NewGuid();
+            Guid guestID;
+            guestID = Guid.NewGuid();
             guests.Add(new Guest
             {
                 Id = guestID,
@@ -51,6 +52,15 @@ namespace App472.WebUI.App_Start
                 LastName = "McDonald",
                 Email = "guest-113@gmail.com",
                 Orders = Orders113.GetOrders(ref products, ref context, ref orderIdStart, guestID)
+            });
+            guestID = Guid.NewGuid();
+            guests.Add(new Guest
+            {
+                Id = guestID,
+                FirstName = "Lamond",
+                LastName = "Forester",
+                Email = "guest-114@gmail.com",
+                Orders = Orders114.GetOrders(ref products, ref context, ref orderIdStart, guestID)
             });
             context.Guests.AddRange(guests);
         }
@@ -78,6 +88,12 @@ namespace App472.WebUI.App_Start
             // populate users
             SeedAppUser("111");
             SeedAppUser("112");
+            // 113 is Guest
+            // 114 is Guest
+            //SeedAppUser("115");
+            //SeedAppUser("116");
+            //SeedAppUser("117");
+            //SeedAppUser("118");
             context.Users.AddOrUpdate(Users.ToArray());
         }
 
