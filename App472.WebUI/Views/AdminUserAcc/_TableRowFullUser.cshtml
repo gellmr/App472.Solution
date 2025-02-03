@@ -14,8 +14,8 @@
     </td>
     <td class="">@Model.AppUser.EmailConfirmed</td>
 
-    <td class="">
-        @Html.TextBoxFor(m => m.AppUser.PhoneNumber, new { @class = "form-control", @autocomplete="off", @id="PhoneNumber_"+Model.AppUser.Id, @style="max-width:140px;" })
+    <td class="mgAccPhoneCell">
+        @Html.TextBoxFor(m => m.AppUser.PhoneNumber, new { @class = "form-control", @autocomplete="off", @id="Phone_"+Model.AppUser.Id, @style="max-width:140px;" })
     </td>
     <td class="">@Model.AppUser.PhoneNumberConfirmed</td>
 

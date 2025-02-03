@@ -87,5 +87,28 @@ namespace App472.WebUI.Controllers
             }
             return Json(new { success = successBool, email = model.Email }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult UpdatePhone(PhoneUpdateDTO model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = MyExtensions.ModelErrors(ModelState);
+                return Json(new { success = false, errorMessage = "failed validation", errors = errors }, JsonRequestBehavior.AllowGet);
+            }
+            bool successBool = false;
+            if (model.GuestID != null)
+            {
+                // Guest
+                return Json(new { success = false, errorMessage = "Guest Phone Number cannot be changed. Please register a User account." }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                // User
+                fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
+                successBool = fullUserRepo.PhoneUpdate(model);
+            }
+            return Json(new { success = successBool, phone = model.Phone }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

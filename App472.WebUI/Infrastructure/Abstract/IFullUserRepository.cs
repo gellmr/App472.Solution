@@ -13,5 +13,6 @@ namespace App472.WebUI.Infrastructure.Abstract
         LockoutUpdateResultDTO LockedOutUpdate(LockedOutUpdateDTO model);
         bool UsernameUpdate(UsernameUpdateDTO model);
         bool EmailUpdate(EmailUpdateDTO model);
+        bool PhoneUpdate(PhoneUpdateDTO model);
     }
 }

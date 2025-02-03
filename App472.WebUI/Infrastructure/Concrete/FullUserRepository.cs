@@ -75,5 +75,13 @@ namespace App472.WebUI.Infrastructure.Concrete
             AppUserManager.Update(user); // update database
             return true;
         }
+
+        public bool PhoneUpdate(PhoneUpdateDTO updateModel)
+        {
+            AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // get user
+            user.PhoneNumber = updateModel.Phone;
+            AppUserManager.Update(user); // update database
+            return true;
+        }
     }
 }

@@ -35,4 +35,15 @@ namespace App472.WebUI.Infrastructure.DTO
         [Required]
         public bool IsGuest { get; set; }
     }
+
+    public class PhoneUpdateDTO
+    {
+        public Nullable<Int32> UserID { get; set; }
+        public Nullable<Guid> GuestID { get; set; }
+        [Required]
+        [Phone]
+        public string Phone { get; set; }
+        [Required]
+        public bool IsGuest { get; set; }
+    }
 }
