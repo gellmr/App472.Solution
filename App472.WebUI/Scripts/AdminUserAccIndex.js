@@ -46,7 +46,7 @@
 
             EnableListeners: function () {
                 //console.log("EnableListeners");
-                page.mgAccTableRow.on("focusin", page.EmailFocus);
+                page.mgAccTableRow.on("focusin", options.emailCellInputClass, page.EmailFocus);
                 page.lockedOutDropDownBtns.on("click", options.lockedOutDropDownLinksClass, page.LockedOutClick);
             },
             DisableListeners: function () {
