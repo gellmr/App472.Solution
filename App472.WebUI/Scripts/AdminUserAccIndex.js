@@ -19,6 +19,7 @@
             focusColor: "unset", // "#9fefff",
             blurColor: "unset", // "rgb(255 243 122)",
             keyupColor: "unset", // "#98ea98",
+            waitingColor: "lightgray",
             errorColor: "#ff8686", // "#ff8686",
             successColor: "#98ea98", // "#ff8686",
 
@@ -96,6 +97,10 @@
                     Email: ct.val(),
                     IsGuest: isGuest
                 };
+
+                ct.css("background-color", page.waitingColor);
+                ct.attr("disabled", "disabled");
+
                 $.ajax({
                     url: "/AdminUserAcc/UpdateEmail",
                     type: 'POST',
@@ -104,6 +109,7 @@
                     data: JSON.stringify(params),
                     statusCode: {
                         200: function (jqXHR) {
+                            ct.removeAttr('disabled');
                             if (jqXHR.success) {
                                 console.log("     Success email: " + jqXHR.email);
                                 page.ajaxErrors.html("");
