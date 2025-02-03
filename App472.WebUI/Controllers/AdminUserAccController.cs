@@ -53,18 +53,19 @@ namespace App472.WebUI.Controllers
         public JsonResult UpdateEmail(EmailUpdateDTO model)
         {
             if (!ModelState.IsValid){
-                return Json(new { success = false, errorMessage = "failed validation" }, JsonRequestBehavior.AllowGet);
+                var errors = MyExtensions.ModelErrors(ModelState);
+                return Json(new { success = false, errorMessage = "failed validation", errors = errors }, JsonRequestBehavior.AllowGet);
             }
+            bool successBool = false;
             if (model.GuestID != null){
                 // Guest
-                bool successBool = guestRepo.EmailUpdate(model);
-                return Json(new { success = successBool }, JsonRequestBehavior.AllowGet);
+                successBool = guestRepo.EmailUpdate(model);
             }else{
                 // User
                 fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
-                bool successBool = fullUserRepo.EmailUpdate(model);
-                return Json(new { success = successBool }, JsonRequestBehavior.AllowGet);
+                successBool = fullUserRepo.EmailUpdate(model);
             }
+            return Json(new { success = successBool, email = model.Email }, JsonRequestBehavior.AllowGet);
         }
     }
 }

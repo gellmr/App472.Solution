@@ -5,78 +5,95 @@
     $.adminUserAccIndex = function (options) {
         var page = {
             // Merge the passed options, into our internal options
-            options: $.extend({
-                //'duration': 500
+            options: $.extend({ //'duration': 500
             }, options),
             // --------------------------------------
 
-            // member variables
+            // member variables - page elements
+            ajaxErrors:            $(options.ajaxErrorsEl),
+            mgAccTableRow:         $(options.mgAccTableRowClass),
+            emailCellInput:        $(options.emailCellInputClass),
             lockedOutDropDownBtns: $(options.lockedOutDropDownBtnClass),
-            // Email input
-            mgAccTableRow: $(options.mgAccTableRowClass),
-            mgAccTableEmailCellInput: $(options.mgAccTableEmailCellInputClass),
 
-            emailRestoreVal: "",
-            emailRestoreEl: null,
+            // member variables - for logic
+            focusColor: "unset", // "#9fefff",
+            blurColor: "unset", // "rgb(255 243 122)",
+            keyupColor: "unset", // "#98ea98",
+            errorColor: "#ff8686", // "#ff8686",
+            successColor: "#98ea98", // "#ff8686",
 
             Reset: function () {
+                //console.log("Reset");
                 page.DisableListeners();
+                $(':focus').blur(); // blur anything that has focus
                 page.EnableListeners();
-                page.emailRestoreVal = "";
-                page.emailRestoreEl = null;
+                page.emailCellInput.each(function (index, element) {
+                    element.InputRestoreValue = $(element).val();
+                });
+            },
+
+            EnableListenersEmail: function (emailInput) {
+                var selector = "input#" + emailInput.attr("id");
+                page.mgAccTableRow.on("focusout", selector, page.EmailBlur);
+                page.mgAccTableRow.on("keyup", selector, page.EmailKeyup);
+            },
+            DisableListenersEmail: function (emailInput) {
+                var selector = "input#" + emailInput.attr("id");
+                page.mgAccTableRow.off("focusout", selector, page.EmailBlur);
+                page.mgAccTableRow.off("keyup", selector, page.EmailKeyup);
             },
 
             EnableListeners: function () {
+                //console.log("EnableListeners");
+                page.mgAccTableRow.on("focusin", page.EmailFocus);
                 page.lockedOutDropDownBtns.on("click", options.lockedOutDropDownLinksClass, page.LockedOutClick);
-                // Email input
-                page.mgAccTableEmailCellInput.on("focus", page.EmailFocus);                
             },
             DisableListeners: function () {
+                page.emailCellInput.off("mousedown");
+                page.mgAccTableRow.off("keyup");
+                page.mgAccTableRow.off("focusin");
+                page.mgAccTableRow.off("focusout");
                 page.lockedOutDropDownBtns.off("click");
-                // Email input
-                page.mgAccTableRow.off("keyup");
-                page.mgAccTableEmailCellInput.off("focus");
-                page.mgAccTableEmailCellInput.off("blur");
             },
-
-            // User focused the Email field
             EmailFocus: function (event) {
-                console.log("\nFocus " + $(event.currentTarget).val());
-                page.DisableListeners();
-                page.emailRestoreVal = $(event.currentTarget).val();
-                page.emailRestoreEl = $(event.currentTarget);
-                page.mgAccTableEmailCellInput.on("blur", page.EmailBlur);
-                page.mgAccTableRow.on("keyup", options.mgAccTableEmailCellInputClass, page.EmailKeyup);
+                var ct = $(event.target);
+                ct.css("background-color", page.focusColor);
+                //console.log("Focus " + ct.val());
+                ct[0].InputRestoreValue = ct.val();
+                page.EnableListenersEmail(ct);
             },
-
-            // User blurred the Email field
             EmailBlur: function (event) {
-                console.log("  Blur " + $(event.currentTarget).val());
-                page.mgAccTableRow.off("keyup");
+                var ct = $(event.target);
+                ct.css("background-color", page.blurColor);
+                //console.log("  Blur " + ct.val());
                 page.UpdateEmail(event);
             },
-
-            // User pressed RETURN while editing Email field
             EmailKeyup: function (event) {
-                if (event && event.which === 13) {
+                var ct = $(event.currentTarget);
+                if (event && event.which === 13) { // User pressed RETURN while editing Email field
+                    ct.css("background-color", page.keyupColor);
                     event.preventDefault();
-                    console.log("  Keyup " + $(event.currentTarget).val());
-                    page.mgAccTableEmailCellInput.off("blur");
-                    $(event.currentTarget).blur();
+                    //console.log("  Keyup " + ct.val());
                     page.UpdateEmail(event);
                 }
             },
-
             UpdateEmail: function (event) {
-                console.log("    UpdateEmail " + $(event.currentTarget).val());
-                var uid = $(event.currentTarget).closest("tr").data("uid");
-                var isGuest = $(event.currentTarget).closest("tr").data("isguest");
+                var ct = $(event.target);
+                page.DisableListenersEmail(ct);
+                if (ct.val() == ct[0].InputRestoreValue) {
+                    page.ajaxErrors.html("");
+                    //console.log("    No change");
+                    return;
+                }
+                //console.log("    UpdateEmail " + ct.val());
+                var uid = ct.closest("tr").data("uid");
+                var isGuest = ct.closest("tr").data("isguest");
                 var userId = isGuest ? null : parseInt(uid);
                 var gid = isGuest ? uid : null;
                 var params = {
                     UserID: userId,
                     GuestID: gid,
-                    Email: $(event.currentTarget).val(),
+                    Email: ct.val(),
                     IsGuest: isGuest
                 };
                 $.ajax({
@@ -87,13 +104,17 @@
                     data: JSON.stringify(params),
                     statusCode: {
                         200: function (jqXHR) {
-                            if (!jqXHR.success) {
-                                page.emailRestoreEl.val(page.emailRestoreVal);
-                                console.log("     failed " + jqXHR.errorMessage);
+                            if (jqXHR.success) {
+                                console.log("     Success email: " + jqXHR.email);
+                                page.ajaxErrors.html("");
+                                ct.css("background-color", page.successColor);
+                                ct.blur();
                             } else {
-                                console.log("     success");
+                                page.ajaxErrors.html(jqXHR.errors[0]);
+                                //console.log("     M: " + jqXHR.errorMessage);
+                                ct.css("background-color", page.errorColor);
+                                ct.val(ct[0].InputRestoreValue);
                             }
-                            page.Reset();
                         }
                     }
                 });
@@ -132,7 +153,6 @@
                     success: function (result) {
                         var lockoutElement = $("td#lockoutUTC-" + this.myuid);
                         var accessFailElement = $("td#accessFailed-" + this.myuid);
-                        debugger;
                         var utc = result.LockoutEndDateUtc;
                         var attempts = result.Attempts;
                         if (utc != null) {
@@ -161,11 +181,11 @@
     };
 })(jQuery);
 var options = {
+    ajaxErrorsEl: "#ajaxErr",
+    mgAccTableRowClass: "tr.mgAccTable",
+    emailCellInputClass: "td.mgAccEmailCell input",
     lockedOutDropDownBtnClass: ".mgLockedOutBtn",
     lockedOutDropDownLinksClass: ".dropdown-item",
-
-    mgAccTableRowClass: "tr.mgAccTable",
-    mgAccTableEmailCellInputClass: "td.mgAccEmailCell input",
 };
 var page = $.adminUserAccIndex(options);
 jQuery(document).ready(page.ready);
