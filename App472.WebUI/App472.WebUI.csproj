@@ -230,6 +230,10 @@
     <Compile Include="App_Start\Seed\Orders111.cs" />
     <Compile Include="App_Start\Seed\Orders112.cs" />
     <Compile Include="App_Start\Seed\Orders114.cs" />
+    <Compile Include="App_Start\Seed\Orders115.cs" />
+    <Compile Include="App_Start\Seed\Orders116.cs" />
+    <Compile Include="App_Start\Seed\Orders117.cs" />
+    <Compile Include="App_Start\Seed\Orders118.cs" />
     <Compile Include="App_Start\Seed\ProductsChess.cs" />
     <Compile Include="App_Start\Seed\ProductsSoccer.cs" />
     <Compile Include="App_Start\Seed\ProductsWater.cs" />

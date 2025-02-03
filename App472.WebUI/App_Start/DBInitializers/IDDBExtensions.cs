@@ -41,6 +41,12 @@ namespace App472.WebUI.App_Start
             Int32 orderIdStart = 1;  // MSSQL auto increment starts at 1 for orderId
             Orders111.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
             Orders112.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
+            // Guest 113
+            // Guest 114
+            Orders115.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
+            Orders116.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
+            Orders117.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
+            Orders118.AddToContext(ref orders, ref products, ref context, ref orderIdStart);
 
             IList<Guest> guests = new List<Guest>();
             Guid guestID;
@@ -86,14 +92,15 @@ namespace App472.WebUI.App_Start
             // see https://github.com/aspnet/MicrosoftConfigurationBuilders/blob/main/samples/SampleWebApp/Web.config
 
             // populate users
-            SeedAppUser("111");
-            SeedAppUser("112");
+            // IDDBExtensions.Users[n]
+            SeedAppUser("111");  // 0
+            SeedAppUser("112");  // 1
             // 113 is Guest
             // 114 is Guest
-            //SeedAppUser("115");
-            //SeedAppUser("116");
-            //SeedAppUser("117");
-            //SeedAppUser("118");
+            SeedAppUser("115");  // 2
+            SeedAppUser("116");  // 3
+            SeedAppUser("117");  // 4
+            SeedAppUser("118");  // 5
             context.Users.AddOrUpdate(Users.ToArray());
         }
 

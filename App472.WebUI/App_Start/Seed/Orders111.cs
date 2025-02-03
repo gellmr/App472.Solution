@@ -23,7 +23,7 @@ namespace App472.WebUI.App_Start
             order1.AppUser = user;
             order1.UserID = userId;
 
-            InStockProduct prod1 = prods[0];
+            InStockProduct prod1 = prods[7];
             InStockProduct prod2 = prods[1];
             InStockProduct prod3 = prods[2];
             OrderedProduct op1 = new OrderedProduct();
@@ -57,7 +57,7 @@ namespace App472.WebUI.App_Start
             OrderedProduct op4 = new OrderedProduct();
             OrderedProduct op5 = new OrderedProduct();
             op4.Product = prod4; op4.Quantity = 2;
-            op5.Product = prod5; op5.Quantity = 2;
+            op5.Product = prod5; op5.Quantity = 1;
             op4.Order = order2; order2.OrderedProducts.Add(op4);
             op5.Order = order2; order2.OrderedProducts.Add(op5);
             order2.OrderPlacedDate = yesterday;
