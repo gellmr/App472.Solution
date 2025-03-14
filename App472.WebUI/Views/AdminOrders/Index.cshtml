@@ -92,7 +92,7 @@
                         <td scope="row" class="text-left">@itemString</td>
                         <td scope="row" class="text-center">@orderStatus</td>
                         <td scope="row" class="text-center">
-                            <a class="" href="@Url.Action("Detail", "AdminUserOrder", new {OrderID=order.OrderID.ToString()})">Edit</a>
+                            <a class="btn btn-success" href="@Url.Action("Detail", "AdminUserOrder", new {OrderID=order.OrderID.ToString()})">Edit</a>
                         </td>
                     </tr>
                 }

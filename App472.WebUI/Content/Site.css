@@ -95,6 +95,14 @@ table.detailBody th{
     text-align:left;
 }
 
+.adminGreenViewBtn {
+    padding: 4px;
+    padding-left: 7px;
+    padding-right: 7px;
+    font-size: 12px;
+    width: 83px;
+}
+
 .adminLayoutNav {
     /*border: 1px solid red;*/
     display: flex;

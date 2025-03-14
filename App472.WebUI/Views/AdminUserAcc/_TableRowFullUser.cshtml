@@ -58,6 +58,6 @@
 
     <td class="text-center">@Model.Orders.Count()</td>
     <td class="text-center">
-        <a href="@Url.Action("Index", "AdminUserOrder", new{UserId = Model.AppUser.Id})">View Orders</a>
+        <a class="btn btn-success adminGreenViewBtn" href="@Url.Action("Index", "AdminUserOrder", new{UserId = Model.AppUser.Id})">View Orders</a>
     </td>
 </tr>

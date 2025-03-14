@@ -34,7 +34,7 @@
                             <td class="">@order.OrderedProducts.Count Items</td>
                             <td class="">$ @order.PriceTotal</td>
                             <td class="">@order.ItemString</td>
-                            <td><a class="" href="@Url.Action("Detail", "AdminUserOrder", new{OrderID=order.OrderID, FromUserAccounts=true})">View Details</a></td>
+                            <td><a class="btn btn-success adminGreenViewBtn" style="font-size:15px; width:107px;" href="@Url.Action("Detail", "AdminUserOrder", new{OrderID=order.OrderID, FromUserAccounts=true})">View Details</a></td>
                         </tr>
                     }
                 }
