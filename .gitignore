@@ -402,4 +402,7 @@ App472.WebUI/Properties/serviceDependencies.json
 App472.WebUI/Properties/serviceDependencies.local.json
 App472.WebUI/Properties/serviceDependencies.local.json.user
 
+# External file with rewrite rules (sensitive data) for our Web.config
+App472.WebUI/rewriteRules.config
+
 Deploy.to.wwwroot/
