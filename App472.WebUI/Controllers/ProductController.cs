@@ -23,17 +23,17 @@ namespace App472.WebUI.Controllers
         public ViewResult List(string category, int page = 1)
         {
             ProductsListViewModel model = new ProductsListViewModel{
-                Products = repository.Products
+                Products = repository.InStockProducts
                     .Where(p => category == null || p.Category == category) // if category is null then dont filter by category.
-                    .OrderBy(p => p.ProductID)
+                    .OrderBy(p => p.ID)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize),
                 PagingInfo = new PagingInfo{
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
                     TotalItems = category == null ?
-                    repository.Products.Count() :
-                    repository.Products.Where(e => e.Category == category).Count()
+                    repository.InStockProducts.Count() :
+                    repository.InStockProducts.Where(e => e.Category == category).Count()
                 },
                 CurrentCategory = category
             };

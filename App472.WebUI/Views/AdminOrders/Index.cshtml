@@ -49,7 +49,7 @@
                     string orderStatus = "";
                     if (isGuest)
                     {
-                        guest = Model.Guests.FirstOrDefault(g => g.Id == order.GuestID);
+                        guest = Model.Guests.FirstOrDefault(g => g.ID == order.GuestID);
                         uid = null;
                         gid = order.GuestID.ToString();
                         ugid = gid;
@@ -73,7 +73,7 @@
                     orderStatus = order.OrderStatus.ToString();
 
                     <tr class="mgAccTable">
-                        <td class="text-center">@order.OrderID</td>
+                        <td class="text-center">@order.ID</td>
                         <td scope="row" class="text-left">
                             @* TODO - add link for User Detail page. *@
                             @*<a class="" href="@Url.Action("Index", "AdminUserOrder", new {UserId=uid,GuestID=gid})">@uname</a>*@
@@ -92,7 +92,7 @@
                         <td scope="row" class="text-left">@itemString</td>
                         <td scope="row" class="text-center">@orderStatus</td>
                         <td scope="row" class="text-center">
-                            <a class="btn btn-success" href="@Url.Action("Detail", "AdminUserOrder", new {OrderID=order.OrderID.ToString()})">Edit</a>
+                            <a class="btn btn-success" href="@Url.Action("Detail", "AdminUserOrder", new {OrderID=order.ID.ToString()})">Edit</a>
                         </td>
                     </tr>
                 }

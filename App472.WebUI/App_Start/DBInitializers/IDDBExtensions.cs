@@ -34,7 +34,7 @@ namespace App472.WebUI.App_Start
             ProductsWater.Get(ref products);
             ProductsSoccer.Get(ref products);
             ProductsChess.Get(ref products);
-            context.Products.AddRange(products);
+            context.InStockProducts.AddRange(products);
 
             // Populate orders
             IList<Order> orders = new List<Order>();
@@ -53,7 +53,7 @@ namespace App472.WebUI.App_Start
             guestID = Guid.NewGuid();
             guests.Add(new Guest
             {
-                Id = guestID,
+                ID = guestID,
                 FirstName = "Dye",
                 LastName = "McDonald",
                 Email = "guest-113@gmail.com",
@@ -62,7 +62,7 @@ namespace App472.WebUI.App_Start
             guestID = Guid.NewGuid();
             guests.Add(new Guest
             {
-                Id = guestID,
+                ID = guestID,
                 FirstName = "Lamond",
                 LastName = "Forester",
                 Email = "guest-114@gmail.com",

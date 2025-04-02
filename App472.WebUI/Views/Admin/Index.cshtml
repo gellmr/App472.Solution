@@ -22,14 +22,14 @@
                     @foreach (var item in Model.Products)
                     {
                         <tr>
-                            <td class="">@item.ProductID</td>
-                            <td>@Html.ActionLink(item.Name, "Edit", new { item.ProductID })</td>
+                            <td class="">@item.ID</td>
+                            <td>@Html.ActionLink(item.Name, "Edit", new { item.ID })</td>
 
                             <td scope="row" class="text-left">@item.Price.ToString("c")</td>
                             <td class="">
                                 @using (Html.BeginForm("Delete", "Admin"))
                                 {
-                                    @Html.Hidden("ProductID", item.ProductID)
+                                    @Html.Hidden("inStockProductID", item.ID)
                                     <input type="submit" class="btn btn-warning" value="Delete" />
                                 }
                             </td>

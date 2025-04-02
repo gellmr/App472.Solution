@@ -15,7 +15,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Polycarbon Injection Molded River Kayak",
                 Description = "Ready to tame the wilderness? Travel by boat with this one person kayak.",
                 Category = category,
@@ -24,7 +24,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Life Jacket",
                 Description = "Coastmaster TM Duratex All Weather Sea Life Jacket. For Tactical sea advantage.",
                 Category = category,
@@ -33,7 +33,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "White Water Rafting Helmet",
                 Description = "Waterproof and Durable, this helmet comes in 12 colors.",
                 Category = category,
@@ -42,7 +42,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Single Paddle",
                 Description = "Right or Left handed paddle, for kayaking or canoeing.",
                 Category = category,
@@ -51,7 +51,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Double Paddle",
                 Description = "Double-ended paddle for kayaking or canoeing.",
                 Category = category,
@@ -60,7 +60,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Camping Towel",
                 Description = "Deluxe El Capitan All-Weather Towel... For drying off after water activities",
                 Category = category,
@@ -69,7 +69,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Sunscreen SPF 50+",
                 Description = "Extreme Sports Edition fast drying activewear sunblock",
                 Category = category,
@@ -78,7 +78,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Waterproof Equipment Bag",
                 Description = "Carry your gear in this tough and compact waterproof bag",
                 Category = category,
@@ -87,7 +87,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Drink Bottle",
                 Description = "Dont forget to drink water, while your out doing water sports.",
                 Category = category,

@@ -7,7 +7,7 @@
         </h3>
         @using (Html.BeginForm("AddToCart", "Cart")){
             <div style="text-align:right; float:right;">
-                @Html.HiddenFor(x => x.ProductID)
+                @Html.Hidden("inStockProductId", Model.ID)
                 @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
                 <input type="submit" class="btn btn-success" value="Add to cart" />
             </div>

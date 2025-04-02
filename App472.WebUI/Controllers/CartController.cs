@@ -25,17 +25,17 @@ namespace App472.WebUI.Controllers
             orderRepo = orepo;
             guestRepo = grepo;
         }
-        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl){
-            InStockProduct product = repository.Products
-                .FirstOrDefault(p => p.ProductID == productId);
+        public RedirectToRouteResult AddToCart(Cart cart, int inStockProductId, string returnUrl){
+            InStockProduct product = repository.InStockProducts
+                .FirstOrDefault(p => p.ID == inStockProductId);
             if ( product != null) {
                 cart.AddItem(product, 1);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl){
-            InStockProduct product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int inStockProductId, string returnUrl){
+            InStockProduct product = repository.InStockProducts.FirstOrDefault(p => p.ID == inStockProductId);
             if(product != null){
                 cart.RemoveLine(product);
             }
@@ -108,7 +108,8 @@ namespace App472.WebUI.Controllers
 
         private void SaveOrder(Cart cart, ShippingDetails shippingDetails, string userId, Nullable<Guid> guestId)
         {
-            Order order1 = new Order();
+            Order order1 = new Order(); // create domain object
+
             string shipAddress = Order.ParseAddress(shippingDetails);
             DateTimeOffset now = DateTimeOffset.Now;
 
@@ -128,20 +129,23 @@ namespace App472.WebUI.Controllers
                 // User is not logged in. Create order as guest.
                 // Create a guest record in the database using the guid.
                 Guest guest = new Guest{
-                    Id = guestId,
+                    ID = guestId,
                     Email = shippingDetails.Email,
                     FirstName = shippingDetails.FirstName,
                     LastName = shippingDetails.LastName
                 };
                 guestRepo.SaveGuest(guest);
             }
-            
+            // create an ordered product for each cart line
             foreach (var line in cart.Lines)
             {
                 //var subtotal = line.Product.Price * line.Quantity;
                 OrderedProduct op1 = new OrderedProduct();
+                op1.InStockProduct = line.InStockProduct;
+                op1.InStockProductID = line.InStockProduct.ID;
+
+                op1.OrderID = order1.ID;
                 op1.Order = order1;
-                op1.Product = line.Product;
                 op1.Quantity = line.Quantity;
                 order1.OrderedProducts.Add(op1);
             }

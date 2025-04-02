@@ -27,7 +27,7 @@ namespace App472.WebUI.App_Start
             InStockProduct prod = prods[19];
             OrderedProduct op = new OrderedProduct();
 
-            op.Product = prod; op.Quantity = 22;
+            op.InStockProduct = prod; op.Quantity = 22;
             op.Order = ord; ord.OrderedProducts.Add(op);
             ord.OrderPlacedDate = yesterday;
             ord.PaymentReceivedDate = yesterday.AddMinutes(10);

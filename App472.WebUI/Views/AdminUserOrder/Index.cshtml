@@ -30,11 +30,11 @@
                     foreach (Order order in Model.Orders)
                     {
                         <tr>
-                            <td class="">#@order.OrderID</td>
+                            <td class="">#@order.ID</td>
                             <td class="">@order.OrderedProducts.Count Items</td>
                             <td class="">$ @order.PriceTotal</td>
                             <td class="">@order.ItemString</td>
-                            <td><a class="btn btn-success adminGreenViewBtn" style="font-size:15px; width:107px;" href="@Url.Action("Detail", "AdminUserOrder", new{OrderID=order.OrderID, FromUserAccounts=true})">View Details</a></td>
+                            <td><a class="btn btn-success adminGreenViewBtn" style="font-size:15px; width:107px;" href="@Url.Action("Detail", "AdminUserOrder", new{OrderID=order.ID, FromUserAccounts=true})">View Details</a></td>
                         </tr>
                     }
                 }

@@ -7,7 +7,7 @@ namespace App472.WebUI.Domain.Entities
     {
         [Key]
         [HiddenInput(DisplayValue = false)]
-        public int ProductID { get; set; }
+        public int ID { get; set; }
 
         [Required(ErrorMessage = "Please enter a product name")]
         public string Name { get; set; }

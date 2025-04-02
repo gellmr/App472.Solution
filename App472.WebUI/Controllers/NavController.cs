@@ -17,7 +17,7 @@ namespace App472.WebUI.Controllers
 
         public PartialViewResult CategoryMenu(string category = null){
             ViewBag.SelectedCategory = category;
-            IEnumerable<string> categories = repository.Products
+            IEnumerable<string> categories = repository.InStockProducts
                 .Select(x => x.Category)
                 .Distinct()
                 .OrderBy(x => x);

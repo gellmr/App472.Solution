@@ -1,10 +1,10 @@
 ﻿@using App472.WebUI.Infrastructure;
 @model App472.WebUI.Domain.Entities.Guest
 
-<tr class="mgAccTable" data-uid="@Model.Id" data-isguest="true">
+<tr class="mgAccTable" data-uid="@Model.ID" data-isguest="true">
     <td class="">
-        <span data-toggle="tooltip" data-placement="bottom" title="@Model.Id">
-            @MyExtensions.Truncate(Model.Id.ToString(), MyExtensions.GuidTruncLenth)
+        <span data-toggle="tooltip" data-placement="bottom" title="@Model.ID">
+            @MyExtensions.Truncate(Model.ID.ToString(), MyExtensions.GuidTruncLenth)
         </span>
     </td>
 
@@ -17,7 +17,7 @@
     </td>
 
     <td class="mgAccEmailCell">
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @autocomplete="off", @id="Email_"+Model.Id })
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @autocomplete="off", @id="Email_"+Model.ID })
     </td>
     <td class=""></td>
 
@@ -31,6 +31,6 @@
 
     <td class="text-center">@Model.Orders.Count</td>
     <td class="text-center">
-        <a class="btn btn-success adminGreenViewBtn" href="@Url.Action("Index", "AdminUserOrder", new{guestId = Model.Id})">View Orders</a>
+        <a class="btn btn-success adminGreenViewBtn" href="@Url.Action("Index", "AdminUserOrder", new{guestId = Model.ID})">View Orders</a>
     </td>
 </tr>

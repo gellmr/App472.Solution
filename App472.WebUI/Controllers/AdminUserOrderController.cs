@@ -51,7 +51,7 @@ namespace App472.WebUI.Controllers
 
         public ActionResult Detail(Int32 OrderID, bool FromUserAccounts = false)
         {
-            Order order = repository.Orders.Where(o => o.OrderID == OrderID).FirstOrDefault();
+            Order order = repository.Orders.Where(o => o.ID == OrderID).FirstOrDefault();
             string UserId = order.UserID;
             IEnumerable<OrderPayment> orderPayments = order.OrderPayments;
             IEnumerable<OrderedProduct> orderedProducts = order.OrderedProducts;
@@ -65,7 +65,7 @@ namespace App472.WebUI.Controllers
                     UserId = UserId,
                     GuestId = null,
                     UserName = AppNavs.GenUserName(UserId),
-                    OrderName = AppNavs.GenOrderName(order.OrderID)
+                    OrderName = AppNavs.GenOrderName(order.ID)
                 };
                 queryString = "?UserId=" + model.UserId;
             }
@@ -75,7 +75,7 @@ namespace App472.WebUI.Controllers
                     UserId = null,
                     GuestId = order.GuestID,
                     UserName = AppNavs.GenUserName(order.GuestID),
-                    OrderName = AppNavs.GenOrderName(order.OrderID)
+                    OrderName = AppNavs.GenOrderName(order.ID)
                 };
                 queryString = "?guestId=" + model.GuestId;
             }
@@ -131,7 +131,7 @@ namespace App472.WebUI.Controllers
         [HttpPost]
         public JsonResult ProductLineUpdate(ProductLineUpdateDTO model){
             repository.UpdateOrderedProductLineQuantity(model.ProductID, model.OrderID, model.NewQty);
-            Order order = repository.Orders.Where(o => o.OrderID == model.OrderID).FirstOrDefault();
+            Order order = repository.Orders.Where(o => o.ID == model.OrderID).FirstOrDefault();
             var data = order.GetUpdateDTO();
             return Json(data, JsonRequestBehavior.AllowGet);
         }

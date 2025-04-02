@@ -25,17 +25,26 @@ namespace App472.WebUI.Domain.Entities
     public class Order
     {
         [Key]
-        public Nullable<Int32> OrderID { get; set; } // primary key
+        public Nullable<Int32> ID { get; set; } // primary key for Order
+
+
+        // AppUser 1-----* Order
+        [ForeignKey("UserID")] // use the value of UserID as foreign key to the AspNetUsers table.
+        public virtual AppUser AppUser { get; set; } // navigation property.
+        public string UserID { get; set; } // foreign key value to use, for AspNetUsers table.
         
-        [ForeignKey("UserID")] // look up AppUser by using UserID as foreign key to the AspNetUsers table.
-        public virtual AppUser AppUser { get; set; } // navigation property. AppUser object.
-        public string UserID { get; set; } // foreign key to AspNetUsers table
 
-        public Nullable<Guid> GuestID { get; set; } // foreign key to Guests table. Null if the user was logged in when they placed order.
+        // Guest 1-----* Order
+        [ForeignKey("GuestID")] // use the value of GuestID as foreign key to the Guests table.
         public virtual Guest Guest { get; set; } // navigation property.
+        public Nullable<Guid> GuestID { get; set; } // foreign key value to use, for Guests table. Null if the user was logged in when they placed order.
 
-        public virtual IList<OrderedProduct> OrderedProducts { get; set; }
+
+
         public virtual IList<OrderPayment> OrderPayments { get; set; }
+        public virtual IList<OrderedProduct> OrderedProducts { get; set; }
+
+
 
         public Nullable<DateTimeOffset> OrderPlacedDate { get; set; }
         public Nullable<DateTimeOffset> PaymentReceivedDate { get; set; }
@@ -43,9 +52,13 @@ namespace App472.WebUI.Domain.Entities
         public Nullable<DateTimeOffset> ShipDate { get; set; }
         public Nullable<DateTimeOffset> ReceivedDate { get; set; }
 
+
+
         public string BillingAddress { get; set; }
         public string ShippingAddress { get; set; }
         public string OrderStatus { get; set; }
+
+
 
         [NotMapped]
         public string UserOrGuestId{
@@ -72,7 +85,7 @@ namespace App472.WebUI.Domain.Entities
                 if (orderedProds.Count > 0 ){
                     int c = orderedProds.Count;
                     for (int i = 0; i < c; i++){
-                        string productName = orderedProds[i].Product.Name;
+                        string productName = orderedProds[i].InStockProduct.Name;
                         builder.Append(productName + ((i < c - 1) ? ", " : "")); // "Life Jacket, "
                     }
                 }
@@ -85,7 +98,7 @@ namespace App472.WebUI.Domain.Entities
         {
             GuestID = null;
             UserID = null;
-            OrderID = null;
+            ID = null;
             OrderedProducts = new List<OrderedProduct>();
         }
 
@@ -93,7 +106,7 @@ namespace App472.WebUI.Domain.Entities
         {
             GuestID = guestID;
             UserID = userID;
-            OrderID = orderID;
+            ID = orderID;
             OrderedProducts = new List<OrderedProduct>();
         }
 
@@ -117,7 +130,7 @@ namespace App472.WebUI.Domain.Entities
                 Decimal sum = 0;
                 foreach (OrderedProduct op in OrderedProducts)
                 {
-                    sum += (op.Product.Price * op.Quantity);
+                    sum += (op.InStockProduct.Price * op.Quantity);
                 }
                 return sum;
             }
@@ -186,12 +199,12 @@ namespace App472.WebUI.Domain.Entities
             foreach (OrderedProduct p in OrderedProducts)
             {
                 OrderDetailUpdateRowDTO row = new OrderDetailUpdateRowDTO();
-                row.ProductID = p.Product.ProductID;
-                row.ProductName = p.Product.Name;
-                row.UnitPrice = p.Product.Price;
+                row.ProductID = p.InStockProduct.ID;
+                row.ProductName = p.InStockProduct.Name;
+                row.UnitPrice = p.InStockProduct.Price;
                 row.Quantity = p.Quantity;
-                row.Cost = p.Product.Price * p.Quantity;
-                row.Category = p.Product.Category;
+                row.Cost = p.InStockProduct.Price * p.Quantity;
+                row.Category = p.InStockProduct.Category;
                 response.Rows.Add(row);
             }
             return response;

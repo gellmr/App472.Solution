@@ -16,7 +16,7 @@
             @Html.ValidationSummary()
         </div>
 
-        @Html.HiddenFor(m => m.Product.ProductID)
+        @Html.HiddenFor(m => m.Product.ID)
         @Html.HiddenFor(m => m.ReturnUrl) @* the GUID for our return url, stored in the session *@
 
         <div class="card-body">

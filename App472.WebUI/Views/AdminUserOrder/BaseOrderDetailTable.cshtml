@@ -126,24 +126,24 @@
                 {
                     int quantity = prod.Quantity;
                     sumQuantity += quantity;
-                    decimal cost = prod.Product.Price * quantity;
-                    <tr data-ProductID="@prod.Product.ProductID">
+                    decimal cost = prod.InStockProduct.Price * quantity;
+                    <tr data-ProductID="@prod.InStockProduct.ID">
 
-                        <td scope="row" class="text-left isProductID">@prod.Product.ProductID</td>
+                        <td scope="row" class="text-left isProductID">@prod.InStockProduct.ID</td>
 
                         <td scope="row" class="text-left isProductName">
-                            <a href="@Url.Action("Edit", "Admin", new{ProductID = @prod.Product.ProductID, returnUrl = Model.ReturnUrl })">@prod.Product.Name</a>
+                            <a href="@Url.Action("Edit", "Admin", new{ID = @prod.InStockProduct.ID, returnUrl = Model.ReturnUrl })">@prod.InStockProduct.Name</a>
                         </td>
 
                         <td scope="row" class="text-left isUnitPrice">
-                            <a href="@Url.Action("Edit", "Admin", new{ProductID = @prod.Product.ProductID, returnUrl = Model.ReturnUrl })">@prod.Product.Price</a>
+                            <a href="@Url.Action("Edit", "Admin", new{ID = @prod.InStockProduct.ID, returnUrl = Model.ReturnUrl })">@prod.InStockProduct.Price</a>
                         </td>
 
                         <td scope="row" class="text-right isQuantity"><input class="mgAjaxText" type="text" value="@quantity" @qtyInputDisabled /></td>
 
                         <td scope="row" class="text-right isCost">@cost</td>
 
-                        <td scope="row" class="text-left isCategory">@prod.Product.Category</td>
+                        <td scope="row" class="text-left isCategory">@prod.InStockProduct.Category</td>
 
                         <td><button type="button" @qtyInputDisabled class="btn btn-sm btn-light mgDeleteX"><i class="bi bi-x-lg"></i></button></td>
                     </tr>

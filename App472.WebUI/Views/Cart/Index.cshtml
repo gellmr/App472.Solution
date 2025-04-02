@@ -20,13 +20,13 @@
         {
             <tr>
                 <td class="text-center">@line.Quantity</td>
-                <td class="text-left">@line.Product.Name</td>
-                <td class="text-right">@line.Product.Price.ToString("c")</td>
-                <td class="text-right">@((line.Quantity * line.Product.Price).ToString("c"))</td>
+                <td class="text-left">@line.InStockProduct.Name</td>
+                <td class="text-right">@line.InStockProduct.Price.ToString("c")</td>
+                <td class="text-right">@((line.Quantity * line.InStockProduct.Price).ToString("c"))</td>
                 <td>
                     @using (Html.BeginForm("RemoveFromCart", "Cart"))
                     {
-                        @Html.Hidden("ProductId", line.Product.ProductID)
+                        @Html.Hidden("inStockProductId", line.InStockProduct.ID)
                         @Html.HiddenFor(x => x.ReturnUrl)
                         <input class="btn btn-sm btn-warning" type="submit" value="Remove" />
                     }

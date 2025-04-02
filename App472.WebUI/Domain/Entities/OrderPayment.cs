@@ -13,9 +13,13 @@ namespace App472.WebUI.Domain.Entities
         [Key]
         public Nullable<Int32> ID { get; set; } // primary key
 
-        [ForeignKey("OrderID")]
+
+
+        [ForeignKey("OrderID")] // use the value of OrderID as foreign key to the Order table.
         public virtual Order Order { get; set; } // navigation property.
-        public Nullable<Int32> OrderID { get; set; } // foreign key
+        public Nullable<Int32> OrderID { get; set; } // foreign key value to use, for Order table.
+
+
 
         public Nullable<Decimal> Amount { get; set; }
         public DateTimeOffset Date { get; set; }

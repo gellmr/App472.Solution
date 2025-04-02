@@ -50,8 +50,8 @@ namespace App472.WebUI.Domain.Concrete
                     .AppendLine("Items");
                 foreach (var line in cart.Lines)
                 {
-                    var subtotal = line.Product.Price * line.Quantity;
-                    body.AppendFormat("{0} x {1} (subtotal: {2:c}", line.Quantity, line.Product.Name, subtotal);
+                    var subtotal = line.InStockProduct.Price * line.Quantity;
+                    body.AppendFormat("{0} x {1} (subtotal: {2:c}", line.Quantity, line.InStockProduct.Name, subtotal);
                 }
                 body.AppendFormat("Total order value: {0:c}", cart.ComputeTotalValue())
                     .AppendLine("---")

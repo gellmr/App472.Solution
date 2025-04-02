@@ -3,6 +3,7 @@ using App472.WebUI.Domain.Entities;
 using App472.WebUI.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace App472.WebUI.Domain.Concrete
@@ -17,8 +18,8 @@ namespace App472.WebUI.Domain.Concrete
 
         public void DeleteOrderedProduct(Int32 ProductID, Int32 OrderID)
         {
-            Order order = context.Orders.FirstOrDefault(o => o.OrderID == OrderID);
-            OrderedProduct op = order.OrderedProducts.FirstOrDefault(p => p.Product.ProductID == ProductID);
+            Order order = context.Orders.FirstOrDefault(o => o.ID == OrderID);
+            OrderedProduct op = order.OrderedProducts.FirstOrDefault(p => p.InStockProduct.ID == ProductID);
             context.OrderedProducts.Remove(op);
             order.OrderedProducts.Remove(op);
             context.SaveChanges();
@@ -26,14 +27,14 @@ namespace App472.WebUI.Domain.Concrete
 
         public void UpdateOrderedProductLineQuantity(Int32 ProductID, Int32 OrderID, Int32 NewQty)
         {
-            OrderedProduct op = context.OrderedProducts.FirstOrDefault(p => p.Product.ProductID == ProductID && p.Order.OrderID == OrderID);
+            OrderedProduct op = context.OrderedProducts.FirstOrDefault(p => p.InStockProduct.ID == ProductID && p.Order.ID == OrderID);
             op.Quantity = NewQty;
             context.SaveChanges();
         }
 
         public void UpdateShippingStatus(Int32 OrderID, Int32 OrderStatus, Nullable<Decimal> PaymentAmount)
         {
-            Order order = context.Orders.FirstOrDefault(o => o.OrderID == OrderID);
+            Order order = context.Orders.FirstOrDefault(o => o.ID == OrderID);
             if (order == null)
             {
                 throw new Exception("Order not found");
@@ -50,11 +51,12 @@ namespace App472.WebUI.Domain.Concrete
 
         public void SaveOrder(Order order)
         {
-            // Could we possibly reduce this to one database call?
-            if (context.Orders.Any(o => o.OrderID == order.OrderID)) // first call
+            bool exists = context.Orders.Any(o => o.ID == order.ID);
+
+            if (exists)
             {
-                // record already exists. Update
-                Order dbEntry = context.Orders.FirstOrDefault(o => o.OrderID == order.OrderID); // second call
+                // Update
+                Order dbEntry = context.Orders.First(o => o.ID == order.ID);
 
                 dbEntry.UserID = order.UserID;
                 dbEntry.OrderedProducts = order.OrderedProducts;
@@ -69,7 +71,8 @@ namespace App472.WebUI.Domain.Concrete
                 dbEntry.ShippingAddress = order.ShippingAddress;
                 dbEntry.OrderStatus = order.OrderStatus;
 
-                dbEntry.OrderedProducts = order.OrderedProducts; // update ordered products. This will set FK to null if removed
+                dbEntry.OrderedProducts = order.OrderedProducts;
+
                 context.SaveChanges();
             }
             else
@@ -87,7 +90,7 @@ namespace App472.WebUI.Domain.Concrete
         // return true if this product exists in any orders.
         public bool ProductHasOrders(Int32 productId)
         {
-            if (context.OrderedProducts.Any(op => op.Product.ProductID == productId))
+            if (context.OrderedProducts.Any(op => op.InStockProduct.ID == productId))
             {
                 return true;
             }

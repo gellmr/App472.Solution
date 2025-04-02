@@ -6,16 +6,16 @@ namespace App472.WebUI.Domain.Entities
     public class Cart
     {
         private List<CartLine> lineCollection = new List<CartLine>();
-        public void AddItem(InStockProduct product, int quantity)
+        public void AddItem(InStockProduct inStockProduct, int quantity)
         {
             CartLine line = lineCollection
-                .Where(p => p.Product.ProductID == product.ProductID)
+                .Where(p => p.InStockProduct.ID == inStockProduct.ID)
                 .FirstOrDefault();
             if (line == null)
             {
                 lineCollection.Add(new CartLine
                 {
-                    Product = product,
+                    InStockProduct = inStockProduct,
                     Quantity = quantity
                 });
             }
@@ -24,13 +24,13 @@ namespace App472.WebUI.Domain.Entities
                 line.Quantity += quantity;
             }
         }
-        public void RemoveLine(InStockProduct product)
+        public void RemoveLine(InStockProduct inStockProduct)
         {
-            lineCollection.RemoveAll(l => l.Product.ProductID == product.ProductID);
+            lineCollection.RemoveAll(l => l.InStockProduct.ID == inStockProduct.ID);
         }
         public decimal ComputeTotalValue()
         {
-            return lineCollection.Sum(e => e.Product.Price * e.Quantity);
+            return lineCollection.Sum(e => e.InStockProduct.Price * e.Quantity);
         }
         public void Clear()
         {
@@ -44,7 +44,7 @@ namespace App472.WebUI.Domain.Entities
 
     public class CartLine
     {
-        public InStockProduct Product { get; set; }
+        public InStockProduct InStockProduct { get; set; }
         public int Quantity { get; set; }
     }
 }

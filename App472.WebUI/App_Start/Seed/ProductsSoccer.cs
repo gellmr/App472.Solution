@@ -15,7 +15,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Soccer Ball",
                 Description = "FIFA approved size and weight",
                 Category = category,
@@ -24,7 +24,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Corner Flags",
                 Description = "Give some flourish to your playing field with these coloured corner flags",
                 Category = category,
@@ -33,7 +33,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Referee Whisle",
                 Description = "For serious games, call it with this chrome Referee Whistle.",
                 Category = category,
@@ -42,7 +42,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Red and Yellow Cards",
                 Description = "Official size and colour, waterproof high visibility retroflective coating.",
                 Category = category,
@@ -51,7 +51,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Soccer Stadium",
                 Description = "Flat packed 30,000 seat stadium.",
                 Category = category,
@@ -60,7 +60,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Soccer Goals",
                 Description = "One lightweight aluminium standard size impact foam coated soccer goal with netting.",
                 Category = category,

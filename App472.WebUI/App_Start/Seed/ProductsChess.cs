@@ -15,7 +15,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Thinking Cap",
                 Description = "Improve your concentration by 4% with this stylish sports cap. Comes in deep blue.",
                 Category = category,
@@ -24,7 +24,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Chess Board",
                 Description = "Non-reflective and slip resistant.",
                 Category = category,
@@ -33,7 +33,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Speed Chess Timer",
                 Description = "Has a digital timer display on both sides, and supercollider toggle button on top. Silent and durable. Batteries not included.",
                 Category = category,
@@ -42,7 +42,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Chess Pieces - Full Set",
                 Description = "Full set of chess pieces. Charcoal Black / Frost White.",
                 Category = category,
@@ -51,7 +51,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Individual Chess Piece",
                 Description = "Single chess pieces available. Charcoal Black / Frost White.",
                 Category = category,
@@ -60,7 +60,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Unsteady Chair",
                 Description = "Secretly give your opponent a disadvantage",
                 Category = category,
@@ -69,7 +69,7 @@ namespace App472.WebUI.App_Start
 
             products.Add(new InStockProduct()
             {
-                ProductID = startId++,
+                ID = startId++,
                 Name = "Holo Chess",
                 Description = "As seen in Star Wars: A New Hope",
                 Category = category,

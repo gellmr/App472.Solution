@@ -33,10 +33,10 @@ namespace App472.WebUI.App_Start
             OrderedProduct opA = new OrderedProduct();
             OrderedProduct opB = new OrderedProduct();
 
-            opA.Product = prodA; opA.Quantity = 2;
+            opA.InStockProduct = prodA; opA.Quantity = 2;
             opA.Order = orderA; orderA.OrderedProducts.Add(opA);
 
-            opB.Product = prodB; opB.Quantity = 3;
+            opB.InStockProduct = prodB; opB.Quantity = 3;
             opB.Order = orderB; orderB.OrderedProducts.Add(opB);
 
             orderA.OrderPlacedDate = yesterday;
