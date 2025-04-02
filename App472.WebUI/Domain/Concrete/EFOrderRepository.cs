@@ -81,6 +81,16 @@ namespace App472.WebUI.Domain.Concrete
                 context.Orders.Add(order);
                 foreach (OrderedProduct op in order.OrderedProducts)
                 {
+                    // We need to create new OrderedProduct entities in the database.
+
+                    // But the InStockProduct objects already exist in the database, we dont want to create these.
+                    // Mark them as Unchanged, to prevent EF6 creating duplicate objects.
+
+                    // Tell EF6 to track the InStockProduct entity, since it already exists in database. Dont create it.
+                    InStockProduct ip = op.InStockProduct;
+                    context.Entry(ip).State = EntityState.Unchanged;
+
+                    // Create the ordered product record
                     context.OrderedProducts.Add(op);
                 }
                 context.SaveChanges();
