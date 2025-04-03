@@ -18,14 +18,14 @@ namespace App472.WebUI.Models
         public Dictionary<string, Pair> Ascending { get; set; }
         
         public static Dictionary<string, Pair> GetAscDefault(){
-            bool boolDef = false;
+            bool boolDef = true;
             return new Dictionary<string, Pair>{
                 {"OrderID",new Pair{Asc=boolDef,Align="text-center"} },
                 {"Username",new Pair{Asc=boolDef,Align="text-left"} },
                 {"UserID",new Pair{Asc=boolDef,Align="text-left"} },
                 {"AccountType",new Pair{Asc=boolDef,Align="text-center"} },
                 {"Email",new Pair{Asc=boolDef,Align="text-left"} },
-                {"OrderPlaced",new Pair{Asc=boolDef,Align="text-left"} },
+                {"OrderPlaced",new Pair{Asc=!boolDef,Align="text-left"} },
                 {"PaymentReceived",new Pair{Asc=boolDef,Align="text-center"} },
                 {"ItemsOrdered",new Pair{Asc=boolDef,Align="text-center"} },
                 {"Items",new Pair{Asc=boolDef,Align="text-left"} },

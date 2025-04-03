@@ -16,18 +16,22 @@
                     <tr class="mgAccTable" data-href="@Url.Action("Index", "AdminOrders")" data-recent="@Model.Recent">
                         @foreach (KeyValuePair<string, App472.WebUI.Models.Pair> row in Model.Ascending)
                         {
-                            var useCaret = true;
+                            var allowCaret = true;
+                            var showCaret = false;
+                            var reverse = false;
                             if (row.Key == "Edit")
                             {
-                                useCaret = false;
+                                allowCaret = false;
                             }
-                            @Html.Partial("~/Views/AdminOrders/_TableHeadCell.cshtml", new AdminOrdersIndexTableHeadCell
+                            if (row.Key == Model.Recent)
                             {
-                           CellTitle = row.Key,
-                           AscendValue = row.Value.Asc,
-                           ClassAlign = row.Value.Align,
-                           UseCaret = useCaret
-                       })
+                                showCaret = true;
+                            }
+                            if (row.Key == "OrderPlaced")
+                            {
+                                reverse = true;
+                            }
+                            @Html.Partial("~/Views/AdminOrders/_TableHeadCell.cshtml", new AdminOrdersIndexTableHeadCell{ CellTitle = row.Key, AscendValue = row.Value.Asc, ClassAlign = row.Value.Align, AllowCaret = allowCaret, ShowCaret = showCaret, Reverse = reverse });
                         }
                         <th scope="col"></th>
                     </tr>

@@ -10,6 +10,8 @@ namespace App472.WebUI.Models
         public string CellTitle { get; set; }
         public bool AscendValue { get; set; }
         public string ClassAlign { get; set; }
-        public bool UseCaret { get; set; }
+        public bool AllowCaret { get; set; }
+        public bool ShowCaret { get; set; }
+        public bool Reverse { get; set; }
     }
 }

@@ -1,14 +1,18 @@
 @model App472.WebUI.Models.AdminOrdersIndexTableHeadCell
 @{
-    if (Model.UseCaret)
+    if (Model.AllowCaret)
     {
         <th scope="col" class="@Model.ClassAlign">
             <a class="mg-th-link" href="@Url.Action("Index", "AdminOrders")" data-sortby="@Model.CellTitle" data-asc="@Model.AscendValue">
                 @Model.CellTitle
-                @if (Model.UseCaret)
+                @if (Model.ShowCaret)
                 {
+                    var AscBool = Model.AscendValue;
+                    if (Model.Reverse){
+                        AscBool = ! AscBool;
+                    }
                     @:&nbsp;
-                    <i class="bi bi-caret-@(Model.AscendValue ? "down" : "up")-fill"></i>
+                    <i class="bi bi-caret-@(AscBool ? "down" : "up")-fill"></i>
                 }
             </a>
         </th>
