@@ -33,7 +33,7 @@ namespace App472.WebUI.Controllers
 
 
         // Orders Backlog
-        public ViewResult Index(string SortBy = "", bool SortAscend = false, string Recent = null)
+        public ViewResult Index(string SortBy = "OrderPlaced", bool SortAscend = false, string Recent = null)
         {
             Order.OrderSortEnum sortEnum = Order.ParseOrderSortEnum(SortBy);
             fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
@@ -47,17 +47,17 @@ namespace App472.WebUI.Controllers
             }
 
             switch (sortEnum){
-                case OrderSortEnum.OrderID:         orders = orderRepo.Orders.OrderBy(order => order.ID);          if(Ascending["OrderID"].Asc){ orders = orders.Reverse();}         break;
-                case OrderSortEnum.Username:        orders = orderRepo.Orders.OrderBy(order => order.UserOrGuestName);  if (Ascending["Username"].Asc) { orders = orders.Reverse(); }     break;
-                case OrderSortEnum.UserID:          orders = orderRepo.Orders.OrderBy(order => order.UserOrGuestId);    if (Ascending["UserID"].Asc) { orders = orders.Reverse(); }       break;
-                case OrderSortEnum.AccountType:     orders = orderRepo.Orders.OrderBy(order => order.AccountType);      if (Ascending["AccountType"].Asc) { orders = orders.Reverse(); }  break;
-                case OrderSortEnum.Email:           orders = orderRepo.Orders.OrderBy(order => order.UserOrGuestEmail);    if (Ascending["Email"].Asc) { orders = orders.Reverse(); }        break;
-                case OrderSortEnum.OrderPlaced:     orders = orderRepo.Orders.OrderBy(order => order.OrderPlacedDate);  if (Ascending["OrderPlaced"].Asc) { orders = orders.Reverse(); }  break;
+                case OrderSortEnum.OrderID:         orders = orderRepo.Orders.OrderBy(order => order.ID);          if(!Ascending["OrderID"].Asc){ orders = orders.Reverse();}         break;
+                case OrderSortEnum.Username:        orders = orderRepo.Orders.OrderBy(order => order.UserOrGuestName);  if (!Ascending["Username"].Asc) { orders = orders.Reverse(); }     break;
+                case OrderSortEnum.UserID:          orders = orderRepo.Orders.OrderBy(order => order.UserOrGuestId);    if (!Ascending["UserID"].Asc) { orders = orders.Reverse(); }       break;
+                case OrderSortEnum.AccountType:     orders = orderRepo.Orders.OrderBy(order => order.AccountType);      if (!Ascending["AccountType"].Asc) { orders = orders.Reverse(); }  break;
+                case OrderSortEnum.Email:           orders = orderRepo.Orders.OrderBy(order => order.UserOrGuestEmail);    if (!Ascending["Email"].Asc) { orders = orders.Reverse(); }        break;
+                case OrderSortEnum.OrderPlaced:     orders = orderRepo.Orders.OrderBy(order => order.OrderPlacedDate);  if (!Ascending["OrderPlaced"].Asc) { orders = orders.Reverse(); }  break;
                 //case OrderSortEnum.PaymentReceived: orders = orderRepo.Orders.OrderBy(order => order.PaymentReceived); break; // <-- still broken
-                case OrderSortEnum.ItemsOrdered:    orders = orderRepo.Orders.OrderBy(order => order.QuantityTotal);    if (Ascending["ItemsOrdered"].Asc) { orders = orders.Reverse(); } break;
-                case OrderSortEnum.Items:           orders = orderRepo.Orders.OrderBy(order => order.ItemString);       if (Ascending["Items"].Asc) { orders = orders.Reverse(); } break;
-                case OrderSortEnum.OrderStatus:     orders = orderRepo.Orders.OrderBy(order => order.OrderStatus);      if (Ascending["OrderStatus"].Asc) { orders = orders.Reverse(); }  break;
-                case OrderSortEnum.Edit:            orders = orderRepo.Orders.OrderBy(order => order.ID);          if (Ascending["OrderID"].Asc) { orders = orders.Reverse(); } break;
+                case OrderSortEnum.ItemsOrdered:    orders = orderRepo.Orders.OrderBy(order => order.QuantityTotal);    if (!Ascending["ItemsOrdered"].Asc) { orders = orders.Reverse(); } break;
+                case OrderSortEnum.Items:           orders = orderRepo.Orders.OrderBy(order => order.ItemString);       if (!Ascending["Items"].Asc) { orders = orders.Reverse(); } break;
+                case OrderSortEnum.OrderStatus:     orders = orderRepo.Orders.OrderBy(order => order.OrderStatus);      if (!Ascending["OrderStatus"].Asc) { orders = orders.Reverse(); }  break;
+                case OrderSortEnum.Edit:            orders = orderRepo.Orders.OrderBy(order => order.ID);          if (!Ascending["OrderID"].Asc) { orders = orders.Reverse(); } break;
                 default: break;
             }
             AdminOrdersViewModel vm = new AdminOrdersViewModel{
