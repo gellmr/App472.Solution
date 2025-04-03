@@ -83,6 +83,7 @@ th a.mg-th-link:hover {
 tr.mgAccTable td {
     padding: 1px;
     vertical-align: middle;
+    white-space: nowrap;
 }
 tr.mgAccTable input {
     border: none;
