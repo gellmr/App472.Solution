@@ -7,7 +7,7 @@
 }
 <div class="card">
     <div class="card-body">
-        <h5>Orders Backlog</h5> @*TODO replace this view with list of multiple orders sorted by date and order status*@
+        <h5>Orders Backlog</h5>
         <br />
         <div></div>
         <div class="table-responsive-xl">
@@ -19,7 +19,7 @@
                         if (row.Key == "Edit"){
                             useCaret = false;
                         }
-                        @Html.Partial("~/Views/AdminOrders/_TableHeadRow.cshtml", new AdminOrdersIndexTableHeadRow {
+                        @Html.Partial("~/Views/AdminOrders/_TableHeadCell.cshtml", new AdminOrdersIndexTableHeadRow {
                             Key = row.Key,
                             Value = row.Value.Asc,
                             Align = row.Value.Align,

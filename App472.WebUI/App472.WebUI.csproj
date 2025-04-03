@@ -374,7 +374,7 @@
     <Content Include="Views\Shared\_BreadCrumb.cshtml" />
     <Content Include="Views\AdminUserAcc\_TableRowGuest.cshtml" />
     <Content Include="Views\AdminUserAcc\_TableRowFullUser.cshtml" />
-    <Content Include="Views\AdminOrders\_TableHeadRow.cshtml" />
+    <Content Include="Views\AdminOrders\_TableHeadCell.cshtml" />
     <Content Include="Views\AdminUserOrder\_PaymentModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
