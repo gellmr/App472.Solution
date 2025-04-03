@@ -2,7 +2,7 @@
 @{
     if (Model.AllowCaret)
     {
-        <th scope="col" class="@Model.ClassAlign" style="vertical-align:top; white-space: nowrap;">
+        <th scope="col" class="@Model.ClassAlign">
             <a class="mg-th-link" href="@Url.Action("Index", "AdminOrders")" data-sortby="@Model.CellTitle" data-asc="@Model.AscendValue">
                 @Model.CellTitle
                 @if (Model.ShowCaret)

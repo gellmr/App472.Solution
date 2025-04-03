@@ -66,11 +66,14 @@ textarea {
     font-size: 12px;
     height: 30px;
 }
-
+tr.mgAccTable th {
+    vertical-align: top;
+}
 tr.mgAccTable th, tr.mgAccTable tr {
     /*text-align: center;*/
     text-align: left;
     font-size: 12px;
+    white-space: nowrap;
 }
 th a.mg-th-link{
     text-decoration:none;
