@@ -2,7 +2,7 @@
 @{
     if (Model.AllowCaret)
     {
-        <th scope="col" class="@Model.ClassAlign">
+        <th scope="col" class="@Model.ClassAlign" style="vertical-align:top;">
             <a class="mg-th-link" href="@Url.Action("Index", "AdminOrders")" data-sortby="@Model.CellTitle" data-asc="@Model.AscendValue">
                 @Model.CellTitle
                 @if (Model.ShowCaret)
@@ -11,14 +11,19 @@
                     if (Model.Reverse){
                         AscBool = ! AscBool;
                     }
-                    @:&nbsp;
                     <i class="bi bi-caret-@(AscBool ? "down" : "up")-fill"></i>
+                }
+                else
+                {
+                    @:&nbsp;&nbsp;
                 }
             </a>
         </th>
     }
     else
     {
-        <th scope="col" class="@Model.ClassAlign">@Model.CellTitle</th>
+        <th scope="col" class="@Model.ClassAlign">
+            @Model.CellTitle
+        </th>
     }
 }
