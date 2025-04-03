@@ -20,11 +20,11 @@
                             useCaret = false;
                         }
                         @Html.Partial("~/Views/AdminOrders/_TableHeadCell.cshtml", new AdminOrdersIndexTableHeadCell {
-                            Key = row.Key,
-                            Value = row.Value.Asc,
-                            Align = row.Value.Align,
-                            Caret = useCaret
-                        })
+                       CellTitle = row.Key,
+                       AscendValue = row.Value.Asc,
+                       ClassAlign = row.Value.Align,
+                       UseCaret = useCaret
+                   })
                     }
                     <th scope="col"></th>
                 </tr>
