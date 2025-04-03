@@ -11,93 +11,96 @@
         <br />
         <div></div>
         <div class="table-responsive-xl">
-        <table class="table table-hover">
-            <thead class="thead-dark">
-                <tr class="mgAccTable" data-href="@Url.Action("Index", "AdminOrders")" data-recent="@Model.Recent">
-                    @foreach (KeyValuePair<string, App472.WebUI.Models.Pair> row in Model.Ascending){
-                        var useCaret = true;
-                        if (row.Key == "Edit"){
-                            useCaret = false;
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr class="mgAccTable" data-href="@Url.Action("Index", "AdminOrders")" data-recent="@Model.Recent">
+                        @foreach (KeyValuePair<string, App472.WebUI.Models.Pair> row in Model.Ascending)
+                        {
+                            var useCaret = true;
+                            if (row.Key == "Edit")
+                            {
+                                useCaret = false;
+                            }
+                            @Html.Partial("~/Views/AdminOrders/_TableHeadCell.cshtml", new AdminOrdersIndexTableHeadCell
+                            {
+                           CellTitle = row.Key,
+                           AscendValue = row.Value.Asc,
+                           ClassAlign = row.Value.Align,
+                           UseCaret = useCaret
+                       })
                         }
-                        @Html.Partial("~/Views/AdminOrders/_TableHeadCell.cshtml", new AdminOrdersIndexTableHeadCell {
-                       CellTitle = row.Key,
-                       AscendValue = row.Value.Asc,
-                       ClassAlign = row.Value.Align,
-                       UseCaret = useCaret
-                   })
-                    }
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (Order order in Model.Orders)
-                {
-                    Guest guest = null;
-                    App472.WebUI.Models.FullUser fullUser = null;
-
-                    bool isGuest = order.GuestID != null;
-                    string uid = null;
-                    string gid = null;
-                    string ugid = null;
-                    string uname = "";
-                    string accType = "";
-                    string email = "";
-                    string dateCreated = "";
-                    Decimal payment = 0;
-                    Decimal countItems = 0;
-                    string itemString = "";
-                    string orderStatus = "";
-                    if (isGuest)
-                    {
-                        guest = Model.Guests.FirstOrDefault(g => g.ID == order.GuestID);
-                        uid = null;
-                        gid = order.GuestID.ToString();
-                        ugid = gid;
-                        uname = guest.FirstName + " " + guest.LastName;
-                        accType = "Guest";
-                        email = guest.Email;
-                    }
-                    else
-                    {
-                        fullUser = Model.Users.FirstOrDefault(u => u.AppUser.Id == order.UserID.ToString());
-                        uid = fullUser.AppUser.Id;
-                        gid = null;
-                        ugid = uid;
-                        uname = fullUser.AppUser.UserName;
-                        accType = "User";
-                        email = fullUser.AppUser.Email;
-                    }
-                    dateCreated = order.OrderPlacedDate.ToString();
-                    countItems = order.QuantityTotal;
-                    itemString = order.ItemString;
-                    orderStatus = order.OrderStatus.ToString();
-
-                    <tr class="mgAccTable">
-                        <td class="text-center">@order.ID</td>
-                        <td scope="row" class="text-left">
-                            @* TODO - add link for User Detail page. *@
-                            @*<a class="" href="@Url.Action("Index", "AdminUserOrder", new {UserId=uid,GuestID=gid})">@uname</a>*@
-                            @uname
-                        </td>
-                        <td class="text-left">
-                            <span data-toggle="tooltip" data-placement="bottom" title="@ugid">
-                                @MyExtensions.Truncate(ugid, MyExtensions.GuidTruncLenth)
-                            </span>
-                        </td>
-                        <td class="text-center">@accType</td>
-                        <td scope="row" class="text-left">@email</td>
-                        <td scope="row" class="text-left">@dateCreated</td>
-                        <td scope="row" class="text-center">$ @payment.ToString("0.00")</td>
-                        <td scope="row" class="text-center">@countItems</td>
-                        <td scope="row" class="text-left">@itemString</td>
-                        <td scope="row" class="text-center">@orderStatus</td>
-                        <td scope="row" class="text-center">
-                            <a class="btn btn-success" href="@Url.Action("Detail", "AdminUserOrder", new {OrderID=order.ID.ToString()})">Edit</a>
-                        </td>
+                        <th scope="col"></th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (Order order in Model.Orders)
+                    {
+                        Guest guest = null;
+                        App472.WebUI.Models.FullUser fullUser = null;
+
+                        bool isGuest = order.GuestID != null;
+                        string uid = null;
+                        string gid = null;
+                        string ugid = null;
+                        string uname = "";
+                        string accType = "";
+                        string email = "";
+                        string dateCreated = "";
+                        Decimal payment = 0;
+                        Decimal countItems = 0;
+                        string itemString = "";
+                        string orderStatus = "";
+                        if (isGuest)
+                        {
+                            guest = Model.Guests.FirstOrDefault(g => g.ID == order.GuestID);
+                            uid = null;
+                            gid = order.GuestID.ToString();
+                            ugid = gid;
+                            uname = guest.FirstName + " " + guest.LastName;
+                            accType = "Guest";
+                            email = guest.Email;
+                        }
+                        else
+                        {
+                            fullUser = Model.Users.FirstOrDefault(u => u.AppUser.Id == order.UserID.ToString());
+                            uid = fullUser.AppUser.Id;
+                            gid = null;
+                            ugid = uid;
+                            uname = fullUser.AppUser.UserName;
+                            accType = "User";
+                            email = fullUser.AppUser.Email;
+                        }
+                        dateCreated = order.OrderPlacedDate.ToString();
+                        countItems = order.QuantityTotal;
+                        itemString = order.ItemString;
+                        orderStatus = order.OrderStatus.ToString();
+
+                        <tr class="mgAccTable">
+                            <td class="text-center">@order.ID</td>
+                            <td scope="row" class="text-left">
+                                @* TODO - add link for User Detail page. *@
+                                @*<a class="" href="@Url.Action("Index", "AdminUserOrder", new {UserId=uid,GuestID=gid})">@uname</a>*@
+                                @uname
+                            </td>
+                            <td class="text-left">
+                                <span data-toggle="tooltip" data-placement="bottom" title="@ugid">
+                                    @MyExtensions.Truncate(ugid, MyExtensions.GuidTruncLenth)
+                                </span>
+                            </td>
+                            <td class="text-center">@accType</td>
+                            <td scope="row" class="text-left">@email</td>
+                            <td scope="row" class="text-left">@dateCreated</td>
+                            <td scope="row" class="text-center">$ @payment.ToString("0.00")</td>
+                            <td scope="row" class="text-center">@countItems</td>
+                            <td scope="row" class="text-left">@itemString</td>
+                            <td scope="row" class="text-center">@orderStatus</td>
+                            <td scope="row" class="text-center">
+                                <a class="btn btn-success" href="@Url.Action("Detail", "AdminUserOrder", new {OrderID=order.ID.ToString()})">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
