@@ -294,7 +294,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminEditProductViewModel.cs" />
     <Compile Include="Models\AdminBaseOrderDetailViewModel.cs" />
-    <Compile Include="Models\AdminOrdersIndexTableHeadRow.cs" />
+    <Compile Include="Models\AdminOrdersIndexTableHeadCell.cs" />
     <Compile Include="Models\AdminProductsViewModel.cs" />
     <Compile Include="Models\AdminUserAccViewModel.cs" />
     <Compile Include="Models\AdminOrderDetailViewModel.cs" />

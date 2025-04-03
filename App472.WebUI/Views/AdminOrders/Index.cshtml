@@ -19,7 +19,7 @@
                         if (row.Key == "Edit"){
                             useCaret = false;
                         }
-                        @Html.Partial("~/Views/AdminOrders/_TableHeadCell.cshtml", new AdminOrdersIndexTableHeadRow {
+                        @Html.Partial("~/Views/AdminOrders/_TableHeadCell.cshtml", new AdminOrdersIndexTableHeadCell {
                             Key = row.Key,
                             Value = row.Value.Asc,
                             Align = row.Value.Align,

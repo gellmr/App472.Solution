@@ -5,7 +5,7 @@ using System.Web;
 
 namespace App472.WebUI.Models
 {
-    public class AdminOrdersIndexTableHeadRow
+    public class AdminOrdersIndexTableHeadCell
     {
         public string Key { get; set; }
         public bool Value { get; set; }
