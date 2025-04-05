@@ -5,7 +5,10 @@
     ViewBag.Title = "Products";
 }
 
-<div class="mg-curr-category">Category: Soccer</div>
+@{
+    var currCat = String.IsNullOrEmpty(Model.CurrentCategory) ? "All" : Model.CurrentCategory;
+}
+<div class="mg-curr-category">Category: @currCat</div>
 <div class="searchInput"><i class="bi bi-search"></i>&nbsp;@Html.TextBox("SearchInput", null, new{
         @class = "form-control searchInput",
         @id = "productSearchInput",
