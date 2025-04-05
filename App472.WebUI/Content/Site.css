@@ -43,6 +43,12 @@ textarea {
     display: inline-block;
     width: 180px;
 }
+.search-x {
+    height: 35px;
+    width: 35px;
+    top: -3px;
+    position: relative;
+}
 
 .mg-pagination {
     background-color: #e9eff1;
