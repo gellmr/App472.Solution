@@ -9,7 +9,9 @@
     var currCat = String.IsNullOrEmpty(Model.CurrentCategory) ? "All" : Model.CurrentCategory;
 }
 <div class="mg-curr-category">Category: @currCat</div>
-<div class="searchInput"><i class="bi bi-search"></i>&nbsp;@Html.TextBox("SearchInput", null, new{
+<div class="searchInput">
+    <i class="bi bi-search"></i>&nbsp;@Html.TextBox("SearchInput", null, new
+    {
         @class = "form-control searchInput",
         @id = "productSearchInput",
         Name = "productSearchInput",
@@ -39,3 +41,4 @@ Total: @Model.PagingInfo.TotalItems Products found.
     </div>
 }
 <div style="margin-bottom:10px;"></div>
+<script type="text/javascript" src="~/Scripts/ProductList.js"></script>
