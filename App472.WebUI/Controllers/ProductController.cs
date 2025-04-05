@@ -28,6 +28,8 @@ namespace App472.WebUI.Controllers
         }
 
         // GET: Product
+        // See for security - string search argument
+        // https://gosecure.ai/blog/2016/03/22/xss-for-asp-net-developers/
         public ViewResult List(string category, string search, int page = 1)
         {
             // filter search string as it comes in here.
