@@ -7,15 +7,18 @@
 
 @{
     var currCat = String.IsNullOrEmpty(Model.CurrentCategory) ? "All" : Model.CurrentCategory;
+    var hostAndPath = ViewBag.HostAndPath;
+    var searchStr = String.IsNullOrEmpty(ViewBag.Search) ? "" : ViewBag.Search;
 }
-<div class="mg-curr-category">Category: @currCat</div>
+@hostAndPath
+<div class="mg-curr-category" data-hostandpath="@hostAndPath" >Category: @currCat</div>
 <div class="searchInput">
     <i class="bi bi-search"></i>&nbsp;@Html.TextBox("SearchInput", null, new
     {
         @class = "form-control searchInput",
         @id = "productSearchInput",
         Name = "productSearchInput",
-        Value="Search"
+        Value=searchStr
     })
     <button type="button" class="btn btn-sm btn-light search-x"><i class="bi bi-x-lg"></i></button>
 </div>

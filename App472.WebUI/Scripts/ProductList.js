@@ -12,6 +12,8 @@
             // member variables
             searchInput: $(options.searchInputId),
             renderBody: $(options.renderBodyClass),
+            hostandpath: options.hostandpath, // eg "mikegelldemo.live" | "mikegelldemo.live/Soccer" | "mikegelldemo.live/Soccer/page2"
+            searching: false,
 
             SearchInputClicked: function (event) {
                 event.preventDefault(); //stop default behaviour
@@ -28,11 +30,19 @@
                     page.SearchProducts(event);
                 }
             },
-            SearchProducts: function (event) {
-                debugger;
+            SearchProducts: function (event)
+            {
+                if (page.searching) {
+                    event.preventDefault(); return;
+                }
+                page.searching = true; // prevent race condition
+                page.DisableListeners();
+
                 var ct = $(event.target);
                 console.log("SearchProducts " + ct.val());
-                // TODO - ajax call
+                var searchString = ct.val();
+                var formHref = page.hostandpath + "?search=" + searchString; // "mikegelldemo.live/Soccer/page2?search=abc"
+                window.location.href = formHref;
             },
 
             EnableListeners: function () {
@@ -42,6 +52,8 @@
             },
             DisableListeners: function () {
                 page.searchInput.off("click");
+                page.searchInput.off("blur");
+                page.renderBody.off("keyup");
             },
             // --------------------------------------
             // Page ready, attach event listeners
@@ -54,9 +66,11 @@
         };
     };
 })(jQuery);
+
 var options = {
     searchInputId: "#productSearchInput",
-    renderBodyClass: ".mg-renderbody"
+    renderBodyClass: ".mg-renderbody",
+    hostandpath: $(".mg-curr-category").data("hostandpath"),
 };
 var page = $.productList(options);
 jQuery(document).ready(page.ready);

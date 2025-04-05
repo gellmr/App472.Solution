@@ -24,5 +24,7 @@ namespace App472.WebUI.Infrastructure
             //    HttpContext.Current.Session.Add(MyExtensions.GuestIDSessKeyName, value);
             //}
         }
+
+        public string Search{ get; set; } // the search string, remembered across different requests.
     }
 }
