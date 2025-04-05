@@ -8,6 +8,7 @@ namespace App472.WebUI.Models
 {
     public class CheckoutViewModel // base class, used for (Cart...Checkout...Thankyou) pages
     {
+        // TODO - refactor
         public Cart Cart { get; set; }
     }
 
