@@ -10,9 +10,19 @@
     property.PropertyName != "Email"
     )
     {
+        var formValReqAttr = "Please provide " + property.PropertyName;
+        var formIdAttr = ViewBag.PartialPrefixName + "_" + property.PropertyName;
+        var formNameAttr = ViewBag.PartialPrefixName + "." + property.PropertyName;
+        <!-- ShippingDetails -->
         <div class="form-group">
             <label>@(property.DisplayName ?? property.PropertyName)</label>
-            @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+            @Html.TextBox(property.PropertyName, null, new {
+                @class = "form-control",
+                @id=formIdAttr,
+                Name=formNameAttr,
+                @data_val="true"
+            })
         </div>
+
     }
 }

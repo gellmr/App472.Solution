@@ -17,6 +17,7 @@
     </div>
     <h3>Address</h3>
 
+    ViewBag.PartialPrefixName="ShippingDetails"; // help the view name its form elements.
     @*Use model meta data to generate the common string inputs *@
     @Html.Partial("ShippingDetails", Model.ShippingDetails);
 
