@@ -5,9 +5,18 @@
     ViewBag.Title = "Products";
 }
 
+<div class="mg-curr-category">Category: Soccer</div>
+<div class="searchInput"><i class="bi bi-search"></i>&nbsp;@Html.TextBox("SearchInput", null, new{
+        @class = "form-control searchInput",
+        @id = "productSearchInput",
+        Name = "productSearchInput",
+        Value="Search"
+    })
+</div>
+
 @if (Model.PagingInfo.TotalItems > 4)
 {
-    <div class="btn-group pull-right">
+    <div class="btn-group pull-right mg-pagination">
         @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
     </div>
     <div style="margin-bottom:10px;"></div>
@@ -22,7 +31,7 @@ Total: @Model.PagingInfo.TotalItems Products found.
 
 @if (Model.PagingInfo.TotalItems > 4)
 {
-    <div class="btn-group pull-right">
+    <div class="btn-group pull-right mg-pagination">
         @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
     </div>
 }

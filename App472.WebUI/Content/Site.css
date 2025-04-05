@@ -26,6 +26,29 @@ textarea {
     text-align: left;
 }
 
+.mg-curr-category {
+    margin-bottom: 8px;
+    color: gray;
+    font-weight: 600;
+}
+.searchInput {
+    /*border:1px solid red;*/
+    margin-bottom: 6px;
+}
+.searchInput .bi-search {
+    display: inline-block;
+    width: 21px;
+}
+.searchInput input {
+    display: inline-block;
+    width: 180px;
+}
+
+.mg-pagination {
+    background-color: #e9eff1;
+    border-radius: 4px;
+}
+
 .mg-category-menu {
     /*background-color: forestgreen !important;*/
     display: flex;
