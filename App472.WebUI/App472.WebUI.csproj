@@ -302,7 +302,7 @@
     <Compile Include="Models\AdminOrdersViewModel.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
-    <Compile Include="Models\CartIndexViewModel.cs" />
+    <Compile Include="Models\CheckoutViewModel.cs" />
     <Compile Include="Models\FullUser.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -376,6 +376,7 @@
     <Content Include="Views\AdminUserAcc\_TableRowFullUser.cshtml" />
     <Content Include="Views\AdminOrders\_TableHeadCell.cshtml" />
     <Content Include="Views\AdminUserOrder\_PaymentModal.cshtml" />
+    <Content Include="Views\Cart\ShippingDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

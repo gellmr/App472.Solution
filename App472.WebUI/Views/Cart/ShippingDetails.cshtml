@@ -1,0 +1,18 @@
+﻿@model App472.WebUI.Domain.Entities.ShippingDetails
+
+@*Use model meta data to generate the common string inputs *@
+@foreach (var property in ViewData.ModelMetadata.Properties)
+{
+    if (
+    property.PropertyName != "FirstName" &&
+    property.PropertyName != "LastName" &&
+    property.PropertyName != "GiftWrap" &&
+    property.PropertyName != "Email"
+    )
+    {
+        <div class="form-group">
+            <label>@(property.DisplayName ?? property.PropertyName)</label>
+            @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+        </div>
+    }
+}

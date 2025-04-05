@@ -50,13 +50,17 @@ namespace App472.WebUI.Controllers
             });
         }
 
-        public PartialViewResult Summary(Cart cart)
+        public PartialViewResult Summary(Cart cart, string requestPath) // called from NavBarContent to load a page fragment. cart is automatically pulled from the session.
         {
-            return PartialView(cart);
+            string backText = (requestPath == "/Cart/Index") ? "Checkout" : "Cart";
+            return PartialView(new CheckoutButtonViewModel { Cart = cart, CheckoutButtonBackText = backText }); // render Summary.cshtml within NavBarContent
         }
 
-        public ViewResult Checkout(){
-            return View(new ShippingDetails());
+        public ViewResult Checkout()
+        {
+            return View(new CheckoutIndexViewModel{
+                ShippingDetails = new ShippingDetails()
+            });
         }
 
         [HttpPost]

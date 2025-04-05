@@ -3,7 +3,9 @@
     ViewBag.Title = "Your Cart";
 }
 <style>
-    #cartTable td{vertical-align:middle;}
+    #cartTable td {
+        vertical-align: middle;
+    }
 </style>
 <h2>Your Cart</h2>
 <table id="cartTable" class="table">
@@ -16,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var line in Model.Cart.Lines)
+        @foreach (var line in Model.Cart.Lines)
         {
             <tr>
                 <td class="text-center">@line.Quantity</td>
@@ -43,8 +45,15 @@
         </tr>
     </tfoot>
 </table>
+@{
+    // If we navigate from the checkout shipping page, BACK to the cart index page... then we want `back to shopping` button to take us to "/" (the shopping index page)
+    // The `continue shopping` button should NOT take us forward in the checkout process.
+    string desiredReturnUrl = Model.ReturnUrl;
+    string referrer = Request.UrlReferrer.AbsolutePath;
+    string backLink = (referrer == "/Cart/Checkout" || string.IsNullOrEmpty(desiredReturnUrl)) ? "/" : desiredReturnUrl;
+}
 <div class="text-center" style="margin-bottom:8px;">
-    <a class="btn btn-primary" href="@Model.ReturnUrl" style="margin-bottom:8px;"><i class="bi bi-arrow-left-circle"></i> Continue Shopping</a>
+    <a class="btn btn-primary" href="@backLink" style="margin-bottom:8px;"><i class="bi bi-arrow-left-circle"></i> Continue Shopping</a>
 
     <a class="btn btn-primary" style="margin-bottom:8px;" href="@Url.Action("Checkout", "Cart", new { returnUrl = Request.Url.PathAndQuery })"><i class="bi bi-cart-fill"></i> Checkout now</a>
 </div>

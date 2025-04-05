@@ -1,4 +1,4 @@
-﻿@model App472.WebUI.Domain.Entities.Cart
+﻿@model App472.WebUI.Models.CheckoutButtonViewModel
 
 <div style="
     /*background-color:darkseagreen;*/
@@ -10,11 +10,12 @@
 
     <div style="display:inline-block;padding:8px; color:#aeaeae;">
         <b>Your cart:</b>
-        @Model.Lines.Sum(x => x.Quantity) item(s),
-        @Model.ComputeTotalValue().ToString("c")
+        @Model.Cart.Lines.Sum(x => x.Quantity) item(s),
+        @Model.Cart.ComputeTotalValue().ToString("c")
     </div>
 
-    <div class="float-right" style="display:inline-block">
-        <a class="btn btn-success" href="@Url.Action("Index", "Cart", new { returnUrl = Request.Url.PathAndQuery })"><i class="bi bi-cart4"></i> Checkout</a>
+    <div class="float-right" style="display:inline-block; width:113px;">
+        @{ string actionName = (Model.CheckoutButtonBackText == "Cart") ? "Index" : "Checkout"; }
+        <a class="btn btn-success" style="width:100%;" href="@Url.Action(actionName, "Cart", new { returnUrl = Request.Url.PathAndQuery })"><i class="bi bi-cart4"></i> @Model.CheckoutButtonBackText</a>
     </div>
 </div>

@@ -1,10 +1,10 @@
 ﻿<a class="navbar-brand" href="@Url.Action("Index", "Home", new {} )">
 
     <span class="d-inline-block d-md-none" style="margin-left:2px;"></span>
-    <span class="d-inline-block d-sm-none" >SPORTS</span>
-    <span class="d-inline-block d-sm-none" >STORE</span>
+    <span class="d-inline-block d-sm-none">SPORTS</span>
+    <span class="d-inline-block d-sm-none">STORE</span>
 
-    <span class="d-none         d-sm-inline-block" >SPORTS STORE</span>
+    <span class="d-none         d-sm-inline-block">SPORTS STORE</span>
 
 </a>
 
@@ -19,16 +19,12 @@
 
         <li class="nav-item">@Html.ActionLink("Shop", "List", "Product", new { area = "" }, new { @class = "nav-link" })</li>
 
-        @*<li class="nav-item">@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>*@
-
-        @*<li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>*@
-
         <li class="nav-item">@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
 
         <li class="nav-item" style="width: 100%;
                 /*border: 2px dashed orange;*/
                 ">
-            @Html.Action("Summary", "Cart")
+            @Html.Action("Summary", "Cart", new { requestPath = Request.Path })
         </li>
     </ul>
 </div>
