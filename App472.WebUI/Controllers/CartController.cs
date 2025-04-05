@@ -64,7 +64,8 @@ namespace App472.WebUI.Controllers
         }
 
         [HttpPost]
-        public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails){
+        public ViewResult Checkout(Cart cart, CheckoutIndexViewModel viewModel)
+        {
             if(cart.Lines.Count() == 0){
                 ModelState.AddModelError("", "Sorry, your cart is empty!");
             }
@@ -82,7 +83,7 @@ namespace App472.WebUI.Controllers
                     AppUser user = userManager.FindById( sessUser.UserID.ToString() );
 
                     // Ready to save the order.
-                    SaveOrder(cart, shippingDetails, user.Id, null);
+                    SaveOrder(cart, viewModel.ShippingDetails, user.Id, null);
                 }
                 else
                 {
@@ -93,11 +94,11 @@ namespace App472.WebUI.Controllers
                     // orderProcessor.ProcessOrder(cart, shippingDetails); // Send an email
 
                     // Check if we have an existing GuestID for the user email address.
-                    notLoggedInSessUser.GuestID = guestRepo.GuestExists(shippingDetails.Email) ?? notLoggedInSessUser.GuestID;
+                    notLoggedInSessUser.GuestID = guestRepo.GuestExists(viewModel.ShippingDetails.Email) ?? notLoggedInSessUser.GuestID;
                     Nullable<Guid> guestID = notLoggedInSessUser.GuestID;
 
                     // Create a database record using the guest id.
-                    SaveOrder(cart, shippingDetails, null, guestID);
+                    SaveOrder(cart, viewModel.ShippingDetails, null, guestID);
                 }
 
                 cart.Clear();
@@ -106,7 +107,7 @@ namespace App472.WebUI.Controllers
             else
             {
                 // Model has some errors
-                return View(shippingDetails);
+                return View(viewModel);
             }
         }
 
