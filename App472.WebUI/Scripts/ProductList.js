@@ -12,9 +12,22 @@
             // member variables
             searchInput: $(options.searchInputId),
             renderBody: $(options.renderBodyClass),
+            xClearBtn: $(options.xClearBtnClass),
             hostandpath: options.hostandpath, // eg "mikegelldemo.live" | "mikegelldemo.live/Soccer" | "mikegelldemo.live/Soccer/page2"
             searching: false,
 
+            ClearSearchClicked: function (event) {
+                debugger;
+                $.ajax({
+                    url: "/Product/ClearSearch",
+                    cache: false,
+                    success: function (html) {
+                        // reload page without a search string.
+                        var formHref = page.hostandpath; // "mikegelldemo.live/Soccer/page2" | "mikegelldemo.live"
+                        window.location.href = formHref;
+                    }
+                });
+            },
             SearchInputClicked: function (event) {
                 event.preventDefault(); //stop default behaviour
                 if (page.searchInput.val() == "Search") {
@@ -49,11 +62,13 @@
                 page.searchInput.on("click", page.SearchInputClicked);
                 page.searchInput.on("blur", page.SearchInputBlur);
                 page.renderBody.on("keyup", options.searchInputId, page.SearchInputKeyup);
+                page.xClearBtn.on("click", page.ClearSearchClicked);
             },
             DisableListeners: function () {
                 page.searchInput.off("click");
                 page.searchInput.off("blur");
                 page.renderBody.off("keyup");
+                page.xClearBtn.off("click");
             },
             // --------------------------------------
             // Page ready, attach event listeners
@@ -71,6 +86,7 @@ var options = {
     searchInputId: "#productSearchInput",
     renderBodyClass: ".mg-renderbody",
     hostandpath: $(".mg-curr-category").data("hostandpath"),
+    xClearBtnClass: ".search-x",
 };
 var page = $.productList(options);
 jQuery(document).ready(page.ready);

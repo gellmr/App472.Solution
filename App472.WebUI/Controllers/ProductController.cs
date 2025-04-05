@@ -11,7 +11,6 @@ using System.Net;
 
 namespace App472.WebUI.Controllers
 {
-    public class ProductController : Controller
     public class ProductController : BaseController
     {
         private IProductsRepository repository;
@@ -22,8 +21,13 @@ namespace App472.WebUI.Controllers
             this.repository = repo;
         }
 
+        public ActionResult ClearSearch(){
+            BaseSessUser sessUser = SessUser;
+            sessUser.Search = null;
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
         // GET: Product
-        public ViewResult List(string category, int page = 1)
         public ViewResult List(string category, string search, int page = 1)
         {
             // filter search string as it comes in here.
