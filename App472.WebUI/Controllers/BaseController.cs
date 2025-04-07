@@ -70,5 +70,15 @@ namespace App472.WebUI.Controllers
         }
 
         //-------------------------------------------------------------------------------
+
+        public bool IsJsonRequest
+        {
+            get{
+                // https://stackoverflow.com/questions/2072932/asp-net-determine-if-a-request-content-type-is-for-json/2073236
+                string requestedWith = Request.ServerVariables["HTTP_X_REQUESTED_WITH"] ?? string.Empty;
+                return string.Compare(requestedWith, "XMLHttpRequest", true) == 0
+                    && Request.ContentType.ToLower().Contains("application/json");
+            }
+        }
     }
 }

@@ -110,7 +110,8 @@ namespace App472.WebUI.Controllers
             // is it secure to do this?
             ViewBag.HostAndPath = host;
             ViewBag.Search = sessUser.Search;
-
+            ViewBag.IsFragment = this.IsJsonRequest;
+            
             return View(model);
         }
     }

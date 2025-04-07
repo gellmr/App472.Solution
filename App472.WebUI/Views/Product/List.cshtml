@@ -2,6 +2,10 @@
 @model App472.WebUI.Models.ProductsListViewModel
 
 @{
+    // render a page fragment (only this view with no layout) if it was an Ajax call.
+    if(ViewBag.IsFragment){
+        Layout = null;
+    }
     ViewBag.Title = "Products";
 }
 
@@ -45,4 +49,3 @@ Total: @Model.PagingInfo.TotalItems Products found.
     </div>
 }
 <div style="margin-bottom:10px;"></div>
-<script type="text/javascript" src="~/Scripts/ProductList.js"></script>

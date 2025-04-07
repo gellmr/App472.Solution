@@ -17,14 +17,12 @@
             searching: false,
 
             ClearSearchClicked: function (event) {
-                debugger;
                 $.ajax({
                     url: "/Product/ClearSearch",
                     cache: false,
                     success: function (html) {
-                        // reload page without a search string.
-                        var formHref = page.hostandpath; // "mikegelldemo.live/Soccer/page2" | "mikegelldemo.live"
-                        window.location.href = formHref;
+                        page.Reset();
+                        page.searchInput.val(""); // clear the search input
                     }
                 });
             },
@@ -55,26 +53,24 @@
                 console.log("SearchProducts " + ct.val());
                 var searchString = ct.val();
                 var formHref = page.hostandpath + "?search=" + searchString; // "mikegelldemo.live/Soccer/page2?search=abc"
-                window.location.href = formHref;
-
-                // If we get a 400 error, its not nice for the user.
-                // I want to stay on the page and go -->  page.searchInput.val("");
-
-                //$.ajax({
-                //    url: formHref,
-                //    type: 'GET',
-                //    contentType: "application/json; charset=utf-8",
-                //    dataType: "json",
-                //    statusCode: {
-                //        200: function (jqXHR) {
-                //            window.location.href = formHref;
-                //        },
-                //        400: function (jqXHR) {
-                //            debugger;
-                //            page.searchInput.val(""); // clear the search input
-                //        }
-                //    }
-                //});
+                //window.location.href = formHref;
+                $.ajax({
+                    url: formHref,
+                    type: 'GET',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    statusCode: {
+                        200: function (jqXHR) {
+                            var pageFragment = jqXHR.responseText;
+                            $(".mg-renderbody").html(pageFragment);
+                            page.Reset();
+                        },
+                        400: function (jqXHR) {
+                            page.Reset();
+                            page.searchInput.val(""); // clear the search input
+                        }
+                    }
+                });
             },
 
             EnableListeners: function () {
@@ -92,8 +88,17 @@
             // --------------------------------------
             // Page ready, attach event listeners
             ReadyJs: function () {
-                page.EnableListeners();
+                page.Reset();
             },
+            Reset: function () {
+                page.searchInput = $(page.options.searchInputId);
+                page.renderBody  = $(page.options.renderBodyClass);
+                page.xClearBtn   = $(page.options.xClearBtnClass);
+                page.hostandpath = page.options.hostandpath;
+                page.searching = false;
+                page.DisableListeners();
+                page.EnableListeners();
+            }
         };
         return {
             ready: page.ReadyJs
