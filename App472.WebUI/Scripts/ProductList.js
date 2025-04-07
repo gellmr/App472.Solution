@@ -17,14 +17,8 @@
             searching: false,
 
             ClearSearchClicked: function (event) {
-                $.ajax({
-                    url: "/Product/ClearSearch",
-                    cache: false,
-                    success: function (html) {
-                        page.Reset();
-                        page.searchInput.val(""); // clear the search input
-                    }
-                });
+                page.searchInput.val(""); // clear the search input
+                page.SearchProducts(event);
             },
             SearchInputClicked: function (event) {
                 event.preventDefault(); //stop default behaviour

@@ -9,6 +9,7 @@ using App472.WebUI.Domain.Abstract;
 using App472.WebUI.Infrastructure;
 using System.Net;
 using PCRE;
+using App472.WebUI.Domain.Entities;
 
 namespace App472.WebUI.Controllers
 {
@@ -20,12 +21,6 @@ namespace App472.WebUI.Controllers
         public ProductController(IProductsRepository repo)
         {
             this.repository = repo;
-        }
-
-        public ActionResult ClearSearch(){
-            BaseSessUser sessUser = SessUser;
-            sessUser.Search = null;
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         // GET: Product
@@ -77,24 +72,40 @@ namespace App472.WebUI.Controllers
 
             search = HttpUtility.HtmlEncode(search); // ensure input is html encoded.
 
-            BaseSessUser sessUser = SessUser; // get the strongly typed object from session
-            if (search != null){
-                sessUser.Search = search; // store in session
-            }
+            // Get the user object from session and store our search string to persist across requests.
+            BaseSessUser sessUser = SessUser; // get strongly typed object from session
+            sessUser.Search = search;
+
+            string searchlow = string.IsNullOrEmpty(search) ? search : search.ToLower();
+
+            IEnumerable<InStockProduct> results = repository.InStockProducts.Where(p =>
+                (
+                    // true if we are not filtering by category, or if the product is from the category we want
+                    category == null || p.Category == category
+                )
+                &&
+                (
+                    // true if our search string is empty, or the product details contain our search string.
+                    string.IsNullOrEmpty(searchlow)
+                    || (p.Name).ToLower().Contains(searchlow)
+                    || (p.Description).ToLower().Contains(searchlow)
+                    || (p.Category).ToLower().Contains(searchlow)
+                )
+            )
+            .OrderBy(p => p.ID)
+            //.Skip((page - 1) * PageSize)
+            //.Take(PageSize)
+            ;
+
+            PagingInfo paging = new PagingInfo{
+                CurrentPage = 1,
+                ItemsPerPage = results.Count(),
+                TotalItems = results.Count()
+            };
 
             ProductsListViewModel model = new ProductsListViewModel{
-                Products = repository.InStockProducts
-                    .Where(p => category == null || p.Category == category) // if category is null then dont filter by category.
-                    .OrderBy(p => p.ID)
-                    .Skip((page - 1) * PageSize)
-                    .Take(PageSize),
-                PagingInfo = new PagingInfo{
-                    CurrentPage = page,
-                    ItemsPerPage = PageSize,
-                    TotalItems = category == null ?
-                    repository.InStockProducts.Count() :
-                    repository.InStockProducts.Where(e => e.Category == category).Count()
-                },
+                Products = results,
+                PagingInfo = paging,
                 CurrentCategory = category
             };
 
