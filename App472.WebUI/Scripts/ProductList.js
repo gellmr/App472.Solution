@@ -56,6 +56,25 @@
                 var searchString = ct.val();
                 var formHref = page.hostandpath + "?search=" + searchString; // "mikegelldemo.live/Soccer/page2?search=abc"
                 window.location.href = formHref;
+
+                // If we get a 400 error, its not nice for the user.
+                // I want to stay on the page and go -->  page.searchInput.val("");
+
+                //$.ajax({
+                //    url: formHref,
+                //    type: 'GET',
+                //    contentType: "application/json; charset=utf-8",
+                //    dataType: "json",
+                //    statusCode: {
+                //        200: function (jqXHR) {
+                //            window.location.href = formHref;
+                //        },
+                //        400: function (jqXHR) {
+                //            debugger;
+                //            page.searchInput.val(""); // clear the search input
+                //        }
+                //    }
+                //});
             },
 
             EnableListeners: function () {
