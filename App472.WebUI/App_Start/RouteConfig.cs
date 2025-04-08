@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Routing.Constraints;
 using System.Web.Routing;
 
 namespace App472.WebUI
@@ -52,6 +53,18 @@ namespace App472.WebUI
                 new { controller = "AdminUserOrder", action = "Detail" },
                 new { ID = @"\d+" }
             );
+            // www.siteurl/AdminUserOrder/2
+            routes.MapRoute(null, "{controller}/{ID}",
+                new { controller = "AdminUserOrder", action = "Index" },
+                new { ID = @"\d+" }
+            );
+            // www.siteurl/AdminUserOrder/Guest/bde779ab-1a3b-4934-bd8e-7555f0c5dafa
+            routes.MapRoute(null, "{controller}/Guest/{ID}",
+                new { controller = "AdminUserOrder", action = "Guest" },
+                new { ID = @"[a-zA-Z0-9]{8}\-[a-zA-Z0-9]{4}\-[a-zA-Z0-9]{4}\-[a-zA-Z0-9]{4}\-[a-zA-Z0-9]{12}" }
+            );
+
+
 
             routes.MapRoute(null, "{controller}/{action}");
 

@@ -21,8 +21,20 @@ namespace App472.WebUI.Controllers
             this.repository = repo;
         }
 
+        public ActionResult Guest(string ID)
+        {
+            Nullable<Guid> guestId = MyExtensions.ToNullableGuid(ID);
+            AdminUserOrdersViewModel model = ServeIndex(null, guestId);
+            return View("Index", model);
+        }
+        
+        public ActionResult Index(string ID){
+            AdminUserOrdersViewModel model = ServeIndex(ID, null);
+            return View(model);
+        }
+
         // List all orders belonging to a particular user.
-        public ActionResult Index(string UserId, Nullable<Guid> guestId)
+        private AdminUserOrdersViewModel ServeIndex(string ID, Nullable<Guid> guestId)
         {
             // BREAD CRUMBS
             // Starting from User Accounts... (Guest or FullUser)
@@ -31,10 +43,10 @@ namespace App472.WebUI.Controllers
             AdminUserOrdersViewModel model = new AdminUserOrdersViewModel{
                 CurrentPageNavText = AppNavs.UsersNavText
             };
-            if (UserId != null){
-                model.UserId  = UserId;
-                model.UserName = AppNavs.GenUserName(UserId);
-                model.Orders = repository.Orders.Where(o => o.UserID == UserId).OrderBy(o => o.OrderPlacedDate);
+            if (ID != null){
+                model.UserId  = ID;
+                model.UserName = AppNavs.GenUserName(ID);
+                model.Orders = repository.Orders.Where(o => o.UserID == ID).OrderBy(o => o.OrderPlacedDate);
             }
             else if (guestId != null)
             {
@@ -46,7 +58,7 @@ namespace App472.WebUI.Controllers
             BreadCrumb childLink1 = new BreadCrumb { URL = "",                         BCLinkText = shortUserName };
             BreadCrumb childLink0 = new BreadCrumb { URL = AppNavs.AdminUserAcc_Index, BCLinkText = AppNavs.UsersNavText, Child = childLink1 };
             model.BCNavTrail = childLink0;
-            return View(model);
+            return model;
         }
 
         public ActionResult Detail(Int32 ID, bool FromUserAccounts = false)

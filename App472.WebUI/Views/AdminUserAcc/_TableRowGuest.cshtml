@@ -2,35 +2,43 @@
 @model App472.WebUI.Domain.Entities.Guest
 
 <tr class="mgAccTable" data-uid="@Model.ID" data-isguest="true">
-    <td class="">
+
+    <td class="text-center">
+        <a class="btn btn-success adminGreenViewBtn" href="@Url.Action("Guest", "AdminUserOrder", new{ID = Model.ID})">View Orders</a>
+    </td>
+
+    <td class="text-center">@Model.Orders.Count</td>
+
+    <td class=""> @* AppUser.UserName *@
+        <input disabled='disabled' value="@Model.FirstName @Model.LastName" autocomplete="off" class="form-control" id="" name="" style="max-width: 140px; background-color: unset;" type="text">
+    </td>
+
+    <td class="">@* Guest ID *@
         <span data-toggle="tooltip" data-placement="bottom" title="@Model.ID">
             @MyExtensions.Truncate(Model.ID.ToString(), MyExtensions.GuidTruncLenth)
         </span>
     </td>
 
-    <td class="">
-        <input disabled='disabled' value="@Model.FirstName @Model.LastName" autocomplete="off" class="form-control" id="" name="" style="max-width: 140px; background-color: unset;" type="text">
-    </td>
-
-    <td class="">
+    <td class="">@* Account type *@
         <input disabled='disabled' value="Guest" autocomplete="off" class="form-control" id="" name="" style="max-width: 140px; background-color: unset;" type="text">
     </td>
 
-    <td class="mgAccEmailCell">
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @autocomplete="off", @id="Email_"+Model.ID })
+    <td class="mgAccEmailCell">@* Email *@
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @autocomplete = "off", @id = "Email_" + Model.ID })
     </td>
-    <td class=""></td>
 
-    <td class=""></td>
-    <td class=""></td>
+    <td class=""></td> @* AppUser.EmailConfirmed *@
 
-    <td class=""></td>
-    <td class=""></td>
-    <td class=""></td>
-    <td class=""></td>
+    <td class=""></td> @* AppUser.PhoneNumber *@
 
-    <td class="text-center">@Model.Orders.Count</td>
-    <td class="text-center">
-        <a class="btn btn-success adminGreenViewBtn" href="@Url.Action("Index", "AdminUserOrder", new{guestId = Model.ID})">View Orders</a>
-    </td>
+    <td class=""></td> @* AppUser.PhoneNumberConfirmed *@
+
+    <td class=""></td> @* AppUser.TwoFactorEnabled *@
+
+    <td class=""></td> @* lockoutUTC *@
+
+    <td class=""></td> @* LockoutEnabled *@
+
+    <td class=""></td> @* AccessFailedCount *@
+
 </tr>
