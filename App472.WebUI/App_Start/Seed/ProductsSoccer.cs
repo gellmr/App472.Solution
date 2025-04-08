@@ -91,6 +91,14 @@ namespace App472.WebUI.App_Start
                 Category = category,
                 Price = 120
             });
+            products.Add(new InStockProduct()
+            {
+                ID = startId++,
+                Name = "White T-Shirt",
+                Description = "Sometimes you need a white T Shirt.",
+                Category = category,
+                Price = 20
+            });
         }
     }
 }

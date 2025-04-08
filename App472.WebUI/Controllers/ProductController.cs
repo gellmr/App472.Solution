@@ -117,12 +117,27 @@ namespace App472.WebUI.Controllers
             )
             .OrderBy(p => p.ID);
 
+            int unpagTot = unpaginated.Count();  // eg 11
+            int skipN = ((page - 1) * PageSize); // eg 8
+            if (unpagTot <= skipN) // eg if the asked for page 4  (11 <= 12)
+            {
+                // user is requesting page greater than our maximum pagination
+                int numPages = (int)Math.Floor( (decimal)unpagTot / (decimal)PageSize ); // eg (11 / 4) == 2.75  Floor: 2
+                int mod = unpagTot % PageSize; // eg 11 mod 4 == 3
+                if (mod == 0){
+                    page = numPages; // we are on page 2
+                }else{
+                    page = numPages + 1; // we are on page 3
+                }
+            }
+
             IEnumerable<InStockProduct> results = unpaginated
-            .Skip((page - 1) * PageSize) //  1,2,3,4,    5,6,7,8,    9,10,11,12,   13,14,15,16
+            .Skip((page - 1) * PageSize) //  1,2,3,4,    5,6,7,8,    9,10,11
             //    (skip 3-1) * 4             x x x x     x x x x     ^page=3
             .Take(PageSize);//                                       (take 4)
 
-            PagingInfo paging = new PagingInfo{
+            PagingInfo paging = new PagingInfo
+            {
                 CurrentPage = page,
                 ItemsPerPage = PageSize,
                 TotalItems = unpaginated.Count()
