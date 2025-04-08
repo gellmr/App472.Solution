@@ -38,7 +38,7 @@ namespace App472.WebUI.Controllers
         {
             // BREAD CRUMBS
             // Starting from User Accounts... (Guest or FullUser)
-            // AdminUserAcc_Index > AdminUserOrder_Index
+            // AdminUserAcc_Index > AdminUserOrder
 
             AdminUserOrdersViewModel model = new AdminUserOrdersViewModel{
                 CurrentPageNavText = AppNavs.UsersNavText
@@ -69,7 +69,7 @@ namespace App472.WebUI.Controllers
             IEnumerable<OrderedProduct> orderedProducts = order.OrderedProducts;
             if (order.OrderStatus == null){order.OrderStatus = Order.ParseShippingState(ShippingState.NotYetPlaced);}
             AdminOrderDetailViewModel model;
-            string queryString = "";
+            string idPortion = "";
             if (order.GuestID == null)
             {
                 // user order
@@ -79,7 +79,7 @@ namespace App472.WebUI.Controllers
                     UserName = AppNavs.GenUserName(UserId),
                     OrderName = AppNavs.GenOrderName(order.ID)
                 };
-                queryString = "?UserId=" + model.UserId;
+                idPortion = "/" + model.UserId;
             }
             else{
                 // guest order
@@ -89,15 +89,15 @@ namespace App472.WebUI.Controllers
                     UserName = AppNavs.GenUserName(order.GuestID),
                     OrderName = AppNavs.GenOrderName(order.ID)
                 };
-                queryString = "?guestId=" + model.GuestId;
+                idPortion = "/Guest/" + model.GuestId;
             }
             string shortUserName = MyExtensions.Truncate(model.UserName, MyExtensions.NavTruncLenth);
             if (FromUserAccounts == true)
             {
                 // Coming from the User Accounts page
-                BreadCrumb childLink2 = new BreadCrumb { URL = "",                                       BCLinkText = model.OrderName };
-                BreadCrumb childLink1 = new BreadCrumb { URL = AppNavs.AdminUserOrder_Index+queryString, BCLinkText = shortUserName,        Child = childLink2 };
-                BreadCrumb childLink0 = new BreadCrumb { URL = AppNavs.AdminUserAcc_Index,               BCLinkText = AppNavs.UsersNavText, Child = childLink1 };
+                BreadCrumb childLink2 = new BreadCrumb { URL = "",                                 BCLinkText = model.OrderName };
+                BreadCrumb childLink1 = new BreadCrumb { URL = AppNavs.AdminUserOrder+idPortion,   BCLinkText = shortUserName,        Child = childLink2 };
+                BreadCrumb childLink0 = new BreadCrumb { URL = AppNavs.AdminUserAcc_Index,         BCLinkText = AppNavs.UsersNavText, Child = childLink1 };
                 model.BCNavTrail = childLink0;
                 model.CurrentPageNavText = AppNavs.UsersNavText;
             }

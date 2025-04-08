@@ -16,7 +16,7 @@ namespace App472.WebUI.Infrastructure
         public static string AdminProducts_Index = "/AdminProducts/Index";
         public static string AdminOrders_Index = "/AdminOrders/Index";
         public static string AdminUserAcc_Index = "/AdminUserAcc/Index";
-        public static string AdminUserOrder_Index = "/AdminUserOrder/Index";
+        public static string AdminUserOrder = "/AdminUserOrder";
         public static string AdminUserOrder_Detail = "/AdminUserOrder/Detail";
 
         public static string GenUserName(string userId){
