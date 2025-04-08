@@ -18,7 +18,7 @@
 
             ClearSearchClicked: function (event) {
                 page.searchInput.val(""); // clear the search input
-                page.SearchProducts(event);
+                page.SearchProducts(event, true);
             },
             SearchInputClicked: function (event) {
                 event.preventDefault(); //stop default behaviour
@@ -35,7 +35,7 @@
                     page.SearchProducts(event);
                 }
             },
-            SearchProducts: function (event)
+            SearchProducts: function (event, clear=false)
             {
                 if (page.searching) {
                     event.preventDefault(); return;
@@ -43,13 +43,20 @@
                 page.searching = true; // prevent race condition
                 page.DisableListeners();
 
+                // Get the search term eg "soccer"
                 var ct = $(event.target);
                 console.log("SearchProducts " + ct.val());
-                var searchString = ct.val();
-                var formHref = page.hostandpath + "?search=" + searchString; // "mikegelldemo.live/Soccer/page2?search=abc"
-                //window.location.href = formHref;
+                var searchString = ct.val(); // "soccer ball"
+                var searchString = (searchString)  ? ("search=" + encodeURIComponent(searchString)) : ""; // search=soccer ball
+                var clearStr     = (clear == true) ? ("clear=true") : "";
+                var amp = (searchString) && (clearStr) ? "&" : ""; // null and empty string are both falsey values in javascript.
+
+                // construct url including our query string
+                // Note - we have to encode the URL so it can be put into a GET string.
+                // https://stackoverflow.com/questions/332872/encode-url-in-javascript
+                var productsUrl = page.hostandpath + "?" + searchString + amp + clearStr; // "mikegelldemo.live/Soccer/page2?search=soccer%20ball&clear%3Dfalse"
                 $.ajax({
-                    url: formHref,
+                    url: productsUrl,
                     type: 'GET',
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",

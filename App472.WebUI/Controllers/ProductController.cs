@@ -26,10 +26,11 @@ namespace App472.WebUI.Controllers
         // GET: Product
         // See for security - string search argument
         // https://gosecure.ai/blog/2016/03/22/xss-for-asp-net-developers/
-        public ActionResult List(string category, string search, int page = 1)
+        public ActionResult List(string category, string search = null, bool clear = false, int page = 1)
         {
             // ----------------------------------------------------------------
             // See https://stackoverflow.com/questions/2200788/asp-net-request-validation-causes-is-there-a-list
+            // See https://stackoverflow.com/questions/74218952/query-string-parameter-value-truncate-after
             // Note that .NET Framework is automatically truncating search if it finds & ; <
             //  ...it will detect search=&lt;script&gt;alert(&#39;XSS&#39;);&lt;/script&gt;
             //                           ^         ^         ^^      ^^     ^          ^
@@ -41,7 +42,7 @@ namespace App472.WebUI.Controllers
             //
             // Not sure how it handles legitimate &name=mike within a query string
             // or if this truncating behaviour is happening before or after encoding.
-            // or if it applies when i submit encoded input like &quot;
+            // In the above example I submitted html encoded query string directly in the request.
             //
             // It will also silently convert   aaa%aaa   into   aaa�a
             //                                                     ^%aa becomes �
@@ -55,29 +56,51 @@ namespace App472.WebUI.Controllers
             // I think .NET examining the request, to see if it contains a dangerous string.
             // ----------------------------------------------------------------
 
-            // Search string: only allow alphanumeric, space, dash, up to 40 characters
-            if (!string.IsNullOrEmpty(search))
+            if (clear) // Does the user want to clear the search string?
             {
-                const string validationPattern = "^[A-Za-z0-9\\s\\-]{0,40}$"; // very restrictive regex
-                var regex = new PcreRegex(validationPattern);
-                bool isValidSearchString = regex.IsMatch(search);
-                if (!isValidSearchString)
+                // clear the search string...
+                SessUser.Search = null;
+                search = null;
+
+            }
+            else if (string.IsNullOrEmpty(search)) // Did the user provide a search string?
+            {
+                // no
+                search = SessUser.Search; // retrieve from session. Already validated.
+            }
+            else
+            {
+                // yes
+                // Validate the search string...
+
+                // Search string: only allow alphanumeric, space, dash, up to 40 characters
+                if (!string.IsNullOrEmpty(search))
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
+                    const string validationPattern = "^[A-Za-z0-9\\s\\-]{0,40}$"; // very restrictive regex
+                    var regex = new PcreRegex(validationPattern);
+                    bool isValidSearchString = regex.IsMatch(search);
+                    if (!isValidSearchString)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
+                    }
                 }
+
+                // Because of the very restrictive regex above, we wont get this far
+                // if there are any dangerous characters in the search string.
+
+                // Not needed. Dashes and spaces dont get html encoded.
+                // search = HttpUtility.HtmlEncode(search);
+
+                // Persist the search string across requests...
+                SessUser.Search = search; // store in session
             }
 
-            // Because of the very restrictive regex above, we probably wont get this far
-            // if there are any dangerous characters in the search string.
-
-            search = HttpUtility.HtmlEncode(search); // ensure input is html encoded.
-
-            // Get the user object from session and store our search string to persist across requests.
-            BaseSessUser sessUser = SessUser; // get strongly typed object from session
-            sessUser.Search = search;
-
+            // Done validating our search string.
+            // Convert for use in linq query...
             string searchlow = string.IsNullOrEmpty(search) ? search : search.ToLower();
 
+            // Query the database for products matching our search string, and chosen category if enabled.
+            // If no search string and no category, it will find all products.
             IEnumerable<InStockProduct> results = repository.InStockProducts.Where(p =>
                 (
                     // true if we are not filtering by category, or if the product is from the category we want
@@ -103,12 +126,6 @@ namespace App472.WebUI.Controllers
                 TotalItems = results.Count()
             };
 
-            ProductsListViewModel model = new ProductsListViewModel{
-                Products = results,
-                PagingInfo = paging,
-                CurrentCategory = category
-            };
-
             // Get the request url, up to but not including query string.
             var host = Request.Url.AbsoluteUri;
             if (host.Contains("?")){
@@ -118,10 +135,16 @@ namespace App472.WebUI.Controllers
                 host = host.Substring(0, host.Length - 1); // remove trailing slash
             }
 
-            // is it secure to do this?
-            ViewBag.HostAndPath = host;
-            ViewBag.Search = sessUser.Search;
-            ViewBag.IsFragment = this.IsJsonRequest;
+            ProductsListViewModel model = new ProductsListViewModel
+            {
+                Products = results,
+                PagingInfo = paging,
+                CurrentCategory = category,
+
+                SearchString = HttpUtility.HtmlEncode(search), // to display in search text box
+                HostAndPath = host, // to construct url for SearchProducts function in javascript
+                RenderFragment = this.IsJsonRequest // true if we only want to render part of the page.
+            };
             
             return View(model);
         }

@@ -3,7 +3,7 @@
 
 @{
     // render a page fragment (only this view with no layout) if it was an Ajax call.
-    if(ViewBag.IsFragment){
+    if(Model.RenderFragment == true){
         Layout = null;
     }
     ViewBag.Title = "Products";
@@ -11,11 +11,10 @@
 
 @{
     var currCat = String.IsNullOrEmpty(Model.CurrentCategory) ? "All" : Model.CurrentCategory;
-    var hostAndPath = ViewBag.HostAndPath;
-    var searchStr = String.IsNullOrEmpty(ViewBag.Search) ? "" : ViewBag.Search;
+    var searchStr = String.IsNullOrEmpty(Model.SearchString) ? "" : Model.SearchString;
 }
-@hostAndPath
-<div class="mg-curr-category" data-hostandpath="@hostAndPath" >Category: @currCat</div>
+@* @Model.HostAndPath *@
+<div class="mg-curr-category" data-hostandpath="@Model.HostAndPath" >Category: @currCat</div>
 <div class="searchInput">
     <i class="bi bi-search"></i>&nbsp;@Html.TextBox("SearchInput", null, new
     {
