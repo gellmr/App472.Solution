@@ -17,7 +17,7 @@ namespace App472.WebUI.App_Start
             {
                 ID = startId++,
                 Name = "Thinking Cap",
-                Description = "Improve your concentration by 4% with this stylish sports cap. Comes in deep blue.",
+                Description = "Improve your concentration by 4%",
                 Category = category,
                 Price = 15
             });
@@ -62,7 +62,7 @@ namespace App472.WebUI.App_Start
             {
                 ID = startId++,
                 Name = "Unsteady Chair",
-                Description = "Secretly give your opponent a disadvantage",
+                Description = "Secretly give your opponent a disadvantage.",
                 Category = category,
                 Price = 45
             });
@@ -71,7 +71,7 @@ namespace App472.WebUI.App_Start
             {
                 ID = startId++,
                 Name = "Holo Chess",
-                Description = "As seen in Star Wars: A New Hope",
+                Description = "As seen in Star Wars: A New Hope.",
                 Category = category,
                 Price = 22000
             });

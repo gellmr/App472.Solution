@@ -17,7 +17,7 @@ namespace App472.WebUI.App_Start
             {
                 ID = startId++,
                 Name = "Soccer Ball",
-                Description = "FIFA approved size and weight",
+                Description = "FIFA approved size and weight.",
                 Category = category,
                 Price = 35
             });
@@ -26,7 +26,7 @@ namespace App472.WebUI.App_Start
             {
                 ID = startId++,
                 Name = "Corner Flags",
-                Description = "Give some flourish to your playing field with these coloured corner flags",
+                Description = "Give some flourish to your playing field with these coloured corner flags.",
                 Category = category,
                 Price = 25
             });
@@ -65,6 +65,31 @@ namespace App472.WebUI.App_Start
                 Description = "One lightweight aluminium standard size impact foam coated soccer goal with netting.",
                 Category = category,
                 Price = 1000
+            });
+
+            products.Add(new InStockProduct()
+            {
+                ID = startId++,
+                Name = "Line Marking Spray",
+                Description = "Fluorescent white spray-on line marking paint. Comes with a roll of guide string.",
+                Category = category,
+                Price = 15
+            });
+            products.Add(new InStockProduct()
+            {
+                ID = startId++,
+                Name = "Aviator Glasses",
+                Description = "Football celebrities gotta go shopping sometimes.",
+                Category = category,
+                Price = 500
+            });
+            products.Add(new InStockProduct()
+            {
+                ID = startId++,
+                Name = "First Aid Kit",
+                Description = "Sometimes those injuries are real...",
+                Category = category,
+                Price = 120
             });
         }
     }

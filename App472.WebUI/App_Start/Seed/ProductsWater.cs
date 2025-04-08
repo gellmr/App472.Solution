@@ -62,7 +62,7 @@ namespace App472.WebUI.App_Start
             {
                 ID = startId++,
                 Name = "Camping Towel",
-                Description = "Deluxe El Capitan All-Weather Towel... For drying off after water activities",
+                Description = "Deluxe El Capitan All-Weather Towel... For drying off after water activities.",
                 Category = category,
                 Price = 15
             });
@@ -71,7 +71,7 @@ namespace App472.WebUI.App_Start
             {
                 ID = startId++,
                 Name = "Sunscreen SPF 50+",
-                Description = "Extreme Sports Edition fast drying activewear sunblock",
+                Description = "Extreme Sports Edition fast drying activewear sunblock.",
                 Category = category,
                 Price = 25
             });
@@ -80,7 +80,7 @@ namespace App472.WebUI.App_Start
             {
                 ID = startId++,
                 Name = "Waterproof Equipment Bag",
-                Description = "Carry your gear in this tough and compact waterproof bag",
+                Description = "Carry your gear in this tough and compact waterproof bag.",
                 Category = category,
                 Price = 80
             });
@@ -92,6 +92,15 @@ namespace App472.WebUI.App_Start
                 Description = "Dont forget to drink water, while your out doing water sports.",
                 Category = category,
                 Price = 20
+            });
+
+            products.Add(new InStockProduct()
+            {
+                ID = startId++,
+                Name = "Hydralite",
+                Description = "Rehydrate yourself after an event, with these effervescent tablets.",
+                Category = category,
+                Price = 7
             });
         }
     }
