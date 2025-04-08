@@ -101,7 +101,7 @@ namespace App472.WebUI.Controllers
 
             // Query the database for products matching our search string, and chosen category if enabled.
             // If no search string and no category, it will find all products.
-            IEnumerable<InStockProduct> results = repository.InStockProducts.Where(p =>
+            IEnumerable<InStockProduct> unpaginated = repository.InStockProducts.Where(p =>
                 (
                     // true if we are not filtering by category, or if the product is from the category we want
                     category == null || p.Category == category
@@ -115,15 +115,16 @@ namespace App472.WebUI.Controllers
                     || (p.Category).ToLower().Contains(searchlow)
                 )
             )
-            .OrderBy(p => p.ID)
-            //.Skip((page - 1) * PageSize)
-            //.Take(PageSize)
-            ;
+            .OrderBy(p => p.ID);
+
+            IEnumerable<InStockProduct> results = unpaginated
+            .Skip((page - 1) * PageSize)
+            .Take(PageSize);
 
             PagingInfo paging = new PagingInfo{
-                CurrentPage = 1,
-                ItemsPerPage = results.Count(),
-                TotalItems = results.Count()
+                CurrentPage = page,
+                ItemsPerPage = PageSize,
+                TotalItems = unpaginated.Count()
             };
 
             // Get the request url, up to but not including query string.
