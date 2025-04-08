@@ -132,11 +132,11 @@
                         <td scope="row" class="text-left isProductID">@prod.InStockProduct.ID</td>
 
                         <td scope="row" class="text-left isProductName">
-                            <a href="@Url.Action("Edit", "Admin", new{ID = @prod.InStockProduct.ID, returnUrl = Model.ReturnUrl })">@prod.InStockProduct.Name</a>
+                            <a href="@Url.Action("Edit", "AdminProducts", new{ID = @prod.InStockProduct.ID })">@prod.InStockProduct.Name</a>
                         </td>
 
                         <td scope="row" class="text-left isUnitPrice">
-                            <a href="@Url.Action("Edit", "Admin", new{ID = @prod.InStockProduct.ID, returnUrl = Model.ReturnUrl })">@prod.InStockProduct.Price</a>
+                            <a href="@Url.Action("Edit", "AdminProducts", new{ID = @prod.InStockProduct.ID })">@prod.InStockProduct.Price</a>
                         </td>
 
                         <td scope="row" class="text-right isQuantity"><input class="mgAjaxText" type="text" value="@quantity" @qtyInputDisabled /></td>
