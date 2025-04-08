@@ -91,6 +91,16 @@ textarea {
     padding-left:7px;
 }
 
+.mg-warning {
+    background-color: #d2e3f1;
+    border-color: #d2e3f1;
+}
+.mg-warning:hover {
+    background-color: #bcccd9;
+    border-color: #bcccd9;
+}
+
+
 .mgAccTable td, .mgAccTable input.form-control {
     font-size: 12px;
     height: 30px;
