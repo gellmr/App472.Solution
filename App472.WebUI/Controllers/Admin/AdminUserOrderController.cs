@@ -49,9 +49,9 @@ namespace App472.WebUI.Controllers
             return View(model);
         }
 
-        public ActionResult Detail(Int32 OrderID, bool FromUserAccounts = false)
+        public ActionResult Detail(Int32 ID, bool FromUserAccounts = false)
         {
-            Order order = repository.Orders.Where(o => o.ID == OrderID).FirstOrDefault();
+            Order order = repository.Orders.Where(o => o.ID == ID).FirstOrDefault();
             string UserId = order.UserID;
             IEnumerable<OrderPayment> orderPayments = order.OrderPayments;
             IEnumerable<OrderedProduct> orderedProducts = order.OrderedProducts;
@@ -97,7 +97,7 @@ namespace App472.WebUI.Controllers
                 model.BCNavTrail = childLink0;
                 model.CurrentPageNavText = AppNavs.OrdersNavText;
             }
-            model.OrderID = OrderID;
+            model.OrderID = ID;
             model.OrderPayments = orderPayments.ToList();
             model.OrderedProducts = orderedProducts.ToList();
             model.OrderPlacedDate = order.OrderPlacedDate;

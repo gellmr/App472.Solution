@@ -80,6 +80,9 @@
                         orderStatus = order.OrderStatus.ToString();
 
                         <tr class="mgAccTable">
+                            <td scope="row" class="text-center">
+                                <a class="btn btn-success" href="@Url.Action("Detail", "AdminUserOrder", new {ID=order.ID.ToString()})">Edit</a>
+                            </td>
                             <td class="text-center">@order.ID</td>
                             <td scope="row" class="text-left">
                                 @* TODO - add link for User Detail page. *@
@@ -98,9 +101,6 @@
                             <td scope="row" class="text-center">@countItems</td>
                             <td scope="row" class="text-left">@itemString</td>
                             <td scope="row" class="text-center">@orderStatus</td>
-                            <td scope="row" class="text-center">
-                                <a class="btn btn-success" href="@Url.Action("Detail", "AdminUserOrder", new {OrderID=order.ID.ToString()})">Edit</a>
-                            </td>
                         </tr>
                     }
                 </tbody>
