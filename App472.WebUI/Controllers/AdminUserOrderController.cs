@@ -108,7 +108,7 @@ namespace App472.WebUI.Controllers
             model.BillingAddress = order.BillingAddress;
             model.ShippingAddress = order.ShippingAddress;
             model.OrderStatus = Order.ParseShippingState(order.OrderStatus);
-            model.ReturnUrl = GenerateTabReturnUrl.ToString();
+            //model.ReturnUrl = GenerateTabReturnUrl.ToString();
             return View(model);
         }
 

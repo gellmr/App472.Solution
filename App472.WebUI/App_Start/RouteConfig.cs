@@ -35,6 +35,19 @@ namespace App472.WebUI
                 new { page=@"\d+"}
             );
 
+
+
+            // www.siteurl/AdminProducts/Edit/2
+            routes.MapRoute(null, "{controller}/Edit/{ID}",
+                new { controller = "AdminProducts", action = "Edit" },
+                new { ID = @"\d+" }
+            );
+            // www.siteurl/AdminProducts/Delete/2
+            routes.MapRoute(null, "{controller}/Delete/{ID}",
+                new { controller = "AdminProducts", action = "Delete" },
+                new { ID = @"\d+" }
+            );
+
             routes.MapRoute(null, "{controller}/{action}");
 
             //routes.MapRoute(

@@ -10,14 +10,13 @@
         <h3 class="card-title">Edit: @Model.Product.Name</h3>
     </div>
 
-    @using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { id = "myform" }))
+    @using (Html.BeginForm("Edit", "AdminProducts", FormMethod.Post, new { id = "myform" }))
     {
         <div id="AdminEditProductValidationSummary">
             @Html.ValidationSummary()
         </div>
 
         @Html.HiddenFor(m => m.Product.ID)
-        @Html.HiddenFor(m => m.ReturnUrl) @* the GUID for our return url, stored in the session *@
 
         <div class="card-body">
             <div class="form-group">

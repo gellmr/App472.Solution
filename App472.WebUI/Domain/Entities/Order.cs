@@ -1,6 +1,5 @@
 ﻿using App472.WebUI.Models;
 ﻿using App472.WebUI.Infrastructure;
-using App472.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

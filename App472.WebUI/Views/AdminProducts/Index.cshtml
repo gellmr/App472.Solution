@@ -6,7 +6,7 @@
     <div class="card-body">
         <div class="container">
 
-            <a class="btn btn-success" href="@Url.Action("Create", "Admin", null)" style="margin-bottom:5px;"><i class="bi bi-plus-circle"></i> Add Product</a>
+            <a class="btn btn-success" href="@Url.Action("Create", "AdminProducts", null)" style="margin-bottom:5px;"><i class="bi bi-plus-circle"></i> Add Product</a>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -17,8 +17,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @Html.HiddenFor(m => m.ReturnUrl) @* the GUID for our return url, stored in the session *@
-
                     @foreach (var item in Model.Products)
                     {
                         <tr>
@@ -27,9 +25,9 @@
 
                             <td scope="row" class="text-left">@item.Price.ToString("c")</td>
                             <td class="">
-                                @using (Html.BeginForm("Delete", "Admin"))
+                                @using (Html.BeginForm("Delete", "AdminProducts", new {ID=item.ID} ))
                                 {
-                                    @Html.Hidden("inStockProductID", item.ID)
+                                    @* @Html.Hidden("ID", item.ID) *@
                                     <input type="submit" class="btn btn-warning" value="Delete" />
                                 }
                             </td>

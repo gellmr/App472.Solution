@@ -36,7 +36,7 @@ namespace App472.WebUI.Controllers
             IList<FullUser> fullUsers = fullUserRepo.FullUsers.ToList();
             return View(new AdminUserAccViewModel{
                 CurrentPageNavText = AppNavs.UsersNavText,
-                ReturnUrl = url,
+                //ReturnUrl = url,
                 Guests = guestRepo.Guests,
                 FullUsers = fullUsers
             });

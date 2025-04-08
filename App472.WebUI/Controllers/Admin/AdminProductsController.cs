@@ -1,22 +1,23 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
-using System.Web.Mvc;
-using App472.WebUI.Domain.Abstract;
+﻿using App472.WebUI.Domain.Abstract;
 using App472.WebUI.Domain.Entities;
 using App472.WebUI.Infrastructure;
 using App472.WebUI.Models;
-using Microsoft.AspNet.Identity;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace App472.WebUI.Controllers
 {
     [Authorize]
-    public class AdminController : BaseController
+    public class AdminProductsController : BaseController
     {
         private IProductsRepository repository;
         private IOrdersRepository ordersRepository;
 
-        public AdminController(IProductsRepository repo, IOrdersRepository orepo)
+        public AdminProductsController(IProductsRepository repo, IOrdersRepository orepo)
         {
             repository = repo;
             ordersRepository = orepo;
@@ -30,21 +31,20 @@ namespace App472.WebUI.Controllers
             ViewBag.SeedJsonRelease = ConfigurationManager.AppSettings["seed.json.release"];
 
             string url = string.IsNullOrEmpty(returnUrl) ? GenerateTabReturnUrl.ToString() : GetTabReturnUrl(returnUrl);
+            
             return View(new AdminProductsViewModel{
                 CurrentPageNavText = AppNavs.ProductsNavText,
-                Products = repository.InStockProducts,
-                ReturnUrl = url
+                Products = repository.InStockProducts
+                //ReturnUrl = url
             });
         }
 
         public ViewResult Edit(int ID, string returnUrl)
         {
-            string url = GetTabReturnUrl(returnUrl);
             InStockProduct product = repository.InStockProducts.FirstOrDefault(p => p.ID == ID);
             return View(new AdminEditProductViewModel{
                 CurrentPageNavText = AppNavs.ProductsNavText,
-                Product = product,
-                ReturnUrl = url
+                Product = product
             });
         }
 
@@ -53,11 +53,9 @@ namespace App472.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                string url = GetTabReturnUrl(returnUrl);
                 repository.SaveProduct(product);
                 TempData["message"] = string.Format("{0} has been saved", product.Name);
-                //return RedirectToAction("Index");
-                return Redirect(url ?? Url.Action("Index", "Admin"));
+                return RedirectToAction("Index");
             }
             else
             {
@@ -70,24 +68,24 @@ namespace App472.WebUI.Controllers
 
         public ActionResult Create(string returnUrl)
         {
-            string url = GetTabReturnUrl(returnUrl);
-            return View("Edit", new AdminEditProductViewModel{
+            return View("Edit", new AdminEditProductViewModel
+            {
                 CurrentPageNavText = AppNavs.ProductsNavText,
-                Product = new InStockProduct{
+                Product = new InStockProduct
+                {
                     Category = "Soccer",
-                    Name = "Product Name",
-                    Description = "Amazing New Product",
+                    Name = "New Product",
+                    Description = "Enter your description here",
                     Price = 100
-                },
-                ReturnUrl = url
+                }
             });
         }
 
         [HttpPost]
-        public ActionResult Delete(int inStockProductID)
-        {    
-            if (!ordersRepository.ProductHasOrders(inStockProductID)){
-                InStockProduct deletedProduct = repository.DeleteProduct(inStockProductID);
+        public ActionResult Delete(int ID)
+        {
+            if (!ordersRepository.ProductHasOrders(ID)){
+                InStockProduct deletedProduct = repository.DeleteProduct(ID);
                 if (deletedProduct != null){
                     TempData["message"] = string.Format("{0} was deleted", deletedProduct.Name);
                 }

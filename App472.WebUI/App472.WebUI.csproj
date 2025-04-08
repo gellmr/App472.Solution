@@ -243,10 +243,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdminUserAccController.cs" />
     <Compile Include="Controllers\AdminOrdersController.cs" />
     <Compile Include="Controllers\AdminUserOrderController.cs" />
+    <Compile Include="Controllers\Admin\AdminProductsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -365,8 +365,8 @@
     <Content Include="Views\Cart\Completed.cshtml" />
     <Content Include="Views\Nav\_NavBar.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\AdminProducts\Index.cshtml" />
+    <Content Include="Views\AdminProducts\Edit.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Nav\_NavBarContent.cshtml" />
     <Content Include="Views\AdminOrders\Index.cshtml" />

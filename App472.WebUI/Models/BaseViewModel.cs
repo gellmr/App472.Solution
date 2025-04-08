@@ -7,6 +7,5 @@ namespace App472.WebUI.Models
 {
     public class BaseViewModel
     {
-        public string ReturnUrl { get; set; }
     }
 }
