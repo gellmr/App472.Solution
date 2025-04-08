@@ -31,7 +31,7 @@
                     foreach (Order order in Model.Orders)
                     {
                         <tr>
-                            <td><a class="btn btn-success adminGreenViewBtn" style="font-size:15px; width:107px;" href="@Url.Action("Detail", "AdminUserOrder", new{OrderID=order.ID, FromUserAccounts=true})">View Details</a></td>
+                            <td><a class="btn btn-success adminGreenViewBtn" style="font-size:15px; width:107px;" href="@Url.Action("Detail", "AdminUserOrder", new{ID=order.ID, FromUserAccounts=true})">View Details</a></td>
 
                             <td class="">#@order.ID</td>
                             <td class="">@order.OrderedProducts.Count Lines</td>
