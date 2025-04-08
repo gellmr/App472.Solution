@@ -118,8 +118,9 @@ namespace App472.WebUI.Controllers
             .OrderBy(p => p.ID);
 
             IEnumerable<InStockProduct> results = unpaginated
-            .Skip((page - 1) * PageSize)
-            .Take(PageSize);
+            .Skip((page - 1) * PageSize) //  1,2,3,4,    5,6,7,8,    9,10,11,12,   13,14,15,16
+            //    (skip 3-1) * 4             x x x x     x x x x     ^page=3
+            .Take(PageSize);//                                       (take 4)
 
             PagingInfo paging = new PagingInfo{
                 CurrentPage = page,
