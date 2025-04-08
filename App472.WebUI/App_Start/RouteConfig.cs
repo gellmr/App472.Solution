@@ -38,6 +38,10 @@ namespace App472.WebUI
 
 
 
+            // www.siteurl/AdminProducts
+            routes.MapRoute(null, "{controller}/Index",
+                new { controller = "AdminProducts", action = "Index" }
+            );
             // www.siteurl/AdminProducts/Edit/2
             routes.MapRoute(null, "{controller}/Edit/{ID}",
                 new { controller = "AdminProducts", action = "Edit" },
