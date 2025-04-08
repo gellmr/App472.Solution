@@ -244,7 +244,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminUserAccController.cs" />
-    <Compile Include="Controllers\AdminOrdersController.cs" />
+    <Compile Include="Controllers\Admin\AdminOrdersController.cs" />
     <Compile Include="Controllers\AdminUserOrderController.cs" />
     <Compile Include="Controllers\Admin\AdminProductsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
