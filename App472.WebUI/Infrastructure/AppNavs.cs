@@ -13,7 +13,7 @@ namespace App472.WebUI.Infrastructure
         public static string UsersNavText = "User Accounts";
 
         // Routes for actions. Dont end them with a slash /
-        public static string AdminProducts_Index = "/Admin/Index"; // need to refactor name
+        public static string AdminProducts_Index = "/AdminProducts/Index";
         public static string AdminOrders_Index = "/AdminOrders/Index";
         public static string AdminUserAcc_Index = "/AdminUserAcc/Index";
         public static string AdminUserOrder_Index = "/AdminUserOrder/Index";
