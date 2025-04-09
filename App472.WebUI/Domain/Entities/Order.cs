@@ -109,6 +109,19 @@ namespace App472.WebUI.Domain.Entities
             OrderedProducts = new List<OrderedProduct>();
         }
 
+        public Decimal OrderPaymentsReceived
+        {
+            get
+            {
+                Decimal sum = 0;
+                foreach (OrderPayment payment in OrderPayments)
+                {
+                    sum += (payment.Amount ?? 0);
+                }
+                return sum;
+            }
+        }
+
         public Decimal QuantityTotal
         {
             get

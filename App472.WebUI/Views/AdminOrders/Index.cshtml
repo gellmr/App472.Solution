@@ -75,6 +75,9 @@
                             email = fullUser.AppUser.Email;
                         }
                         dateCreated = order.OrderPlacedDate.ToString();
+
+                        payment = order.OrderPaymentsReceived;
+
                         countItems = order.QuantityTotal;
                         itemString = order.ItemString;
                         orderStatus = order.OrderStatus.ToString();
