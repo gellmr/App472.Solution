@@ -25,6 +25,7 @@
                 if (page.searchInput.val() == "Search") {
                     page.searchInput.val(""); // clear the search input
                 }
+                page.xClearBtn.hide();
             },
             SearchInputBlur: function (event) {
                 page.SearchProducts(event);
@@ -33,6 +34,10 @@
                 var ct = $(event.currentTarget);
                 if (event && event.which === 13) {
                     page.SearchProducts(event);
+                } else if (event && event.which === 27) {
+                    page.Reset();
+                    page.searchInput.val("");
+                    page.searchInput.blur();
                 }
             },
             SearchProducts: function (event, clear=false)
