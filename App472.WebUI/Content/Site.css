@@ -71,6 +71,7 @@ textarea {
     flex-direction: row;
     align-items: flex-start;
     flex-wrap: wrap;
+    font-size:11.5px;
 }
 
 .mg-category-menu .btn-lg {
