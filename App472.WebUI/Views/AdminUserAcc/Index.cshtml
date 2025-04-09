@@ -11,8 +11,8 @@
     <div class="table-responsive-xl">
         <table class="table table-hover">
             <thead class="thead-dark">
-                <tr class="mgAccTable">
 
+                <tr class="mgAccTable">
                     <th class="text-center" scope="col">View Orders</th>
                     <th class="text-center" scope="col">Orders</th>
                     <th scope="col">UserName</th>
@@ -30,10 +30,11 @@
                     <th scope="col">Lockout Date</th>
                     <th class="text-center" scope="col">Locked Out?</th>
                     <th class="text-center" scope="col">Access Failed Count</th>
-
                 </tr>
+
             </thead>
             <tbody>
+
                 @if (Model != null && Model.Guests != null)
                 {
                     foreach (var guest in Model.Guests)
@@ -49,10 +50,10 @@
                         @Html.Partial("~/Views/AdminUserAcc/_TableRowFullUser.cshtml", fullUser)
                     }
                 }
+
             </tbody>
         </table>
     </div>
-
 </div>
 
 <script type="text/javascript" src="~/Scripts/AdminUserAccIndex.js"></script>

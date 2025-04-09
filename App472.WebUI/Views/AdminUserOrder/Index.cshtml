@@ -4,19 +4,20 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "Admin: View User Order";
 }
+<div class="mgAdminTableContainer">
 
-<div class="card">
-    <div class="card-body">
-        <h5>Showing Orders for @Model.UserName</h5>
-        <div>
-            @if (Model.BCNavTrail != null){
-                @Html.Partial("~/Views/Shared/_BreadCrumb.cshtml", Model.BCNavTrail)
-            }
-        </div>
+    <h5 class="mgAdminTableContainer">Showing Orders for @Model.UserName</h5>
+    <div>
+        @if (Model.BCNavTrail != null){
+            @Html.Partial("~/Views/Shared/_BreadCrumb.cshtml", Model.BCNavTrail)
+        }
+    </div>
 
+    <div class="table-responsive-xl">
         <table class="table table-hover">
             <thead class="thead-dark">
-                <tr>
+
+                <tr class="mgAccTable">
                     <th scope="col">View Order Details</th>
                     <th scope="col">Order ID</th>
                     <th scope="col">Status</th>
@@ -25,8 +26,10 @@
                     <th scope="col">Total Price</th>
                     <th scope="col">Items</th>
                 </tr>
+
             </thead>
             <tbody>
+
                 @if (Model != null && Model.Orders != null)
                 {
                     foreach (Order order in Model.Orders)
@@ -43,8 +46,8 @@
                         </tr>
                     }
                 }
+
             </tbody>
         </table>
-
     </div>
 </div>
