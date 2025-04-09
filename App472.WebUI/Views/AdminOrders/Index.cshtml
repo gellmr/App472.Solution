@@ -5,108 +5,106 @@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<div class="card">
-    <div class="card-body">
-        <h5>Orders Backlog</h5>
-        <br />
-        <div></div>
-        <div class="table-responsive-xl">
-            <table id="ordersTable" class="table table-hover" data-href="@Url.Action("Index", "AdminOrders")" data-recent="@Model.Recent">
-                <thead class="thead-dark">
-                    <tr class="mgAccTable mgTableHeader">
-                        @foreach (KeyValuePair<string, App472.WebUI.Models.Pair> row in Model.Ascending)
-                        {
-                            var allowCaret = true;
-                            var showCaret = false;
-                            var reverse = false;
-                            if (row.Key == "Edit")
-                            {
-                                allowCaret = false;
-                            }
-                            if (row.Key == Model.Recent)
-                            {
-                                showCaret = true;
-                            }
-                            if (row.Key == "OrderPlaced")
-                            {
-                                reverse = true;
-                            }
-                            @Html.Partial("~/Views/AdminOrders/_TableHeadCell.cshtml", new AdminOrdersIndexTableHeadCell{ CellTitle = row.Key, AscendValue = row.Value.Asc, ClassAlign = row.Value.Align, AllowCaret = allowCaret, ShowCaret = showCaret, Reverse = reverse });
-                        }
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (Order order in Model.Orders)
+
+<div style="margin:15px; margin-top:0px; margin-bottom:10px;">
+    <h5 style="margin-bottom:8px; margin-top:8px;">Orders Backlog</h5>
+    <div class="table-responsive-xl">
+        <table id="ordersTable" class="table table-hover" data-href="@Url.Action("Index", "AdminOrders")" data-recent="@Model.Recent">
+            <thead class="thead-dark">
+                <tr class="mgAccTable mgTableHeader">
+                    @foreach (KeyValuePair<string, App472.WebUI.Models.Pair> row in Model.Ascending)
                     {
-                        Guest guest = null;
-                        App472.WebUI.Models.FullUser fullUser = null;
-
-                        bool isGuest = order.GuestID != null;
-                        string uid = null;
-                        string gid = null;
-                        string ugid = null;
-                        string uname = "";
-                        string accType = "";
-                        string email = "";
-                        string dateCreated = "";
-                        Decimal payment = 0;
-                        Decimal countItems = 0;
-                        string itemString = "";
-                        string orderStatus = "";
-                        if (isGuest)
+                        var allowCaret = true;
+                        var showCaret = false;
+                        var reverse = false;
+                        if (row.Key == "Edit")
                         {
-                            guest = Model.Guests.FirstOrDefault(g => g.ID == order.GuestID);
-                            uid = null;
-                            gid = order.GuestID.ToString();
-                            ugid = gid;
-                            uname = guest.FirstName + " " + guest.LastName;
-                            accType = "Guest";
-                            email = guest.Email;
+                            allowCaret = false;
                         }
-                        else
+                        if (row.Key == Model.Recent)
                         {
-                            fullUser = Model.Users.FirstOrDefault(u => u.AppUser.Id == order.UserID.ToString());
-                            uid = fullUser.AppUser.Id;
-                            gid = null;
-                            ugid = uid;
-                            uname = fullUser.AppUser.UserName;
-                            accType = "User";
-                            email = fullUser.AppUser.Email;
+                            showCaret = true;
                         }
-                        dateCreated = order.OrderPlacedDate.ToString();
-
-                        payment = order.OrderPaymentsReceived;
-
-                        countItems = order.QuantityTotal;
-                        itemString = order.ItemString;
-                        orderStatus = order.OrderStatus.ToString();
-
-                        @* Need to highlight the whole row *@
-                        <tr class="mgAccTable mgHighlightRow" data-orderid="@order.ID" data-href="@Url.Action("Detail", "AdminUserOrder")">
-                            <td class="text-center">@order.ID</td>
-                            <td scope="row" class="text-left">
-                                @* TODO - add link for User Detail page. *@
-                                @*<a class="" href="@Url.Action("Index", "AdminUserOrder", new {UserId=uid,GuestID=gid})">@uname</a>*@
-                                @uname
-                            </td>
-                            <td class="text-left">
-                                <span data-toggle="tooltip" data-placement="bottom" title="@ugid">
-                                    @MyExtensions.Truncate(ugid, MyExtensions.GuidTruncLenth)
-                                </span>
-                            </td>
-                            <td class="text-center">@accType</td>
-                            <td scope="row" class="text-left">@email</td>
-                            <td scope="row" class="text-left">@dateCreated</td>
-                            <td scope="row" class="text-center">$ @payment.ToString("0.00")</td>
-                            <td scope="row" class="text-center">@countItems</td>
-                            <td scope="row" class="text-left">@itemString</td>
-                            <td scope="row" class="text-center">@orderStatus</td>
-                        </tr>
+                        if (row.Key == "OrderPlaced")
+                        {
+                            reverse = true;
+                        }
+                        @Html.Partial("~/Views/AdminOrders/_TableHeadCell.cshtml", new AdminOrdersIndexTableHeadCell { CellTitle = row.Key, AscendValue = row.Value.Asc, ClassAlign = row.Value.Align, AllowCaret = allowCaret, ShowCaret = showCaret, Reverse = reverse });
                     }
-                </tbody>
-            </table>
-        </div>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Order order in Model.Orders)
+                {
+                    Guest guest = null;
+                    App472.WebUI.Models.FullUser fullUser = null;
+
+                    bool isGuest = order.GuestID != null;
+                    string uid = null;
+                    string gid = null;
+                    string ugid = null;
+                    string uname = "";
+                    string accType = "";
+                    string email = "";
+                    string dateCreated = "";
+                    Decimal payment = 0;
+                    Decimal countItems = 0;
+                    string itemString = "";
+                    string orderStatus = "";
+                    if (isGuest)
+                    {
+                        guest = Model.Guests.FirstOrDefault(g => g.ID == order.GuestID);
+                        uid = null;
+                        gid = order.GuestID.ToString();
+                        ugid = gid;
+                        uname = guest.FirstName + " " + guest.LastName;
+                        accType = "Guest";
+                        email = guest.Email;
+                    }
+                    else
+                    {
+                        fullUser = Model.Users.FirstOrDefault(u => u.AppUser.Id == order.UserID.ToString());
+                        uid = fullUser.AppUser.Id;
+                        gid = null;
+                        ugid = uid;
+                        uname = fullUser.AppUser.UserName;
+                        accType = "User";
+                        email = fullUser.AppUser.Email;
+                    }
+                    dateCreated = order.OrderPlacedDate.ToString();
+
+                    payment = order.OrderPaymentsReceived;
+
+                    countItems = order.QuantityTotal;
+                    itemString = order.ItemString;
+                    orderStatus = order.OrderStatus.ToString();
+
+                    @* Need to highlight the whole row *@
+                    <tr class="mgAccTable mgHighlightRow" data-orderid="@order.ID" data-href="@Url.Action("Detail", "AdminUserOrder")">
+                        <td class="text-center">@order.ID</td>
+                        <td scope="row" class="text-left">
+                            @* TODO - add link for User Detail page. *@
+                            @*<a class="" href="@Url.Action("Index", "AdminUserOrder", new {UserId=uid,GuestID=gid})">@uname</a>*@
+                            @uname
+                        </td>
+                        <td class="text-left">
+                            <span data-toggle="tooltip" data-placement="bottom" title="@ugid">
+                                @MyExtensions.Truncate(ugid, MyExtensions.GuidTruncLenth)
+                            </span>
+                        </td>
+                        <td class="text-center">@accType</td>
+                        <td scope="row" class="text-left">@email</td>
+                        <td scope="row" class="text-left">@dateCreated</td>
+                        <td scope="row" class="text-center">$ @payment.ToString("0.00")</td>
+                        <td scope="row" class="text-center">@countItems</td>
+                        <td scope="row" class="text-left">@itemString</td>
+                        <td scope="row" class="text-center">@orderStatus</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
+
 <script type="text/javascript" src="~/Scripts/AdminOrderIndex.js"></script>
