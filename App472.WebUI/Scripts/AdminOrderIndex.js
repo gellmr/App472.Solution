@@ -10,16 +10,19 @@
             }, options),
             // --------------------------------------
             // member variables
+            ordersTable:       $(options.ordersTableClass),
             sortingColumnsRow: $(options.sortingColumnsRowClass),
-            columnButtons: $(options.columnButtonsClass),
-            ColumnButtonClicked: function (event) {
-                debugger;
-                event.preventDefault(); //stop default behaviour
-                var formHref = page.sortingColumnsRow.data("href");
-                var recent = page.sortingColumnsRow.data("recent");
-                var column = $(event.currentTarget);
-                var ascending = column.data("asc"); // get value
-                var sortby = column.data("sortby");
+            columnButtons:     $(options.columnButtonsClass),
+            highlightRow:      $(options.highlightRowClass),
+
+            ColumnSortButtonClicked: function (event) {
+                event.preventDefault();
+                var cell = $(event.target);
+                var table = cell.closest("table");
+                var formHref = table.data("href");
+                var recent = table.data("recent");
+                var sortby = cell.data("sortby");
+                var ascending = cell.data("asc");
                 var isAsc = ascending.toString().toLowerCase() === "true"; // get boolean value
                 if (sortby == recent) {
                     isAsc = !(isAsc); // negate
@@ -27,12 +30,26 @@
                 formHref = formHref + "?SortBy=" + sortby + "&SortAscend=" + isAsc + "&Recent=" + recent; // query string
                 window.location.href = formHref;
             },
+            HighlightRowClicked: function (event) {
+                event.preventDefault();
+                var table = $(event.currentTarget);
+                var cell = $(event.target);
+                var row = cell.closest("tr");
+                var id = parseInt(row.data("orderid"));
+                var hostandpath = row.data("href");
+                var detailHref = hostandpath + "/" + id.toString();
+                window.location.href = detailHref;
+            },
+
             EnableListeners: function () {
-                page.columnButtons.on("click", page.ColumnButtonClicked);
+                page.sortingColumnsRow.on("click", page.columnButtons, page.ColumnSortButtonClicked);
+                page.highlightRow.on("click", page.HighlightRowClicked);
             },
             DisableListeners: function () {
-                page.columnButtons.off("click");
+                page.sortingColumnsRow.off("click");
+                page.highlightRow.off("click");
             },
+
             // --------------------------------------
             // Page ready, attach event listeners
             ReadyJs: function () {
@@ -45,8 +62,10 @@
     };
 })(jQuery);
 var options = {
-    sortingColumnsRowClass: "tr.mgAccTable",
-    columnButtonsClass: "a.mg-th-link"
+    ordersTableClass:       "#ordersTable",
+    sortingColumnsRowClass: "tr.mgAccTable.mgTableHeader",
+    columnButtonsClass:     "a.mg-th-link",
+    highlightRowClass:      "tr.mgAccTable.mgHighlightRow"
 };
 var page = $.adminOrderIndex(options);
 jQuery(document).ready(page.ready);

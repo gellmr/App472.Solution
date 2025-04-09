@@ -37,6 +37,15 @@ namespace App472.WebUI
             );
 
 
+            // www.siteurl/AdminOrders
+            routes.MapRoute(null, "{controller}/Index",
+                new { controller = "AdminOrders", action = "Index" },
+                new {
+                    SortBy = @"\w+",
+                    SortAscend = @"true|false",
+                    Recent = @"\w+",
+                }
+            );
 
             // www.siteurl/AdminProducts
             routes.MapRoute(null, "{controller}/Index",
@@ -68,6 +77,7 @@ namespace App472.WebUI
                 new { ID = @"[a-zA-Z0-9]{8}\-[a-zA-Z0-9]{4}\-[a-zA-Z0-9]{4}\-[a-zA-Z0-9]{4}\-[a-zA-Z0-9]{12}" }
             );
 
+            
 
 
             routes.MapRoute(null, "{controller}/{action}");

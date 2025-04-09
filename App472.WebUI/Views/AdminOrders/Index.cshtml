@@ -11,9 +11,9 @@
         <br />
         <div></div>
         <div class="table-responsive-xl">
-            <table class="table table-hover">
+            <table id="ordersTable" class="table table-hover" data-href="@Url.Action("Index", "AdminOrders")" data-recent="@Model.Recent">
                 <thead class="thead-dark">
-                    <tr class="mgAccTable" data-href="@Url.Action("Index", "AdminOrders")" data-recent="@Model.Recent">
+                    <tr class="mgAccTable mgTableHeader">
                         @foreach (KeyValuePair<string, App472.WebUI.Models.Pair> row in Model.Ascending)
                         {
                             var allowCaret = true;
@@ -79,10 +79,8 @@
                         itemString = order.ItemString;
                         orderStatus = order.OrderStatus.ToString();
 
-                        <tr class="mgAccTable">
-                            <td scope="row" class="text-center">
-                                <a class="btn btn-success" href="@Url.Action("Detail", "AdminUserOrder", new {ID=order.ID.ToString()})">Edit</a>
-                            </td>
+                        @* Need to highlight the whole row *@
+                        <tr class="mgAccTable mgHighlightRow" data-orderid="@order.ID" data-href="@Url.Action("Detail", "AdminUserOrder")">
                             <td class="text-center">@order.ID</td>
                             <td scope="row" class="text-left">
                                 @* TODO - add link for User Detail page. *@

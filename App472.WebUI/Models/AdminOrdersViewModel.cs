@@ -20,7 +20,6 @@ namespace App472.WebUI.Models
         public static Dictionary<string, Pair> GetAscDefault(){
             bool boolDef = true;
             return new Dictionary<string, Pair>{
-                {"Edit",new Pair{Asc=boolDef,Align="text-center"} },
                 {"OrderID",new Pair{Asc=boolDef,Align="text-center"} },
                 {"Username",new Pair{Asc=boolDef,Align="text-left"} },
                 {"UserID",new Pair{Asc=boolDef,Align="text-left"} },
