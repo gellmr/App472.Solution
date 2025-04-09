@@ -35,12 +35,14 @@
                 <label class="mgProductEdit">Unit Price:</label>
                 @Html.TextBoxFor(m => m.Product.Price, new { @class = "form-control mgProductEdit" })
             </div>
-            <div class="text-center">
-                @Html.ActionLink("Cancel and return to List", "Index", null, new
-                {
-                    @class = "btn btn-warning mg-warning"
-                })
-                <input type="submit" value="Save" class="btn btn-success" style="min-width:130px;" />
+
+            <div id="mgProductEditSubmit">
+                <div class="form-group text-center" @*style="width: 530px; border: 1px solid; justify-content: flex-start; display: flex;"*@ >
+
+                    <a class="btn btn-warning mg-warning" href="@Url.Action("Index", "AdminProducts")">Cancel and return to List</a>
+                    <input type="submit" value="Save" class="btn btn-success" />
+
+                </div>
             </div>
         </div>
     }

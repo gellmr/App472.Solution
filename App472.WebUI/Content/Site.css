@@ -195,19 +195,12 @@ table.detailBody th{
 }
 
 label.mgProductEdit {
-    /*display: inline-block;*/
     width: 140px;
     font-weight: bold;
     text-align: left;
     width:100%;
 }
-input.mgProductEdit {
-    /*display: inline-block;*/
-    /*max-width: 385px;*/
-}
 textarea.mgProductEdit {
-    /*display: inline-block;*/
-    /*max-width: 385px;*/
     min-height: 130px;
 }
 input.mgAjaxText {
@@ -215,6 +208,38 @@ input.mgAjaxText {
     border: 1px solid #dddddd;
     border-radius: 6px;
     text-align: right;
+}
+
+#mgProductEditSubmit {
+    /*border: 3px dashed green;*/
+    display: flex;
+    justify-content: center;
+}
+#mgProductEditSubmit .form-group {
+    /*border: 3px dashed orange;*/
+    display: flex;
+    justify-content: flex-end;
+    width: 530px;
+    flex-direction: column-reverse;
+}
+#mgProductEditSubmit a.mg-warning {
+    min-width: 170px;
+}
+#mgProductEditSubmit input.btn-success {
+    min-width: 100px;
+    width:100%;
+    margin-bottom:10px;
+}
+
+@media (min-width: 428px) {
+    #mgProductEditSubmit .form-group {
+        flex-direction: row;
+    }
+    #mgProductEditSubmit input.btn-success {
+        width: 165px;
+        margin-left: 10px;
+        margin-bottom: unset;
+    }
 }
 @media (min-width: 576px) {
     .mgProductEdit {
