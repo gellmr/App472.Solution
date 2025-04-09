@@ -4,13 +4,11 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "Admin: User Accounts";
 }
+<div class="mgAdminTableContainer">
+    
+    <h5 class="mgAdminTableContainer" style="display: inline-block; margin-right:2px;">Showing All Users&nbsp;</h5> <span id="ajaxErr"></span>
 
-<div class="card">
-    <div class="card-body">
-        <h5 style="display:inline-block">Showing All Users&nbsp;</h5> <span style="color:#ff4040;" id="ajaxErr"></span>
-        <br />
-        <div></div>
-        <div class="table-responsive-xl">
+    <div class="table-responsive-xl">
         <table class="table table-hover">
             <thead class="thead-dark">
                 <tr class="mgAccTable">
@@ -53,7 +51,8 @@
                 }
             </tbody>
         </table>
-        </div>
     </div>
+
 </div>
+
 <script type="text/javascript" src="~/Scripts/AdminUserAccIndex.js"></script>

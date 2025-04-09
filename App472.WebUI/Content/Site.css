@@ -199,13 +199,23 @@ table.detailBody th{
     font-size: 14px;
     text-align:left;
 }
-/* -------------------------------------------------*/
+.mgAdminTableContainer {
+    margin: 15px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
 
+h5.mgAdminTableContainer {
+    margin-bottom: 8px;
+    margin-top: 8px;
+    margin-left: 0px;
+}
 
-
-
-
-
+#ajaxErr {
+    color: #ff4040;
+    font-size: 12px;
+    display:block;
+}
 
 /* -------------------------------------------------*/
 .disabled {
@@ -251,8 +261,11 @@ input.mgAjaxText {
     margin-bottom:10px;
 }
 
-/* -------------------------------------------------*/
+/* ================================================= */
 @media (min-width: 580px) {
+    #ajaxErr {
+        display:inline-block;
+    }
     .adminLayoutNavInner {
         /*border: 4px dashed magenta;*/
         flex-wrap: wrap;

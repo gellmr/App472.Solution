@@ -6,8 +6,10 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div style="margin:15px; margin-top:0px; margin-bottom:10px;">
-    <h5 style="margin-bottom:8px; margin-top:8px;">Orders Backlog</h5>
+<div class="mgAdminTableContainer">
+
+    <h5 class="mgAdminTableContainer">Orders Backlog</h5>
+
     <div class="table-responsive-xl">
         <table id="ordersTable" class="table table-hover" data-href="@Url.Action("Index", "AdminOrders")" data-recent="@Model.Recent">
             <thead class="thead-dark">
