@@ -19,6 +19,7 @@
                 <tr>
                     <th scope="col">View Order Details</th>
                     <th scope="col">Order ID</th>
+                    <th scope="col">Status</th>
                     <th scope="col"># Lines</th>
                     <th scope="col">Total Items</th>
                     <th scope="col">Total Price</th>
@@ -34,6 +35,7 @@
                             <td><a class="btn btn-success adminGreenViewBtn" style="font-size:15px; width:107px;" href="@Url.Action("Detail", "AdminUserOrder", new{ID=order.ID, FromUserAccounts=true})">View Details</a></td>
 
                             <td class="">#@order.ID</td>
+                            <td class="">@order.OrderStatus</td> @* Shipped? *@
                             <td class="">@order.OrderedProducts.Count Lines</td>
                             <td class="">@order.QuantityTotal Items</td>
                             <td class="">$ @order.PriceTotal</td>
