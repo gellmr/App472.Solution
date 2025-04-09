@@ -170,7 +170,7 @@ table.detailBody th{
     flex-wrap: wrap;
 }
 .adminLayoutTitle {
-    border: 3px dashed orange;
+    /*border: 3px dashed orange;*/
     font-size: 29px;
     margin-right: 17px;
     width: 100%;
@@ -180,11 +180,10 @@ table.detailBody th{
     font-size: 29px;
     margin-bottom: 2px;
     padding-left: 12px;
-    padding-top: 3px;
     padding-bottom: 5px;
 }
 .adminLayoutPageLinks {
-    border: 4px dashed red;
+    /*border: 4px dashed red;*/
     margin-top: 4px;
 
     display: flex;
@@ -255,7 +254,7 @@ input.mgAjaxText {
 /* -------------------------------------------------*/
 @media (min-width: 580px) {
     .adminLayoutNavInner {
-        border: 4px dashed magenta;
+        /*border: 4px dashed magenta;*/
         flex-wrap: wrap;
     }
     .adminLayoutPageLinks {
@@ -285,7 +284,7 @@ input.mgAjaxText {
 /* -------------------------------------------------*/
 @media (min-width: 710px) {
     .mgProductEdit {
-        border: 4px dashed lavender;
+        /*border: 4px dashed lavender;*/
         display: inline-block;
     }
     label.mgProductEdit {
@@ -298,7 +297,7 @@ input.mgAjaxText {
 /* -------------------------------------------------*/
 @media (min-width: 730px) {
     .adminLayoutNavInner {
-        border: 4px dashed cyan;
+        /*border: 4px dashed cyan;*/
         flex-wrap: unset;
     }
     .adminLayoutPageLinks a.btn {

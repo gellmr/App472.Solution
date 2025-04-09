@@ -2,39 +2,38 @@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<div class="card">
-    <div class="card-body">
-        <div class="container">
 
-            <a class="btn btn-success" href="@Url.Action("Create", "AdminProducts", null)" style="margin-bottom:5px;"><i class="bi bi-plus-circle"></i> Add Product</a>
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Products)
-                    {
-                        <tr>
-                            <td class="">@item.ID</td>
-                            <td>@Html.ActionLink(item.Name, "Edit", new { item.ID })</td>
+<div style="margin-top:10px;"></div>
 
-                            <td scope="row" class="text-left">@item.Price.ToString("c")</td>
-                            <td class="">
-                                @using (Html.BeginForm("Delete", "AdminProducts", new {ID=item.ID} ))
-                                {
-                                    <input type="submit" class="btn btn-warning mg-warning" value="Delete" />
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+<div class="container">
 
-        </div>
-    </div>
+    <a class="btn btn-success" href="@Url.Action("Create", "AdminProducts", null)" style="margin-bottom:5px;"><i class="bi bi-plus-circle"></i> Add Product</a>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td class="">@item.ID</td>
+                    <td>@Html.ActionLink(item.Name, "Edit", new { item.ID })</td>
+
+                    <td scope="row" class="text-left">@item.Price.ToString("c")</td>
+                    <td class="">
+                        @using (Html.BeginForm("Delete", "AdminProducts", new {ID=item.ID} ))
+                        {
+                            <input type="submit" class="btn btn-warning mg-warning" value="Delete" />
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
 </div>
