@@ -148,9 +148,9 @@ table.detailBody th{
     font-size: 12px;
     width: 83px;
 }
-
+/* -------------------------------------------------*/
 .adminLayoutNav {
-    /*border: 1px solid red;*/
+    border: 1px solid red;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -158,7 +158,7 @@ table.detailBody th{
     width: 100%;
 }
 .adminLayoutNavInner {
-    /*border: 1px solid brown;*/
+    border: 1px solid brown;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -166,7 +166,7 @@ table.detailBody th{
     flex-wrap: wrap;
 }
 .adminLayoutTitle {
-    /*border: 1px solid orange;*/
+    border: 1px solid orange;
     font-size: 29px;
     max-width: 180px;
     margin-right: 17px;
@@ -179,13 +179,23 @@ table.detailBody th{
     padding-bottom: 5px;
 }
 .adminLayoutPageLinks {
-    /*border: 1px solid magenta;*/
+    border: 1px solid magenta;
     margin-top: 4px;
 }
-.adminLayoutPageLinks a.btn{
+.adminLayoutPageLinks a.btn {
     margin-bottom: 3px;
+    text-wrap-mode: nowrap;
+    width: 100%
 }
+/* -------------------------------------------------*/
 
+
+
+
+
+
+
+/* -------------------------------------------------*/
 .disabled {
     background-color: #e5e5e5;
     color: #a4a4a4;
@@ -209,7 +219,7 @@ input.mgAjaxText {
     border-radius: 6px;
     text-align: right;
 }
-
+/* -------------------------------------------------*/
 #mgProductEditSubmit {
     /*border: 3px dashed green;*/
     display: flex;
@@ -231,7 +241,14 @@ input.mgAjaxText {
     margin-bottom:10px;
 }
 
+/* -------------------------------------------------*/
 @media (min-width: 428px) {
+
+    .adminLayoutPageLinks a.btn {
+        width:unset;
+    }
+
+    /* -------------------------------------------------*/
     #mgProductEditSubmit .form-group {
         flex-direction: row;
     }
@@ -241,6 +258,8 @@ input.mgAjaxText {
         margin-bottom: unset;
     }
 }
+
+/* -------------------------------------------------*/
 @media (min-width: 576px) {
     .mgProductEdit {
         display: inline-block;
@@ -250,5 +269,11 @@ input.mgAjaxText {
     }
     .mgProductEdit {
         max-width: 375px;
+    }
+}
+/* -------------------------------------------------*/
+@media (min-width: 750px) {
+    .adminLayoutPageLinks a.btn {
+        color:red;
     }
 }
