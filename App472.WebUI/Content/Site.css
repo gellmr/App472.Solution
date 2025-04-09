@@ -269,7 +269,7 @@ input.mgAjaxText {
         display:inline-block;
     }
     .mgOrderDetailStyle {
-        font-size: 16px;
+        font-size: 12px;
     }
     .adminLayoutNavInner {
         /*border: 4px dashed magenta;*/
@@ -298,7 +298,12 @@ input.mgAjaxText {
         margin-bottom: unset;
     }
 }
-
+/* -------------------------------------------------*/
+@media (min-width: 650px) {
+    .mgOrderDetailStyle {
+        font-size: 14px;
+    }
+}
 /* -------------------------------------------------*/
 @media (min-width: 710px) {
     .mgProductEdit {
@@ -314,6 +319,9 @@ input.mgAjaxText {
 }
 /* -------------------------------------------------*/
 @media (min-width: 730px) {
+    .mgOrderDetailStyle {
+        font-size: 15px;
+    }
     .adminLayoutNavInner {
         /*border: 4px dashed cyan;*/
         flex-wrap: unset;
