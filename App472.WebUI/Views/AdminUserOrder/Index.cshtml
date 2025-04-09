@@ -13,7 +13,39 @@
         }
     </div>
 
-    <div class="table-responsive-xl">
+    @* xs table *@
+    <div class="table-responsive-xl d-block d-sm-none">
+        <table class="table table-hover" style="font-size:11px;">
+            <thead class="thead-dark">
+                <tr class="mgAccTable">
+                    <th scope="col">A</th>
+                    <th scope="col">Order Details</th>
+                </tr>
+                <tbody>
+                    @if (Model != null && Model.Orders != null)
+                    {
+                        foreach (Order order in Model.Orders)
+                        {
+                            <tr>
+                                <td>
+                                    <a class="btn btn-success adminGreenViewBtn" style="font-size:11px; width:77px;" href="@Url.Action("Detail", "AdminUserOrder", new{ID=order.ID, FromUserAccounts=true})">View Details</a>
+                                </td>
+                                <td class="">
+                                    Order #@order.ID &nbsp; <b>@order.OrderStatus</b><br />
+                                    @order.OrderedProducts.Count Lines &nbsp;(Total @order.QuantityTotal Items)<br />
+                                    $ @order.PriceTotal<br />
+                                    @order.ItemString<br />
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </thead>
+        </table>
+    </div>
+
+    @* sm and up table *@
+    <div class="table-responsive-xl d-none d-sm-block">
         <table class="table table-hover" style="font-size:11px;">
             <thead class="thead-dark">
 
