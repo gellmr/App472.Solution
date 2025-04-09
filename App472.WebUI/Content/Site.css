@@ -195,8 +195,10 @@ table.detailBody th{
     margin-bottom: 3px;
     text-wrap-mode: nowrap;
     width: 100%;
-    max-width: 210px;
+    max-width: 176px;
     max-height: 40px;
+    font-size: 14px;
+    text-align:left;
 }
 /* -------------------------------------------------*/
 
@@ -251,7 +253,7 @@ input.mgAjaxText {
 }
 
 /* -------------------------------------------------*/
-@media (min-width: 550px) {
+@media (min-width: 580px) {
     .adminLayoutNavInner {
         border: 4px dashed magenta;
         flex-wrap: wrap;
@@ -262,8 +264,11 @@ input.mgAjaxText {
     }
     .adminLayoutPageLinks a.btn {
         width: unset;
-        width:100%;
-        max-width:145px;
+        width: 100%;
+        max-width: 145px;
+        font-size: 12px;
+        padding-top: 9px;
+        text-align: center;
     }
 
     /* -------------------------------------------------*/
@@ -298,6 +303,8 @@ input.mgAjaxText {
     }
     .adminLayoutPageLinks a.btn {
         width: 190px;
+        font-size: 14px;
+        padding-top: 7px;
     }
     .adminLayoutPageLinks {
         flex-direction:row;
