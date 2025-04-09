@@ -74,15 +74,9 @@ namespace App472.WebUI.Controllers
                 // Validate the search string...
 
                 // Search string: only allow alphanumeric, space, dash, up to 40 characters
-                if (!string.IsNullOrEmpty(search))
-                {
-                    const string validationPattern = "^[A-Za-z0-9\\s\\-]{0,40}$"; // very restrictive regex
-                    var regex = new PcreRegex(validationPattern);
-                    bool isValidSearchString = regex.IsMatch(search);
-                    if (!isValidSearchString)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
-                    }
+                if (!ValidateString(search, "^[A-Za-z0-9\\s\\-]{0,40}$")){
+                    SessUser.Search = null; // clear the search string from session
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
                 }
 
                 // Because of the very restrictive regex above, we wont get this far

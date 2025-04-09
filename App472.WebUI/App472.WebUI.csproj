@@ -247,6 +247,7 @@
     <Compile Include="Controllers\Admin\AdminOrdersController.cs" />
     <Compile Include="Controllers\Admin\AdminUserOrderController.cs" />
     <Compile Include="Controllers\Admin\AdminProductsController.cs" />
+    <Compile Include="Controllers\Admin\BaseAdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -273,6 +274,7 @@
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\Abstract\IAuthProvider.cs" />
     <Compile Include="Infrastructure\Abstract\IFullUserRepository.cs" />
+    <Compile Include="Infrastructure\AdminSessUser.cs" />
     <Compile Include="Infrastructure\BaseSessUser.cs" />
     <Compile Include="Infrastructure\BreadCrumb.cs" />
     <Compile Include="Infrastructure\Concrete\FullUserRepository.cs" />
@@ -385,6 +387,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\AdminBase\" />
+    <Folder Include="Views\BaseAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />

@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 
 using System.Configuration;
+using App472.WebUI.Infrastructure;
 
 namespace App472.WebUI.Controllers
 {

@@ -1,4 +1,5 @@
-﻿using App472.WebUI.Domain.Abstract;
+﻿using App472.WebUI.Controllers.Admin;
+using App472.WebUI.Domain.Abstract;
 using App472.WebUI.Domain.Entities;
 using App472.WebUI.Infrastructure;
 using App472.WebUI.Models;
@@ -7,6 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -16,7 +18,7 @@ using static App472.WebUI.Domain.Entities.Order;
 namespace App472.WebUI.Controllers
 {
     [Authorize]
-    public class AdminOrdersController : BaseController
+    public class AdminOrdersController : BaseAdminController
     {
         private IOrdersRepository orderRepo;
 
@@ -33,8 +35,28 @@ namespace App472.WebUI.Controllers
 
 
         // Orders Backlog
-        public ViewResult Index(string SortBy = "OrderPlaced", bool SortAscend = false, string Recent = null)
+        public ActionResult Index(string SortBy, bool? SortAscend, string Recent)
         {
+            // Ensure query parameters are validated against strict regex
+            // Allow alphabetical strings 5-15 chars long, or null/empty string.
+            if(
+                !ValidateString(SortBy, "^[A-Za-z]{5,15}$") ||
+                !ValidateString(Recent, "^[A-Za-z]{5,15}$")
+            ){
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
+            }
+
+            // Try to get query parameters from the session if they have not been set
+            SortBy     = string.IsNullOrEmpty(SortBy) ? AdminSessUser.SortBy     : SortBy;
+            SortAscend = (SortAscend == null)         ? AdminSessUser.SortAscend : SortAscend;
+            Recent     = string.IsNullOrEmpty(Recent) ? AdminSessUser.Recent     : Recent;
+
+            // If this is the first time page is requested and session value is empty, initialise to sort by order placed date.
+            if (string.IsNullOrEmpty(SortBy)){
+                SortBy = "OrderPlaced";
+                SortAscend = false;
+                Recent = null;
+            }
             Order.OrderSortEnum sortEnum = Order.ParseOrderSortEnum(SortBy);
             fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             IList<FullUser> fullUsers = fullUserRepo.FullUsers.ToList();
@@ -43,7 +65,7 @@ namespace App472.WebUI.Controllers
             Dictionary<string, Models.Pair> Ascending = AdminOrdersViewModel.GetAscDefault();
             if(!string.IsNullOrEmpty(SortBy)){
                 Models.Pair p = Ascending[SortBy];
-                p.Asc = SortAscend;
+                p.Asc = (bool)SortAscend;
             }
 
             switch (sortEnum){
@@ -60,6 +82,12 @@ namespace App472.WebUI.Controllers
                 case OrderSortEnum.Edit:            orders = orderRepo.Orders.OrderBy(order => order.ID);          if (!Ascending["OrderID"].Asc) { orders = orders.Reverse(); } break;
                 default: break;
             }
+
+            // Persist the query parameters to admin session
+            AdminSessUser.SortBy = SortBy;
+            AdminSessUser.SortAscend = (bool)SortAscend;
+            AdminSessUser.Recent = Recent;
+
             AdminOrdersViewModel vm = new AdminOrdersViewModel{
                 CurrentPageNavText = AppNavs.OrdersNavText,
                 Orders = orders,

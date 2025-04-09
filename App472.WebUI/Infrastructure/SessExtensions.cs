@@ -10,6 +10,7 @@ namespace App472.WebUI.Infrastructure
     {
         public static string TRUrlsSessKeyName = "__TabReturnUrls";
 
+
         // Extend HttpContext for our convenience
         // See
         // https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods
@@ -19,7 +20,9 @@ namespace App472.WebUI.Infrastructure
             return current != null ? (TabReturnUrls)current.Session[SessExtensions.TRUrlsSessKeyName] : null;
         }
 
-        public static string SessUserKeyName = "__SessUser";
+
+        // User
+        public static string SessUserKeyName = "__BaseSessUser";
         public static BaseSessUser GetSessUser(this HttpContext current)
         {
             return current != null ? (BaseSessUser)current.Session[SessExtensions.SessUserKeyName] : null;
@@ -33,10 +36,20 @@ namespace App472.WebUI.Infrastructure
             return current != null ? (NotLoggedInSessUser)current.Session[SessExtensions.SessUserKeyName] : null;
         }
 
+
+        // Guest
         public static string GuestIDSessKeyName = "__GuestID";
         public static Guid GuestIDSess(this HttpContext current)
         {
             return (Guid)current.Session[GuestIDSessKeyName];
+        }
+
+
+        // Admin
+        public static string AdminSessUserKeyName = "__AdminSessUser";
+        public static AdminSessUser GetAdminSessUser(this HttpContext current)
+        {
+            return current != null ? (AdminSessUser)current.Session[SessExtensions.AdminSessUserKeyName] : null;
         }
     }
 }

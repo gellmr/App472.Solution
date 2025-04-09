@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PCRE;
 
 namespace App472.WebUI.Controllers
 {
@@ -79,6 +81,25 @@ namespace App472.WebUI.Controllers
                 return string.Compare(requestedWith, "XMLHttpRequest", true) == 0
                     && Request.ContentType.ToLower().Contains("application/json");
             }
+        }
+
+        //-------------------------------------------------------------------------------
+
+        // Validate the given string against a regex, using .NET PCRE
+        // We are only looking for malicious input.
+        // Null or empty strings are valid.
+        protected bool ValidateString(string input, string validationPattern)
+        {
+            if (!string.IsNullOrEmpty(input))
+            {
+                var regex = new PcreRegex(validationPattern);
+                bool isValid = regex.IsMatch(input);
+                if (!isValid)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
