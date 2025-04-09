@@ -216,7 +216,9 @@ h5.mgAdminTableContainer {
     font-size: 12px;
     display:block;
 }
-
+.mgOrderDetailStyle{
+    font-size:11px;
+}
 /* -------------------------------------------------*/
 .disabled {
     background-color: #e5e5e5;
@@ -265,6 +267,9 @@ input.mgAjaxText {
 @media (min-width: 580px) {
     #ajaxErr {
         display:inline-block;
+    }
+    .mgOrderDetailStyle {
+        font-size: 16px;
     }
     .adminLayoutNavInner {
         /*border: 4px dashed magenta;*/
