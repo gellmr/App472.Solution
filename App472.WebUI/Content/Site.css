@@ -219,6 +219,12 @@ h5.mgAdminTableContainer {
 .mgOrderDetailStyle{
     font-size:11px;
 }
+.mgOrderDetailStyle .form-control{
+    font-size:unset;
+}
+.mgOrderDetailStyle button{
+    font-size:unset;
+}
 /* -------------------------------------------------*/
 .disabled {
     background-color: #e5e5e5;
