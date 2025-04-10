@@ -8,43 +8,53 @@
     }
 </style>
 <h2>Your Cart</h2>
-<table id="cartTable" class="table">
-    <thead>
-        <tr>
-            <th>Quantity</th>
-            <th>Item</th>
-            <th class="text-right">Price</th>
-            <th class="text-right">Subtotal</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var line in Model.Cart.Lines)
-        {
+
+<div class="table-responsive-xl mgCartTableStyle">
+    <table id="cartTable" class="table">
+        <thead>
             <tr>
-                <td class="text-center">@line.Quantity</td>
-                <td class="text-left">@line.InStockProduct.Name</td>
-                <td class="text-right">@line.InStockProduct.Price.ToString("c")</td>
-                <td class="text-right">@((line.Quantity * line.InStockProduct.Price).ToString("c"))</td>
-                <td>
-                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
-                    {
-                        @Html.Hidden("inStockProductId", line.InStockProduct.ID)
-                        @Html.HiddenFor(x => x.ReturnUrl)
-                        <input class="btn btn-sm btn-warning mg-warning" type="submit" value="Remove" />
-                    }
-                </td>
+                <th>
+                    <span class="d-block d-sm-block d-md-none">Qty</span>
+                    <span class="d-none  d-sm-none  d-md-block">Quantity</span>
+                </th>
+                <th>Item</th>
+                <th class="text-right">Price</th>
+                <th class="text-right">Subtotal</th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="3" class="text-right">Total:</td>
-            <td class="text-right">
-                @Model.Cart.ComputeTotalValue().ToString("c")
-            </td>
-        </tr>
-    </tfoot>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.Cart.Lines)
+            {
+                <tr>
+                    <td class="text-center">@line.Quantity</td>
+                    <td class="text-left">@line.InStockProduct.Name</td>
+                    <td class="text-right">@line.InStockProduct.Price.ToString("c")</td>
+                    <td class="text-right">@((line.Quantity * line.InStockProduct.Price).ToString("c"))</td>
+                    <td>
+                        @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                        {
+                            @Html.Hidden("inStockProductId", line.InStockProduct.ID)
+                            @Html.HiddenFor(x => x.ReturnUrl)
+                            <input class="btn btn-sm btn-warning mg-warning" type="submit" value="Remove" />
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="text-right">Total:</td>
+                <td class="text-right">
+                    @Model.Cart.ComputeTotalValue().ToString("c")
+                </td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 @{
     // If we navigate from the checkout shipping page, BACK to the cart index page... then we want `back to shopping` button to take us to "/" (the shopping index page)
     // The `continue shopping` button should NOT take us forward in the checkout process.

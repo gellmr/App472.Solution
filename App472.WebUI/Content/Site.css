@@ -226,6 +226,9 @@ h5.mgAdminTableContainer {
 .mgOrderDetailStyle button{
     font-size:unset;
 }
+.mgCartTableStyle{
+    font-size:11px;
+}
 /* -------------------------------------------------*/
 .disabled {
     background-color: #e5e5e5;
@@ -340,5 +343,8 @@ input.mgAjaxText {
     }
     .adminLayoutPageLinks {
         flex-direction:row;
+    }
+    .mgCartTableStyle {
+        font-size: 16px;
     }
 }
