@@ -95,10 +95,13 @@
             }
             @if (Model.OrderPayments.Count != 0)
             {
-                var outstanding = Model.TotalCost - paymentSum;
+                Decimal outstanding = (decimal)(Model.TotalCost - paymentSum);
+                var isNeg = (outstanding) < 0;
+                var sign = (isNeg) ? "-" : "";
+                var red = (isNeg) ? "color:red;" : "";
                 <hr style="margin-bottom:10px;margin-top:5px;" />
                 <h6>$@paymentSum Total</h6>
-                <h6 style="font-weight:unset;">$@outstanding Outstanding</h6>
+                <h6 style="font-weight:unset;@red">@sign$@(Math.Abs(outstanding)) Outstanding </h6>
             }
 
             <div class="table-responsive-xl">
