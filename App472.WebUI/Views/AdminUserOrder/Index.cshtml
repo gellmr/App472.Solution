@@ -7,11 +7,11 @@
 <div class="mgAdminTableContainer">
     <div class="row">
 
-        @* xs|sm|md Hidden.   lg:Take1/12 of screen. Show an empty strip down LHS of screen. *@
-        <div class="d-none d-lg-block col-lg-1 mg-store-lhs-rhs-bar"></div>
+        @* xs|sm|md Hidden.   lg:Take2/12 of screen. Show an empty strip down LHS of screen. *@
+        <div class="d-none d-lg-block col-lg-2 mg-store-lhs-rhs-bar"></div>
 
-        @* xs|sm|md:Take whole width.  lg|xl:Take10/12 of screen. *@
-        <div class="col-12 d-block     col-lg-10">
+        @* xs|sm|md:Take whole width.  lg|xl:Take8/12 of screen. *@
+        <div class="col-12 d-block     col-lg-8">
             <div class="row">
                 <div class="col-12">
                     <h5 class="mgAdminTableContainer" style="font-size:15px;">Showing Orders for @Model.UserName</h5>
@@ -40,11 +40,13 @@
                                             <td>
                                                 <a class="btn btn-success adminGreenViewBtn" style="font-size:11px; width:77px;" href="@Url.Action("Detail", "AdminUserOrder", new{ID=order.ID, FromUserAccounts=true})">View Details</a>
                                             </td>
-                                            <td class="">
-                                                Order #@order.ID &nbsp; <b>@order.OrderStatus</b><br />
-                                                @order.OrderedProducts.Count Lines &nbsp;(Total @order.QuantityTotal Items)<br />
-                                                $ @order.PriceTotal<br />
-                                                @order.ItemString<br />
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-12 col-md-2">Order #@order.ID &nbsp; <b>@order.OrderStatus</b></div>
+                                                    <div class="col-12 col-md-3">@order.OrderedProducts.Count Lines &nbsp;(Total @order.QuantityTotal Items)</div>
+                                                    <div class="col-12 col-md-2">$ @order.PriceTotal</div>
+                                                    <div class="col-12 col-md-5">@order.ItemString</div>
+                                                </div>
                                             </td>
                                         </tr>
                                     }
@@ -56,8 +58,8 @@
             </div>
         </div>
 
-        @* xs|sm|md Hidden.   lg:Take1/12 of screen. Show an empty strip down RHS of screen. *@
-        <div class="d-none d-lg-block col-lg-1 mg-store-lhs-rhs-bar"></div>
+        @* xs|sm|md Hidden.   lg:Take2/12 of screen. Show an empty strip down RHS of screen. *@
+        <div class="d-none d-lg-block col-lg-2 mg-store-lhs-rhs-bar"></div>
 
     </div>
 </div>
