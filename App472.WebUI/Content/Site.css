@@ -264,7 +264,7 @@ textarea.mgProductEdit {
     min-height: 130px;
 }
 input.mgAjaxText {
-    max-width: 70px;
+    max-width: 41px;
     border: 1px solid #dddddd;
     border-radius: 6px;
     text-align: right;
@@ -316,6 +316,9 @@ input.mgAjaxText {
         font-size: 12px;
         padding-top: 9px;
         text-align: center;
+    }
+    input.mgAjaxText {
+        max-width: 70px;
     }
     /* --------------------*/
     #mgProductEditSubmit .form-group {
