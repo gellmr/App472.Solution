@@ -28,13 +28,13 @@
         <div class="alert alert-success">@TempData["message"]</div>
     }
     <div class="card">
-        <div class="card-body">
+        <div class="card-body" style="background-color:#696969; padding-bottom:10px;">
 
             <div class="adminLayoutNav">
                 <div class="adminLayoutNavInner">
                     <div class="adminLayoutPageLinks" style="justify-content:left;">
 
-                        <div class="adminLayoutTitle"><h2 class="card-title">Admin Page</h2></div>
+                        <div class="adminLayoutTitle"><h2 class="card-title" style="color:white;">Admin Page</h2></div>
 
                         @* Generate one anchor per menu item *@
                         @if (Model.AdminNavLinks != null && Model.CurrentPageNavText != null)
@@ -43,11 +43,11 @@
                             {
                                 if (link.Key == Model.CurrentPageNavText)
                                 {
-                                    <a class="btn btn-dark disabled" href="@link.Value">@link.Key</a>
+                                    <a class="btn btn-dark disabled mgAdminNavBtns" href="@link.Value">@link.Key</a>
                                 }
                                 else
                                 {
-                                    <a class="btn btn-outline-dark" href="@link.Value">@link.Key</a>
+                                    <a class="btn btn-dark mgAdminNavBtns" href="@link.Value">@link.Key</a>
                                 }
                             }
                         }
@@ -57,11 +57,11 @@
                 @* Logout button *@
                 @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logOutForm", @class = "adminLogout" }))
                 {
-                    <input type="submit" class="btn btn-outline-success" value="Log out" style="margin-left: 10px; margin-top: 4px;" />
+                    <input type="submit" class="btn btn-success" value="Log out" style="margin-left:10px; margin-top:6px; height:39px; border-radius:6px;" />
                 }
 
             </div>
-            <div> <span style="font-size: 16px;"><a href="@Url.Action("List", "Product")"><i class="bi bi-arrow-left-circle"></i> Back to site</a></span></div>
+            <div style="margin-top:4px;"> <span style="font-size: 16px;"><a href="@Url.Action("List", "Product")" style="color:#8fdf74"><i class="bi bi-arrow-left-circle"></i> Back to site</a></span></div>
 
         </div>
     </div>

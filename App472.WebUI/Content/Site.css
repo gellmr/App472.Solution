@@ -112,8 +112,12 @@ textarea {
     border-color: #bcccd9;
 }
 
-.mgHighlightRow{
-    cursor:pointer;
+.mgAdminNavBtns{
+    border-radius:0px;
+}
+
+.mgHighlightRow {
+    cursor: pointer;
 }
 
 .mgAccTable td, .mgAccTable input.form-control {
@@ -151,6 +155,11 @@ tr.mgAccTable input {
 
 table.detailBody th{
     text-align:left;
+}
+
+.table.detailBody th, .table.detailBody td {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 .adminGreenViewBtn {
@@ -211,6 +220,10 @@ table.detailBody th{
     font-size: 14px;
     text-align:left;
 }
+    .adminLayoutPageLinks a.btn-dark.disabled {
+        background-color: #3d4349;
+        border-color: #3d4349;
+    }
 .mgAdminTableContainer {
     margin: 15px;
     margin-top: 0px;
@@ -316,6 +329,7 @@ input.mgAjaxText {
         font-size: 12px;
         padding-top: 9px;
         text-align: center;
+        margin:2px;
     }
     input.mgAjaxText {
         max-width: 70px;
