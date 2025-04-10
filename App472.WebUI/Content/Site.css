@@ -90,6 +90,10 @@ textarea {
     width: unset;
 }
 
+.mg-store-lhs-rhs-bar{
+    border:3px dashed orange;
+}
+
 #mg-xs-nav .navbar-collapse .nav-item {
     /*border: 1px solid magenta !important;*/
     padding-left:7px;

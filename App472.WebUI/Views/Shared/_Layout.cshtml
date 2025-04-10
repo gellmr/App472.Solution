@@ -29,6 +29,9 @@
                 </div>
             </div>
 
+            @* Hidden unless lg | xl. Show an empty strip down LHS of screen. *@
+            <div class="d-none d-lg-block col-lg-1 mg-store-lhs-rhs-bar">LEFT</div>
+
             @* xs:Hidden.      sm:Take1/4 of screen.   lg:Take2/10 of screen. Show the categories in a vertical bar on RHS. *@
             <div class="d-none d-sm-block col-sm-3     col-lg-2" style="padding-top:0px;">
                 <div class="mg-category-menu">
@@ -36,8 +39,11 @@
                 </div>
             </div>
 
-            @* xs: Take the whole width. sm: Take3/4 of screen. lg: Take10/12 of screen. *@
-            <div class="col-12           col-sm-9               col-lg-10 mg-renderbody">@RenderBody()</div>
+            @* xs: Take the whole width. sm: Take3/4 of screen. lg: Take8/12 of screen. *@
+            <div class="col-12           col-sm-9               col-lg-8 mg-renderbody">@RenderBody()</div>
+
+            @* Hidden unless lg | xl. Show an empty strip down RHS of screen. *@
+            <div class="d-none d-lg-block col-lg-1 mg-store-lhs-rhs-bar">RIGHT</div>
         </div>
 
         <hr style="margin-top:0px;" />
