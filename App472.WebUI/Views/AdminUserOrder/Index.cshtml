@@ -5,82 +5,59 @@
     ViewBag.Title = "Admin: View User Order";
 }
 <div class="mgAdminTableContainer">
+    <div class="row">
 
-    <h5 class="mgAdminTableContainer" style="font-size:15px;">Showing Orders for @Model.UserName</h5>
-    <div>
-        @if (Model.BCNavTrail != null)
-        {
-            @Html.Partial("~/Views/Shared/_BreadCrumb.cshtml", Model.BCNavTrail)
-        }
+        @* xs|sm|md Hidden.   lg:Take1/12 of screen. Show an empty strip down LHS of screen. *@
+        <div class="d-none d-lg-block col-lg-1 mg-store-lhs-rhs-bar"></div>
+
+        @* xs|sm|md:Take whole width.  lg|xl:Take10/12 of screen. *@
+        <div class="col-12 d-block     col-lg-10">
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="mgAdminTableContainer" style="font-size:15px;">Showing Orders for @Model.UserName</h5>
+                    <div>
+                        @if (Model.BCNavTrail != null)
+                        {
+                            @Html.Partial("~/Views/Shared/_BreadCrumb.cshtml", Model.BCNavTrail)
+                        }
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="table-responsive-xl">
+                        <table class="table table-hover" style="font-size:11px;">
+                            <thead class="thead-dark">
+                                <tr class="mgAccTable">
+                                    <th scope="col">A</th>
+                                    <th scope="col">Order Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Orders != null)
+                                {
+                                    foreach (Order order in Model.Orders)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a class="btn btn-success adminGreenViewBtn" style="font-size:11px; width:77px;" href="@Url.Action("Detail", "AdminUserOrder", new{ID=order.ID, FromUserAccounts=true})">View Details</a>
+                                            </td>
+                                            <td class="">
+                                                Order #@order.ID &nbsp; <b>@order.OrderStatus</b><br />
+                                                @order.OrderedProducts.Count Lines &nbsp;(Total @order.QuantityTotal Items)<br />
+                                                $ @order.PriceTotal<br />
+                                                @order.ItemString<br />
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* xs|sm|md Hidden.   lg:Take1/12 of screen. Show an empty strip down RHS of screen. *@
+        <div class="d-none d-lg-block col-lg-1 mg-store-lhs-rhs-bar"></div>
+
     </div>
-
-    @* xs table *@
-    <div class="table-responsive-xl d-block">
-        <table class="table table-hover" style="font-size:11px;">
-            <thead class="thead-dark">
-                <tr class="mgAccTable">
-                    <th scope="col">A</th>
-                    <th scope="col">Order Details</th>
-                </tr>
-            <tbody>
-                @if (Model != null && Model.Orders != null)
-                {
-                    foreach (Order order in Model.Orders)
-                    {
-                        <tr>
-                            <td>
-                                <a class="btn btn-success adminGreenViewBtn" style="font-size:11px; width:77px;" href="@Url.Action("Detail", "AdminUserOrder", new{ID=order.ID, FromUserAccounts=true})">View Details</a>
-                            </td>
-                            <td class="">
-                                Order #@order.ID &nbsp; <b>@order.OrderStatus</b><br />
-                                @order.OrderedProducts.Count Lines &nbsp;(Total @order.QuantityTotal Items)<br />
-                                $ @order.PriceTotal<br />
-                                @order.ItemString<br />
-                            </td>
-                        </tr>
-                    }
-                }
-            </tbody>
-            </thead>
-        </table>
-    </div>
-
-    @* sm and up table
-    <div class="table-responsive-xl d-none d-sm-block">
-        <table class="table table-hover" style="font-size:11px;">
-            <thead class="thead-dark">
-
-                <tr class="mgAccTable">
-                    <th scope="col">View Order Details</th>
-                    <th scope="col">Order ID</th>
-                    <th scope="col">Status</th>
-                    <th scope="col"># Lines</th>
-                    <th scope="col">Total Items</th>
-                    <th scope="col">Total Price</th>
-                    <th scope="col">Items</th>
-                </tr>
-
-            </thead>
-            <tbody>
-
-                @if (Model != null && Model.Orders != null)
-                {
-                    foreach (Order order in Model.Orders)
-                    {
-                        <tr>
-                            <td><a class="btn btn-success adminGreenViewBtn" style="font-size:11px; width:77px;" href="@Url.Action("Detail", "AdminUserOrder", new{ID=order.ID, FromUserAccounts=true})">View Details</a></td>
-
-                            <td class="">#@order.ID</td>
-                            <td class="">@order.OrderStatus</td>
-                            <td class="">@order.OrderedProducts.Count Lines</td>
-                            <td class="">@order.QuantityTotal Items</td>
-                            <td class="">$ @order.PriceTotal</td>
-                            <td class="">@order.ItemString</td>
-                        </tr>
-                    }
-                }
-
-            </tbody>
-        </table>
-    </div>*@
 </div>
