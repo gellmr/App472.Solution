@@ -10,7 +10,7 @@
 <h2>Your Cart</h2>
 
 <div class="table-responsive-xl mgCartTableStyle">
-    <table id="cartTable" class="table">
+    <table id="cartTable" class="table" style="margin-bottom:10px;">
         <thead>
             <tr>
                 <th>
@@ -62,8 +62,7 @@
     string referrer = Request.UrlReferrer.AbsolutePath;
     string backLink = (referrer == "/Cart/Checkout" || string.IsNullOrEmpty(desiredReturnUrl)) ? "/" : desiredReturnUrl;
 }
-<div class="text-center" style="margin-bottom:8px;">
-    <a class="btn btn-primary" href="@backLink" style="margin-bottom:8px;"><i class="bi bi-arrow-left-circle"></i> Continue Shopping</a>
-
-    <a class="btn btn-primary" style="margin-bottom:8px;" href="@Url.Action("Checkout", "Cart", new { returnUrl = Request.Url.PathAndQuery })"><i class="bi bi-cart-fill"></i> Checkout now</a>
+<div class="text-center" style="margin-bottom:0px; padding-top:6px;">
+    <a class="btn btn-primary" href="@backLink" style="min-width:185px; margin-bottom: 6px; "><i class="bi bi-arrow-left-circle"></i> Continue Shopping</a>
+    <a class="btn btn-primary" style="min-width:185px; margin-bottom: 6px;" href="@Url.Action("Checkout", "Cart", new { returnUrl = Request.Url.PathAndQuery })"><i class="bi bi-cart-fill"></i> Checkout now</a>
 </div>
