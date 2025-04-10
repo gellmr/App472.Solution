@@ -107,14 +107,23 @@
                 <table class="table table-striped adminBaseOrderDetail detailBody" data-OrderID="@Model.OrderID">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">ProductID</th>
+                            <th scope="col">
+                                <span class="d-none d-sm-block">ProductID</span>
+                                <span class="d-block d-sm-none">Pr.ID</span>
+                            </th>
                             <th scope="col">Name</th>
-                            <th scope="col">Unit Price</th>
+                            <th scope="col">
+                                <span class="d-none d-sm-block">Unit Price</span>
+                                <span class="d-block d-sm-none">U.Price</span>
+                            </th>
 
-                            <th scope="col" class="text-right">Quantity</th>
+                            <th scope="col" class="text-right">
+                                <span class="d-none d-sm-block">Quantity</span>
+                                <span class="d-block d-sm-none">Qty</span>
+                            </th>
 
                             <th scope="col" class="text-right">Cost</th>
-                            <th scope="col">Category</th>
+                            @*<th scope="col">Category</th>*@
                             <th></th>
                         </tr>
                     </thead>
@@ -143,7 +152,7 @@
 
                                 <td scope="row" class="text-right isCost">@cost</td>
 
-                                <td scope="row" class="text-left isCategory">@prod.InStockProduct.Category</td>
+                                @*<td scope="row" class="text-left isCategory">prod.InStockProduct.Category</td>*@
 
                                 <td><button type="button" @qtyInputDisabled class="btn btn-sm btn-light mgDeleteX"><i class="bi bi-x-lg"></i></button></td>
                             </tr>
@@ -156,7 +165,7 @@
                             <td scope="row" class="text-right" id="detailTotalQuantity">@sumQuantity</td>
 
                             <td scope="row" class="text-right" id="detailTotalCost">$@Model.TotalCost</td>
-                            <td scope="row" class="text-left"></td>
+                            @*<td scope="row" class="text-left"></td>*@
                             <td></td>
                         </tr>
                     </tbody>
