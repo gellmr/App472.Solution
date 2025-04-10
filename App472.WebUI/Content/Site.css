@@ -69,6 +69,7 @@ textarea {
     border: 1px solid lightgrey;
     border-radius: 8px;
     margin-bottom: 10px;
+    font-size: 11.5px;
 }
 
 .mg-category-menu-xs {
@@ -346,6 +347,9 @@ input.mgAjaxText {
     .adminLayoutNavInner {
         /*border: 4px dashed cyan;*/
         flex-wrap: unset;
+    }
+    .mg-category-menu {
+        font-size: 14px;
     }
     .adminLayoutPageLinks a.btn {
         width: 190px;
