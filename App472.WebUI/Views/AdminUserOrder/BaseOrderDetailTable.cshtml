@@ -82,7 +82,14 @@
 
             <h5>Payments</h5>
             @{decimal? paymentSum = 0M;}
-            <div class="table-responsive-xl" id="mgPaymentsListing">
+            @foreach (OrderPayment payment in Model.OrderPayments){
+                <div class="row" id="mgPaymentsListing">
+                    <div class="col-3 col-sm-2 col-md-1" style="padding-left:25px;">$@payment.Amount</div>
+                    <div class="col-9 col-sm-10 col-md-11" style="color:lightgray;">@payment.Date</div>
+                </div>
+            }
+            <hr /><hr /><hr />
+            <div class="table-responsive-xl">
                 <table>
                     <thead></thead>
                     <tbody>
