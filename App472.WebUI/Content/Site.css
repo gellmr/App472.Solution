@@ -230,6 +230,7 @@ h5.mgAdminTableContainer {
 }
 .mgOrderDetailStyle{
     font-size:11px;
+    border:3px dashed yellow;
 }
 .mgOrderDetailStyle .form-control{
     font-size:unset;
