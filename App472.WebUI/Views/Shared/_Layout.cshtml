@@ -16,25 +16,28 @@
     <div class="container-fluid" style="margin-top: 15px; padding-left: 15px; padding-right: 15px;">
 
         <div class="row">
+            @* Display flash message eg Your item has been added to Cart *@
             <div class="col-12">
                 @if (TempData["message"] != null)
                 {<div class="alert alert-success">@TempData["message"]</div>}
             </div>
-            @* xs - show categories in horizontal column *@
+
+            @* Hidden unless xs. Show the categories in a horizontal bar. *@
             <div class="col-12 d-block d-sm-none">
                 <div class="mg-category-menu mg-category-menu-xs">
                     @Html.Action("CategoryMenu", "Nav")
                 </div>
             </div>
-            @* sm and up - show categories in vertical row *@
-            <div class="d-none d-sm-block col-sm-3 col-md-3 col-lg-2" style="padding-top:0px;">
+
+            @* xs:Hidden.      sm:Take1/4 of screen.   lg:Take2/10 of screen. Show the categories in a vertical bar on RHS. *@
+            <div class="d-none d-sm-block col-sm-3     col-lg-2" style="padding-top:0px;">
                 <div class="mg-category-menu">
                     @Html.Action("CategoryMenu", "Nav")
                 </div>
             </div>
-            <div class="col-12 col-sm-9 col-lg-10 mg-renderbody">
-                @RenderBody()
-            </div>
+
+            @* xs: Take the whole width. sm: Take3/4 of screen. lg: Take10/12 of screen. *@
+            <div class="col-12           col-sm-9               col-lg-10 mg-renderbody">@RenderBody()</div>
         </div>
 
         <hr style="margin-top:0px;" />
