@@ -27,8 +27,18 @@
                         <table class="table table-hover" style="font-size:11px;">
                             <thead class="thead-dark">
                                 <tr class="mgAccTable">
-                                    <th scope="col">A</th>
-                                    <th scope="col">Order Details</th>
+                                    <th scope="col">View Details</th>
+
+                                    <th scope="col">
+                                        <div class="row">
+                                            <div class="d-block col-12    d-sm-none">Order Details</div>
+
+                                            <div class="d-none            d-sm-block col-sm-2">Order</div>
+                                            <div class="d-none            d-sm-block col-sm-3">Lines</div>
+                                            <div class="d-none            d-sm-block col-sm-2">Amount</div>
+                                            <div class="d-none            d-sm-block col-sm-5">Items</div>
+                                        </div>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,10 +52,10 @@
                                             </td>
                                             <td>
                                                 <div class="row">
-                                                    <div class="col-12 col-md-2">Order #@order.ID &nbsp; <b>@order.OrderStatus</b></div>
-                                                    <div class="col-12 col-md-3">@order.OrderedProducts.Count Lines &nbsp;(Total @order.QuantityTotal Items)</div>
-                                                    <div class="col-12 col-md-2">$ @order.PriceTotal</div>
-                                                    <div class="col-12 col-md-5">@order.ItemString</div>
+                                                    <div class="col-12     col-sm-2">Order #@order.ID &nbsp; <b>@order.OrderStatus</b></div>
+                                                    <div class="col-12     col-sm-3">@order.OrderedProducts.Count Lines &nbsp;(Total @order.QuantityTotal Items)</div>
+                                                    <div class="col-12     col-sm-2">$ @order.PriceTotal</div>
+                                                    <div class="col-12     col-sm-5">@order.ItemString</div>
                                                 </div>
                                             </td>
                                         </tr>
