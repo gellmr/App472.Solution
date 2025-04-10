@@ -84,43 +84,21 @@
             @{decimal? paymentSum = 0M;}
             @foreach (OrderPayment payment in Model.OrderPayments){
                 <div class="row" id="mgPaymentsListing">
-                    <div class="col-3 col-sm-2 col-md-1" style="padding-left:25px;">$@payment.Amount</div>
+                    <div class="col-3 col-sm-2 col-md-1">$@payment.Amount</div>
                     <div class="col-9 col-sm-10 col-md-11" style="color:lightgray;">@payment.Date</div>
                 </div>
+                paymentSum += payment.Amount;
+                if (Model.OrderPayments.Count == 0)
+                {
+                    <span>(None)</span>
+                }
             }
-            <hr /><hr /><hr />
-            <div class="table-responsive-xl">
-                <table>
-                    <thead></thead>
-                    <tbody>
-                        @foreach (OrderPayment payment in Model.OrderPayments)
-                        {
-                            <tr>
-                                <td style="text-align:right; min-width:102px;">$@payment.Amount</td>
-                                <td style="color:lightgray;">
-                                    <span class="d-inline-block text-truncate" style="font-size:13px; margin-top:6px;">
-                                        &nbsp;@payment.Date
-                                    </span>
-                                </td>
-                            </tr>
-                            paymentSum += payment.Amount;
-                        }
-                        @if (Model.OrderPayments.Count == 0)
-                        {
-                            <tr>
-                                <td style="padding-bottom: 10px;">(None)</td>
-                                <td></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
             @if (Model.OrderPayments.Count != 0)
             {
                 var outstanding = Model.TotalCost - paymentSum;
                 <hr style="margin-bottom:10px;margin-top:5px;" />
-                <h6>Total: $@paymentSum</h6>
-                <h6 style="font-weight:unset;">Outstanding: $@outstanding</h6>
+                <h6>$@paymentSum Total</h6>
+                <h6 style="font-weight:unset;">$@outstanding Outstanding</h6>
             }
 
             <div class="table-responsive-xl">
