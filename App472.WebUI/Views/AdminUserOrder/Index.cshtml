@@ -52,8 +52,15 @@
                                             </td>
                                             <td>
                                                 <div class="row">
-                                                    <div class="col-12     col-sm-2">Order #@order.ID &nbsp; <b>@order.OrderStatus</b></div>
-                                                    <div class="col-12     col-sm-3">@order.OrderedProducts.Count Lines &nbsp;(Total @order.QuantityTotal Items)</div>
+                                                    <div class="col-12     col-sm-2">
+                                                        <div class="row">
+                                                            <div class="col-12" style="text-wrap-mode:nowrap;">Order #@order.ID &nbsp;</div>
+                                                            <div class="col-12"><b>@order.OrderStatus</b></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12     col-sm-3">
+                                                        @order.OrderedProducts.Count Lines &nbsp;(Total @order.QuantityTotal Items)
+                                                    </div>
                                                     <div class="col-12     col-sm-2">$ @order.PriceTotal</div>
                                                     <div class="col-12     col-sm-5">@order.ItemString</div>
                                                 </div>
