@@ -18,6 +18,12 @@ textarea {
     margin-right: 15px; margin-left:15px;
 }*/
 
+/* ======================================================== */
+/* ============ xs BREAKPOINT is default ================== */
+/* ======================================================== */
+/* xs */
+/* Extra small devices (portrait phones, less than 576px) */
+/* No media query for `xs` since this is the default in Bootstrap */
 #AdminEditProductValidationSummary {
     display: flex;
     justify-content: center;
@@ -274,7 +280,11 @@ input.mgAjaxText {
 }
 
 /* ================================================= */
-@media (min-width: 580px) {
+/* ========= OTHER BREAKPOINTS BELOW HERE ========== */
+/* ================================================= */
+/* sm */
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
     #ajaxErr {
         display:inline-block;
     }
@@ -297,8 +307,7 @@ input.mgAjaxText {
         padding-top: 9px;
         text-align: center;
     }
-
-    /* -------------------------------------------------*/
+    /* --------------------*/
     #mgProductEditSubmit .form-group {
         flex-direction: row;
     }
@@ -308,13 +317,13 @@ input.mgAjaxText {
         margin-bottom: unset;
     }
 }
-/* -------------------------------------------------*/
+/* ------------ CUSTOM STYLE sm+1 -----------------*/
 @media (min-width: 650px) {
     .mgOrderDetailStyle {
         font-size: 14px;
     }
 }
-/* -------------------------------------------------*/
+/* ------------ CUSTOM STYLE sm+2 -----------------*/
 @media (min-width: 710px) {
     .mgProductEdit {
         /*border: 4px dashed lavender;*/
@@ -327,8 +336,10 @@ input.mgAjaxText {
         max-width: 375px;
     }
 }
-/* -------------------------------------------------*/
-@media (min-width: 730px) {
+/* ----------------------------------------------------*/
+/* md */
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px){
     .mgOrderDetailStyle {
         font-size: 15px;
     }
@@ -348,3 +359,10 @@ input.mgAjaxText {
         font-size: 16px;
     }
 }
+/* ----------------------------------------------------*/
+/* lg */
+/* Large devices (desktops, 992px and up) */
+/* ----------------------------------------------------*/
+/* xl */
+/* Extra large devices (large desktops, 1200px and up) */
+/* ----------------------------------------------------*/
