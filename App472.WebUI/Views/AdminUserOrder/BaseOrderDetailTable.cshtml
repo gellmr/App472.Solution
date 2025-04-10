@@ -3,164 +3,181 @@
 
 @{
     var useDisabled = (Model.OrderStatus == ShippingState.Shipped || Model.OrderStatus == ShippingState.Received);
-    var qtyInputDisabled = useDisabled? "disabled='disabled'" : "";
+    var qtyInputDisabled = useDisabled ? "disabled='disabled'" : "";
 }
 
-<div class="card">
-    <div class="card-body adminBaseOrderDetail mgOrderDetailStyle">
+<div class="container-fluid">
+    <div class="row">
+        @* xs|sm|md Hidden.   lg:Take2/12 of screen. Show an empty strip down LHS of screen. *@
+        <div class="d-none d-lg-block col-lg-2 mg-store-lhs-rhs-bar"></div>
 
-        <h5>Showing Order Details</h5>
-        <div>
-            @if (Model.BCNavTrail != null)
-            {
-                @Html.Partial("~/Views/Shared/_BreadCrumb.cshtml", Model.BCNavTrail)
-            }
-        </div>
+        @* xs|sm|md:Take whole width.  lg|xl:Take8/12 of screen. *@
+        <div class="col-12 d-block     col-lg-8     adminBaseOrderDetail mgOrderDetailStyle">
+            <h5>Showing Order Details</h5>
+            <div>
+                @if (Model.BCNavTrail != null)
+                {
+                    @Html.Partial("~/Views/Shared/_BreadCrumb.cshtml", Model.BCNavTrail)
+                }
+            </div>
 
-        <table class="table table-striped table-sm adminBaseOrderDetail detailHead">
-            <tbody>
-                <tr>
-                    <td><i class="bi bi-flag"></i></td>
-                    <td>Order Status:</td>
-                    <td>
-                        <div class="btn-group" id="mgReadyShip" style="width:140px;">
-                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                                @Model.OrderStatus
-                            </button>
-                            <div class="dropdown-menu">
-                                @{var counter = 0;}
-                                @foreach (ShippingState shipState in Enum.GetValues(typeof(ShippingState)))
-                                {
-                                    var active = (Model.OrderStatus == shipState) ? "active" : "";
-                                    <a class="dropdown-item @active" href="#" data-statuscode="@counter">@shipState</a>
-                                    counter = counter + 1;
-                                }
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><i class="bi bi-calendar3-event"></i></td>
-                    <td>Date Created:</td>
-                    <td>@Model.OrderPlacedDate</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><i class="bi bi-credit-card"></i></td>
-                    <td>Billing Address:</td>
-                    <td>
-                        @if(useDisabled){
-                            @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", @disabled = "disabled" })
-                        }else{
-                            @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control" })
-                        }
-                    </td>
-                </tr>
-                <tr>
-                    <td><i class="bi bi-truck"></i></td>
-                    <td>Shipping Address:</td>
-                    <td>
-                        @if(useDisabled){
-                            @Html.TextBoxFor(m => m.ShippingAddress, new { @class = "form-control", @disabled = "disabled" })
-                        }else{
-                            @Html.TextBoxFor(m => m.ShippingAddress, new { @class = "form-control" })
-                        }
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <h5>Payments</h5>
-        @{decimal? paymentSum = 0M;}
-        <div class="table-responsive-xl" id="mgPaymentsListing">
-        <table>
-            <thead></thead>
-            <tbody>
-                @foreach (OrderPayment payment in Model.OrderPayments){
+            <table class="table table-striped table-sm adminBaseOrderDetail detailHead">
+                <tbody>
                     <tr>
-                        <td style="text-align:right; min-width:102px;">$@payment.Amount</td>
-                        <td style="color:lightgray;">
-                            <span class="d-inline-block text-truncate" style="font-size:13px; margin-top:6px;">
-                                &nbsp;@payment.Date
-                            </span>
+                        <td><i class="bi bi-flag"></i></td>
+                        <td>Order Status:</td>
+                        <td>
+                            <div class="btn-group" id="mgReadyShip" style="width:140px;">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                    @Model.OrderStatus
+                                </button>
+                                <div class="dropdown-menu">
+                                    @{var counter = 0;}
+                                    @foreach (ShippingState shipState in Enum.GetValues(typeof(ShippingState)))
+                                    {
+                                        var active = (Model.OrderStatus == shipState) ? "active" : "";
+                                        <a class="dropdown-item @active" href="#" data-statuscode="@counter">@shipState</a>
+                                        counter = counter + 1;
+                                    }
+                                </div>
+                            </div>
                         </td>
                     </tr>
-                    paymentSum += payment.Amount;
-                }
-                @if(Model.OrderPayments.Count == 0){
                     <tr>
-                        <td style="padding-bottom: 10px;">(None)</td>
+                        <td><i class="bi bi-calendar3-event"></i></td>
+                        <td>Date Created:</td>
+                        <td>@Model.OrderPlacedDate</td>
                         <td></td>
                     </tr>
-                }
-            </tbody>
-        </table>
-        </div>
-        @if(Model.OrderPayments.Count != 0){
-            var outstanding = Model.TotalCost-paymentSum;
-            <hr style="margin-bottom:10px;margin-top:5px;" />
-            <h6>Total: $@paymentSum</h6>
-            <h6 style="font-weight:unset;">Outstanding: $@outstanding</h6>
-        }
-
-        <div class="table-responsive-xl">
-        <table class="table table-striped adminBaseOrderDetail detailBody" data-OrderID="@Model.OrderID">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">ProductID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Unit Price</th>
-
-                    <th scope="col" class="text-right">Quantity</th>
-
-                    <th scope="col" class="text-right">Cost</th>
-                    <th scope="col">Category</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int sumQuantity = 0;
-                }
-                @foreach (OrderedProduct prod in Model.OrderedProducts)
-                {
-                    int quantity = prod.Quantity;
-                    sumQuantity += quantity;
-                    decimal cost = prod.InStockProduct.Price * quantity;
-                    <tr data-ProductID="@prod.InStockProduct.ID">
-
-                        <td scope="row" class="text-left isProductID">@prod.InStockProduct.ID</td>
-
-                        <td scope="row" class="text-left isProductName">
-                            <a href="@Url.Action("Edit", "AdminProducts", new{ID = @prod.InStockProduct.ID })">@prod.InStockProduct.Name</a>
+                    <tr>
+                        <td><i class="bi bi-credit-card"></i></td>
+                        <td>Billing Address:</td>
+                        <td>
+                            @if (useDisabled)
+                            {
+                                @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control", @disabled = "disabled" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control" })
+                            }
                         </td>
-
-                        <td scope="row" class="text-left isUnitPrice">
-                            <a href="@Url.Action("Edit", "AdminProducts", new{ID = @prod.InStockProduct.ID })">@prod.InStockProduct.Price</a>
-                        </td>
-
-                        <td scope="row" class="text-right isQuantity"><input class="mgAjaxText" type="text" value="@quantity" @qtyInputDisabled /></td>
-
-                        <td scope="row" class="text-right isCost">@cost</td>
-
-                        <td scope="row" class="text-left isCategory">@prod.InStockProduct.Category</td>
-
-                        <td><button type="button" @qtyInputDisabled class="btn btn-sm btn-light mgDeleteX"><i class="bi bi-x-lg"></i></button></td>
                     </tr>
-                }
-                <tr style="margin-top:20px;">
-                    <td scope="row" class="text-left"><strong>Total:</strong></td>
-                    <td scope="row" class="text-left"></td>
-                    <td scope="row" class="text-left"></td>
+                    <tr>
+                        <td><i class="bi bi-truck"></i></td>
+                        <td>Shipping Address:</td>
+                        <td>
+                            @if (useDisabled)
+                            {
+                                @Html.TextBoxFor(m => m.ShippingAddress, new { @class = "form-control", @disabled = "disabled" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.ShippingAddress, new { @class = "form-control" })
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-                    <td scope="row" class="text-right" id="detailTotalQuantity">@sumQuantity</td>
+            <h5>Payments</h5>
+            @{decimal? paymentSum = 0M;}
+            <div class="table-responsive-xl" id="mgPaymentsListing">
+                <table>
+                    <thead></thead>
+                    <tbody>
+                        @foreach (OrderPayment payment in Model.OrderPayments)
+                        {
+                            <tr>
+                                <td style="text-align:right; min-width:102px;">$@payment.Amount</td>
+                                <td style="color:lightgray;">
+                                    <span class="d-inline-block text-truncate" style="font-size:13px; margin-top:6px;">
+                                        &nbsp;@payment.Date
+                                    </span>
+                                </td>
+                            </tr>
+                            paymentSum += payment.Amount;
+                        }
+                        @if (Model.OrderPayments.Count == 0)
+                        {
+                            <tr>
+                                <td style="padding-bottom: 10px;">(None)</td>
+                                <td></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @if (Model.OrderPayments.Count != 0)
+            {
+                var outstanding = Model.TotalCost - paymentSum;
+                <hr style="margin-bottom:10px;margin-top:5px;" />
+                <h6>Total: $@paymentSum</h6>
+                <h6 style="font-weight:unset;">Outstanding: $@outstanding</h6>
+            }
 
-                    <td scope="row" class="text-right" id="detailTotalCost">$@Model.TotalCost</td>
-                    <td scope="row" class="text-left"></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
+            <div class="table-responsive-xl">
+                <table class="table table-striped adminBaseOrderDetail detailBody" data-OrderID="@Model.OrderID">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">ProductID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Unit Price</th>
+
+                            <th scope="col" class="text-right">Quantity</th>
+
+                            <th scope="col" class="text-right">Cost</th>
+                            <th scope="col">Category</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sumQuantity = 0;
+                        }
+                        @foreach (OrderedProduct prod in Model.OrderedProducts)
+                        {
+                            int quantity = prod.Quantity;
+                            sumQuantity += quantity;
+                            decimal cost = prod.InStockProduct.Price * quantity;
+                            <tr data-ProductID="@prod.InStockProduct.ID">
+
+                                <td scope="row" class="text-left isProductID">@prod.InStockProduct.ID</td>
+
+                                <td scope="row" class="text-left isProductName">
+                                    <a href="@Url.Action("Edit", "AdminProducts", new{ID = @prod.InStockProduct.ID })">@prod.InStockProduct.Name</a>
+                                </td>
+
+                                <td scope="row" class="text-left isUnitPrice">
+                                    <a href="@Url.Action("Edit", "AdminProducts", new{ID = @prod.InStockProduct.ID })">@prod.InStockProduct.Price</a>
+                                </td>
+
+                                <td scope="row" class="text-right isQuantity"><input class="mgAjaxText" type="text" value="@quantity" @qtyInputDisabled /></td>
+
+                                <td scope="row" class="text-right isCost">@cost</td>
+
+                                <td scope="row" class="text-left isCategory">@prod.InStockProduct.Category</td>
+
+                                <td><button type="button" @qtyInputDisabled class="btn btn-sm btn-light mgDeleteX"><i class="bi bi-x-lg"></i></button></td>
+                            </tr>
+                        }
+                        <tr style="margin-top:20px;">
+                            <td scope="row" class="text-left"><strong>Total:</strong></td>
+                            <td scope="row" class="text-left"></td>
+                            <td scope="row" class="text-left"></td>
+
+                            <td scope="row" class="text-right" id="detailTotalQuantity">@sumQuantity</td>
+
+                            <td scope="row" class="text-right" id="detailTotalCost">$@Model.TotalCost</td>
+                            <td scope="row" class="text-left"></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+        @* xs|sm|md Hidden.   lg:Take2/12 of screen. Show an empty strip down RHS of screen. *@
+        <div class="d-none d-lg-block col-lg-2 mg-store-lhs-rhs-bar"></div>
     </div>
 </div>
