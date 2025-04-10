@@ -236,6 +236,9 @@ h5.mgAdminTableContainer {
 .mgCartTableStyle{
     font-size:11px;
 }
+.mgCartTableStyle input.btn{
+    font-size: 11px;
+}
 /* -------------------------------------------------*/
 .disabled {
     background-color: #e5e5e5;
