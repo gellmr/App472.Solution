@@ -51,6 +51,9 @@ namespace App472.WebUI.Infrastructure
         public const string LineErr = "Please use alphanumeric, spaces, dashes, 1-80 characters";
         public const string Line = @"^[A-Za-z0-9\s\-]{1,80}$";
 
+        public const string ZipErr = "Please provide a Postcode like 6107. (4 characters)";
+        public const string Zip = @"^[0-9]{4}$";
+
         // This email regex uses PCRE format. Adapted from a php site I built.
         public const string EmailErr = "Please provide a valid email address";
         public const string Email = @"^[a-zA-Z0-9\.\-]+@[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?){0,4}$";
@@ -145,6 +148,16 @@ namespace App472.WebUI.Infrastructure
             return (
                 MyExtensions.ValidateString(shipping.FirstName, OkInputs.Name) &&
                 MyExtensions.ValidateString(shipping.LastName, OkInputs.Name) &&
+
+                MyExtensions.ValidateString(shipping.Line1, OkInputs.Line) &&
+                MyExtensions.ValidateString(shipping.Line2, OkInputs.Line) &&
+                MyExtensions.ValidateString(shipping.Line3, OkInputs.Line) &&
+
+                MyExtensions.ValidateString(shipping.City, OkInputs.Name) &&
+                MyExtensions.ValidateString(shipping.State, OkInputs.Name) &&
+                MyExtensions.ValidateString(shipping.Country, OkInputs.Name) &&
+
+                MyExtensions.ValidateString(shipping.Zip, OkInputs.Zip) &&
                 MyExtensions.ValidateString(shipping.Email, OkInputs.Email)
             );
         }
