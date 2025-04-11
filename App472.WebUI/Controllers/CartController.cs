@@ -66,7 +66,26 @@ namespace App472.WebUI.Controllers
         }
 
         /*
-         * Test this action from browser console with the following ajax call.
+         * I read somewhere that model binders are only used for x-www-url-formencoded payloads.
+         * Does that mean its possible to bypass the Cart model binder using an ajax request with
+         * carefully constructed post vars, to populate the Cart argument in my controller action?
+         * Steps to attempt this - (Not working yet) First add 2 Soccer Ball items to your cart and
+         * then while still on the Cart/Index page, make the following ajax call using
+         * your browser console. If its possible then this would bypass Model Binding
+         * and would be a security risk. Then I would need regex validation on all the
+         * post vars which make up a Cart object.
+         * 
+         $.ajax( {url: "/Cart/Index", type: 'POST', data: {
+            "Cart.Lines[0].Quantity": "3",
+            "Cart.Lines[0].InStockProduct.Category": "Soccer",
+            "Cart.Lines[0].InStockProduct.Description": "FIFA approved size and weight.",
+            "Cart.Lines[0].InStockProduct.ID": "11",
+            "Cart.Lines[0].InStockProduct.Name": "Soccer Ball",
+            "Cart.Lines[0].InStockProduct.Price": "35.00",
+            returnUrl:"/Water%20Sports"
+         }});
+         
+         Below is an ajax call to test the returnUrl parameter.
          $.ajax( {url: "/Cart/Index", type: 'GET', data: {returnUrl: "/Water%20Sports"} });
          */
         public ActionResult Index(Cart cart, string returnUrl)
