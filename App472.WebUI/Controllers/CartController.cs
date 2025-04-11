@@ -82,9 +82,13 @@ namespace App472.WebUI.Controllers
          */
         public PartialViewResult Summary(Cart cart, string requestPath) // called from NavBarContent to load a page fragment. cart is automatically pulled from the session.
         {
+            // Here we only check if requestPath exactly equals /Cart/Index, to set the text in our Cart|Checkout button.
+            // Any other value (including dangerous string) we dont care about.
+
             // The "Cart" button text changes to "Checkout" when you are on cart page, to advance you forward.
             // On the checkout page it says "Cart" to take you back.
             string backText = (requestPath == "/Cart/Index") ? "Checkout" : "Cart";
+
             return PartialView(new CheckoutButtonViewModel { Cart = cart, CheckoutButtonBackText = backText }); // render Summary.cshtml within NavBarContent
         }
 
