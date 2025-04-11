@@ -41,8 +41,10 @@ namespace App472.WebUI.Controllers
             if ( product != null) {
                 cart.AddItem(product, 1);
             }
-            // pass returnUrl to the cart index page - this tells the Continue Shopping button to take us
-            // back to the page and category we were on.
+            // Include returnUrl in our route values so that returnUrl will be populated
+            // in the controller action that we're going to, when the redirect happens.
+            // The Cart Index page needs the returnUrl so the Continue Shopping button will take
+            // us back to the page and category we were on when we added the product to cart.
             var routeValues = new { returnUrl };
             return RedirectToAction("Index", routeValues);
         }
