@@ -26,7 +26,16 @@ namespace App472.WebUI.Controllers
             orderRepo = orepo;
             guestRepo = grepo;
         }
-        public RedirectToRouteResult AddToCart(Cart cart, int inStockProductId, string returnUrl){
+
+        /*
+         * Test this action from browser console with the following ajax call.
+         $.ajax( {url: "/Cart/AddToCart", type: 'POST', data: {inStockProductId:2, returnUrl:"/Water%20Sports"} });
+         */
+        public ActionResult AddToCart(Cart cart, int inStockProductId, string returnUrl)
+        {
+            if (!MyExtensions.ValidateReturnUrl(returnUrl)){
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
+            }
             InStockProduct product = repository.InStockProducts
                 .FirstOrDefault(p => p.ID == inStockProductId);
             if ( product != null) {
@@ -35,7 +44,15 @@ namespace App472.WebUI.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToRouteResult RemoveFromCart(Cart cart, int inStockProductId, string returnUrl){
+        /*
+         * Test this action from browser console with the following ajax call.
+         $.ajax( {url: "/Cart/RemoveFromCart", type: 'POST', data: {inStockProductId:2, returnUrl:"/Water%20Sports"} });
+         */
+        public ActionResult RemoveFromCart(Cart cart, int inStockProductId, string returnUrl)
+        {
+            if (!MyExtensions.ValidateReturnUrl(returnUrl)){
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
+            }
             InStockProduct product = repository.InStockProducts.FirstOrDefault(p => p.ID == inStockProductId);
             if(product != null){
                 cart.RemoveLine(product);
