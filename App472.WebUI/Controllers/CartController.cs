@@ -41,7 +41,9 @@ namespace App472.WebUI.Controllers
             if ( product != null) {
                 cart.AddItem(product, 1);
             }
-            return RedirectToAction("Index", new { returnUrl });
+            // pass returnUrl to the cart index page - this tells the Continue Shopping button to take us
+            // back to the page and category we were on.
+            return RedirectToAction("Index", new { returnUrl }); 
         }
 
         /*
