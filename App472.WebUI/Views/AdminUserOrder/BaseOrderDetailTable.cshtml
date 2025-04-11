@@ -87,10 +87,10 @@
                     <div class="col-9 col-sm-10 col-md-11" style="color:lightgray;">@payment.Date</div>
                 </div>
                 paymentSum += payment.Amount;
-                if (Model.OrderPayments.Count == 0)
-                {
-                    <span>(None)</span>
-                }
+            }
+            @if (Model.OrderPayments.Count == 0)
+            {
+                <span>(None)</span>
             }
             @if (Model.OrderPayments.Count != 0)
             {
