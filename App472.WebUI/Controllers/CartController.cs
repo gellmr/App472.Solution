@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using App472.WebUI.Infrastructure;
 using App472.WebUI.Domain.Abstract;
 using App472.WebUI.Domain.Entities;
+using System.Net;
 
 namespace App472.WebUI.Controllers
 {
@@ -48,6 +49,10 @@ namespace App472.WebUI.Controllers
          */
         public ActionResult Index(Cart cart, string returnUrl)
         {
+            // allow alphanumeric, right slash, space, dash, percent sign, 1-80 characters
+            if (!MyExtensions.ValidateString(returnUrl, "^[A-Za-z0-9\\/\\s\\-\\%]{1,80}$")){
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
+            }
             return View(new CartIndexViewModel{
                 Cart = cart,
                 ReturnUrl = returnUrl
