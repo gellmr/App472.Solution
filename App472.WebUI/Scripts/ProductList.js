@@ -52,7 +52,11 @@
                 var ct = $(event.target);
                 console.log("SearchProducts " + ct.val());
                 var searchString = ct.val(); // "soccer ball"
-                var searchString = (searchString)  ? ("search=" + encodeURIComponent(searchString)) : ""; // search=soccer ball
+                var debug = false;
+                if (!debug) {
+                    searchString = encodeURIComponent(searchString);
+                }
+                var searchString = (searchString) ? ("search=" + searchString) : ""; // search=soccer ball
                 var clearStr     = (clear == true) ? ("clear=true") : "";
                 var amp = (searchString) && (clearStr) ? "&" : ""; // null and empty string are both falsey values in javascript.
 
