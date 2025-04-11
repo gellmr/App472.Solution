@@ -43,7 +43,8 @@ namespace App472.WebUI.Controllers
             }
             // pass returnUrl to the cart index page - this tells the Continue Shopping button to take us
             // back to the page and category we were on.
-            return RedirectToAction("Index", new { returnUrl }); 
+            var routeValues = new { returnUrl };
+            return RedirectToAction("Index", routeValues);
         }
 
         /*
