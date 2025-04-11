@@ -37,10 +37,26 @@ namespace App472.WebUI.Infrastructure
         ;}}
     }
     
-    public static class OkInputs{
-        public static string Name{ get { return // alphanumeric, space, dash. 1-30 characters
-            "^[A-Za-z0-9\\s\\-]{1,30}$"
-        ;}}
+    //public static class OkInputs{
+    //    public static string Name{ get { return // alphanumeric, space, dash. 1-30 characters
+    //        "^[A-Za-z0-9\\s\\-]{1,30}$"
+    //    ;}}
+    //}
+
+    public static class OkInputs
+    {
+        public const string NameErr = "Please use alphanumeric, spaces, dashes, 1-30 characters";
+        public const string Name = @"^[A-Za-z0-9\s\-]{1,30}$";
+
+        public const string LineErr = "Please use alphanumeric, spaces, dashes, 1-80 characters";
+        public const string Line = @"^[A-Za-z0-9\s\-]{1,80}$";
+
+        // This email regex uses PCRE format. Adapted from a php site I built.
+        public const string EmailErr = "Please provide a valid email address";
+        public const string Email = @"^[a-zA-Z0-9\.\-]+@[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?){0,4}$";
+        //                              ^              ^ ^                                                ^ dot is part of the final capture group, which can occur 0-4 times.
+        //                              Mike22.aAA-ZZ  @ My123         My123-             My123           . My123         My123-             My123
+        //                              something      @ something     dashes allowed in middle something . something dashes allowed in middle somthing (can have 4 x .com.com.com.com)
     }
 
     public static class MyExtensions
@@ -128,7 +144,8 @@ namespace App472.WebUI.Infrastructure
         {
             return (
                 MyExtensions.ValidateString(shipping.FirstName, OkInputs.Name) &&
-                MyExtensions.ValidateString(shipping.LastName, OkInputs.Name)
+                MyExtensions.ValidateString(shipping.LastName, OkInputs.Name) &&
+                MyExtensions.ValidateString(shipping.Email, OkInputs.Email)
             );
         }
     }
