@@ -49,8 +49,16 @@ namespace App472.WebUI.Controllers
          */
         public ActionResult Index(Cart cart, string returnUrl)
         {
-            // allow alphanumeric, right slash, space, dash, percent sign, 1-80 characters
-            if (!MyExtensions.ValidateString(returnUrl, "^[A-Za-z0-9\\/\\s\\-\\%]{1,80}$")){
+            if ( !(
+                // allow alphanumeric, right slash, space, dash, percent sign, 1-80 characters
+                MyExtensions.ValidateString(returnUrl, "^[A-Za-z0-9\\/\\s\\-\\%]{1,80}$") &&
+                // whitelist:
+                MyExtensions.ValidateString(returnUrl, "^\\/$") ||
+                MyExtensions.ValidateString(returnUrl, "^\\/Chess$") ||
+                MyExtensions.ValidateString(returnUrl, "^\\/Soccer$") ||
+                MyExtensions.ValidateString(returnUrl, "^\\/Water\\%20Sports$")
+            ))
+            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
             }
             return View(new CartIndexViewModel{
