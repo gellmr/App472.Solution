@@ -75,8 +75,15 @@ namespace App472.WebUI.Controllers
             });
         }
 
+        /*
+         * Test this action from browser console with the following ajax call.
+         $.ajax( {url: "/Cart/Summary", type: 'GET', data: {requestPath: "/Cart/Index"} });
+         $.ajax( {url: "/Cart/Summary", type: 'GET', data: {requestPath: "/Cart/Checkout"} });
+         */
         public PartialViewResult Summary(Cart cart, string requestPath) // called from NavBarContent to load a page fragment. cart is automatically pulled from the session.
         {
+            // The "Cart" button text changes to "Checkout" when you are on cart page, to advance you forward.
+            // On the checkout page it says "Cart" to take you back.
             string backText = (requestPath == "/Cart/Index") ? "Checkout" : "Cart";
             return PartialView(new CheckoutButtonViewModel { Cart = cart, CheckoutButtonBackText = backText }); // render Summary.cshtml within NavBarContent
         }
