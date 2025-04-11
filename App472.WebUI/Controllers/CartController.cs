@@ -41,8 +41,12 @@ namespace App472.WebUI.Controllers
             }
             return RedirectToAction("Index", new { returnUrl });
         }
-        
-        public ViewResult Index(Cart cart, string returnUrl)
+
+        /*
+         * Test this action from browser console with the following ajax call.
+         $.ajax( {url: "/Cart/Index", type: 'GET', data: {returnUrl: "/Water%20Sports"} });
+         */
+        public ActionResult Index(Cart cart, string returnUrl)
         {
             return View(new CartIndexViewModel{
                 Cart = cart,
