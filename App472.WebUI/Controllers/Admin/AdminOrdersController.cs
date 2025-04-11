@@ -40,8 +40,8 @@ namespace App472.WebUI.Controllers
             // Ensure query parameters are validated against strict regex
             // Allow alphabetical strings 5-15 chars long, or null/empty string.
             if(
-                !ValidateString(SortBy, "^[A-Za-z]{5,15}$") ||
-                !ValidateString(Recent, "^[A-Za-z]{5,15}$")
+                !MyExtensions.ValidateString(SortBy, "^[A-Za-z]{5,15}$") ||
+                !MyExtensions.ValidateString(Recent, "^[A-Za-z]{5,15}$")
             ){
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
             }

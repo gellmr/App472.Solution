@@ -84,22 +84,5 @@ namespace App472.WebUI.Controllers
         }
 
         //-------------------------------------------------------------------------------
-
-        // Validate the given string against a regex, using .NET PCRE
-        // We are only looking for malicious input.
-        // Null or empty strings are valid.
-        protected bool ValidateString(string input, string validationPattern)
-        {
-            if (!string.IsNullOrEmpty(input))
-            {
-                var regex = new PcreRegex(validationPattern);
-                bool isValid = regex.IsMatch(input);
-                if (!isValid)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
     }
 }

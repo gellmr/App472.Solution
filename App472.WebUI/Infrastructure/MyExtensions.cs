@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PCRE;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -37,6 +38,24 @@ namespace App472.WebUI.Infrastructure
                 }
             }
             return errors;
+        }
+
+        // Extend string class with a validation method that checks the given string against a given regex.
+        //   Validate the given string against a regex, using .NET PCRE
+        //   We are only looking for malicious input.
+        //   Null or empty strings are valid.
+        public static bool ValidateString(this string input, string validationPattern)
+        {
+            if (!string.IsNullOrEmpty(input))
+            {
+                var regex = new PcreRegex(validationPattern);
+                bool isValid = regex.IsMatch(input);
+                if (!isValid)
+                {
+                    return false;
+                }
+            }
+            return true; // empty string is ok. (not an attack. null is also ok)
         }
     }
 }

@@ -74,7 +74,7 @@ namespace App472.WebUI.Controllers
                 // Validate the search string...
 
                 // Search string: only allow alphanumeric, space, dash, up to 40 characters
-                if (!ValidateString(search, "^[A-Za-z0-9\\s\\-]{0,40}$")){
+                if (!MyExtensions.ValidateString(search, "^[A-Za-z0-9\\s\\-]{0,40}$")){
                     SessUser.Search = null; // clear the search string from session
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
                 }

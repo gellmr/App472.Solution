@@ -66,10 +66,22 @@
     // If we navigate from the checkout shipping page, BACK to the cart index page... then we want `back to shopping` button to take us to "/" (the shopping index page)
     // The `continue shopping` button should NOT take us forward in the checkout process.
     string desiredReturnUrl = Model.ReturnUrl;
-    string referrer = Request.UrlReferrer.AbsolutePath;
-    string backLink = (referrer == "/Cart/Checkout" || string.IsNullOrEmpty(desiredReturnUrl)) ? "/" : desiredReturnUrl;
+    string referrer = Request.UrlReferrer.AbsolutePath; // eg / | /Chess | /Soccer | /Water%20Sports | /Cart/Checkout
+
+    // If we navigated from Checkout to Cart/Index, then Back to Shopping should take us to /
+    // If we navigated from Shopping to Cart/Index, then Back to Shopping should take us to Referrer
+    string backLink;
+    if (referrer == "/Cart/Checkout" || string.IsNullOrEmpty(desiredReturnUrl)) // if we came here from the checkout, or there is no return url argument
+    {
+        backLink = "/"; // back to shopping - take us to root
+    }
+    else
+    {
+        backLink = desiredReturnUrl; // back to shopping - take us to the given return url. Eg /Soccer
+    }
+    var a = 1;
 }
 <div class="text-center" style="margin-bottom:0px; padding-top:6px;">
     <a class="btn btn-primary" href="@backLink" style="min-width:185px; margin-bottom: 6px; "><i class="bi bi-arrow-left-circle"></i> Continue Shopping</a>
-    <a class="btn btn-primary" style="min-width:185px; margin-bottom: 6px;" href="@Url.Action("Checkout", "Cart", new { returnUrl = Request.Url.PathAndQuery })"><i class="bi bi-cart-fill"></i> Checkout now</a>
+    <a class="btn btn-primary" style="min-width:185px; margin-bottom: 6px;" href="@Url.Action("Checkout", "Cart", new { returnUrl = Request.Path })"><i class="bi bi-cart-fill"></i> Checkout now</a>
 </div>
