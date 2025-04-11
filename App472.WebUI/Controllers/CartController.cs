@@ -100,8 +100,12 @@ namespace App472.WebUI.Controllers
         }
 
         [HttpPost]
-        public ViewResult Checkout(Cart cart, CheckoutIndexViewModel viewModel)
+        public ActionResult Checkout(Cart cart, CheckoutIndexViewModel viewModel)
         {
+            if (!MyExtensions.ValidateShippingDetails(viewModel.ShippingDetails)){
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
+            }
+
             if(cart.Lines.Count() == 0){
                 ModelState.AddModelError("", "Sorry, your cart is empty!");
             }

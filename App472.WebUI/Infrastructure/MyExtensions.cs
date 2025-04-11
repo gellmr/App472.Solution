@@ -1,4 +1,5 @@
-﻿using PCRE;
+﻿using App472.WebUI.Domain.Entities;
+using PCRE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,12 @@ namespace App472.WebUI.Infrastructure
         public static string CartCheckout{ get { return
             //"^\\/Cart\\/Checkout$"
             "^\\/Cart\\/Checkout(\\/page[\\d]{1,3})?$"
+        ;}}
+    }
+    
+    public static class OkInputs{
+        public static string Name{ get { return // alphanumeric, space, dash. 1-30 characters
+            "^[A-Za-z0-9\\s\\-]{1,30}$"
         ;}}
     }
 
@@ -114,6 +121,14 @@ namespace App472.WebUI.Infrastructure
                 MyExtensions.ValidateString(returnUrl, OkUrls.ReturnUrl)
                 &&
                 MyExtensions.ValidateStringAgainst(returnUrl, Whitelist.URLs)
+            );
+        }
+
+        public static bool ValidateShippingDetails(this ShippingDetails shipping)
+        {
+            return (
+                MyExtensions.ValidateString(shipping.FirstName, OkInputs.Name) &&
+                MyExtensions.ValidateString(shipping.LastName, OkInputs.Name)
             );
         }
     }
