@@ -16,6 +16,6 @@
 
     <div class="float-right" style="display:inline-block; width:114px;">
         @{ string actionName = (Model.CheckoutButtonBackText == "Cart") ? "Index" : "Checkout"; }
-        <a class="btn btn-success" style="width:100%;" href="@Url.Action(actionName, "Cart", new { returnUrl = Request.Url.PathAndQuery })"><i class="bi bi-cart4"></i> @Model.CheckoutButtonBackText</a>
+        <a class="btn btn-success" style="width:100%;" href="@Url.Action(actionName, "Cart", new { })"><i class="bi bi-cart4"></i> @Model.CheckoutButtonBackText</a>
     </div>
 </div>
