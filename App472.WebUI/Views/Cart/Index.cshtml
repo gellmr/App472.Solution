@@ -34,8 +34,15 @@
                     <td>
                         @using (Html.BeginForm("RemoveFromCart", "Cart"))
                         {
-                            @Html.Hidden("inStockProductId", line.InStockProduct.ID)
-                            @Html.HiddenFor(x => x.ReturnUrl)
+                            var myId = line.InStockProduct.ID + "_ReturnUrl"; // eg "2_ReturnUrl"
+                            var retUrl = Model.ReturnUrl; // already coming through as "/Water%20Sports" ...this prints as "/Water%20Sports"
+
+                            // Here because ID is already an int, its safe to print line.InStockProduct.ID straight to page.
+                            @Html.Hidden("inStockProductId", line.InStockProduct.ID, new{})
+
+                            // Here if we pass retUrl="/Water Sports" ...The framework will print it to the page as "/Water%20Sports"
+                            @Html.Hidden("ReturnUrl", retUrl, new{id=myId })
+
                             <input class="btn btn-sm btn-warning mg-warning" type="submit" value="Remove" />
                         }
                     </td>
