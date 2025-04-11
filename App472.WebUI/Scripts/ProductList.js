@@ -67,11 +67,18 @@
                     dataType: "json",
                     statusCode: {
                         200: function (jqXHR) {
+                            console.log("(success)");
                             var pageFragment = jqXHR.responseText;
                             $(".mg-renderbody").html(pageFragment);
                             page.Reset();
                         },
                         400: function (jqXHR) {
+                            console.log("400 error");
+                            page.Reset();
+                            page.searchInput.val(""); // clear the search input
+                        },
+                        500: function (jqXHR) {
+                            console.log("500 error");
                             page.Reset();
                             page.searchInput.val(""); // clear the search input
                         }
