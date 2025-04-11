@@ -57,7 +57,6 @@ namespace App472.WebUI.Controllers
         public ActionResult Index(Cart cart, string returnUrl)
         {
             if ( !(
-                
                 MyExtensions.ValidateString(returnUrl, OkUrls.ReturnUrl)
                 &&
                 MyExtensions.ValidateStringAgainst(returnUrl, Whitelist)
