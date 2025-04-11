@@ -99,6 +99,28 @@ namespace App472.WebUI.Controllers
             });
         }
 
+
+        /*
+         * Test this action by adding an item to your cart, and then go to checkout page.
+         * Execute the following ajax from your browser console.
+           $.ajax( {url: "/Cart/Checkout", type: 'POST', data: {
+
+	        "ShippingDetails.FirstName": "Luna",
+	        "ShippingDetails.LastName": "DeGras",
+
+	        "ShippingDetails.Line1": "22 Skyline Cr",
+	        "ShippingDetails.Line2": "empty line 2",
+	        "ShippingDetails.Line3": "empty line 3",
+
+	        "ShippingDetails.City": "Mirrabooka",
+	        "ShippingDetails.State": "Western Australia",
+	        "ShippingDetails.Country": "Australia",
+	        "ShippingDetails.Zip": "6061",
+
+	        "ShippingDetails.Email": "degras@thinktank.org",
+	        "ShippingDetails.GiftWrap": "true",
+        }});
+        */
         [HttpPost]
         public ActionResult Checkout(Cart cart, CheckoutIndexViewModel viewModel)
         {
