@@ -19,13 +19,6 @@ namespace App472.WebUI.Controllers
         private IOrderProcessor orderProcessor;
         private IOrdersRepository orderRepo;
         private IGuestRepository guestRepo;
-        protected List<string> Whitelist = new List<string>{
-            OkUrls.StorePage,
-            OkUrls.ChessCat,
-            OkUrls.SoccerCat,
-            OkUrls.WaterSportsCat,
-            OkUrls.CartCheckout
-        };
 
         public CartController(IProductsRepository repo, IOrderProcessor proc, IOrdersRepository orepo, IGuestRepository grepo){
             repository = repo;
@@ -56,12 +49,7 @@ namespace App472.WebUI.Controllers
          */
         public ActionResult Index(Cart cart, string returnUrl)
         {
-            if ( !(
-                MyExtensions.ValidateString(returnUrl, OkUrls.ReturnUrl)
-                &&
-                MyExtensions.ValidateStringAgainst(returnUrl, Whitelist)
-            ))
-            {
+            if (!MyExtensions.ValidateReturnUrl(returnUrl)){
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
             }
             return View(new CartIndexViewModel{

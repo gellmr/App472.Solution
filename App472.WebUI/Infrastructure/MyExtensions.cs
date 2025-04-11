@@ -81,10 +81,11 @@ namespace App472.WebUI.Infrastructure
                 bool isValid = regex.IsMatch(input);
                 if (!isValid)
                 {
-                    return false;
+                    return false; // does not match the given regex
                 }
             }
-            return true; // empty string is ok. (not an attack. null is also ok)
+            // matches the given regex -OR- input string was null or empty. (not an attack)
+            return true;
         }
 
         // Validate against a list of regex patterns.
@@ -103,6 +104,17 @@ namespace App472.WebUI.Infrastructure
                 }
             }
             return false; // none of the given regex matched the input string.
+        }
+
+        public static bool ValidateReturnUrl(this string returnUrl)
+        {
+            // return true if the given url matches our ok return url pattern,
+            // AND is on the whitelist.
+            return (
+                MyExtensions.ValidateString(returnUrl, OkUrls.ReturnUrl)
+                &&
+                MyExtensions.ValidateStringAgainst(returnUrl, Whitelist.URLs)
+            );
         }
     }
 }

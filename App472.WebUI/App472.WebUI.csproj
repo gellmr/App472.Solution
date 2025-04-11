@@ -288,6 +288,7 @@
     <Compile Include="Infrastructure\SessExtensions.cs" />
     <Compile Include="Infrastructure\TabReturnUrls.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Infrastructure\Whitelist.cs" />
     <Compile Include="Migrations\202408260632019_InitialCreate20240826_1.cs" />
     <Compile Include="Migrations\202408260632019_InitialCreate20240826_1.Designer.cs">
       <DependentUpon>202408260632019_InitialCreate20240826_1.cs</DependentUpon>
