@@ -19,6 +19,13 @@ namespace App472.WebUI.Controllers
         private IOrderProcessor orderProcessor;
         private IOrdersRepository orderRepo;
         private IGuestRepository guestRepo;
+        protected List<string> Whitelist = new List<string>{
+            OkUrls.StorePage,
+            OkUrls.ChessCat,
+            OkUrls.SoccerCat,
+            OkUrls.WaterSportsCat,
+            OkUrls.CartCheckout
+        };
 
         public CartController(IProductsRepository repo, IOrderProcessor proc, IOrdersRepository orepo, IGuestRepository grepo){
             repository = repo;
@@ -50,16 +57,10 @@ namespace App472.WebUI.Controllers
         public ActionResult Index(Cart cart, string returnUrl)
         {
             if ( !(
-                // allow alphanumeric, right slash, space, dash, percent sign, 1-80 characters
-                MyExtensions.ValidateString(returnUrl, "^[A-Za-z0-9\\/\\s\\-\\%]{1,80}$")
+                
+                MyExtensions.ValidateString(returnUrl, OkUrls.ReturnUrl)
                 &&
-                MyExtensions.ValidateStringAgainst(returnUrl, new List<string>{ // whitelist:
-                    "^\\/$", // Store page.
-                    "^\\/Chess$",
-                    "^\\/Soccer$",
-                    "^\\/Water\\%20Sports$",
-                    "^\\/Cart\\/Checkout$" // came back from Checkout to Cart
-                })
+                MyExtensions.ValidateStringAgainst(returnUrl, Whitelist)
             ))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400

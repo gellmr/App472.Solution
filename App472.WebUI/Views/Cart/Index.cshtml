@@ -66,7 +66,7 @@
     // If we navigate from the checkout shipping page, BACK to the cart index page... then we want `back to shopping` button to take us to "/" (the shopping index page)
     // The `continue shopping` button should NOT take us forward in the checkout process.
     string desiredReturnUrl = Model.ReturnUrl;
-    string referrer = Request.UrlReferrer.AbsolutePath; // eg / | /Chess | /Soccer | /Water%20Sports | /Cart/Checkout
+    string referrer = Request.UrlReferrer.AbsolutePath ?? ""; // eg / | /Chess | /Soccer | /Water%20Sports | /Cart/Checkout
 
     // If we navigated from Checkout to Cart/Index, then Back to Shopping should take us to /
     // If we navigated from Shopping to Cart/Index, then Back to Shopping should take us to Referrer

@@ -7,6 +7,35 @@ using System.Web.ModelBinding;
 
 namespace App472.WebUI.Infrastructure
 {
+    public static class OkUrls
+    {
+        // allow alphanumeric, right slash, space, dash, percent sign, 1-80 characters
+        public static string ReturnUrl{ get { return
+            "^[A-Za-z0-9\\/\\s\\-\\%]{1,80}$"
+        ;}}
+
+        public static string StorePage{ get { return
+            //"^\\/$"
+            "^\\/(page[\\d]{1,3})?$"
+        ;}}
+        public static string ChessCat{ get { return
+            //"^\\/Chess$"
+            "^\\/Chess(\\/page[\\d]{1,3})?$"
+        ;}}
+        public static string SoccerCat{ get { return
+            //"^\\/Soccer$"
+            "^\\/Soccer(\\/page[\\d]{1,3})?$"
+        ;}}
+        public static string WaterSportsCat{ get { return
+            //"^\\/Water\\%20Sports$"
+            "^\\/Water\\%20Sports(\\/page[\\d]{1,3})?$"
+        ;}}
+        public static string CartCheckout{ get { return
+            //"^\\/Cart\\/Checkout$"
+            "^\\/Cart\\/Checkout(\\/page[\\d]{1,3})?$"
+        ;}}
+    }
+
     public static class MyExtensions
     {
         // Extend string for our convenience. Eg Guid? a = mystring.ToNullableGuid()
