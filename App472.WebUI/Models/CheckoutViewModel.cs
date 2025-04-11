@@ -9,6 +9,9 @@ namespace App472.WebUI.Models
     public class CheckoutViewModel // base class, used for (Cart...Checkout...Thankyou) pages
     {
         // TODO - refactor
+        // (remove this if possible)
+        // This is only used to print cart details to a razor page.
+        // When a form is submitted the cart details are put straight into the Cart object in the session, thru model binding.
         public Cart Cart { get; set; }
     }
 
