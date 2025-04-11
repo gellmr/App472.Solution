@@ -57,5 +57,23 @@ namespace App472.WebUI.Infrastructure
             }
             return true; // empty string is ok. (not an attack. null is also ok)
         }
+
+        // Validate against a list of regex patterns.
+        // If the given input string is null or empty, all checks will pass.
+        public static bool ValidateStringAgainst(this string input, List<string> regexList)
+        {
+            if (string.IsNullOrEmpty(input)){
+                return true; // null or empty strings are ok
+            }
+            foreach(string validationPattern in regexList)
+            {
+                var regex = new PcreRegex(validationPattern);
+                bool isMatch = regex.IsMatch(input);
+                if (isMatch){
+                    return true; // found a match
+                }
+            }
+            return false; // none of the given regex matched the input string.
+        }
     }
 }

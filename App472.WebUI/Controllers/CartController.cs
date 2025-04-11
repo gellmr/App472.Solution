@@ -51,12 +51,15 @@ namespace App472.WebUI.Controllers
         {
             if ( !(
                 // allow alphanumeric, right slash, space, dash, percent sign, 1-80 characters
-                MyExtensions.ValidateString(returnUrl, "^[A-Za-z0-9\\/\\s\\-\\%]{1,80}$") &&
-                // whitelist:
-                MyExtensions.ValidateString(returnUrl, "^\\/$") ||
-                MyExtensions.ValidateString(returnUrl, "^\\/Chess$") ||
-                MyExtensions.ValidateString(returnUrl, "^\\/Soccer$") ||
-                MyExtensions.ValidateString(returnUrl, "^\\/Water\\%20Sports$")
+                MyExtensions.ValidateString(returnUrl, "^[A-Za-z0-9\\/\\s\\-\\%]{1,80}$")
+                &&
+                MyExtensions.ValidateStringAgainst(returnUrl, new List<string>{ // whitelist:
+                    "^\\/$", // Store page.
+                    "^\\/Chess$",
+                    "^\\/Soccer$",
+                    "^\\/Water\\%20Sports$",
+                    "^\\/Cart\\/Checkout$" // came back from Checkout to Cart
+                })
             ))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
