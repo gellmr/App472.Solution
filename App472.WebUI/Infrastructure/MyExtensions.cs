@@ -31,6 +31,10 @@ namespace App472.WebUI.Infrastructure
             //"^\\/Water\\%20Sports$"
             "^\\/Water\\%20Sports(\\/page[\\d]{1,3})?$"
         ;}}
+        public static string WaterSportsCat2{ get { return
+            //"^\\/Water\\sSports$"
+            "^\\/Water\\sSports(\\/page[\\d]{1,3})?$"
+        ;}}
         public static string CartCheckout{ get { return
             //"^\\/Cart\\/Checkout$"
             "^\\/Cart\\/Checkout(\\/page[\\d]{1,3})?$"

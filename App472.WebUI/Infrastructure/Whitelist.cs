@@ -12,6 +12,7 @@ namespace App472.WebUI.Infrastructure
             OkUrls.ChessCat,
             OkUrls.SoccerCat,
             OkUrls.WaterSportsCat,
+            OkUrls.WaterSportsCat2,
             OkUrls.CartCheckout
         };
     }
