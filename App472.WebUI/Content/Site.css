@@ -29,32 +29,31 @@ textarea {
 */
 
 .mg-category-menu.mg-category-menu-x {
-    background-color: red !important;
+    /*background-color: red !important;*/
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
     font-size: 11.5px;
-
-    border: 1px dashed white;
+    /*border: 1px dashed white;*/
 }
 
 .mg-category-menu.mg-category-menu-x .btn-lg {
-    background-color: brown !important;
+    /*background-color: brown !important;*/
     width: 100%;
     text-align: center;
-    border: 1px dashed grey;
+    /*border: 1px dashed grey;*/
 }
 
 @media (min-width: 370px) {
     .mg-category-menu.mg-category-menu-x {
-        background-color: orange !important;
+        /*background-color: orange !important;*/
         flex-direction: row;
         justify-content: space-between;
     }
     .mg-category-menu.mg-category-menu-x .btn-lg {
-        background-color: darkorange !important;
+        /*background-color: darkorange !important;*/
         /*max-width: 126px;*/
         /*max-width: 80px;*/
         width:unset;
@@ -70,7 +69,7 @@ textarea {
 /* No media query for `xs` since this is the default in Bootstrap */
 
 .mg-category-menu {
-    background-color: forestgreen !important;
+    /*background-color: forestgreen !important;*/
     display: flex;
     flex-direction: column;
     align-items: flex-start;
