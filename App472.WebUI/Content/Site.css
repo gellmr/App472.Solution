@@ -27,6 +27,7 @@ textarea {
     I have defined a custom breakpoint to allow xxs for mg-category-menu-x. For this style, the default is xxs.
     For all other styles the default breakpoint means xs.
 */
+
 .mg-category-menu.mg-category-menu-x {
     background-color: red !important;
     display: flex;
@@ -38,6 +39,7 @@ textarea {
 
     border: 1px dashed white;
 }
+
 .mg-category-menu.mg-category-menu-x .btn-lg {
     background-color: brown !important;
     width: 100%;
@@ -77,6 +79,7 @@ textarea {
     margin-bottom: 10px;
     font-size: 11.5px;
 }
+
 .mg-category-menu .btn-lg {
     font-size: unset;
     width: 100%;
@@ -85,10 +88,12 @@ textarea {
 }
 
 /* -------------------------------------------------*/
+
 #AdminEditProductValidationSummary {
     display: flex;
     justify-content: center;
 }
+
 #AdminEditProductValidationSummary .validation-summary-errors{
     text-align: left;
 }
@@ -98,18 +103,22 @@ textarea {
     color: gray;
     font-weight: 600;
 }
+
 .searchInput {
     /*border:1px solid red;*/
     margin-bottom: 6px;
 }
+
 .searchInput .bi-search {
     display: inline-block;
     width: 21px;
 }
+
 .searchInput input {
     display: inline-block;
     width: 180px;
 }
+
 .search-x {
     height: 35px;
     width: 35px;
@@ -141,6 +150,7 @@ textarea {
     background-color: #d2e3f1;
     border-color: #d2e3f1;
 }
+
 .mg-warning:hover {
     background-color: #bcccd9;
     border-color: #bcccd9;
@@ -158,19 +168,23 @@ textarea {
     font-size: 12px;
     height: 30px;
 }
+
 tr.mgAccTable th {
     vertical-align: top;
 }
+
 tr.mgAccTable th, tr.mgAccTable tr {
     /*text-align: center;*/
     text-align: left;
     font-size: 12px;
     white-space: nowrap;
 }
+
 th a.mg-th-link{
     text-decoration:none;
     color:white;
 }
+
 th a.mg-th-link:hover {
     color: dodgerblue;
 }
@@ -180,6 +194,7 @@ tr.mgAccTable td {
     vertical-align: middle;
     white-space: nowrap;
 }
+
 tr.mgAccTable input {
     border: none;
     /*text-align: center;*/
@@ -203,7 +218,9 @@ table.detailBody th{
     font-size: 12px;
     width: 83px;
 }
+
 /* -------------------------------------------------*/
+
 .adminLogout{
     /*border:3px dashed red;*/
 }
@@ -216,6 +233,7 @@ table.detailBody th{
     justify-content: space-between;
     width: 100%;
 }
+
 .adminLayoutNavInner {
     /*border: 3px dashed brown;*/
     width: 100%;
@@ -224,6 +242,7 @@ table.detailBody th{
     justify-content: flex-start;
     flex-wrap: wrap;
 }
+
 .adminLayoutTitle {
     /*border: 3px dashed orange;*/
     font-size: 29px;
@@ -231,12 +250,14 @@ table.detailBody th{
     width: 100%;
     max-width:184px;
 }
+
 .adminLayoutTitle h2{
     font-size: 29px;
     margin-bottom: 2px;
     padding-left: 12px;
     padding-bottom: 5px;
 }
+
 .adminLayoutPageLinks {
     /*border: 4px dashed red;*/
     margin-top: 4px;
@@ -245,6 +266,7 @@ table.detailBody th{
     flex-direction: column;
     width: 100%;
 }
+
 .adminLayoutPageLinks a.btn {
     margin-bottom: 3px;
     text-wrap-mode: nowrap;
@@ -254,10 +276,12 @@ table.detailBody th{
     font-size: 14px;
     text-align:left;
 }
+
 .adminLayoutPageLinks a.btn-dark.disabled {
     background-color: #3d4349;
     border-color: #3d4349;
 }
+
 .mgAdminTableContainer {
     margin: 15px;
     margin-top: 0px;
@@ -275,28 +299,35 @@ h5.mgAdminTableContainer {
     font-size: 12px;
     display:block;
 }
+
 .mgOrderDetailStyle{
     font-size:11px;
     /*border:3px dashed yellow;*/
 }
+
 .mgOrderDetailStyle .form-control{
     font-size:unset;
 }
+
 .mgOrderDetailStyle button{
     font-size:unset;
 }
+
 .mgCartTableStyle{
     font-size:11px;
     margin-bottom:0px;
 }
+
 .mgCartTableStyle input.btn{
     font-size: 11px;
 }
+
 /* -------------------------------------------------*/
 .disabled {
     background-color: #e5e5e5;
     color: #a4a4a4;
 }
+
 .card-body.disabled {
     background-color: #efefef !important;
 }
@@ -307,29 +338,36 @@ label.mgProductEdit {
     text-align: left;
     width:100%;
 }
+
 textarea.mgProductEdit {
     min-height: 130px;
 }
+
 input.mgAjaxText {
     max-width: 41px;
     border: 1px solid #dddddd;
     border-radius: 6px;
     text-align: right;
 }
+
 /* -------------------------------------------------*/
+
 #mgProductEditSubmit {
     display: flex;
     justify-content: center;
 }
+
 #mgProductEditSubmit .form-group {
     display: flex;
     justify-content: flex-end;
     width: 530px;
     flex-direction: column-reverse;
 }
+
 #mgProductEditSubmit a.mg-warning {
     min-width: 170px;
 }
+
 #mgProductEditSubmit input.btn-success {
     min-width: 100px;
     width:100%;
