@@ -17,7 +17,6 @@ namespace App472.WebUI.App_Start.Debug
         protected override void Seed(IDDBContext context)
         {
             context.SeedIDContext();
-            context.SeedDomainObjects();
             base.Seed(context);
         }
     }
