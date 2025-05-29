@@ -300,6 +300,7 @@ h5.mgAdminTableContainer {
 }
 
 .mgOrderDetailStyle{
+    margin-bottom:50px;
     font-size:11px;
     /*border:3px dashed yellow;*/
 }
