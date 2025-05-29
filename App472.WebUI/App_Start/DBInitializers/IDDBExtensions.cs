@@ -76,6 +76,14 @@ namespace App472.WebUI.App_Start
             }
             context.OrderedProducts.AddOrUpdate(OrderedProducts.ToArray());
 
+            // Populate OrderPayments
+            OrderPayments = new List<OrderPayment>();
+            for (int idx = 0; idx < 46; idx++)
+            {
+                SeedOrderPayments(idx.ToString());
+            }
+            context.OrderPayments.AddOrUpdate(OrderPayments.ToArray());
+
             // Populate products
             IList<InStockProduct> products = new List<InStockProduct>();
             ProductsWater.Get(ref products);
@@ -106,7 +114,9 @@ namespace App472.WebUI.App_Start
               },
               // ... more users
             },
-            "orders": {...}
+            "orders": {...},
+            "orderedproducts": [...],
+            "orderpayments": [...]
           }
         }
         */
@@ -178,7 +188,10 @@ namespace App472.WebUI.App_Start
                 "OrderStatus": "ReadyToShip"
               },
               // ... more orders
-            }
+            },
+            "orderedproducts": [...],
+            "orderpayments": [...]
+          }
         }
         */
         private static void SeedOrder(string orderID)
@@ -221,6 +234,10 @@ namespace App472.WebUI.App_Start
             return "orderedproducts:" + id + ":" + suffix;
         }
 
+        private static string OrderPaymentKey(string id, string suffix){
+            return "orderpayments:" + id + ":" + suffix;
+        }
+
         private static Nullable<DateTimeOffset> GetOrderDateTime(string input){
             try{
                 return (Nullable<DateTimeOffset>) DateTimeOffset.Parse( input );
@@ -245,7 +262,9 @@ namespace App472.WebUI.App_Start
                 "Quantity": "1"
               },
               // ...more ordered products
-            ]
+            ],
+            "orderpayments": [...]
+          }
         }
         */
         private static void SeedOrderedProduct( string idx )
@@ -261,6 +280,40 @@ namespace App472.WebUI.App_Start
 
             OrderedProducts.Add(op);
         }
+
+        /*
+        // Load our seed.json file containing Ordered Products
+        {
+          "appSettings": {
+            "users": {...},
+            "orders": {...},
+            "orderedproducts": [...],
+            "orderpayments":
+            [
+              {
+                "ID": "0",         // first payment index is zero
+                "OrderID": "2",    // the order it was paid for
+                "Amount": "250",   // the amount of this payment
+                "Date": "2025-05-28 14:20:00.0000000 +08:00"  // the date of this payment
+              },
+              // ...more order payments
+            ]
+          }
+        }
+        */
+        private static void SeedOrderPayments( string idx )
+        {
+            // The json holds an array of order payments, where the first index is zero. So idx == 0 for our first payment.
+            OrderPayment p = new OrderPayment
+            {
+                ID = (Nullable<Int32>)Int32.Parse(      ConfigurationManager.AppSettings[OrderPaymentKey(idx, "ID")]),
+                OrderID = (Nullable<Int32>)Int32.Parse( ConfigurationManager.AppSettings[OrderPaymentKey(idx, "OrderID")]),
+                Amount = Decimal.Parse(                 ConfigurationManager.AppSettings[OrderPaymentKey(idx, "Amount")]),
+                Date = DateTimeOffset.Parse(            ConfigurationManager.AppSettings[OrderPaymentKey(idx, "Date")] )
+            };
+            OrderPayments.Add(p);
+        }
+
 
         private static DateTime? GetLockoutUtcDaysFromNow(string days)
         {
