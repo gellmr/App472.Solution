@@ -109,6 +109,7 @@ namespace App472.WebUI.Domain.Entities
             OrderedProducts = new List<OrderedProduct>();
         }
 
+        [NotMapped]
         public Decimal OrderPaymentsReceived
         {
             get
@@ -122,6 +123,12 @@ namespace App472.WebUI.Domain.Entities
             }
         }
 
+        [NotMapped]
+        public Decimal Outstanding{
+            get{ return PriceTotal - OrderPaymentsReceived; }
+        }
+
+        [NotMapped]
         public Decimal QuantityTotal
         {
             get
@@ -135,6 +142,7 @@ namespace App472.WebUI.Domain.Entities
             }
         }
 
+        [NotMapped]
         public Decimal PriceTotal
         {
             get

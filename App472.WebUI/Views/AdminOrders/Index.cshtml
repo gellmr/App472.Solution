@@ -78,7 +78,7 @@
                     dateCreated = order.OrderPlacedDate.ToString();
 
                     payment = order.OrderPaymentsReceived;
-                    outstanding = order.PriceTotal - payment;
+                    outstanding = order.Outstanding;
 
                     countItems = order.QuantityTotal;
                     itemString = order.ItemString;
