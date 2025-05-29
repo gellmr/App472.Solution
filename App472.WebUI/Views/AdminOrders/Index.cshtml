@@ -51,6 +51,7 @@
                     string email = "";
                     string dateCreated = "";
                     Decimal payment = 0;
+                    Decimal outstanding = 0;
                     Decimal countItems = 0;
                     string itemString = "";
                     string orderStatus = "";
@@ -77,32 +78,34 @@
                     dateCreated = order.OrderPlacedDate.ToString();
 
                     payment = order.OrderPaymentsReceived;
+                    outstanding = order.PriceTotal - payment;
 
                     countItems = order.QuantityTotal;
                     itemString = order.ItemString;
                     orderStatus = order.OrderStatus.ToString();
 
                     @* Need to highlight the whole row *@
-                    <tr class="mgAccTable mgHighlightRow" data-orderid="@order.ID" data-href="@Url.Action("Detail", "AdminUserOrder")">
-                        <td class="text-center">@order.ID</td>
-                        <td scope="row" class="text-left">
-                            @* TODO - add link for User Detail page. *@
-                            @*<a class="" href="@Url.Action("Index", "AdminUserOrder", new {UserId=uid,GuestID=gid})">@uname</a>*@
-                            @uname
-                        </td>
-                        <td class="text-left">
-                            <span data-toggle="tooltip" data-placement="bottom" title="@ugid">
-                                @MyExtensions.Truncate(ugid, MyExtensions.GuidTruncLenth)
-                            </span>
-                        </td>
-                        <td class="text-center">@accType</td>
-                        <td scope="row" class="text-left">@email</td>
-                        <td scope="row" class="text-left">@dateCreated</td>
-                        <td scope="row" class="text-center">$ @payment.ToString("0.00")</td>
-                        <td scope="row" class="text-center">@countItems</td>
-                        <td scope="row" class="text-left">@itemString</td>
-                        <td scope="row" class="text-center">@orderStatus</td>
-                    </tr>
+                <tr class="mgAccTable mgHighlightRow" data-orderid="@order.ID" data-href="@Url.Action("Detail", "AdminUserOrder")">
+                    <td class="text-center">@order.ID</td>
+                    <td scope="row" class="text-left">
+                        @* TODO - add link for User Detail page. *@
+                        @*<a class="" href="@Url.Action("Index", "AdminUserOrder", new {UserId=uid,GuestID=gid})">@uname</a>*@
+                        @uname
+                    </td>
+                    <td class="text-left">
+                        <span data-toggle="tooltip" data-placement="bottom" title="@ugid">
+                            @MyExtensions.Truncate(ugid, MyExtensions.GuidTruncLenth)
+                        </span>
+                    </td>
+                    <td class="text-center">@accType</td>
+                    <td scope="row" class="text-left">@email</td>
+                    <td scope="row" class="text-left">@dateCreated</td>
+                    <td scope="row" class="text-center">$ @payment.ToString("0.00")</td>
+                    <td scope="row" class="text-center">$ @outstanding.ToString("0.00")</td>
+                    <td scope="row" class="text-center">@countItems</td>
+                    <td scope="row" class="text-left">@itemString</td>
+                    <td scope="row" class="text-center">@orderStatus</td>
+                </tr>
                 }
             </tbody>
         </table>

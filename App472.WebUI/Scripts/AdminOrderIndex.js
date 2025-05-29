@@ -28,6 +28,8 @@
                     isAsc = !(isAsc); // negate
                 }
                 formHref = formHref + "?SortBy=" + sortby + "&SortAscend=" + isAsc + "&Recent=" + recent; // query string
+                //debugger;
+                if (sortby == "PaymentReceived" || sortby == "Outstanding") { return; }
                 window.location.href = formHref;
             },
             HighlightRowClicked: function (event) {

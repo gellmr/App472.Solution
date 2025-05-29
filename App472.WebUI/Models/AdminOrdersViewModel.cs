@@ -27,6 +27,7 @@ namespace App472.WebUI.Models
                 {"Email",new Pair{Asc=boolDef,Align="text-left"} },
                 {"OrderPlaced",new Pair{Asc=!boolDef,Align="text-left"} },
                 {"PaymentReceived",new Pair{Asc=boolDef,Align="text-center"} },
+                {"Outstanding",new Pair{Asc=boolDef,Align="text-center"} },
                 {"ItemsOrdered",new Pair{Asc=boolDef,Align="text-center"} },
                 {"Items",new Pair{Asc=boolDef,Align="text-left"} },
                 {"OrderStatus",new Pair{Asc=boolDef,Align="text-center"} }

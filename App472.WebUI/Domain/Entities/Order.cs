@@ -233,6 +233,7 @@ namespace App472.WebUI.Domain.Entities
             Email,
             OrderPlaced,
             PaymentReceived,
+            Outstanding,
             ItemsOrdered,
             Items,
             OrderStatus,
@@ -261,6 +262,7 @@ namespace App472.WebUI.Domain.Entities
                         case OrderSortEnum.Email: myEnum = OrderSortEnum.Email; break;
                         case OrderSortEnum.OrderPlaced: myEnum = OrderSortEnum.OrderPlaced; break;
                         case OrderSortEnum.PaymentReceived: myEnum = OrderSortEnum.PaymentReceived; break;
+                        case OrderSortEnum.Outstanding: myEnum = OrderSortEnum.Outstanding; break;
                         case OrderSortEnum.ItemsOrdered: myEnum = OrderSortEnum.ItemsOrdered; break;
                         case OrderSortEnum.Items: myEnum = OrderSortEnum.Items; break;
                         case OrderSortEnum.OrderStatus: myEnum = OrderSortEnum.OrderStatus; break;
