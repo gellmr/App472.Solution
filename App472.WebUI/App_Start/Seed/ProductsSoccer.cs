@@ -34,7 +34,7 @@ namespace App472.WebUI.App_Start
             products.Add(new InStockProduct()
             {
                 ID = startId++,
-                Name = "Referee Whisle",
+                Name = "Referee Whistle",
                 Description = "For serious games, call it with this chrome Referee Whistle.",
                 Category = category,
                 Price = 12
