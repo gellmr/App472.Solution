@@ -23,11 +23,5 @@ namespace App472.WebUI.Controllers
                 .OrderBy(x => x);
             return PartialView(categories);
         }
-
-        //// GET: Nav
-        //public string Menu()
-        //{
-        //    return "Hello from nav controller";
-        //}
     }
 }

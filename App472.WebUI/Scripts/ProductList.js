@@ -5,11 +5,9 @@
     $.productList = function (options) {
         var page = {
             // Merge the passed options, into our internal options
-            options: $.extend({
-                //'duration': 500
-            }, options),
-            // --------------------------------------
-            // member variables
+            options: $.extend({}, options),
+
+            // Member variables
             searchInput: $(options.searchInputId),
             renderBody: $(options.renderBodyClass),
             xClearBtn: $(options.xClearBtnClass),
@@ -17,13 +15,13 @@
             searching: false,
 
             ClearSearchClicked: function (event) {
-                page.searchInput.val(""); // clear the search input
+                page.searchInput.val(""); // Clear the search input
                 page.SearchProducts(event, true);
             },
             SearchInputClicked: function (event) {
-                event.preventDefault(); //stop default behaviour
+                event.preventDefault();
                 if (page.searchInput.val() == "Search") {
-                    page.searchInput.val(""); // clear the search input
+                    page.searchInput.val(""); // Clear the search input
                 }
                 page.xClearBtn.hide();
             },
@@ -45,7 +43,7 @@
                 if (page.searching) {
                     event.preventDefault(); return;
                 }
-                page.searching = true; // prevent race condition
+                page.searching = true; // Prevent race condition
                 page.DisableListeners();
 
                 // Get the search term eg "soccer"
@@ -58,9 +56,9 @@
                 }
                 var searchString = (searchString) ? ("search=" + searchString) : ""; // search=soccer ball
                 var clearStr     = (clear == true) ? ("clear=true") : "";
-                var amp = (searchString) && (clearStr) ? "&" : ""; // null and empty string are both falsey values in javascript.
+                var amp = (searchString) && (clearStr) ? "&" : ""; // Null and empty string are both falsey values in javascript.
 
-                // construct url including our query string
+                // Construct url including our query string
                 // Note - we have to encode the URL so it can be put into a GET string.
                 // https://stackoverflow.com/questions/332872/encode-url-in-javascript
                 var productsUrl = page.hostandpath + "?" + searchString + amp + clearStr; // "mikegelldemo.live/Soccer/page2?search=soccer%20ball&clear%3Dfalse"
@@ -79,12 +77,12 @@
                         400: function (jqXHR) {
                             console.log("400 error");
                             page.Reset();
-                            page.searchInput.val(""); // clear the search input
+                            page.searchInput.val(""); // Clear the search input
                         },
                         500: function (jqXHR) {
                             console.log("500 error");
                             page.Reset();
-                            page.searchInput.val(""); // clear the search input
+                            page.searchInput.val(""); // Clear the search input
                         }
                     }
                 });

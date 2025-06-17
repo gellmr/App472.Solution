@@ -7,22 +7,15 @@
     $.adminBaseOrderDetail = function (options) {
         var page = {
             // Merge the passed options, into our internal options
-            options: $.extend({
-                //'animated': true,
-                //'duration': 500,
-                //'direction': 'left'
-            }, options),
+            options: $.extend({}, options),
 
-            // member variables
+            // Member variables
             cardBackground: $(options.cardBackgroundClass),
             detailHeadTable: $(options.detailTableHeadClass),
             detailTable: $(options.detailTableClass),
 
             readyShipDropDownBtn: $(options.readyShipDropDownBtnClass),
             readyShipDropDownLinks: $(options.readyShipDropDownLinksClass),
-
-            //billingAddressInput: $(options.billingAddressInputClass),
-            //shippingAddressInput: $(options.shippingAddressInputClass),
 
             productRows: $(options.productRowsClass),
             quantityInputs: $(options.quantityInputsClass),
@@ -44,15 +37,6 @@
             EnableListeners: function () {
                 page.readyShipDropDownBtn.on("click", options.readyShipDropDownLinksClass, page.ReadyShipLinkClick);
 
-                //page.billingAddressInput.on("focus", page.AddressFocus);
-                //page.billingAddressInput.on("blur", page.AddressBlur);
-
-                //page.shippingAddressInput.on("focus", page.AddressFocus);
-                //page.shippingAddressInput.on("blur", page.AddressBlur);
-
-                //page.detailHeadTable.on('keyup', options.billingAddressInputClass, page.AddressKeyup);
-                //page.detailHeadTable.on('keyup', options.shippingAddressInputClass, page.AddressKeyup);
-
                 page.quantityInputs.on("focus", page.QuantityFocus);
                 page.quantityInputs.on("blur", page.QuantityBlur);
 
@@ -62,14 +46,6 @@
 
             DisableListeners: function () {
                 page.readyShipDropDownBtn.off("click");
-
-                //page.billingAddressInput.off("focus");
-                //page.billingAddressInput.off("blur");
-
-                //page.shippingAddressInput.off("focus");
-                //page.shippingAddressInput.off("blur");
-
-                //page.detailHeadTable.off('keyup');
 
                 page.quantityInputs.off("focus");
                 page.quantityInputs.off("blur");
@@ -131,7 +107,7 @@
                         // https://stackoverflow.com/questions/921789/how-to-loop-through-a-plain-javascript-object-with-the-objects-as-members
                         var Rows = result.Rows;
                         for (var key in Rows) {
-                            if (!Rows.hasOwnProperty(key)) continue; // skip loop if the property is from prototype
+                            if (!Rows.hasOwnProperty(key)) continue; // Skip loop if the property is from prototype
                             var obj = Rows[key];
                             var ProductID = obj["ProductID"];
                             var ProductName = obj["ProductName"];
@@ -140,7 +116,7 @@
                             var Cost = obj["Cost"];
                             var Category = obj["Category"];
                             var tableRow = $(page.detailTable).find('[data-productid="' + ProductID + '"]');
-                            // update the table row values
+                            // Update the table row values
                             tableRow.children("td.isProductID").html(ProductID);
                             tableRow.children("td.isProductName").find("a").html(ProductName)
                             tableRow.children("td.isUnitPrice").find("a").html(UnitPrice.toFixed(2));
@@ -148,7 +124,7 @@
                             tableRow.children("td.isCost").html(Cost.toFixed(2));
                             tableRow.children("td.isCategory").html(Category);
                         }
-                        // update summary info
+                        // Update summary info
                         $(page.detailTable).find("#detailTotalQuantity").html(QuantityTotal);
                         $(page.detailTable).find("#detailTotalCost").html("$" + PriceTotal.toFixed(2));
                         page.EnableListeners();
@@ -215,33 +191,11 @@
                     data: JSON.stringify(page.ShipParams),
                     statusCode: {
                         200: function (jqXHR) {
-                            // page.Reset();
                             window.location.reload();
                         }
                     }
                 });
             },
-            // --------------------------------------
-            //AddressFocus: function (event) {
-            //    if (event) {
-            //        var inputField = $(event.currentTarget); inputField.removeClass("disabled"); inputField.closest("tr").removeClass("disabled");
-            //    }
-            //},
-            //AddressBlur: function (event) {
-            //    if (event) {
-            //        page.DisableListeners();
-            //        page.UpdateAddress(event);
-            //    }
-            //},
-            //AddressKeyup: function (event) {
-            //    if (event && event.which === 13) {
-            //        event.preventDefault();
-            //        event.currentTarget.blur();
-            //        page.AddressBlur(event);
-            //    }
-            //},
-            //UpdateAddress: function (event) {
-            //},
             // --------------------------------------
             // Page ready, attach event listeners
             ReadyJs: function () {

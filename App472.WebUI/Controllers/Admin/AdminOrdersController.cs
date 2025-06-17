@@ -30,7 +30,6 @@ namespace App472.WebUI.Controllers
             orderRepo = oRepo;
             guestRepo = gRepo;
             fullUserRepo = fRepo;
-            //fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); // cant do this in constructor for some reason
         }
 
 

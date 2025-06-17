@@ -25,7 +25,6 @@ namespace App472.WebUI.Controllers
         public AdminUserAccController(IGuestRepository gRepo, App472.WebUI.Infrastructure.Abstract.IFullUserRepository fRepo){
             guestRepo = gRepo;
             fullUserRepo = fRepo;
-            //fullUserRepo.AppUserManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); // cant do this in constructor for some reason
         }
 
         // User Accounts
@@ -36,7 +35,6 @@ namespace App472.WebUI.Controllers
             IList<FullUser> fullUsers = fullUserRepo.FullUsers.ToList();
             return View(new AdminUserAccViewModel{
                 CurrentPageNavText = AppNavs.UsersNavText,
-                //ReturnUrl = url,
                 Guests = guestRepo.Guests,
                 FullUsers = fullUsers
             });

@@ -28,7 +28,6 @@ namespace App472.WebUI.Infrastructure
         }
         private void AddBindings()
         {
-            //kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
             kernel.Bind<IProductsRepository>().To<EFProductRepository>();
             kernel.Bind<IOrdersRepository>().To<EFOrderRepository>();
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument(
@@ -38,15 +37,6 @@ namespace App472.WebUI.Infrastructure
 
             // Not a normal EF class... wraps AppUser and Repo access to EF objects
             kernel.Bind<IFullUserRepository>().To<App472.WebUI.Infrastructure.Concrete.FullUserRepository>();
-
-            //Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
-            //mock.Setup(m => m.Products).Returns(new List<Product>
-            //{
-            //    new Product{ Name = "Football", Price = 25 },
-            //    new Product{ Name = "Surf board", Price = 179 },
-            //    new Product{ Name = "Running shoes", Price = 95 }
-            //});
-            //kernel.Bind<IProductsRepository>().ToConstant(mock.Object);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace App472.WebUI.Controllers
         {
             // BREAD CRUMBS
             // Starting from User Accounts... (Guest or FullUser)
-            // AdminUserAcc_Index > AdminUserOrder
+            // AdminUserAcc_Index -> AdminUserOrder
 
             AdminUserOrdersViewModel model = new AdminUserOrdersViewModel{
                 CurrentPageNavText = AppNavs.UsersNavText
@@ -120,7 +120,6 @@ namespace App472.WebUI.Controllers
             model.BillingAddress = order.BillingAddress;
             model.ShippingAddress = order.ShippingAddress;
             model.OrderStatus = Order.ParseShippingState(order.OrderStatus);
-            //model.ReturnUrl = GenerateTabReturnUrl.ToString();
             return View(model);
         }
 

@@ -12,9 +12,6 @@ namespace App472.WebUI.Models
         // LinkText, URL route value
         public Dictionary<string, string> AdminNavLinks = new Dictionary<string, string>()
         {
-            // TODO - remove this and use AppNavs
-            // TODO - remove this and use AppNavs
-            // TODO - remove this and use AppNavs
             {AppNavs.ProductsNavText, AppNavs.AdminProducts_Index},
             {AppNavs.OrdersNavText, AppNavs.AdminOrders_Index},
             {AppNavs.UsersNavText, AppNavs.AdminUserAcc_Index}

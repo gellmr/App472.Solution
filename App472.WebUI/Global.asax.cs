@@ -20,14 +20,14 @@ namespace App472.WebUI
         private void InitializeDBContexts(){
             // Choose debug or release database initialization. Debug will use DropCreateDatabaseAlways
             if (StaticHelpers.IsDebugRelease){
-                //System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Debug.EFDBInitializer());
+                // System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Debug.EFDBInitializer());
                 System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Debug.IDDBInitializer());
             }else{
-                //System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Release.EFDBInitializer());
+                // System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Release.EFDBInitializer());
                 System.Data.Entity.Database.SetInitializer(new App472.WebUI.App_Start.Release.IDDBInitializer());
             }
             // Touch the context, so we trigger database inititalisation
-            new IDDBContext().Database.Initialize(true); // pass true to force initialization to run
+            new IDDBContext().Database.Initialize(true); // Pass true to force initialization to run
         }
 
         protected override void OnApplicationStarted(){

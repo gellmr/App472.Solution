@@ -9,22 +9,12 @@ namespace App472.WebUI.Infrastructure
     // Has data representing the current user.
     public abstract class BaseSessUser
     {
-        public Nullable<Int32> UserID { get; set; } // matches their ID in the database. If they are not logged in, it will be null.
+        public Nullable<Int32> UserID { get; set; } // Matches their ID in the database. If they are not logged in, it will be null.
 
         public bool IsLoggedIn { get { return (UserID != null); } } // True if the user is logged in.
 
-        public Guid GuestID { // Guid generated at the start of the user session.
-            get;
-            set;
+        public Guid GuestID { get; set; } // Guid generated at the start of the user session.
 
-            //get{
-            //    return System.Web.HttpContext.Current.GuestIDSess();
-            //}
-            //set{
-            //    HttpContext.Current.Session.Add(MyExtensions.GuestIDSessKeyName, value);
-            //}
-        }
-
-        public string Search{ get; set; } // the search string, remembered across different requests.
+        public string Search{ get; set; } // The search string, remembered across different requests.
     }
 }

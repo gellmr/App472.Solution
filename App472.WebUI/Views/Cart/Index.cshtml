@@ -35,7 +35,7 @@
                         @using (Html.BeginForm("RemoveFromCart", "Cart"))
                         {
                             var myId = line.InStockProduct.ID + "_ReturnUrl"; // eg "2_ReturnUrl"
-                            var retUrl = Model.ReturnUrl; // already coming through as "/Water%20Sports" ...this prints as "/Water%20Sports"
+                            var retUrl = Model.ReturnUrl; // Already coming through as "/Water%20Sports" ...this prints as "/Water%20Sports"
 
                             // Here because ID is already an int, its safe to print line.InStockProduct.ID straight to page.
                             @Html.Hidden("inStockProductId", line.InStockProduct.ID, new{})
@@ -66,18 +66,18 @@
     // If we navigate from the checkout shipping page, BACK to the cart index page... then we want `back to shopping` button to take us to "/" (the shopping index page)
     // The `continue shopping` button should NOT take us forward in the checkout process.
     string desiredReturnUrl = Model.ReturnUrl;
-    string referrer = Request.UrlReferrer.AbsolutePath ?? ""; // eg / | /Chess | /Soccer | /Water%20Sports | /Cart/Checkout
+    string referrer = Request.UrlReferrer.AbsolutePath ?? ""; // Eg / | /Chess | /Soccer | /Water%20Sports | /Cart/Checkout
 
     // If we navigated from Checkout to Cart/Index, then Back to Shopping should take us to /
     // If we navigated from Shopping to Cart/Index, then Back to Shopping should take us to Referrer
     string backLink;
-    if (referrer == "/Cart/Checkout" || string.IsNullOrEmpty(desiredReturnUrl)) // if we came here from the checkout, or there is no return url argument
+    if (referrer == "/Cart/Checkout" || string.IsNullOrEmpty(desiredReturnUrl)) // If we came here from the checkout, or there is no return url argument
     {
-        backLink = "/"; // back to shopping - take us to root
+        backLink = "/"; // Back to shopping - take us to root
     }
     else
     {
-        backLink = desiredReturnUrl; // back to shopping - take us to the given return url. Eg /Soccer
+        backLink = desiredReturnUrl; // Back to shopping - take us to the given return url. Eg /Soccer
     }
     var a = 1;
 }

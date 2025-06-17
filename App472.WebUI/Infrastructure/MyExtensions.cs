@@ -10,7 +10,7 @@ namespace App472.WebUI.Infrastructure
 {
     public static class OkUrls
     {
-        // allow alphanumeric, right slash, space, dash, percent sign, 1-80 characters
+        // Allow alphanumeric, right slash, space, dash, percent sign, 1-80 characters
         public static string ReturnUrl{ get { return
             "^[A-Za-z0-9\\/\\s\\-\\%]{1,80}$"
         ;}}
@@ -111,10 +111,10 @@ namespace App472.WebUI.Infrastructure
                 bool isValid = regex.IsMatch(input);
                 if (!isValid)
                 {
-                    return false; // does not match the given regex
+                    return false; // Does not match the given regex
                 }
             }
-            // matches the given regex -OR- input string was null or empty. (not an attack)
+            // Matches the given regex -OR- input string was null or empty. (not an attack)
             return true;
         }
 
@@ -123,22 +123,22 @@ namespace App472.WebUI.Infrastructure
         public static bool ValidateStringAgainst(this string input, List<string> regexList)
         {
             if (string.IsNullOrEmpty(input)){
-                return true; // null or empty strings are ok
+                return true; // Null or empty strings are ok
             }
             foreach(string validationPattern in regexList)
             {
                 var regex = new PcreRegex(validationPattern);
                 bool isMatch = regex.IsMatch(input);
                 if (isMatch){
-                    return true; // found a match
+                    return true; // Found a match
                 }
             }
-            return false; // none of the given regex matched the input string.
+            return false; // None of the given regex matched the input string.
         }
 
         public static bool ValidateReturnUrl(this string returnUrl)
         {
-            // return true if the given url matches our ok return url pattern,
+            // Return true if the given url matches our ok return url pattern,
             // AND is on the whitelist.
             return (
                 MyExtensions.ValidateString(returnUrl, OkUrls.ReturnUrl)

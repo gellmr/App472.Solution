@@ -23,10 +23,10 @@ namespace App472.WebUI.Domain.Concrete
 
         public void SaveGuest(Guest guest)
         {
-            // Could we possibly reduce this to one database call?
+            // I need to refactor this, to just one call
             if (context.Guests.Any(g => g.ID == guest.ID)) // first call
             {
-                // record already exists. Update
+                // Record already exists. Update
                 Guest dbEntry = context.Guests.FirstOrDefault(g => g.ID == guest.ID); // second call
                 dbEntry.ID = guest.ID;
                 dbEntry.Email = guest.Email;
@@ -36,7 +36,7 @@ namespace App472.WebUI.Domain.Concrete
             }
             else
             {
-                // create new record
+                // Create new record
                 context.Guests.Add(guest);
                 context.SaveChanges();
             }

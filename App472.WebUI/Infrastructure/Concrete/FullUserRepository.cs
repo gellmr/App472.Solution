@@ -45,42 +45,42 @@ namespace App472.WebUI.Infrastructure.Concrete
 
         public LockoutUpdateResultDTO LockedOutUpdate(LockedOutUpdateDTO updateModel)
         {
-            AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // get user
-            user.LockoutEnabled = updateModel.Lock; // apply lock / unlock
+            AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // Get user
+            user.LockoutEnabled = updateModel.Lock; // Apply lock / unlock
             if (updateModel.Lock == true){
                 // Admin had decided to lock this user.
                 // Lockout date is stored as nullable UTC datetime. So if its 11pm (UTC+08:00) in Perth right now then we store 3pm which is the UTC value.
-                user.LockoutEndDateUtc = DateTime.UtcNow.AddMinutes(5); // lock for 5 minutes
+                user.LockoutEndDateUtc = DateTime.UtcNow.AddMinutes(5); // Lock for 5 minutes
             }else{
                 // Admin has decided to unlock this user.
-                user.LockoutEndDateUtc = null; // clear the lockout end date.
-                user.AccessFailedCount = 0; // clear the attempts to start over
+                user.LockoutEndDateUtc = null; // Clear the lockout end date.
+                user.AccessFailedCount = 0; // Clear the attempts to start over
             }
-            AppUserManager.Update(user); // update database
+            AppUserManager.Update(user); // Update database
             return new LockoutUpdateResultDTO { Utc = user.LockoutEndDateUtc, Attempts = user.AccessFailedCount };
         }
 
         public bool UsernameUpdate(UsernameUpdateDTO updateModel)
         {
-            AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // get user
+            AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // Get user
             user.UserName = updateModel.Username;
-            AppUserManager.Update(user); // update database
+            AppUserManager.Update(user); // Update database
             return true;
         }
 
         public bool EmailUpdate(EmailUpdateDTO updateModel)
         {
-            AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // get user
+            AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // Get user
             user.Email = updateModel.Email;
-            AppUserManager.Update(user); // update database
+            AppUserManager.Update(user); // Update database
             return true;
         }
 
         public bool PhoneUpdate(PhoneUpdateDTO updateModel)
         {
-            AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // get user
+            AppUser user = AppUserManager.Users.FirstOrDefault(u => u.Id == updateModel.UserID.ToString()); // Get user
             user.PhoneNumber = updateModel.Phone;
-            AppUserManager.Update(user); // update database
+            AppUserManager.Update(user); // Update database
             return true;
         }
     }

@@ -9,7 +9,7 @@
                 //'duration': 500
             }, options),
             // --------------------------------------
-            // member variables
+            // Member variables
             ordersTable:       $(options.ordersTableClass),
             sortingColumnsRow: $(options.sortingColumnsRowClass),
             columnButtons:     $(options.columnButtonsClass),
@@ -23,11 +23,11 @@
                 var recent = table.data("recent");
                 var sortby = cell.data("sortby");
                 var ascending = cell.data("asc");
-                var isAsc = ascending.toString().toLowerCase() === "true"; // get boolean value
+                var isAsc = ascending.toString().toLowerCase() === "true"; // Get boolean value
                 if (sortby == recent) {
-                    isAsc = !(isAsc); // negate
+                    isAsc = !(isAsc); // Negate
                 }
-                formHref = formHref + "?SortBy=" + sortby + "&SortAscend=" + isAsc + "&Recent=" + recent; // query string
+                formHref = formHref + "?SortBy=" + sortby + "&SortAscend=" + isAsc + "&Recent=" + recent; // Query string
                 window.location.href = formHref;
             },
             HighlightRowClicked: function (event) {

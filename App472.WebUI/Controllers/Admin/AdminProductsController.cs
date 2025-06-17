@@ -30,12 +30,9 @@ namespace App472.WebUI.Controllers
             ViewBag.UserSecretsRelease = ConfigurationManager.AppSettings["UserSecretsRelease"];
             ViewBag.SeedJsonRelease = ConfigurationManager.AppSettings["seed.json.release"];
 
-            //string url = string.IsNullOrEmpty(returnUrl) ? GenerateTabReturnUrl.ToString() : GetTabReturnUrl(returnUrl);
-            
             return View(new AdminProductsViewModel{
                 CurrentPageNavText = AppNavs.ProductsNavText,
                 Products = repository.InStockProducts
-                //ReturnUrl = url
             });
         }
 

@@ -33,6 +33,7 @@ namespace App472.WebUI.Controllers
          */
         public ActionResult AddToCart(Cart cart, int inStockProductId, string returnUrl)
         {
+            // Make sure the returnUrl is on our ok list
             if (!MyExtensions.ValidateReturnUrl(returnUrl)){
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest); // 400
             }
@@ -66,26 +67,7 @@ namespace App472.WebUI.Controllers
         }
 
         /*
-         * I read somewhere that model binders are only used for x-www-url-formencoded payloads.
-         * Does that mean its possible to bypass the Cart model binder using an ajax request with
-         * carefully constructed post vars, to populate the Cart argument in my controller action?
-         * Steps to attempt this - (Not working yet) First add 2 Soccer Ball items to your cart and
-         * then while still on the Cart/Index page, make the following ajax call using
-         * your browser console. If its possible then this would bypass Model Binding
-         * and would be a security risk. Then I would need regex validation on all the
-         * post vars which make up a Cart object.
-         * 
-         $.ajax( {url: "/Cart/Index", type: 'POST', data: {
-            "Cart.Lines[0].Quantity": "3",
-            "Cart.Lines[0].InStockProduct.Category": "Soccer",
-            "Cart.Lines[0].InStockProduct.Description": "FIFA approved size and weight.",
-            "Cart.Lines[0].InStockProduct.ID": "11",
-            "Cart.Lines[0].InStockProduct.Name": "Soccer Ball",
-            "Cart.Lines[0].InStockProduct.Price": "35.00",
-            returnUrl:"/Water%20Sports"
-         }});
-         
-         Below is an ajax call to test the returnUrl parameter.
+         * Test this action from browser console with the following ajax call.
          $.ajax( {url: "/Cart/Index", type: 'GET', data: {returnUrl: "/Water%20Sports"} });
          */
         public ActionResult Index(Cart cart, string returnUrl)
@@ -104,7 +86,7 @@ namespace App472.WebUI.Controllers
          $.ajax( {url: "/Cart/Summary", type: 'GET', data: {requestPath: "/Cart/Index"} });
          $.ajax( {url: "/Cart/Summary", type: 'GET', data: {requestPath: "/Cart/Checkout"} });
          */
-        public PartialViewResult Summary(Cart cart, string requestPath) // called from NavBarContent to load a page fragment. cart is automatically pulled from the session.
+        public PartialViewResult Summary(Cart cart, string requestPath) // called from NavBarContent to load a page fragment. Cart is automatically pulled from the session.
         {
             // Here we only check if requestPath exactly equals /Cart/Index, to set the text in our Cart|Checkout button.
             // Any other value (including dangerous string) we dont care about.
@@ -158,7 +140,7 @@ namespace App472.WebUI.Controllers
 
             if (ModelState.IsValid)
             {
-                BaseSessUser sessUser = SessUser; // get the strongly typed object from session representing our user, who may be logged in or not.
+                BaseSessUser sessUser = SessUser; // Get the strongly typed object from session representing our user, who may be logged in or not.
                 if (sessUser.IsLoggedIn)
                 {
                     // The logged in user is placing an order.
@@ -175,9 +157,6 @@ namespace App472.WebUI.Controllers
                 {
                     // User is not logged in. Can still place an order as guest.
                     NotLoggedInSessUser notLoggedInSessUser = (NotLoggedInSessUser)sessUser;
-
-                    //ModelState.AddModelError("", "Please login before placing an order!");
-                    // orderProcessor.ProcessOrder(cart, shippingDetails); // Send an email
 
                     // Check if we have an existing GuestID for the user email address.
                     notLoggedInSessUser.GuestID = guestRepo.GuestExists(viewModel.ShippingDetails.Email) ?? notLoggedInSessUser.GuestID;
@@ -199,7 +178,7 @@ namespace App472.WebUI.Controllers
 
         private void SaveOrder(Cart cart, ShippingDetails shippingDetails, string userId, Nullable<Guid> guestId)
         {
-            Order order1 = new Order(); // create domain object
+            Order order1 = new Order(); // Create domain object
 
             string shipAddress = Order.ParseAddress(shippingDetails);
             DateTimeOffset now = DateTimeOffset.Now;
@@ -227,10 +206,9 @@ namespace App472.WebUI.Controllers
                 };
                 guestRepo.SaveGuest(guest);
             }
-            // create an ordered product for each cart line
+            // Create an ordered product for each cart line
             foreach (var line in cart.Lines)
             {
-                //var subtotal = line.Product.Price * line.Quantity;
                 OrderedProduct op1 = new OrderedProduct();
                 op1.InStockProduct = line.InStockProduct;
                 op1.InStockProductID = line.InStockProduct.ID;

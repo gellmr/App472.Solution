@@ -48,7 +48,6 @@ namespace App472.WebUI.Domain.Entities
         [Required(ErrorMessage = "Please enter your postcode")]
         public string Zip { get; set; }
 
-        //[EmailAddress(ErrorMessage = "Invalid Email Address")]
         [RegularExpression(OkInputs.Email, ErrorMessage = OkInputs.EmailErr)]
         [Display(Name = "Email")]
         [Required(ErrorMessage = "Email address is required")]

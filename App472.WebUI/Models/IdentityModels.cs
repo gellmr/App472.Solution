@@ -14,8 +14,6 @@ namespace App472.WebUI.Models
 {
     // See
     // https://stackoverflow.com/questions/31960433/adding-asp-net-mvc5-identity-authentication-to-an-existing-project
-
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class AppUser : IdentityUser
     {
         public virtual ICollection<Order> MyOrders { get; set; }
@@ -26,7 +24,6 @@ namespace App472.WebUI.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
 
             // Add custom user claims here
-
             return userIdentity;
         }
     }
@@ -36,7 +33,7 @@ namespace App472.WebUI.Models
         public AppRole() : base() { }
         public AppRole(string name) : base(name) { }
 
-        // extra properties here 
+        // Extra properties here 
     }
 
     public class IDDBContext : IdentityDbContext<AppUser>
@@ -70,12 +67,12 @@ namespace App472.WebUI.Models
         {
         }
 
-        // this method is called by Owin therefore this is the best place to configure your User Manager
+        // This method is called by Owin therefore this is the best place to configure your User Manager
         public static AppUserManager Create(IdentityFactoryOptions<AppUserManager> options, IOwinContext context)
         {
             var manager = new AppUserManager(new UserStore<AppUser>(context.Get<IDDBContext>()));
 
-            // optionally configure your manager
+            // Optionally configure your manager
             // ...
 
             // Configure validation logic for usernames
@@ -115,8 +112,6 @@ namespace App472.WebUI.Models
             {
                 manager.UserTokenProvider = new DataProtectorTokenProvider<AppUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
-
-            // ...
             return manager;
         }
     }

@@ -10,7 +10,7 @@ namespace App472.WebUI.Infrastructure
     public class NotLoggedInSessUser : BaseSessUser
     {
         public NotLoggedInSessUser() : base() {
-            GuestID = Guid.NewGuid(); // generate the Guid for the guest id of this user session.
+            GuestID = Guid.NewGuid(); // Generate the Guid for the guest id of this user session.
         }
     }
 }

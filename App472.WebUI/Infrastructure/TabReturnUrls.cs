@@ -8,7 +8,7 @@ namespace App472.WebUI.Infrastructure
 {
     public class TabReturnUrls
     {
-        //  key (guid)                   value (string)
+        //  Key (guid)                   Value (string)
         // jn1i2n4k14bnlkj124bn12l4l2 : "Admin/Edit?OrderID=1",
         // n5o2n5oi3i5n35o32no532no53 : "Admin/Edit?OrderID=2",
         // n43o2n43on410n43ip4n3l1243 : "Admin/Index",

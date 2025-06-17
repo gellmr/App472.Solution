@@ -5,11 +5,9 @@
     $.adminUserAccIndex = function (options) {
         var page = {
             // Merge the passed options, into our internal options
-            options: $.extend({ //'duration': 500
-            }, options),
-            // --------------------------------------
+            options: $.extend({}, options),
 
-            // member variables - page elements
+            // Member variables - page elements
             ajaxErrors: $(options.ajaxErrorsEl),
             mgAccTableRow: $(options.mgAccTableRowClass),
             userCellInput: $(options.userCellInputClass),
@@ -17,18 +15,18 @@
             phoneCellInput: $(options.phoneCellInputClass),
             lockedOutDropDownBtns: $(options.lockedOutDropDownBtnClass),
 
-            // member variables - for logic
-            focusColor: "unset", // "#9fefff",
-            blurColor: "unset", // "rgb(255 243 122)",
-            keyupColor: "unset", // "#98ea98",
+            // Member variables - for logic
+            focusColor: "unset",
+            blurColor: "unset",
+            keyupColor: "unset",
             waitingColor: "lightgray",
-            errorColor: "#ff8686", // "#ff8686",
-            successColor: "#98ea98", // "#ff8686",
+            errorColor: "#ff8686",
+            successColor: "#98ea98",
 
             Reset: function () {
-                //console.log("Reset");
+                // console.log("Reset");
                 page.DisableListeners();
-                $(':focus').blur(); // blur anything that has focus
+                $(':focus').blur(); // Blur anything that has focus
                 page.EnableListeners();
                 page.userCellInput.each(page.SetRestoreValue);
                 page.emailCellInput.each(page.SetRestoreValue);
@@ -38,7 +36,7 @@
                 element.InputRestoreValue = $(element).val();
             },
             EnableListeners: function () {
-                //console.log("EnableListeners");
+                // console.log("EnableListeners");
                 page.mgAccTableRow.on("focusin", options.userCellInputClass,  page.UsernameFocus);
                 page.mgAccTableRow.on("focusin", options.emailCellInputClass, page.EmailFocus);
                 page.mgAccTableRow.on("focusin", options.phoneCellInputClass, page.PhoneFocus);
@@ -139,7 +137,7 @@
             EmailKeyup: function (event) {
                 var ct = $(event.currentTarget);
                 if (event && event.which === 13) { // User pressed RETURN while editing Email field
-                    ct.css("background-color", page.keyupColor); event.preventDefault(); //console.log("  Keyup " + ct.val());
+                    ct.css("background-color", page.keyupColor); event.preventDefault(); // console.log("  Keyup " + ct.val());
                     page.UpdateEmail(event);
                 }
             },
@@ -147,7 +145,7 @@
                 var ct = $(event.target);
                 page.DisableListenersEmail("input#" + ct.attr("id"));
                 if (ct.val() == ct[0].InputRestoreValue) {
-                    page.ajaxErrors.html(""); //console.log("    No change");
+                    page.ajaxErrors.html(""); // console.log("    No change");
                     return;
                 }
                 console.log("    UpdateEmail " + ct.val());
@@ -172,7 +170,7 @@
                                 ct.blur();
                             } else {
                                 page.ajaxErrors.html(jqXHR.errors[0]);
-                                //console.log("     M: " + jqXHR.errorMessage);
+                                // console.log("     M: " + jqXHR.errorMessage);
                                 ct.css("background-color", page.errorColor);
                                 ct.val(ct[0].InputRestoreValue);
                             }
@@ -243,7 +241,7 @@
                 const re = /-?\d+/;
                 const m = re.exec(date);
                 var tenDigits = parseInt(m[0], 10);
-                var dayJsTimestamp = dayjs(tenDigits); // use dayJs to include the timezone.
+                var dayJsTimestamp = dayjs(tenDigits); // Use dayJs to include the timezone.
                 return dayJsTimestamp;
             },
 
@@ -259,7 +257,7 @@
                     UserID: uid,
                     Lock: (text.toLowerCase() == 'yes')
                 };
-                // DO AJAX CALL TO UPDATE RECORD.
+                // Do Ajax call to update the record.
                 $.ajax({
                     url: "/AdminUserAcc/LockedOutUpdate",
                     type: 'POST',
@@ -283,7 +281,6 @@
                         }
                     }
                 });
-                // END AJAX CALL
             },
 
             // --------------------------------------

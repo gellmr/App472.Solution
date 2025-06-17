@@ -24,19 +24,19 @@ namespace App472.WebUI.Domain.Entities
     public class Order
     {
         [Key]
-        public Nullable<Int32> ID { get; set; } // primary key for Order
+        public Nullable<Int32> ID { get; set; } // Primary key for Order
 
 
         // AppUser 1-----* Order
-        [ForeignKey("UserID")] // use the value of UserID as foreign key to the AspNetUsers table.
-        public virtual AppUser AppUser { get; set; } // navigation property.
-        public string UserID { get; set; } // foreign key value to use, for AspNetUsers table.
+        [ForeignKey("UserID")] // Use the value of UserID as foreign key to the AspNetUsers table.
+        public virtual AppUser AppUser { get; set; } // Navigation property.
+        public string UserID { get; set; } // Foreign key value to use, for AspNetUsers table.
         
 
         // Guest 1-----* Order
-        [ForeignKey("GuestID")] // use the value of GuestID as foreign key to the Guests table.
-        public virtual Guest Guest { get; set; } // navigation property.
-        public Nullable<Guid> GuestID { get; set; } // foreign key value to use, for Guests table. Null if the user was logged in when they placed order.
+        [ForeignKey("GuestID")] // Use the value of GuestID as foreign key to the Guests table.
+        public virtual Guest Guest { get; set; } // Navigation property.
+        public Nullable<Guid> GuestID { get; set; } // Foreign key value to use, for Guests table. Null if the user was logged in when they placed order.
 
 
 
@@ -186,7 +186,7 @@ namespace App472.WebUI.Domain.Entities
                     }
                     return state;
                 }
-                throw new Exception("could not parse string as ShippingState enum");
+                throw new Exception("Could not parse string as ShippingState enum");
             }
             catch (Exception e)
             {

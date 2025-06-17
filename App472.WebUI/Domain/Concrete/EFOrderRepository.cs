@@ -77,7 +77,7 @@ namespace App472.WebUI.Domain.Concrete
             }
             else
             {
-                // create new record
+                // Create new record
                 context.Orders.Add(order);
                 foreach (OrderedProduct op in order.OrderedProducts)
                 {
@@ -97,7 +97,7 @@ namespace App472.WebUI.Domain.Concrete
             }
         }
 
-        // return true if this product exists in any orders.
+        // Return true if this product exists in any orders.
         public bool ProductHasOrders(Int32 productId)
         {
             if (context.OrderedProducts.Any(op => op.InStockProduct.ID == productId))
