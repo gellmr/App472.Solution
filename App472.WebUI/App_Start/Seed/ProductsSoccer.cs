@@ -35,7 +35,7 @@ namespace App472.WebUI.App_Start
             {
                 ID = startId++,
                 Name = "Referee Whistle",
-                Description = "For serious games, call it with this chrome Referee Whistle.",
+                Description = "Easy to clean, chrome referee whistle.",
                 Category = category,
                 Price = 12
             });
