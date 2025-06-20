@@ -18,6 +18,7 @@
             ColumnSortButtonClicked: function (event) {
                 event.preventDefault();
                 var cell = $(event.target);
+                if (cell.prop("tagName") == "TH") { return; };
                 var table = cell.closest("table");
                 var formHref = table.data("href");
                 var recent = table.data("recent");
