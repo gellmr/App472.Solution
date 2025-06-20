@@ -18,7 +18,9 @@
             ColumnSortButtonClicked: function (event) {
                 event.preventDefault();
                 var cell = $(event.target);
+                console.log("Clicked -> ColumnSortButtonClicked " + cell[0].className);
                 if (cell.prop("tagName") == "TH") { return; };
+                if (cell.hasClass("bi")) { cell = cell.closest("a.mg-th-link"); };
                 var table = cell.closest("table");
                 var formHref = table.data("href");
                 var recent = table.data("recent");
