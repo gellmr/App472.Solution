@@ -34,7 +34,7 @@ namespace App472.WebUI.Controllers
                     var ident = userManager.CreateIdentity(user,DefaultAuthenticationTypes.ApplicationCookie);
                     //use the instance that has been created. 
                     authManager.SignIn(new AuthenticationProperties { IsPersistent = false }, ident);
-                    return Redirect(returnUrl ?? Url.Action("Index", "AdminProducts"));
+                    return Redirect(returnUrl ?? Url.Action("Index", "AdminOrders"));
                 }
                 else
                 {
